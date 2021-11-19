@@ -1,4 +1,48 @@
-<meta charset="utf-8">
-<style>canvas {border: 1px solid #000}</style>
-<canvas id="canvas"></canvas>
-<script src="assets/js/canvas.js"></script>
+<!--
+	hangit.io, online hangman game
+	GitHub repository: https://github.com/matteoo34/HangIt
+	Made by Thomas Quinton, Moulaylï Saidi and Mattéo Legagneux
+	Copyright (C) 2021
+-->
+
+<!DOCTYPE html>
+
+<html prefix="og: http://ogp.me/ns#" lang="fr">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="A hangman game directly playable within your browser!">
+		<meta name="keywords" content="hang, it, hangman, game, online, browser, thomas, quinton, moulaylï, saidi, mattéo, legagneux">
+		<meta name="author" content="Thomas Quinton, Moulaylï Saidi, Mattéo Legagneux">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://matteoo34.github.io/HangIt">
+		<meta property="og:site_name" content="hangit.io">
+		<meta property="og:title" content="hangit.io">
+		<meta property="og:description" content="Jouez au jeu du pendu directement dans votre navigateur !">
+		<!-- <meta property="og:image" content="https://matteoo34.github.io/HangIt"> -->
+		<!-- <meta name="twitter:card" content="summary_large_image"> -->
+		<link rel="stylesheet" href="assets/css/main.css">
+		<title>hangit.io</title>
+	</head>
+
+	<body>
+		<h1>hangit.io</h1>
+		<section class="container join-game">
+			<h2>rejoindre une partie</h2>
+			<form method="GET">
+				<label for="link">lien de la partie</label>
+				<input type="text" name="link" id="link">
+				<button type="submit">c'est parti !</button>
+			</form>
+		</section>
+		<section class="container host-game">
+			<h2>héberger une partie</h2>
+			<!-- <form method="POST"></form> -->
+		</section>
+		<!-- <canvas id="canvas"></canvas> -->
+		<!-- <script src="assets/js/canvas.js"></script> -->
+	</body>
+
+</html>
