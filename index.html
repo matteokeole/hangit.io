@@ -47,13 +47,19 @@
 					<button type="submit">Héberger</button>
 				</form>
 			</div>
+			<div class="snackbar">
+				<button id="btn-propose-letter">Proposer une lettre</button>
+				<button id="btn-propose-word">Proposer un mot</button>
+			</div>
 		</main>
 		<script>
 			const overlay = document.querySelector(".overlay"),
-			main = document.querySelector("main");
+			main = document.querySelector("main"),
+			snackbar = document.querySelector(".snackbar");
 			document.querySelector("button").addEventListener("click", function() {
-				overlay.style.display = "flex";
-				main.classList.add("overlayed")
+				// overlay.style.display = "flex";
+				// main.classList.add("overlayed")
+				snackbar.classList.add("displayed")
 			})
 		</script>
 		<!-- <script src="assets/js/canvas.js"></script> -->

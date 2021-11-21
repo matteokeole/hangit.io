@@ -1,0 +1,11 @@
+/** Keyframes **/
+
+/* Toggle snackbar */
+@-webkit-keyframes snackbar_display {
+	50% {bottom: 28px}
+	100% {bottom: 16px}
+}
+@keyframes snackbar_display {
+	50% {bottom: 28px}
+	100% {bottom: 16px}
+}

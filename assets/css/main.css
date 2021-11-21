@@ -6,6 +6,8 @@
 @import url(loading.css);
 @import url(form.css);
 @import url(btn.css);
+@import url(snackbar.css);
+@import url(keyframes.css);
 
 /* Variables */
 :root {
@@ -13,7 +15,10 @@
 	--secondary: 0
 }
 
-body {margin: 0}
+body {
+	margin: 0;
+	overflow: hidden;
+}
 
 main {
 	display: flex;
