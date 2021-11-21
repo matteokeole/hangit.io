@@ -34,18 +34,19 @@
 		<main>
 			<h1>hangit.io</h1>
 			<section class="container nickname">
-				<label for="surname">votre surnom</label><br>
-				<input type="text" name="surname" id="surname">
+				<label for="surname">Votre surnom</label>
+				<input type="text" name="surname" id="surname" placeholder="Invité">
 			</section>
-			<section class="container join-game">
-				<h2>rejoindre une partie</h2>
-				<label for="link">lien de la partie</label><br>
-				<input type="text" name="link" id="link"><br>
-				<button type="submit">c'est parti !</button>
-			</section>
-			<section class="container host-game">
-				<h2>héberger une partie</h2>
-			</section>
+			<div class="container host-game">
+				<button>Héberger une partie</button>
+				<form method="POST" class="form-host-game">
+					<label for="players">Nombre de joueurs</label>
+					<input type="text" name="players" id="players" placeholder="2-4">
+					<label for="rounds">Nombre de tours</label>
+					<input type="text" name="rounds" id="rounds" placeholder="1-10">
+					<button type="submit">Héberger</button>
+				</form>
+			</div>
 		</main>
 		<!-- <canvas id="canvas"></canvas> -->
 		<script>

@@ -4,11 +4,13 @@
 @import url(fonts.css);
 @import url(overlay.css);
 @import url(loading.css);
+@import url(form.css);
+@import url(btn.css);
 
 /* Variables */
 :root {
 	--primary: #ff9800;
-	--secondary: 0;
+	--secondary: 0
 }
 
 body {margin: 0}
@@ -18,12 +20,13 @@ main {
 	flex-direction: column;
 	align-items: center;
 	height: 100vh;
+	padding: 0 20px;
 	background-color: var(--primary);
 	letter-spacing: -0.5px
 }
 main.overlayed {
-	-webkit-filter: blur(2px) grayscale(1);
-	filter: blur(2px) grayscale(1)
+	-webkit-filter: blur(2px) grayscale(0.5);
+	filter: blur(2px) grayscale(0.5)
 }
 
 h1 {
@@ -33,11 +36,11 @@ h1 {
 
 .container {
 	width: 480px;
-	margin-bottom: 10px;
+	margin-bottom: 16px;
 	padding: 10px;
 	background-color: rgba(0, 0, 0, 0.1);
-	/*-webkit-transform: skewX(-5deg);*/
-	/*transform: skewX(-5deg)*/
+	-webkit-transform: skewX(-5deg);
+	transform: skewX(-5deg)
 }
 
 .container h2 {margin: 0}

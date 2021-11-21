@@ -1,0 +1,22 @@
+/** Form content **/
+
+form {padding: 8px 0}
+
+label {
+	display: inline-block;
+	margin-bottom: 4px
+}
+
+input {
+	display: block;
+	padding: 2px 4px;
+	border: 2px solid #000;
+	border-radius: 3px;
+	opacity: 0.5;
+	background-color: transparent;
+	font-size: 18px
+}
+input:focus {
+	outline: 1px solid #000;
+	opacity: 1
+}
