@@ -46,7 +46,7 @@ canvas {border: 1px solid #000}
 
 /* Media queries */
 
-/* 520px max media query */
+/* 520px max */
 @media screen and (max-width: 520px) {
 	.container {width: 100%}
 }
