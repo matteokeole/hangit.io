@@ -30,17 +30,17 @@
 	<body>
 		<!-- Overlay -->
 		<div class="overlay">
-			<!-- Modal -->
+			<!-- Letter form modal -->
 			<div class="modal">
-				<h3>Proposer une lettre</h3>
+				<p>Proposer une lettre</p>
 				Ecrivez une lettre ci-dessous
-				<label>Votre lettre</label>
-				<input type="text" class="letter">
-				<p class="error">Ecrivez seulement une lettre</p>
-				<section class="actions">
+				<input type="text" id="input-letter">
+				<label for="input-letter">Votre lettre</label>
+				<span class="error">Ecrivez seulement une lettre</span>
+				<div class="actions">
 					<button class="btn btn-cancel">Annuler</button>
 					<button class="btn btn-validate">OK</button>
-				</section>
+				</div>
 			</div>
 		</div>
 		<!-- Content -->
@@ -49,13 +49,13 @@
 			<header>hangit.io</header>
 			<!-- Word form -->
 			<div class="card">
-				<p>Choisissez un mot.</p>
-				<label>Votre mot</label>
-				<input type="text" class="word">
-				<p class="error"></p>
-				<section class="actions">
-					<button class="btn">C'est parti !</button>
-				</section>
+				<p>Choisissez un mot</p>
+				<input type="text" id="input-word">
+				<label for="input-word">Votre mot</label>
+				<span class="error"></span>
+				<div class="actions">
+					<button class="btn btn-validate">C'est parti !</button>
+				</div>
 			</div>
 			<!-- Footer -->
 			<footer>

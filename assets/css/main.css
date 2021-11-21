@@ -14,10 +14,12 @@
 
 /* Variables */
 :root {
-	--primary: #ffb300;
-	--secondary: 0;
-	--background: #eee;
-	--selection: #f2ecd9
+	--primary: #ffb300; /* Orange */
+	--secondary: #cc8f00; /* Dark orange */
+	--background: #eee; /* Light white */
+	--selection: #f2ecd9; /* Light orange */
+	--selection2: #dfdac8; /* Light orange 2 */
+	-error: #de1744 /* Error red */
 }
 
 body {
@@ -34,48 +36,4 @@ main {
 main.overlayed {
 	-webkit-filter: blur(2px) grayscale(0.5);
 	filter: blur(2px) grayscale(0.5)
-}
-
-.flat {
-	opacity: 1;
-	color: #ffa000;
-	letter-spacing: 0
-}
-.cards button:hover, .dialogs button:hover {background-color: #fff3e0}
-.cards button:active, .dialogs button:active {background-color: #ffe0b2}
-input {
-	outline: none;
-	color: #ffb300;
-	letter-spacing: 0
-}
-.cards label {
-	top: 164px;
-	left: 32px;
-	pointer-events: none;
-	letter-spacing: 0
-}
-.dialogs label {
-	top: 184px;
-	left: 24px;
-	pointer-events: none
-}
-
-/*.container {
-	width: 480px;
-	margin-bottom: 16px;
-	padding: 10px;
-	background-color: rgba(0, 0, 0, 0.1);
-	-webkit-transform: skewX(-5deg);
-	transform: skewX(-5deg)
-}
-
-.container h2 {margin: 0}
-
-canvas {border: 1px solid #000}*/
-
-/* Media queries */
-
-/* 520px max */
-/*@media screen and (max-width: 520px) {
-	.container {width: 100%}
 }

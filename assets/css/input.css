@@ -3,38 +3,39 @@
 	position: relative
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"] {
 	display: block;
 	width: 200px;
-	padding: 8px 8px 8px 0;
+	padding: 4px 0;
+	outline: none;
 	border: none;
-	border-bottom: 2px solid #757575;
-	box-shadow: none;
-	color: #6d4c41;
+	border-bottom: 2px solid var(--secondary);
+	opacity: 0.65;
+	color: var(--secondary);
 	font-size: 16px;
 	transition-duration: 0.2s
 }
+input.focused {opacity: 1}
 
 label {
-	top: 8px;
+	top: -24px;
 	position: relative;
+	opacity: 0.65;
+	color: var(--secondary);
 	pointer-events: none;
-	color: #757575;
 	font-size: 16px;
 	transition-duration: 0.2s
+}
+input.focused ~ label {
+	top: -44px;
+	opacity: 1;
+	color: var(--secondary);
+	font-size: 12px
 }
 
 .error {
-	height: 0;
-	color: #757575;
+	display: block;
+	color: var(--error);
 	font-size: 12px;
 	transition-duration: 0.2s
-}
-
-input[type="text"]:focus {border-bottom-color: #6d4c41}
-
-input[type="text"]:focus ~ label, input[type="text"]:valid ~ label {
-	top: -10px;
-	color: #6d4c41;
-	font-size: 12px
 }

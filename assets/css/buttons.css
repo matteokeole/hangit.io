@@ -9,11 +9,16 @@ button {
 button:active {transition-duration: 0.1s}
 
 .btn {
-	height: 36px;
-	padding: 0 16px;
+	padding: 4px 8px;
 	border: none;
 	border-radius: 4px;
-	font-size: 14px
+	opacity: 1;
+	color: #ffa000;
+	font-size: 18px;
+	letter-spacing: 0
 }
 .btn:hover {background-color: rgba(0, 0, 0, 0.1)}
 .btn:active {background-color: rgba(0, 0, 0, 0.2)}
+
+.card button:hover, .modal button:hover {background-color: var(--selection)}
+.card button:active, .modal button:active {background-color: var(--selection2)}
