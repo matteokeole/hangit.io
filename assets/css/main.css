@@ -2,6 +2,8 @@
 
 /* CSS imports */
 @import url(fonts.css);
+@import url(overlay.css);
+@import url(loading.css);
 
 /* Variables */
 :root {
@@ -9,13 +11,19 @@
 	--secondary: 0;
 }
 
-body {
+body {margin: 0}
+
+main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 0 20px;
+	height: 100vh;
 	background-color: var(--primary);
 	letter-spacing: -0.5px
+}
+main.overlayed {
+	-webkit-filter: blur(2px) grayscale(1);
+	filter: blur(2px) grayscale(1)
 }
 
 h1 {
@@ -28,8 +36,8 @@ h1 {
 	margin-bottom: 10px;
 	padding: 10px;
 	background-color: rgba(0, 0, 0, 0.1);
-	-webkit-transform: skewX(-5deg);
-	transform: skewX(-5deg);
+	/*-webkit-transform: skewX(-5deg);*/
+	/*transform: skewX(-5deg)*/
 }
 
 .container h2 {margin: 0}

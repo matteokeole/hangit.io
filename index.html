@@ -28,24 +28,35 @@
 	</head>
 
 	<body>
-		<h1>hangit.io</h1>
-		<section class="container nickname">
-			<label for="surname">votre surnom</label>
-			<input type="text" name="surname" id="surname">
-		</section>
-		<section class="container join-game">
-			<h2>rejoindre une partie</h2>
-			<form method="GET">
-				<label for="link">lien de la partie</label>
-				<input type="text" name="link" id="link">
+		<div class="overlay">
+			<div class="loading-container">Chargement...</div>
+		</div>
+		<main>
+			<h1>hangit.io</h1>
+			<section class="container nickname">
+				<label for="surname">votre surnom</label><br>
+				<input type="text" name="surname" id="surname">
+			</section>
+			<section class="container join-game">
+				<h2>rejoindre une partie</h2>
+				<label for="link">lien de la partie</label><br>
+				<input type="text" name="link" id="link"><br>
 				<button type="submit">c'est parti !</button>
-			</form>
-		</section>
-		<section class="container host-game">
-			<h2>héberger une partie</h2>
-			<!-- <form method="POST"></form> -->
-		</section>
+			</section>
+			<section class="container host-game">
+				<h2>héberger une partie</h2>
+				<!-- <form method="POST"></form> -->
+			</section>
+		</main>
 		<!-- <canvas id="canvas"></canvas> -->
+		<script>
+			const overlay = document.querySelector(".overlay"),
+			main = document.querySelector("main");
+			document.querySelector("button").addEventListener("click", function() {
+				overlay.style.display = "flex";
+				main.classList.add("overlayed")
+			})
+		</script>
 		<!-- <script src="assets/js/canvas.js"></script> -->
 	</body>
 
