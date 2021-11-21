@@ -1,0 +1,13 @@
+.modal {
+	width: 280px;
+	padding: 10px;
+	border-radius: 6px;
+	opacity: 0;
+	background-color: #fff;
+	color: #000;
+	text-align: left;
+	transition-duration: 0.2s;
+	z-index: -1
+}
+
+.modal .actions {text-align: right}

@@ -1,0 +1,40 @@
+.text {
+	margin-bottom: 16px;
+	position: relative
+}
+
+input[type="text"], input[type="password"] {
+	display: block;
+	width: 200px;
+	padding: 8px 8px 8px 0;
+	border: none;
+	border-bottom: 2px solid #757575;
+	box-shadow: none;
+	color: #6d4c41;
+	font-size: 16px;
+	transition-duration: 0.2s
+}
+
+label {
+	top: 8px;
+	position: relative;
+	pointer-events: none;
+	color: #757575;
+	font-size: 16px;
+	transition-duration: 0.2s
+}
+
+.error {
+	height: 0;
+	color: #757575;
+	font-size: 12px;
+	transition-duration: 0.2s
+}
+
+input[type="text"]:focus {border-bottom-color: #6d4c41}
+
+input[type="text"]:focus ~ label, input[type="text"]:valid ~ label {
+	top: -10px;
+	color: #6d4c41;
+	font-size: 12px
+}

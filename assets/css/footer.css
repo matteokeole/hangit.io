@@ -1,0 +1,10 @@
+footer {
+	padding: 10px;
+	right: 0;
+	bottom: -50px;
+	left: 0;
+	position: absolute;
+	opacity: 0;
+	background-color: #ffb300;
+	transition-duration: 0.2s
+}

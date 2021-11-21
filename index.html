@@ -1,13 +1,13 @@
 <!--
 	hangit.io, online hangman game
-	GitHub repository: https://github.com/matteoo34/HangIt
+	GitHub repository: https://github.com/matteoo34/hangit.io
 	Made by Thomas Quinton, Moulaylï Saidi and Mattéo Legagneux
 	Copyright (C) 2021
 -->
 
 <!DOCTYPE html>
 
-<html prefix="og: http://ogp.me/ns#" lang="fr">
+<html lang="fr">
 
 	<head>
 		<meta charset="utf-8">
@@ -17,52 +17,53 @@
 		<meta name="author" content="Thomas Quinton, Moulaylï Saidi, Mattéo Legagneux">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta property="og:type" content="website">
-		<meta property="og:url" content="https://matteoo34.github.io/HangIt">
+		<meta property="og:url" content="https://matteoo34.github.io/hangit.io">
 		<meta property="og:site_name" content="hangit.io">
 		<meta property="og:title" content="hangit.io">
 		<meta property="og:description" content="Jouez au jeu du pendu directement dans votre navigateur !">
-		<!-- <meta property="og:image" content="https://matteoo34.github.io/HangIt"> -->
+		<!-- <meta property="og:image" content="https://matteoo34.github.io/hangit.io/assets/logo.png"> -->
 		<!-- <meta name="twitter:card" content="summary_large_image"> -->
 		<link rel="stylesheet" href="assets/css/main.css">
 		<title>hangit.io</title>
 	</head>
 
 	<body>
+		<!-- Overlay -->
 		<div class="overlay">
-			<div class="loading-container">Chargement...</div>
+			<!-- Modal -->
+			<div class="modal">
+				<h3>Proposer une lettre</h3>
+				Ecrivez une lettre ci-dessous
+				<label>Votre lettre</label>
+				<input type="text" class="letter">
+				<p class="error">Ecrivez seulement une lettre</p>
+				<section class="actions">
+					<button class="btn btn-cancel">Annuler</button>
+					<button class="btn btn-validate">OK</button>
+				</section>
+			</div>
 		</div>
+		<!-- Content -->
 		<main>
-			<h1>hangit.io</h1>
-			<section class="container nickname">
-				<label for="surname">Votre surnom</label>
-				<input type="text" name="surname" id="surname" placeholder="Invité">
-			</section>
-			<div class="container host-game">
-				<button>Héberger une partie</button>
-				<form method="POST" class="form-host-game">
-					<label for="players">Nombre de joueurs</label>
-					<input type="text" name="players" id="players" placeholder="2-4">
-					<label for="rounds">Nombre de tours</label>
-					<input type="text" name="rounds" id="rounds" placeholder="1-10">
-					<button type="submit">Héberger</button>
-				</form>
+			<!-- Header -->
+			<header>hangit.io</header>
+			<!-- Word form -->
+			<div class="card">
+				<p>Choisissez un mot.</p>
+				<label>Votre mot</label>
+				<input type="text" class="word">
+				<p class="error"></p>
+				<section class="actions">
+					<button class="btn">C'est parti !</button>
+				</section>
 			</div>
-			<div class="snackbar">
-				<button id="btn-propose-letter">Proposer une lettre</button>
-				<button id="btn-propose-word">Proposer un mot</button>
-			</div>
+			<!-- Footer -->
+			<footer>
+				<button class="btn propose-letter" style="color: #e65100">Proposer une lettre</button>
+			</footer>
 		</main>
-		<script>
-			const overlay = document.querySelector(".overlay"),
-			main = document.querySelector("main"),
-			snackbar = document.querySelector(".snackbar");
-			document.querySelector("button").addEventListener("click", function() {
-				// overlay.style.display = "flex";
-				// main.classList.add("overlayed")
-				snackbar.classList.add("displayed")
-			})
-		</script>
-		<!-- <script src="assets/js/canvas.js"></script> -->
+		<!-- Scripts -->
+		<script src="assets/js/main.js"></script>
 	</body>
 
 </html>

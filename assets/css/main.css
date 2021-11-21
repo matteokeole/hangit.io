@@ -2,30 +2,32 @@
 
 /* CSS imports */
 @import url(fonts.css);
+@import url(footer.css);
 @import url(overlay.css);
+@import url(buttons.css);
+@import url(card.css);
+@import url(input.css);
+@import url(header.css);
+@import url(modal.css);
 @import url(loading.css);
-@import url(form.css);
-@import url(btn.css);
 @import url(snackbar.css);
-@import url(keyframes.css);
 
 /* Variables */
 :root {
-	--primary: #ff9800;
-	--secondary: 0
+	--primary: #ffb300;
+	--secondary: 0;
+	--background: #eee;
+	--selection: #f2ecd9
 }
 
 body {
 	margin: 0;
-	overflow: hidden;
+	overflow: hidden
 }
 
+/* Main container */
 main {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	height: 100vh;
-	padding: 0 20px;
 	background-color: var(--primary);
 	letter-spacing: -0.5px
 }
@@ -34,12 +36,31 @@ main.overlayed {
 	filter: blur(2px) grayscale(0.5)
 }
 
-h1 {
-	padding: 10px 20px;
-	background-color: rgba(0, 0, 0, 0.2)
+.flat {
+	opacity: 1;
+	color: #ffa000;
+	letter-spacing: 0
+}
+.cards button:hover, .dialogs button:hover {background-color: #fff3e0}
+.cards button:active, .dialogs button:active {background-color: #ffe0b2}
+input {
+	outline: none;
+	color: #ffb300;
+	letter-spacing: 0
+}
+.cards label {
+	top: 164px;
+	left: 32px;
+	pointer-events: none;
+	letter-spacing: 0
+}
+.dialogs label {
+	top: 184px;
+	left: 24px;
+	pointer-events: none
 }
 
-.container {
+/*.container {
 	width: 480px;
 	margin-bottom: 16px;
 	padding: 10px;
@@ -50,11 +71,11 @@ h1 {
 
 .container h2 {margin: 0}
 
-canvas {border: 1px solid #000}
+canvas {border: 1px solid #000}*/
 
 /* Media queries */
 
 /* 520px max */
-@media screen and (max-width: 520px) {
+/*@media screen and (max-width: 520px) {
 	.container {width: 100%}
 }
