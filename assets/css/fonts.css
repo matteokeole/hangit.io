@@ -7,4 +7,7 @@ body, button, input {font-family: "Lilita One", sans-serif}
 *::selection {background-color: var(--selection)}
 *::-moz-selection {background-color: var(--selection)}
 
-h1, h2, b {font-weight: normal}
+h3 {
+	margin: 12px 0;
+	font-weight: normal
+}

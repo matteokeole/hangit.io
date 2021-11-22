@@ -1,5 +1,5 @@
 .card {
-	margin: 16px;
+	margin: 0 0 16px 0;
 	padding: 8px;
 	padding-left: 16px;
 	border-radius: 8px;
@@ -10,3 +10,11 @@
 }
 
 .actions {text-align: right}
+
+.card.word {display: none}
+
+.card.word #word {
+	text-align: center;
+	font-size: 52px;
+	letter-spacing: 8px
+}

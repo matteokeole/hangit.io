@@ -2,15 +2,16 @@
 
 /* CSS imports */
 @import url(fonts.css);
-@import url(footer.css);
 @import url(overlay.css);
-@import url(buttons.css);
-@import url(card.css);
-@import url(input.css);
 @import url(header.css);
+@import url(footer.css);
+@import url(card.css);
 @import url(modal.css);
-@import url(loading.css);
-@import url(snackbar.css);
+@import url(buttons.css);
+@import url(input.css);
+/*@import url(loading.css);*/
+/*@import url(snackbar.css);*/
+@import url(keyframes.css);
 
 /* Variables */
 :root {
@@ -28,12 +29,4 @@ body {
 }
 
 /* Main container */
-main {
-	height: 100vh;
-	background-color: var(--primary);
-	letter-spacing: -0.5px
-}
-main.overlayed {
-	-webkit-filter: blur(2px) grayscale(0.5);
-	filter: blur(2px) grayscale(0.5)
-}
+main {padding: 0 16px}

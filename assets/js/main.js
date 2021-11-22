@@ -1,90 +1,106 @@
-const main = document.querySelector("main"),
-overlay = document.querySelector(".overlay"),
+// DOM elements
+const wrapper = document.querySelector("#wrapper"),
+main = document.querySelector("main"),
 footer = document.querySelector("footer"),
-btnProposeLetter = document.querySelector(".btn.propose-letter"),
-Modal = {
+btnProposeLetter = document.querySelector(".btn-propose-letter"),
+Card = {
+	submitWord: document.querySelector(".card.submit-word"),
+	word: document.querySelector(".card.word")
+},
+Overlay = {
+	overlay: document.querySelector("#overlay"),
 	show: function() {
-		overlay.style.display = "flex";
-		main.classList.add("overlayed");
-		Modal.container.style.opacity = 1;
-		Modal.container.style.zIndex = 11;
-		// Refresh input
-		document.querySelector(".error").textContent = "Seulement une lettre"
+		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeIn";
+		Overlay.overlay.style.animationName = "overlayFadeIn";
+		wrapper.classList.add("overlayed")
 	},
 	hide: function() {
-		overlay.style.display = "none";
-		main.classList.remove("overlayed");
-		Modal.container.style.opacity = 0;
-		Modal.container.style.zIndex = -1
-	},
+		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeOut";
+		Overlay.overlay.style.animationName = "overlayFadeOut";
+		wrapper.classList.remove("overlayed");
+		Modal.refreshInputError()
+	}
+},
+Modal = {
 	container: document.querySelector(".modal"),
+	get error() {return this.container.querySelector(".error")},
 	get cancel() {return this.container.querySelector(".btn-cancel")},
-	get validate() {return this.container.querySelector(".btn-validate")}
-};
+	get validate() {return this.container.querySelector(".btn-validate")},
+	refreshInputError: function() {document.querySelector(".error").textContent = "Seulement une lettre"}
+},
+Input = {
+	submitWord: document.querySelector("input#new-word"),
+	letter: document.querySelector("input#letter")
+},
+word = document.querySelector("#word");
 
 // Event listeners
+// Hide modal when Escape key pressed
+document.addEventListener("keydown", (e) => {
+	if (e.keyCode === 27) Overlay.hide()
+});
 // Hide modal when cancel button clicked
-Modal.cancel.addEventListener("click", function() {Modal.hide(Modal.container)});
-// Clear inputs
-document.querySelectorAll("input").forEach(function(input) {input.value = ""});
-// Input focus/blur animations
+Modal.cancel.addEventListener("click", () => {Overlay.hide()});
+// Input functions
 document.querySelectorAll("input").forEach((input) => {
-	input.addEventListener("focus", function() {this.classList.add("focused")});
-	input.addEventListener("blur", function() {
-		if (this.value === "") this.classList.remove("focused")
+	// Clear inputs
+	input.value = "";
+	// Focus animation
+	input.addEventListener("focus", () => {input.classList.add("focused")});
+	// Blur animation
+	input.addEventListener("blur", () => {
+		if (input.value === "") input.classList.remove("focused")
 	})
-})
-document.querySelector(".card button").addEventListener("click", function() {
-	if (document.querySelector(".card input").value === "") {
-		document.querySelector(".card .error").textContent = "Cette information est obligatoire"
-	}
+});
+// Start game
+document.querySelector(".btn-start").addEventListener("click", () => {
+	if (Input.submitWord.value === "") Card.submitWord.querySelector(".error").textContent = "Cette information est obligatoire";
 	else {
 		let foundLetters = 0,
 		tests = 0,
-		secretWord = document.querySelector(".card input").value.toUpperCase(),
-		center = secretWord.replace(secretWord, "_".repeat(secretWord.length)),
+		secretWord = Input.submitWord.value.toUpperCase(),
+		dispWord = secretWord.replace(secretWord, "_".repeat(secretWord.length)),
 		card = document.querySelector(".card"),
-		footer = document.querySelector("footer"),
-		modal = document.querySelector(".modal");
-		// Update card & footer
-		card.textContent = center;
-		card.style.color = "#000";
-		card.style.textAlign = "center";
-		card.style.fontSize = "52px";
-		card.style.letterSpacing = "12px";
+		footer = document.querySelector("footer");
+		// Update card
+		Card.submitWord.style.display = "none";
+		Card.word.style.display = "block";
+		word.textContent = dispWord;
+		// Show footer
 		footer.style.bottom = 0;
 		footer.style.opacity = 1;
 		btnProposeLetter.addEventListener("click", function() {
-			tests++;
-			Modal.show();
-			modal.getElementsByTagName("button")[1].addEventListener("click", function() {
+			Overlay.show();
+			Modal.validate.addEventListener("click", function() {
 				// Empty input
-				if (modal.querySelector("input").value === "") {
-					modal.querySelector(".error").textContent = "Cette information est obligatoire"
+				if (Input.letter.value === "") {
+					Modal.error.textContent = "Cette information est obligatoire";
 					// Refresh input
-					modal.querySelector("input").addEventListener("focus", function() {modal.querySelector(".error").textContent = "Seulement une lettre"})
+					Input.letter.addEventListener("focus", function() {Modal.error.textContent = "Seulement une lettre"})
 				}
 				// 2 or more letters
-				else if (modal.querySelector("input").value.length > 1) {
-					modal.querySelector(".error").textContent = "Seulement une lettre"
+				else if (Input.letter.value.length > 1) {
+					Modal.error.textContent = "Seulement une lettre";
 					// Refresh input
-					modal.querySelector("input").addEventListener("focus", function() {modal.querySelector(".error").textContent = "Seulement une lettre"})
+					Input.letter.addEventListener("focus", function() {Modal.error.textContent = "Seulement une lettre"})
 				}
 				else {
-					Modal.hide();
-					var letter = modal.querySelector("input").value.toUpperCase();
-					modal.querySelector("input").value = "";
-					for (var scanner = 0; scanner < secretWord.length; scanner++) {
-						if (secretWord.charAt(scanner) === letter) {
-							center = center.substr(0, scanner) + letter + center.substr(scanner + letter.length);
-							document.querySelector(".card").textContent = center;
+					tests++;
+					Overlay.hide();
+					let letter = Input.letter.value.toUpperCase();
+					// Clear input
+					Input.letter.value = "";
+					Input.letter.classList.remove("focused");
+					for (var scan = 0; scan < secretWord.length; scan++) {
+						if (secretWord.charAt(scan) === letter) {
+							dispWord = dispWord.substr(0, scan) + letter + dispWord.substr(scan + 1);
+							word.textContent = dispWord;
 							foundLetters++
 						}
 					}
-					/*if (foundLetters == secretWord.length) {
-						var end = confirm("¡ Habéis ganado ! (en " + tests + " ensayos)\n¿ Quéréis empezar de nuevo ?");
-						if (end) {location.reload()}
-					}*/
+					if (foundLetters == secretWord.length) {
+						console.info(`Vous avez trouvé le mot en ${tests} essai(s)`)
+					}
 				}
 			})
 		})
