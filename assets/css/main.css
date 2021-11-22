@@ -29,7 +29,19 @@ body {
 }
 
 /* Main container */
-main {padding: 0 16px}
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 16px
+}
 
 /* Canvas */
 canvas {width: 300px}
+
+/* Media queries */
+
+/* 540px max */
+@media screen and (max-width: 540px) {
+	.card {width: 95%}
+}
