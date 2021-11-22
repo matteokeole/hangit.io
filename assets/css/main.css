@@ -30,3 +30,6 @@ body {
 
 /* Main container */
 main {padding: 0 16px}
+
+/* Canvas */
+canvas {width: 300px}
