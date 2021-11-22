@@ -1,6 +1,10 @@
 /** Header **/
 
 header {
+	display: flex;
+	align-items: center;
 	padding: 20px;
 	font-size: 30px
 }
+
+header img {margin-right: 8px}
