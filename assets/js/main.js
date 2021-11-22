@@ -9,12 +9,12 @@ Card = {
 },
 Overlay = {
 	overlay: document.querySelector("#overlay"),
-	show: function() {
+	show: () => {
 		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeIn";
 		Overlay.overlay.style.animationName = "overlayFadeIn";
 		wrapper.classList.add("overlayed")
 	},
-	hide: function() {
+	hide: () => {
 		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeOut";
 		Overlay.overlay.style.animationName = "overlayFadeOut";
 		wrapper.classList.remove("overlayed");
@@ -26,13 +26,23 @@ Modal = {
 	get error() {return this.container.querySelector(".error")},
 	get cancel() {return this.container.querySelector(".btn-cancel")},
 	get validate() {return this.container.querySelector(".btn-validate")},
-	refreshInputError: function() {document.querySelector(".error").textContent = "Seulement une lettre"}
+	refreshInputError: () => {document.querySelector(".error").textContent = "Seulement une lettre"}
 },
 Input = {
 	submitWord: document.querySelector("input#new-word"),
 	letter: document.querySelector("input#letter")
 },
 word = document.querySelector("#word");
+
+// Game variables
+let Word = {
+	tries: 0, // Number of tries
+	foundLetters: 0, // Number of found letters
+	invalidLetters: 0, // Number of errors
+	currentLetterValidity: false, // Validity of the current submitted letter
+	originalWord: "", // Chosen word
+	displayWord: "" // This is the word displayed on the page
+};
 
 // Event listeners
 // Hide modal when Escape key pressed
@@ -52,53 +62,66 @@ document.querySelectorAll("input").forEach((input) => {
 		if (input.value === "") input.classList.remove("focused")
 	})
 });
-// Start game
+// Start button
 document.querySelector(".btn-start").addEventListener("click", () => {
 	if (Input.submitWord.value === "") Card.submitWord.querySelector(".error").textContent = "Cette information est obligatoire";
 	else {
-		let foundLetters = 0,
-		tests = 0,
-		secretWord = Input.submitWord.value.toUpperCase(),
-		dispWord = secretWord.replace(secretWord, "_".repeat(secretWord.length)),
-		card = document.querySelector(".card"),
-		footer = document.querySelector("footer");
-		// Update card
+		// Word submitted, start game
+		Word.originalWord = Input.submitWord.value.toUpperCase();
+		Word.displayWord = Word.originalWord.replace(Word.originalWord, "_".repeat(Word.originalWord.length));
+		// Hide word submit card, show game card & display word
 		Card.submitWord.style.display = "none";
 		Card.word.style.display = "block";
-		word.textContent = dispWord;
+		word.textContent = Word.displayWord;
 		// Show footer
 		footer.classList.add("displayed");
-		btnProposeLetter.addEventListener("click", function() {
+		btnProposeLetter.addEventListener("click", () => {
 			Overlay.show();
-			Modal.validate.addEventListener("click", function() {
+			Modal.validate.addEventListener("click", () => {
 				// Empty input
 				if (Input.letter.value === "") {
 					Modal.error.textContent = "Cette information est obligatoire";
 					// Refresh input
-					Input.letter.addEventListener("focus", function() {Modal.error.textContent = "Seulement une lettre"})
+					Input.letter.addEventListener("focus", () => {Modal.error.textContent = "Seulement une lettre"})
 				}
 				// 2 or more letters
 				else if (Input.letter.value.length > 1) {
 					Modal.error.textContent = "Seulement une lettre";
 					// Refresh input
-					Input.letter.addEventListener("focus", function() {Modal.error.textContent = "Seulement une lettre"})
+					Input.letter.addEventListener("focus", () => {Modal.error.textContent = "Seulement une lettre"})
 				}
 				else {
-					tests++;
+					Word.tries++;
 					Overlay.hide();
-					let letter = Input.letter.value.toUpperCase();
+					let replacement = Input.letter.value.toUpperCase();
 					// Clear input
 					Input.letter.value = "";
 					Input.letter.classList.remove("focused");
-					for (var scan = 0; scan < secretWord.length; scan++) {
-						if (secretWord.charAt(scan) === letter) {
-							dispWord = dispWord.substr(0, scan) + letter + dispWord.substr(scan + 1);
-							word.textContent = dispWord;
-							foundLetters++
+					Word.currentLetterValidity = false;
+					// Change word content
+					for (let i = 0; i < Word.originalWord.length; i++) {
+						if (Word.originalWord.charAt(i) === replacement) {
+							Word.currentLetterValidity = true;
+							Word.displayWord = Word.displayWord.substr(0, i) + replacement + Word.displayWord.substr(i + 1);
+							word.textContent = Word.displayWord;
+							Word.foundLetters++
 						}
 					}
-					if (foundLetters == secretWord.length) {
-						console.info(`Vous avez trouvé le mot en ${tests} essai(s)`)
+					if (!Word.currentLetterValidity) {
+						// Invalid letter, +1 error
+						Word.invalidLetters++;
+						if (Word.invalidLetters <= 10) {
+							// Not enough errors to lose
+							togglePart(Word.invalidLetters, 1);
+							console.error("Cette lettre n'est pas dans le mot !")
+						} else {
+							togglePart(11, 1);
+							console.warn("Vous avez fait trop d'erreurs. Vous êtes pendu(e) !")
+						}
+					}
+					// Game end, display number of tries
+					if (Word.foundLetters === Word.originalWord.length) {
+						console.info(`Vous avez trouvé le mot en ${Word.tries} essai(s)`)
 					}
 				}
 			})

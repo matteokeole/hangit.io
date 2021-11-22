@@ -11,8 +11,8 @@ const togglePart = function(part, status) {
 		ctx.fillStyle = "#000";
 		ctx.strokeStyle = "#000"
 	} else {
-		ctx.fillStyle = "#aaa";
-		ctx.strokeStyle = "#aaa"
+		ctx.fillStyle = "#ccc";
+		ctx.strokeStyle = "#ccc"
 	}
 	// Show/hide part
 	ctx.lineWidth = 4;
@@ -87,12 +87,12 @@ const togglePart = function(part, status) {
 	ctx.stroke();
 	ctx.closePath()
 }
-
-togglePart("ground", 1);
-togglePart("vertical", 1);
-togglePart("horizontal", 1);
-togglePart("diagonal", 1);
-togglePart("rope", 1);
+// Display canvas parts
+togglePart("ground", 0);
+togglePart("vertical", 0);
+togglePart("horizontal", 0);
+togglePart("diagonal", 0);
+togglePart("rope", 0);
 togglePart("head", 0);
 togglePart("body", 0);
 togglePart("arm1", 0);
