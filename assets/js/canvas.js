@@ -11,8 +11,8 @@ const togglePart = function(part, status) {
 		ctx.fillStyle = "#000";
 		ctx.strokeStyle = "#000"
 	} else {
-		ctx.fillStyle = "#aaa";
-		ctx.strokeStyle = "#aaa"
+		ctx.fillStyle = "#ccc";
+		ctx.strokeStyle = "#ccc"
 	}
 	// Show/hide part
 	ctx.lineWidth = 4;
