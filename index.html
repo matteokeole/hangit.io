@@ -34,9 +34,9 @@
 			<!-- Letter form modal -->
 			<div class="modal">
 				<h3>Proposer une lettre</h3>
-				<input type="text" id="letter">
-				<label for="input-letter">Votre lettre</label>
-				<span class="error">Ecrivez seulement une lettre</span>
+				<input type="text" id="submit-letter">
+				<label for="submit-letter">Votre lettre</label>
+				<div class="error"></div>
 				<div class="actions">
 					<button class="btn-cancel">Annuler</button>
 					<button class="btn-validate">OK</button>
@@ -48,29 +48,39 @@
 			<!-- Header -->
 			<header>
 				<img src="assets/images/logo.png">
-				hangit.io
+				<h1>hangit.io</h1>
 			</header>
 			<!-- Content -->
 			<main>
-				<div class="card word">
-					<div id="word"></div>
-				</div>
-				<!-- Word form -->
+				<!-- Word submit card -->
 				<div class="card submit-word">
 					<h3>Choisissez un mot</h3>
-					<input type="text" id="new-word">
-					<label for="input-word">Votre mot</label>
-					<span class="error"></span>
+					<input type="text" id="submit-word">
+					<label for="submit-word">Votre mot</label>
+					<div class="error"></div>
 					<div class="actions">
 						<button class="btn-start">C'est parti !</button>
 					</div>
 				</div>
-				<div class="card">
+				<!-- Secret word card -->
+				<div class="card word">
+					<div id="word"></div>
+				</div>
+				<!-- Canvas card -->
+				<div class="card canvas-container">
 					<h3>Etat du pendu</h3>
 					<canvas id="canvas"></canvas>
 				</div>
+				<!-- Letter proposition card -->
 				<div class="card propose-letter">
 					<button class="btn-propose-letter">Proposer une lettre</button>
+				</div>
+				<!-- Restart card -->
+				<div class="card restart">
+					<h3></h3>
+					<div class="actions">
+						<button class="btn-restart">Nouvelle partie</button>
+					</div>
 				</div>
 			</main>
 		</div>

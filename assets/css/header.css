@@ -3,8 +3,12 @@
 header {
 	display: flex;
 	align-items: center;
-	padding: 20px;
-	font-size: 30px
+	padding: 20px
 }
 
-header img {margin-right: 8px}
+header img {
+	margin-right: 8px;
+	user-select: none
+}
+
+header h1 {font-size: 30px}

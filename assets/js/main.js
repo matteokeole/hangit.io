@@ -1,15 +1,23 @@
 // DOM elements
 const wrapper = document.querySelector("#wrapper"),
 main = document.querySelector("main"),
-btnProposeLetter = document.querySelector(".btn-propose-letter"),
+gameEndTitle = document.querySelector(".card.restart h3"),
+Button = {
+	start: document.querySelector(".btn-start"),
+	proposeLetter: document.querySelector(".btn-propose-letter"),
+	restart: document.querySelector(".btn-restart")
+},
 Card = {
 	submitWord: document.querySelector(".card.submit-word"),
 	word: document.querySelector(".card.word"),
-	proposeLetter: document.querySelector(".card.propose-letter")
+	canvasContainer: document.querySelector(".card.canvas-container"),
+	proposeLetter: document.querySelector(".card.propose-letter"),
+	restart: document.querySelector(".card.restart")
 },
 Overlay = {
 	overlay: document.querySelector("#overlay"),
 	show: () => {
+		setTimeout(() => {Input.submitLetter.focus()}, 10)
 		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeIn";
 		Overlay.overlay.style.animationName = "overlayFadeIn";
 		wrapper.classList.add("overlayed")
@@ -18,7 +26,7 @@ Overlay = {
 		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeOut";
 		Overlay.overlay.style.animationName = "overlayFadeOut";
 		wrapper.classList.remove("overlayed");
-		Modal.refreshInputError()
+		setTimeout(Modal.refreshInputError, 200)
 	}
 },
 Modal = {
@@ -26,13 +34,72 @@ Modal = {
 	get error() {return this.container.querySelector(".error")},
 	get cancel() {return this.container.querySelector(".btn-cancel")},
 	get validate() {return this.container.querySelector(".btn-validate")},
-	refreshInputError: () => {document.querySelector(".error").textContent = "Seulement une lettre"}
+	refreshInputError: () => {document.querySelector(".error").textContent = ""}
 },
 Input = {
-	submitWord: document.querySelector("input#new-word"),
-	letter: document.querySelector("input#letter")
+	submitWord: document.querySelector("input#submit-word"),
+	submitLetter: document.querySelector("input#submit-letter")
 },
-word = document.querySelector("#word");
+word = document.querySelector("#word"),
+Message = {
+	alphaNumValue: "❌ Veuillez rentrer une valeur alphanumérique ci-dessus",
+	requiredField: "❌ Ce champ est requis",
+	onlyOneLetter: "❌ Ecrivez seulement une lettre",
+	letterNotInWord: "⛔ Cette lettre n'est pas dans le mot !",
+	gameOver: "🤕 Vous avez fait trop d'erreurs. Vous êtes pendu(e) !"
+},
+validateLetter = () => {
+	// Empty input
+	if (Input.submitLetter.value === "") Modal.error.textContent = Message.requiredField;
+	// 2 or more letters
+	else if (Input.submitLetter.value.length > 1) Modal.error.textContent = Message.onlyOneLetter;
+	// Valid input
+	else {
+		Word.tries++;
+		Overlay.hide();
+		let replacement = Input.submitLetter.value.toUpperCase();
+		// Clear input
+		Input.submitLetter.value = "";
+		Input.submitLetter.classList.remove("focused");
+		Word.currentLetterValidity = false;
+		// Change word content
+		for (let i = 0; i < Word.length; i++) {
+			if (Word.originalWord.charAt(i) == replacement) {
+				Word.currentLetterValidity = true;
+				Word.displayWord = Word.displayWord.substr(0, i) + replacement + Word.displayWord.substr(i + 1);
+				word.textContent = Word.displayWord;
+				Word.foundLetters++
+			}
+		}
+		if (!Word.currentLetterValidity) {
+			// Invalid letter, +1 error
+			Word.invalidLetters++;
+			if (Word.invalidLetters < 11) {
+				// Not enough errors to lose
+				togglePart(Word.invalidLetters, 1);
+				console.error(Message.letterNotInWord)
+			} else {
+				// Game over!
+				// Show canvas last part
+				togglePart(11, 1);
+				word.textContent = Word.originalWord;
+				Card.proposeLetter.style.display = "none";
+				Card.canvasContainer.style.display = "none";
+				Card.restart.style.display = "block";
+				gameEndTitle.classList.add("lose");
+				gameEndTitle.textContent = Message.gameOver
+			}
+		}
+		// Game end, display number of tries
+		if (Word.foundLetters == Word.length) {
+			Card.proposeLetter.style.display = "none";
+			Card.canvasContainer.style.display = "none";
+			Card.restart.style.display = "block";
+			gameEndTitle.classList.add("win");
+			gameEndTitle.textContent = `🎉 Bravo, vous avez trouvé le mot en ${Word.tries} essai(s) !`
+		}
+	}
+};
 
 // Game variables
 let Word = {
@@ -49,10 +116,16 @@ let Word = {
 // Event listeners
 // Hide modal when Escape key pressed
 document.addEventListener("keydown", (e) => {
-	if (e.keyCode == 27) Overlay.hide()
+	if (e.keyCode == 27 && Overlay.overlay.style.opacity !== 0) Overlay.hide()
 });
 // Hide modal when cancel button clicked
 Modal.cancel.addEventListener("click", () => {Overlay.hide()});
+// Submit letter when Enter key pressed on modal
+Input.submitLetter.addEventListener("keydown", (e) => {
+	if (e.keyCode == 13 && Overlay.overlay.style.opacity !== 0) validateLetter()
+});
+// Show modal when OK button clicked
+Modal.validate.addEventListener("click", validateLetter)
 // Input functions
 document.querySelectorAll("input").forEach((input) => {
 	// Clear inputs
@@ -65,69 +138,21 @@ document.querySelectorAll("input").forEach((input) => {
 	})
 });
 // Start button
-document.querySelector(".btn-start").addEventListener("click", () => {
-	if (Input.submitWord.value === "") Card.submitWord.querySelector(".error").textContent = "Cette information est obligatoire";
+Button.start.addEventListener("click", () => {
+	if (Input.submitWord.value === "") Card.submitWord.querySelector(".error").textContent = Message.requiredField;
 	else {
 		// Word submitted, start game
 		Word.originalWord = Input.submitWord.value.toUpperCase();
 		Word.length = Word.originalWord.length;
 		Word.displayWord = Word.originalWord.replace(Word.originalWord, "_".repeat(Word.length));
-		// Hide word submit card, show game card & display word
+		// Toggle cards
 		Card.submitWord.style.display = "none";
 		Card.word.style.display = "block";
 		word.textContent = Word.displayWord;
-		// Show letter card
+		Card.canvasContainer.style.display = "block";
 		Card.proposeLetter.style.display = "block";
-		btnProposeLetter.addEventListener("click", () => {
-			Overlay.show();
-			Modal.validate.addEventListener("click", () => {
-				// Empty input
-				if (Input.letter.value === "") {
-					Modal.error.textContent = "Cette information est obligatoire";
-					// Refresh input
-					Input.letter.addEventListener("focus", () => {Modal.error.textContent = "Seulement une lettre"})
-				}
-				// 2 or more letters
-				else if (Input.letter.value.length > 1) {
-					Modal.error.textContent = "Seulement une lettre";
-					// Refresh input
-					Input.letter.addEventListener("focus", () => {Modal.error.textContent = "Seulement une lettre"})
-				}
-				else {
-					Word.tries++;
-					Overlay.hide();
-					let replacement = Input.letter.value.toUpperCase();
-					// Clear input
-					Input.letter.value = "";
-					Input.letter.classList.remove("focused");
-					Word.currentLetterValidity = false;
-					// Change word content
-					for (let i = 0; i < Word.length; i++) {
-						if (Word.originalWord.charAt(i) == replacement) {
-							Word.currentLetterValidity = true;
-							Word.displayWord = Word.displayWord.substr(0, i) + replacement + Word.displayWord.substr(i + 1);
-							word.textContent = Word.displayWord;
-							Word.foundLetters++
-						}
-					}
-					if (!Word.currentLetterValidity) {
-						// Invalid letter, +1 error
-						Word.invalidLetters++;
-						if (Word.invalidLetters <= 10) {
-							// Not enough errors to lose
-							togglePart(Word.invalidLetters, 1);
-							console.error("Cette lettre n'est pas dans le mot !")
-						} else {
-							togglePart(11, 1);
-							console.warn("Vous avez fait trop d'erreurs. Vous êtes pendu(e) !")
-						}
-					}
-					// Game end, display number of tries
-					if (Word.foundLetters == Word.length) {
-						console.info(`Vous avez trouvé le mot en ${Word.tries} essai(s) !`)
-					}
-				}
-			})
-		})
+		Button.proposeLetter.addEventListener("click", Overlay.show)
 	}
-})
+});
+// Restart button
+Button.restart.addEventListener("click", () => {location.reload()})

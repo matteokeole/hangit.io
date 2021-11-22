@@ -5,13 +5,13 @@
 
 body, button, input {font-family: "Lilita One", sans-serif}
 
-/* Text selection */
+/* Text selection color */
 ::selection {background-color: var(--selection)}
 ::-moz-selection {background-color: var(--selection)}
-header::selection {background-color: rgba(0, 0, 0, 0.1)}
-header::-moz-selection {background-color: rgba(0, 0, 0, 0.1)}
+header h1::selection {background-color: rgba(0, 0, 0, 0.1)}
+header h1::-moz-selection {background-color: rgba(0, 0, 0, 0.1)}
 
-h3 {
+h1, h3 {
 	margin: 12px 0;
 	font-weight: normal
 }

@@ -8,8 +8,6 @@
 @import url(modal.css);
 @import url(buttons.css);
 @import url(input.css);
-/*@import url(loading.css);*/
-/*@import url(snackbar.css);*/
 @import url(keyframes.css);
 
 /* Variables */
@@ -19,7 +17,8 @@
 	--background: #eee; /* Light white */
 	--selection: #f2ecd9; /* Light orange */
 	--selection2: #dfdac8; /* Light orange 2 */
-	-error: #de1744 /* Error red */
+	--valid: #41ad49; /* Valid green */
+	--invalid: #de1744 /* Error red */
 }
 
 body {margin: 0}
@@ -34,6 +33,8 @@ main {
 
 /* Canvas */
 canvas {width: 300px}
+
+.actions {text-align: right}
 
 /* Media queries */
 

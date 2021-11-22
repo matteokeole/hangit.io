@@ -1,13 +1,8 @@
 /** Inputs, labels & error spans **/
 
-.text {
-	margin-bottom: 16px;
-	position: relative
-}
-
-input[type="text"] {
+input {
 	display: block;
-	width: 200px;
+	width: 100%;
 	padding: 4px 0;
 	outline: none;
 	border: none;
@@ -36,8 +31,9 @@ input.focused ~ label {
 }
 
 .error {
-	display: block;
-	color: var(--error);
-	font-size: 12px;
-	transition-duration: 0.2s
+	top: -14px;
+	position: relative;
+	color: var(--invalid);
+	font-size: 14px;
+	font-style: italic
 }

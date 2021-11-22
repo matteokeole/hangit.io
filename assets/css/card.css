@@ -1,6 +1,7 @@
 /** Cards **/
 
 .card {
+	display: none;
 	width: 480px;
 	margin: 0 0 16px 0;
 	padding: 8px;
@@ -9,9 +10,7 @@
 	background-color: #fff
 }
 
-.actions {text-align: right}
-
-.card.word {display: none}
+.card.submit-word {display: block}
 
 .card.word #word {
 	font-size: 52px;
@@ -20,4 +19,5 @@
 	letter-spacing: 8px
 }
 
-.card.propose-letter {display: none}
+.card.restart h3.win {color: var(--valid)}
+.card.restart h3.lose {color: var(--invalid)}
