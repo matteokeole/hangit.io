@@ -29,10 +29,16 @@
 	border-radius: 6px;
 	background-color: var(--selection)
 }
-.link-container .link {
-	display: block;
-	margin: 0 8px;
+.link-container #link {
+	/*display: block;*/
+	width: 100%;
+	margin: 0 8p;
+	outline: none;
+	border: none;
+	/*background-color: transparent;*/
+	color: #000;
 	overflow-x: hidden;
+	resize: none;
 	user-select: none;
 	white-space: nowrap
 }

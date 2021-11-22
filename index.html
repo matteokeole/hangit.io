@@ -31,19 +31,27 @@
 	<body>
 		<!-- Overlay -->
 		<div id="overlay">
+			<!-- Loading container -->
+			<div class="modal loading">Chargement...</div>
 			<!-- Host game form -->
 			<form class="modal host-form current" method="POST">
 				<h3>Héberger une partie</h3>
 				<div class="input-container">
-					<label class="range">Nombre de tours</label>
+					<label class="range round-count">
+						Nombre de tours
+						<span class="range-value">3</span>
+					</label>
 					<input type="range" min="1" max="4" id="round-count">
 				</div>
 				<div class="input-container">
-					<label class="range">Nombre de joueurs</label>
+					<label class="range player-count">
+						Nombre de joueurs
+						<span class="range-value">3</span>
+					</label>
 					<input type="range" min="2" max="4" id="player-count">
 				</div>
 				<div class="link-container">
-					<span class="link">e8cb8486-814f-41c0-bd45-b3fd4e356a85</span>
+					<input type="text" id="link" value="e8cb8486-814f-41c0-bd45-b3fd4e356a85" readonly>
 					<button type="button" class="btn-copy-link">Copier le lien</button>
 				</div>
 				<div class="actions">
@@ -73,10 +81,10 @@
 			<!-- Content -->
 			<main>
 				<div class="card nickname">
-					<h3>Comment voulez-vous vous appeler ?</h3>
+					<h3>Quel est votre pseudo ?</h3>
 					<form method="POST">
 						<input type="text" id="nickname">
-						<label class="text" for="nickname">Pseudonyme</label>
+						<label class="text" for="nickname">Invité</label>
 					</form>
 				</div>
 				<div class="card open-host-form">
@@ -116,6 +124,7 @@
 		</div>
 		<!-- Scripts -->
 		<script src="assets/js/main.js"></script>
+		<script src="assets/js/host-form.js"></script>
 		<script src="assets/js/canvas.js"></script>
 	</body>
 

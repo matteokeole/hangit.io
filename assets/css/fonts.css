@@ -3,7 +3,7 @@
 /* Lilita One */
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
 
-body, button, input {font-family: "Lilita One", sans-serif}
+body, button, input, textarea {font-family: "Lilita One", sans-serif}
 
 /* Text selection color */
 ::-moz-selection {background-color: var(--selection)}

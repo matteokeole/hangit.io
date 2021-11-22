@@ -2,8 +2,10 @@
 const wrapper = document.querySelector("#wrapper"),
 main = document.querySelector("main"),
 gameEndTitle = document.querySelector(".card.restart h3"),
+link = document.querySelector("#link"),
 Button = {
 	openHostForm: document.querySelector(".btn-open-host-form"),
+	copyLink: document.querySelector(".btn-copy-link"),
 	start: document.querySelector(".btn-start"),
 	proposeLetter: document.querySelector(".btn-propose-letter"),
 	restart: document.querySelector(".btn-restart")
