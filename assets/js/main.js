@@ -41,7 +41,8 @@ let Word = {
 	invalidLetters: 0, // Number of errors
 	currentLetterValidity: false, // Validity of the current submitted letter
 	originalWord: "", // Chosen word
-	displayWord: "" // This is the word displayed on the page
+	displayWord: "", // This is the word displayed on the page
+	length: 0 // Word length
 };
 
 // Event listeners
@@ -68,7 +69,8 @@ document.querySelector(".btn-start").addEventListener("click", () => {
 	else {
 		// Word submitted, start game
 		Word.originalWord = Input.submitWord.value.toUpperCase();
-		Word.displayWord = Word.originalWord.replace(Word.originalWord, "_".repeat(Word.originalWord.length));
+		Word.length = Word.originalWord.length;
+		Word.displayWord = Word.originalWord.replace(Word.originalWord, "_".repeat(Word.length));
 		// Hide word submit card, show game card & display word
 		Card.submitWord.style.display = "none";
 		Card.word.style.display = "block";
@@ -99,7 +101,7 @@ document.querySelector(".btn-start").addEventListener("click", () => {
 					Input.letter.classList.remove("focused");
 					Word.currentLetterValidity = false;
 					// Change word content
-					for (let i = 0; i < Word.originalWord.length; i++) {
+					for (let i = 0; i < Word.length; i++) {
 						if (Word.originalWord.charAt(i) === replacement) {
 							Word.currentLetterValidity = true;
 							Word.displayWord = Word.displayWord.substr(0, i) + replacement + Word.displayWord.substr(i + 1);
@@ -120,7 +122,7 @@ document.querySelector(".btn-start").addEventListener("click", () => {
 						}
 					}
 					// Game end, display number of tries
-					if (Word.foundLetters === Word.originalWord.length) {
+					if (Word.foundLetters === Word.length) {
 						console.info(`Vous avez trouvé le mot en ${Word.tries} essai(s)`)
 					}
 				}
