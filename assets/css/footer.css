@@ -4,6 +4,7 @@ footer {
 	bottom: -50px;
 	left: 0;
 	position: absolute;
-	opacity: 0;
+	border-top: 1px solid #e65100;
 	transition-duration: 0.2s
 }
+footer.displayed {bottom: 0}

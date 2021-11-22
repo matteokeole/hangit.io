@@ -67,8 +67,7 @@ document.querySelector(".btn-start").addEventListener("click", () => {
 		Card.word.style.display = "block";
 		word.textContent = dispWord;
 		// Show footer
-		footer.style.bottom = 0;
-		footer.style.opacity = 1;
+		footer.classList.add("displayed");
 		btnProposeLetter.addEventListener("click", function() {
 			Overlay.show();
 			Modal.validate.addEventListener("click", function() {
