@@ -2,7 +2,7 @@
 
 /* Wrapper */
 #wrapper {
-	height: 100vh;
+	min-height: 100vh;
 	background-color: var(--primary);
 	letter-spacing: -0.5px;
 	transition-duration: 0.2s

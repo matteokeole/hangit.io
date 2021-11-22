@@ -1,11 +1,11 @@
 // DOM elements
 const wrapper = document.querySelector("#wrapper"),
 main = document.querySelector("main"),
-footer = document.querySelector("footer"),
 btnProposeLetter = document.querySelector(".btn-propose-letter"),
 Card = {
 	submitWord: document.querySelector(".card.submit-word"),
-	word: document.querySelector(".card.word")
+	word: document.querySelector(".card.word"),
+	proposeLetter: document.querySelector(".card.propose-letter")
 },
 Overlay = {
 	overlay: document.querySelector("#overlay"),
@@ -42,7 +42,8 @@ let Word = {
 	currentLetterValidity: false, // Validity of the current submitted letter
 	originalWord: "", // Chosen word
 	displayWord: "", // This is the word displayed on the page
-	length: 0 // Word length
+	length: 0, // Word length
+	fontSize: 0
 };
 
 // Event listeners
@@ -75,8 +76,8 @@ document.querySelector(".btn-start").addEventListener("click", () => {
 		Card.submitWord.style.display = "none";
 		Card.word.style.display = "block";
 		word.textContent = Word.displayWord;
-		// Show footer
-		footer.classList.add("displayed");
+		// Show letter card
+		Card.proposeLetter.style.display = "block";
 		btnProposeLetter.addEventListener("click", () => {
 			Overlay.show();
 			Modal.validate.addEventListener("click", () => {

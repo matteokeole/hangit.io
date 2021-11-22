@@ -4,7 +4,6 @@
 @import url(fonts.css);
 @import url(overlay.css);
 @import url(header.css);
-@import url(footer.css);
 @import url(card.css);
 @import url(modal.css);
 @import url(buttons.css);
@@ -23,10 +22,7 @@
 	-error: #de1744 /* Error red */
 }
 
-body {
-	margin: 0;
-	overflow: hidden
-}
+body {margin: 0}
 
 /* Main container */
 main {

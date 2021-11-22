@@ -4,7 +4,6 @@
 	width: 480px;
 	margin: 0 0 16px 0;
 	padding: 8px;
-	padding-left: 16px;
 	border-radius: 8px;
 	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 	background-color: #fff
@@ -15,7 +14,10 @@
 .card.word {display: none}
 
 .card.word #word {
-	text-align: center;
 	font-size: 52px;
+	word-wrap: break-word;
+	text-align: center;
 	letter-spacing: 8px
 }
+
+.card.propose-letter {display: none}
