@@ -48,7 +48,7 @@ let Word = {
 // Event listeners
 // Hide modal when Escape key pressed
 document.addEventListener("keydown", (e) => {
-	if (e.keyCode === 27) Overlay.hide()
+	if (e.keyCode == 27) Overlay.hide()
 });
 // Hide modal when cancel button clicked
 Modal.cancel.addEventListener("click", () => {Overlay.hide()});
@@ -102,7 +102,7 @@ document.querySelector(".btn-start").addEventListener("click", () => {
 					Word.currentLetterValidity = false;
 					// Change word content
 					for (let i = 0; i < Word.length; i++) {
-						if (Word.originalWord.charAt(i) === replacement) {
+						if (Word.originalWord.charAt(i) == replacement) {
 							Word.currentLetterValidity = true;
 							Word.displayWord = Word.displayWord.substr(0, i) + replacement + Word.displayWord.substr(i + 1);
 							word.textContent = Word.displayWord;
@@ -122,8 +122,8 @@ document.querySelector(".btn-start").addEventListener("click", () => {
 						}
 					}
 					// Game end, display number of tries
-					if (Word.foundLetters === Word.length) {
-						console.info(`Vous avez trouvé le mot en ${Word.tries} essai(s)`)
+					if (Word.foundLetters == Word.length) {
+						console.info(`Vous avez trouvé le mot en ${Word.tries} essai(s) !`)
 					}
 				}
 			})

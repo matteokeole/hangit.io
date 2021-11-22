@@ -1,11 +1,15 @@
 /** Fonts imports **/
 
+/* Lilita One */
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
 
 body, button, input {font-family: "Lilita One", sans-serif}
 
-*::selection {background-color: var(--selection)}
-*::-moz-selection {background-color: var(--selection)}
+/* Text selection */
+::selection {background-color: var(--selection)}
+::-moz-selection {background-color: var(--selection)}
+header::selection {background-color: rgba(0, 0, 0, 0.1)}
+header::-moz-selection {background-color: rgba(0, 0, 0, 0.1)}
 
 h3 {
 	margin: 12px 0;
