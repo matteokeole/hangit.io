@@ -1,11 +1,50 @@
 /** Modal **/
 
 .modal {
-	width: 280px;
-	padding: 10px;
+	display: none;
+	width: 480px;
+	padding: 8px;
 	border-radius: 6px;
 	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 	background-color: #fff;
 	transition-duration: 0.2s;
 	z-index: -1
+}
+.modal.current {display: block}
+
+.modal .actions {
+	display: flex;
+	justify-content: flex-end
+}
+
+/* Link container */
+
+.link-container {
+	display: flex;
+	align-items: center;
+	height: 36px;
+	margin: 30px 0 8px 0;
+	position: relative;
+	overflow: hidden;
+	border-radius: 6px;
+	background-color: var(--selection)
+}
+.link-container .link {
+	display: block;
+	margin: 0 8px;
+	overflow-x: hidden;
+	user-select: none;
+	white-space: nowrap
+}
+
+/* Copy link button */
+.link-container .btn-copy-link {
+	margin: 4px;
+	position: absolute;
+	right: 0;
+	background-color: #fff
+}
+.link-container .btn-copy-link:hover, .link-container .btn-copy-link:active {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	background-color: #fff
 }

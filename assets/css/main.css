@@ -34,11 +34,10 @@ main {
 /* Canvas */
 canvas {width: 300px}
 
-.actions {text-align: right}
-
 /* Media queries */
 
 /* 540px max */
 @media screen and (max-width: 540px) {
 	.card {width: 95%}
+	.modal {width: 90%}
 }

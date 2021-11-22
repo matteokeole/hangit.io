@@ -10,7 +10,9 @@
 	background-color: #fff
 }
 
-.card.submit-word {display: block}
+.card.nickname, .card.open-host-form {display: block}
+
+.card.open-host-form button {width: 100%}
 
 .card.word #word {
 	font-size: 52px;

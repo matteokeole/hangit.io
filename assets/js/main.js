@@ -3,6 +3,7 @@ const wrapper = document.querySelector("#wrapper"),
 main = document.querySelector("main"),
 gameEndTitle = document.querySelector(".card.restart h3"),
 Button = {
+	openHostForm: document.querySelector(".btn-open-host-form"),
 	start: document.querySelector(".btn-start"),
 	proposeLetter: document.querySelector(".btn-propose-letter"),
 	restart: document.querySelector(".btn-restart")
@@ -17,7 +18,7 @@ Card = {
 Overlay = {
 	overlay: document.querySelector("#overlay"),
 	show: () => {
-		setTimeout(() => {Input.submitLetter.focus()}, 10)
+		setTimeout(() => {Input.submitLetter.focus()}, 10);
 		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeIn";
 		Overlay.overlay.style.animationName = "overlayFadeIn";
 		wrapper.classList.add("overlayed")
@@ -26,15 +27,21 @@ Overlay = {
 		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeOut";
 		Overlay.overlay.style.animationName = "overlayFadeOut";
 		wrapper.classList.remove("overlayed");
-		setTimeout(Modal.refreshInputError, 200)
+		// setTimeout(Modal.refreshInputError, 200)
 	}
 },
 Modal = {
-	container: document.querySelector(".modal"),
-	get error() {return this.container.querySelector(".error")},
-	get cancel() {return this.container.querySelector(".btn-cancel")},
-	get validate() {return this.container.querySelector(".btn-validate")},
-	refreshInputError: () => {document.querySelector(".error").textContent = ""}
+	current: document.querySelector(".modal.current"),
+	hostForm: document.querySelector(".modal.host-form"),
+	// get error() {return this.container.querySelector(".error")},
+	get cancel() {return this.current.querySelector(".btn-cancel")},
+	get validate() {return this.current.querySelector(".btn-okay")},
+	open: (modal) => {
+		if (Modal.current) Modal.current.classList.remove("current");
+		Modal[modal].classList.add("current");
+		Overlay.show()
+	}
+	// refreshInputError: () => {Modal.querySelector(".error").textContent = ""}
 },
 Input = {
 	submitWord: document.querySelector("input#submit-word"),
@@ -125,7 +132,7 @@ Input.submitLetter.addEventListener("keydown", (e) => {
 	if (e.keyCode == 13 && Overlay.overlay.style.opacity !== 0) validateLetter()
 });
 // Show modal when OK button clicked
-Modal.validate.addEventListener("click", validateLetter)
+// Modal.validate.addEventListener("click", validateLetter)
 // Input functions
 document.querySelectorAll("input").forEach((input) => {
 	// Clear inputs
@@ -137,6 +144,8 @@ document.querySelectorAll("input").forEach((input) => {
 		if (input.value === "") input.classList.remove("focused")
 	})
 });
+// Open host game form button
+Button.openHostForm.addEventListener("click", () => {Modal.open("hostForm")});
 // Start button
 Button.start.addEventListener("click", () => {
 	if (Input.submitWord.value === "") Card.submitWord.querySelector(".error").textContent = Message.requiredField;
@@ -156,3 +165,5 @@ Button.start.addEventListener("click", () => {
 });
 // Restart button
 Button.restart.addEventListener("click", () => {location.reload()})
+
+Modal.open("hostForm")
