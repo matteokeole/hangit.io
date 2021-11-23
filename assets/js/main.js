@@ -5,6 +5,7 @@ gameEndTitle = document.querySelector(".card.restart h3"),
 link = document.querySelector("#link"),
 Button = {
 	openHostForm: document.querySelector(".btn-open-host-form"),
+	startHostGame: document.querySelector(".btn-start-host-game"),
 	copyLink: document.querySelector(".btn-copy-link"),
 	start: document.querySelector(".btn-start"),
 	proposeLetter: document.querySelector(".btn-propose-letter"),
@@ -26,6 +27,7 @@ Overlay = {
 		wrapper.classList.add("overlayed")
 	},
 	hide: () => {
+		if (Modal.current) Modal.current.classList.remove("current");
 		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeOut";
 		Overlay.overlay.style.animationName = "overlayFadeOut";
 		wrapper.classList.remove("overlayed");
@@ -35,9 +37,6 @@ Overlay = {
 Modal = {
 	current: document.querySelector(".modal.current"),
 	hostForm: document.querySelector(".modal.host-form"),
-	// get error() {return this.container.querySelector(".error")},
-	get cancel() {return this.current.querySelector(".btn-cancel")},
-	get validate() {return this.current.querySelector(".btn-okay")},
 	open: (modal) => {
 		if (Modal.current) Modal.current.classList.remove("current");
 		Modal[modal].classList.add("current");
@@ -128,15 +127,16 @@ document.addEventListener("keydown", (e) => {
 	if (e.keyCode == 27 && Overlay.overlay.style.opacity !== 0) Overlay.hide()
 });
 // Hide modal when cancel button clicked
-Modal.cancel.addEventListener("click", () => {Overlay.hide()});
+document.querySelector(".modal .btn-cancel").addEventListener("click", () => {Overlay.hide()});
 // Submit letter when Enter key pressed on modal
-Input.submitLetter.addEventListener("keydown", (e) => {
-	if (e.keyCode == 13 && Overlay.overlay.style.opacity !== 0) validateLetter()
+document.addEventListener("keydown", (e) => {
+	if (e.keyCode == 13 && Modal.hostForm.classList.contains("current")) Button.startHostGame.focus()
 });
 // Show modal when OK button clicked
 // Modal.validate.addEventListener("click", validateLetter)
 // Input functions
-document.querySelectorAll("input").forEach((input) => {
+// Text inputs
+document.querySelectorAll("input[type='text']:not(#link)").forEach((input) => {
 	// Clear inputs
 	input.value = "";
 	// Focus animation
@@ -145,6 +145,11 @@ document.querySelectorAll("input").forEach((input) => {
 	input.addEventListener("blur", () => {
 		if (input.value === "") input.classList.remove("focused")
 	})
+});
+// Range inputs
+document.querySelectorAll("input[type='range']").forEach((input) => {
+	// Set default value
+	input.value = input.min;
 });
 // Open host game form button
 Button.openHostForm.addEventListener("click", () => {Modal.open("hostForm")});
@@ -167,5 +172,15 @@ Button.start.addEventListener("click", () => {
 });
 // Restart button
 Button.restart.addEventListener("click", () => {location.reload()})
+// Start host game button
+Button.startHostGame.addEventListener("click", () => {Overlay.hide()})
+// Modal buttons active animations
+document.querySelectorAll(".modal button").forEach((btn) => {
+	// Add button active class
+	btn.addEventListener("click", () => {
+		btn.classList.toggle("active");
+		setTimeout(() => {btn.classList.toggle("active")}, 100)
+	})
+});
 
-Modal.open("hostForm")
+Modal.open("hostForm");

@@ -34,29 +34,38 @@
 			<!-- Loading container -->
 			<div class="modal loading">Chargement...</div>
 			<!-- Host game form -->
-			<form class="modal host-form current" method="POST">
+			<form class="modal host-form" method="POST">
 				<h3>Héberger une partie</h3>
 				<div class="input-container">
 					<label class="range round-count">
 						Nombre de tours
-						<span class="range-value">3</span>
+						<span class="range-value">1</span>
 					</label>
 					<input type="range" min="1" max="4" id="round-count">
 				</div>
 				<div class="input-container">
 					<label class="range player-count">
 						Nombre de joueurs
-						<span class="range-value">3</span>
+						<span class="range-value">2</span>
 					</label>
 					<input type="range" min="2" max="4" id="player-count">
 				</div>
-				<div class="link-container">
+				<div class="inner-container connected-players">
+					<h4>Joueurs connectés — <span class="connected-player-count">1</span></h4>
+					<div class="player-list">
+						<div class="player you">Vous</div>
+						<div class="player">Invité #2</div>
+						<div class="player">Invité #3</div>
+						<div class="player">Invité #4</div>
+					</div>
+				</div>
+				<div class="inner-container link">
 					<input type="text" id="link" value="e8cb8486-814f-41c0-bd45-b3fd4e356a85" readonly>
 					<button type="button" class="btn-copy-link">Copier le lien</button>
 				</div>
 				<div class="actions">
 					<button type="button" class="btn-cancel">Annuler</button>
-					<button type="button" class="btn-okay">Commencer</button>
+					<button type="button" class="btn-start-host-game">Commencer</button>
 				</div>
 			</form>
 			<!-- Letter form modal -->
@@ -119,6 +128,9 @@
 					<div class="actions">
 						<button class="btn-restart">Nouvelle partie</button>
 					</div>
+				</div>
+				<div class="join-help">
+					Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.
 				</div>
 			</main>
 		</div>

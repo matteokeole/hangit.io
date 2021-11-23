@@ -14,8 +14,8 @@ button {
 	letter-spacing: 0;
 	transition-duration: 0.2s
 }
-button:hover, button:active {background-color: var(--selection)}
-button:active {
+button:hover, button:active, .modal button.active {background-color: var(--selection)}
+button:active, .modal button.active {
 	-webkit-transform: scale(0.9);
 	transform: scale(0.9);
 	transition-duration: 0.1s

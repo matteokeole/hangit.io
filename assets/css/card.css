@@ -23,3 +23,9 @@
 
 .card.restart h3.win {color: var(--valid)}
 .card.restart h3.lose {color: var(--invalid)}
+
+.join-help {
+	margin-top: 10px;
+	opacity: 0.65;
+	text-align: center
+}

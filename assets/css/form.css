@@ -13,6 +13,7 @@ input[type="text"]:not(#link) {
 	width: 100%;
 	padding: 4px 0;
 	border: none;
+	border-radius: 0;
 	border-bottom: 2px solid var(--secondary);
 	opacity: 0.65;
 	color: var(--secondary);

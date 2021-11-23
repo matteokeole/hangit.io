@@ -3,15 +3,18 @@
 /* Lilita One */
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
 
+/* Apply font */
+
 body, button, input, textarea {font-family: "Lilita One", sans-serif}
+
+h1, h3, h4 {
+	margin: 0;
+	font-weight: normal
+}
+h1, h3 {margin: 12px 0}
 
 /* Text selection color */
 ::-moz-selection {background-color: var(--selection)}
 ::selection {background-color: var(--selection)}
-header h1::-moz-selection {background-color: rgba(0, 0, 0, 0.1)}
-header h1::selection {background-color: rgba(0, 0, 0, 0.1)}
-
-h1, h3 {
-	margin: 12px 0;
-	font-weight: normal
-}
+header h1::-moz-selection, .join-help::-moz-selection {background-color: rgba(0, 0, 0, 0.1)}
+header h1::selection, .join-help::selection {background-color: rgba(0, 0, 0, 0.1)}

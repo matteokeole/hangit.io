@@ -1,4 +1,4 @@
-/** Modal **/
+/** Modal & modal content **/
 
 .modal {
 	display: none;
@@ -17,40 +17,68 @@
 	justify-content: flex-end
 }
 
-/* Link container */
-
-.link-container {
-	display: flex;
-	align-items: center;
-	height: 36px;
-	margin: 30px 0 8px 0;
-	position: relative;
-	overflow: hidden;
+/* Modal inner containers */
+.inner-container {
+	margin: 8px 0 8px 0;
 	border-radius: 6px;
 	background-color: var(--selection)
 }
-.link-container #link {
-	/*display: block;*/
+
+/* Connected players inner container */
+.inner-container.connected-players {
+	margin-top: 40px;
+	padding: 4px 8px 8px 8px
+}
+
+.inner-container.connected-players .player-list {
+	display: flex;
 	width: 100%;
-	margin: 0 8p;
+	height: 60px;
+	margin-top: 4px
+}
+
+.inner-container.connected-players .player {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 25%;
+	margin: 0 2px;
+	border-radius: 4px;
+	background-color: #fff;
+	color: var(--primary);
+	text-align: center
+}
+.inner-container.connected-players .player:first-of-type {margin-left: 0}
+.inner-container.connected-players .player:last-of-type {margin-right: 0}
+.inner-container.connected-players .player.you {color: var(--secondary)}
+
+/* Copy link inner container */
+
+.inner-container.link {
+	display: flex;
+	align-items: center;
+	height: 36px;
+	position: relative;
+	overflow: hidden
+}
+.inner-container.link #link {
+	width: 100%;
+	margin: 0 8px;
 	outline: none;
 	border: none;
-	/*background-color: transparent;*/
-	color: #000;
-	overflow-x: hidden;
-	resize: none;
-	user-select: none;
-	white-space: nowrap
+	background-color: transparent;
+	font-size: 16px;
+	user-select: none
 }
 
 /* Copy link button */
-.link-container .btn-copy-link {
+.inner-container.link .btn-copy-link {
 	margin: 4px;
 	position: absolute;
 	right: 0;
 	background-color: #fff
 }
-.link-container .btn-copy-link:hover, .link-container .btn-copy-link:active {
+.inner-container.link .btn-copy-link:hover, .inner-container.link .btn-copy-link:active {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	background-color: #fff
 }
