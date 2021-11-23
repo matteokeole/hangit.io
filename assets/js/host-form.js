@@ -12,3 +12,11 @@ Button.copyLink.addEventListener("click", () => {
 	link.setSelectionRange(0, link.value.length);
 	document.execCommand("copy")
 })
+// Start host game
+Button.startHostGame.addEventListener("click", () => {
+	Overlay.hide();
+	Card.nickname.style.display = "none";
+	Card.openHostForm.style.display = "none";
+	joinHelp.style.display = "none";
+	Card.gameContainer.style.display = "block"
+})

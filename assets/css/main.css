@@ -17,7 +17,7 @@
 	--background: #eee; /* Light white */
 	--selection: #f2ecd9; /* Light orange */
 	--selection2: #dfdac8; /* Light orange 2 */
-	--valid: #41ad49; /* Valid green */
+	--valid: #41ad49; /* Nice green */
 	--invalid: #de1744 /* Error red */
 }
 
@@ -31,13 +31,20 @@ main {
 	padding: 0 16px
 }
 
+/* Help message about joining hosted games */
+.join-help {
+	margin-top: 10px;
+	opacity: 0.5;
+	text-align: center
+}
+
 /* Canvas */
 canvas {width: 300px}
 
 /* Media queries */
 
-/* 540px max */
-@media screen and (max-width: 540px) {
+/* 740px max */
+@media screen and (max-width: 790px) {
 	.card {width: 95%}
-	.modal {width: 90%}
+	.modal {width: 95%}
 }

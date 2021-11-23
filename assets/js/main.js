@@ -12,12 +12,16 @@ Button = {
 	restart: document.querySelector(".btn-restart")
 },
 Card = {
+	nickname: document.querySelector(".card.nickname"),
+	openHostForm: document.querySelector(".card.open-host-form"),
+	gameContainer: document.querySelector(".card.game-container"),
 	submitWord: document.querySelector(".card.submit-word"),
 	word: document.querySelector(".card.word"),
 	canvasContainer: document.querySelector(".card.canvas-container"),
 	proposeLetter: document.querySelector(".card.propose-letter"),
 	restart: document.querySelector(".card.restart")
 },
+joinHelp = document.querySelector(".join-help"),
 Overlay = {
 	overlay: document.querySelector("#overlay"),
 	show: () => {
@@ -127,13 +131,9 @@ document.addEventListener("keydown", (e) => {
 	if (e.keyCode == 27 && Overlay.overlay.style.opacity !== 0) Overlay.hide()
 });
 // Hide modal when cancel button clicked
-document.querySelector(".modal .btn-cancel").addEventListener("click", () => {Overlay.hide()});
-// Submit letter when Enter key pressed on modal
-document.addEventListener("keydown", (e) => {
-	if (e.keyCode == 13 && Modal.hostForm.classList.contains("current")) Button.startHostGame.focus()
+document.querySelectorAll(".modal .btn-cancel").forEach((btn) => {
+	btn.addEventListener("click", () => {Overlay.hide()})
 });
-// Show modal when OK button clicked
-// Modal.validate.addEventListener("click", validateLetter)
 // Input functions
 // Text inputs
 document.querySelectorAll("input[type='text']:not(#link)").forEach((input) => {
@@ -172,15 +172,3 @@ Button.start.addEventListener("click", () => {
 });
 // Restart button
 Button.restart.addEventListener("click", () => {location.reload()})
-// Start host game button
-Button.startHostGame.addEventListener("click", () => {Overlay.hide()})
-// Modal buttons active animations
-document.querySelectorAll(".modal button").forEach((btn) => {
-	// Add button active class
-	btn.addEventListener("click", () => {
-		btn.classList.toggle("active");
-		setTimeout(() => {btn.classList.toggle("active")}, 100)
-	})
-});
-
-Modal.open("hostForm");

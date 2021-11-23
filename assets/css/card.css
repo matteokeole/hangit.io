@@ -1,8 +1,9 @@
 /** Cards **/
 
+/* Default style */
 .card {
 	display: none;
-	width: 480px;
+	width: 720px;
 	margin: 0 0 16px 0;
 	padding: 8px;
 	border-radius: 8px;
@@ -10,9 +11,16 @@
 	background-color: #fff
 }
 
+/* Specific cards */
+
 .card.nickname, .card.open-host-form {display: block}
 
 .card.open-host-form button {width: 100%}
+
+.card.game-container {
+	display: block;
+	box-shadow: none;
+}
 
 .card.word #word {
 	font-size: 52px;
@@ -23,9 +31,3 @@
 
 .card.restart h3.win {color: var(--valid)}
 .card.restart h3.lose {color: var(--invalid)}
-
-.join-help {
-	margin-top: 10px;
-	opacity: 0.65;
-	text-align: center
-}
