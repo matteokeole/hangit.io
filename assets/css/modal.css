@@ -76,9 +76,10 @@
 	margin: 4px;
 	position: absolute;
 	right: 0;
+	box-shadow: -10px 0px 10px 1px var(--selection);
 	background-color: #fff
 }
 .inner-container.link .btn-copy-link:hover, .inner-container.link .btn-copy-link:active {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: -10px 0px 10px 1px var(--selection), 0 4px 8px rgba(0, 0, 0, 0.2);
 	background-color: #fff
 }
