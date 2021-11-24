@@ -1,0 +1,72 @@
+/** Chat content **/
+
+.ChatContainer {
+	display: flex;
+	flex-direction: column;
+	width: 300px;
+	height: 509px;
+	border-radius: 4px;
+	background-color: var(--primary-light)
+}
+
+/* Message container */
+.MessageList {
+	margin: 0;
+	padding: 0 0 8px 0;
+	flex-grow: 1;
+	overflow-y: scroll;
+	list-style-type: none
+}
+
+/* Single message element */
+.Message {padding: 4px}
+
+/* Message sender */
+.MessageAuthor {
+	color: var(--secondary);
+	font-size: 14px;
+	font-style: italic
+}
+
+/* Message content */
+.MessageInner {
+	display: flex;
+	align-items: center;
+	white-space: nowrap
+}
+
+/* Message & date */
+.MessageDate {
+	margin-left: 4px;
+	overflow: hidden;
+	opacity: 0.3;
+	text-overflow: ellipsis;
+	font-size: 12px
+}
+.MessageDate::before {content: "• "}
+
+/* Message send form */
+.MessageForm {
+	display: flex;
+	border-top: 1px solid var(--primary)
+}
+
+#MessageInput {
+	flex-grow: 1;
+	padding: 8px 4px;
+	font-size: 16px
+}
+#MessageInput::placeholder {opacity: 0.3}
+
+#SendMessage {
+	padding: 0 8px;
+	color: var(--secondary);
+	font-size: 14px;
+	letter-spacing: -0.5px;
+	transition-duration: 0.2s
+}
+#SendMessage:hover {background-color: rgba(0, 0, 0, 0.1)}
+#SendMessage:active {
+	background-color: rgba(0, 0, 0, 0.2);
+	transition-duration: 0.1s
+}

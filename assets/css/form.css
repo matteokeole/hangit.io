@@ -6,10 +6,13 @@ input {
 	-webkit-appearance: none;
 	display: block;
 	outline: none;
+	border: none;
+	border-radius: 0;
+	background-color: transparent;
 	transition-duration: 0.2s
 }
 /* Text inputs */
-input[type="text"]:not(#link) {
+input[type="text"]:not(#link, #MessageInput) {
 	width: 100%;
 	padding: 4px 0;
 	border: none;
@@ -99,7 +102,7 @@ input.focused ~ label.text {
 	margin-left: 6px;
 	padding: 0 4px;
 	border-radius: 4px;
-	background-color: var(--selection);
+	background-color: var(--primary-light);
 }
 
 /* Error spans */

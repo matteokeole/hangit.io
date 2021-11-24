@@ -1,0 +1,18 @@
+/** Game content **/
+
+/* CSS imports */
+@import url(RoundIndicator.css);
+@import url(HiddenWord.css);
+@import url(InnerGameContainer.css);
+@import url(CanvasContainer.css);
+@import url(ChatContainer.css);
+
+.GameContainer {
+	display: block;
+	box-shadow: none
+}
+
+.GameSubcontainer {
+	display: flex;
+	margin-top: 8px
+}

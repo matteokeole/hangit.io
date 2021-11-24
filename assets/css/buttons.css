@@ -2,26 +2,28 @@
 
 button {
 	-webkit-appearance: none;
-	padding: 4px 8px;
 	outline: none;
 	border: none;
+	background-color: transparent;
+	cursor: pointer
+}
+button:not([type="submit"]) {
+	padding: 4px 8px;
 	border-radius: 4px;
 	opacity: 1;
-	background-color: transparent;
 	color: #ffa000;
-	cursor: pointer;
 	font-size: 18px;
 	letter-spacing: 0;
 	transition-duration: 0.2s
 }
-button:hover, button:active {background-color: var(--selection)}
-button:active {
+button:not([type="submit"]):hover, button:not([type="submit"]):active {background-color: var(--primary-light)}
+button:not([type="submit"]):active {
 	-webkit-transform: scale(0.9);
 	transform: scale(0.9);
 	transition-duration: 0.1s
 }
 
 /* Variants */
-footer button {color: #e65100}
-footer button:hover {background-color: rgba(0, 0, 0, 0.1)}
-footer button:active {background-color: rgba(0, 0, 0, 0.2)}
+footer button:not([type="submit"]) {color: #e65100}
+footer button:not([type="submit"]):hover {background-color: rgba(0, 0, 0, 0.1)}
+footer button:not([type="submit"]):active {background-color: rgba(0, 0, 0, 0.2)}

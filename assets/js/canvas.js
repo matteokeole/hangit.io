@@ -1,5 +1,5 @@
 // Canvas init
-const canvas = document.querySelector("#canvas"),
+const canvas = document.querySelector("#Canvas"),
 ctx = canvas.getContext("2d");
 ctx.canvas.width = 400;
 ctx.canvas.height = 400;
@@ -11,8 +11,8 @@ const togglePart = function(part, status) {
 		ctx.fillStyle = "#000";
 		ctx.strokeStyle = "#000"
 	} else {
-		ctx.fillStyle = "#ccc";
-		ctx.strokeStyle = "#ccc"
+		ctx.fillStyle = "#f2ecd9";
+		ctx.strokeStyle = "#f2ecd9"
 	}
 	// Show/hide part
 	ctx.lineWidth = 4;

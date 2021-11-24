@@ -3,21 +3,26 @@ const wrapper = document.querySelector("#wrapper"),
 main = document.querySelector("main"),
 gameEndTitle = document.querySelector(".card.restart h3"),
 link = document.querySelector("#link"),
+MessageList = document.querySelector(".MessageList"),
+Form = {
+	sendMessage: document.querySelector(".MessageForm")
+},
 Button = {
 	openHostForm: document.querySelector(".btn-open-host-form"),
 	startHostGame: document.querySelector(".btn-start-host-game"),
 	copyLink: document.querySelector(".btn-copy-link"),
 	start: document.querySelector(".btn-start"),
 	proposeLetter: document.querySelector(".btn-propose-letter"),
-	restart: document.querySelector(".btn-restart")
+	restart: document.querySelector(".btn-restart"),
+	sendMessage: document.querySelector("#SendMessage")
 },
 Card = {
 	nickname: document.querySelector(".card.nickname"),
 	openHostForm: document.querySelector(".card.open-host-form"),
-	gameContainer: document.querySelector(".card.game-container"),
+	gameContainer: document.querySelector(".card.GameContainer"),
 	submitWord: document.querySelector(".card.submit-word"),
 	word: document.querySelector(".card.word"),
-	canvasContainer: document.querySelector(".card.canvas-container"),
+	canvasContainer: document.querySelector(".card.CanvasContainer"),
 	proposeLetter: document.querySelector(".card.propose-letter"),
 	restart: document.querySelector(".card.restart")
 },
@@ -50,7 +55,8 @@ Modal = {
 },
 Input = {
 	submitWord: document.querySelector("input#submit-word"),
-	submitLetter: document.querySelector("input#submit-letter")
+	submitLetter: document.querySelector("input#submit-letter"),
+	message: document.querySelector("#MessageInput")
 },
 word = document.querySelector("#word"),
 Message = {
@@ -60,7 +66,7 @@ Message = {
 	letterNotInWord: "⛔ Cette lettre n'est pas dans le mot !",
 	gameOver: "🤕 Vous avez fait trop d'erreurs. Vous êtes pendu(e) !"
 },
-validateLetter = () => {
+// validateLetter = () => {
 	// Empty input
 	if (Input.submitLetter.value === "") Modal.error.textContent = Message.requiredField;
 	// 2 or more letters
@@ -111,15 +117,15 @@ validateLetter = () => {
 			gameEndTitle.textContent = `🎉 Bravo, vous avez trouvé le mot en ${Word.tries} essai(s) !`
 		}
 	}
-};
+// };
 
 // Game variables
-let Word = {
+let HiddenWord = {
 	tries: 0, // Number of tries
 	foundLetters: 0, // Number of found letters
 	invalidLetters: 0, // Number of errors
 	currentLetterValidity: false, // Validity of the current submitted letter
-	originalWord: "", // Chosen word
+	originalWord: "Cassoulet", // Chosen word
 	displayWord: "", // This is the word displayed on the page
 	length: 0, // Word length
 	fontSize: 0

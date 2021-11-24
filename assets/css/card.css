@@ -13,14 +13,9 @@
 
 /* Specific cards */
 
-.card.nickname, .card.open-host-form {display: block}
+/*.card.nickname, .card.open-host-form {display: block}*/
 
 .card.open-host-form button {width: 100%}
-
-.card.game-container {
-	display: block;
-	box-shadow: none;
-}
 
 .card.word #word {
 	font-size: 52px;

@@ -9,14 +9,14 @@
 @import url(form.css);
 @import url(buttons.css);
 @import url(keyframes.css);
+@import url(GameContainer.css);
 
 /* Variables */
 :root {
 	--primary: #ffb300; /* Orange */
+	--primary-light: #f2ecd9; /* Light orange */
 	--secondary: #cc8f00; /* Dark orange */
 	--background: #eee; /* Light white */
-	--selection: #f2ecd9; /* Light orange */
-	--selection2: #dfdac8; /* Light orange 2 */
 	--valid: #41ad49; /* Nice green */
 	--invalid: #de1744 /* Error red */
 }

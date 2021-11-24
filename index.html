@@ -109,21 +109,41 @@
 						<button class="btn-start">C'est parti !</button>
 					</div>
 				</div>
-				<!-- Game container card -->
-				<div class="card game-container">
-					<h3>Game</h3>
-					<div class="round-stepper">
-						<div class="track"></div>
+				<!-- Game container -->
+				<div class="card GameContainer">
+					<!-- Current round information -->
+					<div class="RoundIndicator">
+						Round <span class="CurrentRound">1</span> / <span class="MaxRounds">4</span>
+					</div>
+					<!-- Hidden word, canvas and chat -->
+					<div class="GameSubcontainer">
+						<div class="InnerGameContainer">
+							<!-- Hidden word -->
+							<div class="HiddenWordContainer">
+								<span class="HiddenWordAuthor">Devinez le mot de Mattéo !</span>
+								<span class="HiddenWord">_________</span>
+							</div>
+							<!-- Canvas -->
+							<div class="CanvasContainer">
+								<h3>11 essais restants.</h3>
+								<canvas id="Canvas"></canvas>
+							</div>
+						</div>
+						<!-- Chat -->
+						<div class="ChatContainer">
+							<!-- Message list -->
+							<ol class="MessageList"></ol>
+							<!-- Send message form -->
+							<form class="MessageForm" autocomplete="off">
+								<input type="text" name="message" id="MessageInput" placeholder="Message...">
+								<button type="submit" id="SendMessage" disabled>Envoyer</button>
+							</form>
+						</div>
 					</div>
 				</div>
 				<!-- Secret word card -->
 				<div class="card word">
 					<div id="word"></div>
-				</div>
-				<!-- Canvas card -->
-				<div class="card canvas-container">
-					<h3>Etat du pendu</h3>
-					<canvas id="canvas"></canvas>
 				</div>
 				<!-- Letter proposition card -->
 				<div class="card propose-letter">
@@ -143,6 +163,7 @@
 		</div>
 		<!-- Scripts -->
 		<script src="assets/js/main.js"></script>
+		<script src="assets/js/SendMessage.js"></script>
 		<script src="assets/js/host-form.js"></script>
 		<script src="assets/js/canvas.js"></script>
 	</body>
