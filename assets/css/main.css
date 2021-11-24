@@ -1,22 +1,39 @@
 /** Main styles **/
 
 /* CSS imports */
-@import url(fonts.css);
-@import url(overlay.css);
+@import url(Overlay.css);
 @import url(header.css);
-@import url(card.css);
-@import url(modal.css);
+@import url(Container.css);
+@import url(Modal.css);
 @import url(form.css);
 @import url(buttons.css);
-@import url(keyframes.css);
 @import url(GameContainer.css);
+@import url(Keyframes.css);
+
+/* Lilita One import */
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
+
+/* Apply font */
+
+body, button, input, textarea {font-family: "Lilita One", sans-serif}
+
+h1, h3, h4 {
+	margin: 0;
+	font-weight: normal
+}
+h1, h3 {margin: 12px 0}
+
+/* Text selection color */
+::-moz-selection {background-color: var(--primary-light)}
+::selection {background-color: var(--primary-light)}
+header h1::-moz-selection, .JoinHelp::-moz-selection {background-color: rgba(0, 0, 0, 0.1)}
+header h1::selection, .JoinHelp::selection {background-color: rgba(0, 0, 0, 0.1)}
 
 /* Variables */
 :root {
 	--primary: #ffb300; /* Orange */
 	--primary-light: #f2ecd9; /* Light orange */
 	--secondary: #cc8f00; /* Dark orange */
-	--background: #eee; /* Light white */
 	--valid: #41ad49; /* Nice green */
 	--invalid: #de1744 /* Error red */
 }
@@ -31,13 +48,6 @@ main {
 	padding: 0 16px
 }
 
-/* Help message about joining hosted games */
-.join-help {
-	margin-top: 10px;
-	opacity: 0.5;
-	text-align: center
-}
-
 /* Canvas */
 canvas {width: 300px}
 
@@ -45,6 +55,6 @@ canvas {width: 300px}
 
 /* 740px max */
 @media screen and (max-width: 790px) {
-	.card {width: 95%}
-	.modal {width: 95%}
+	.Container {width: 95%}
+	.Modal {width: 95%}
 }

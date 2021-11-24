@@ -1,19 +1,19 @@
 /** Overlay & wrapper **/
 
 /* Wrapper */
-#wrapper {
+.Wrapper {
 	min-height: 100vh;
 	background-color: var(--primary);
 	letter-spacing: -0.5px;
 	transition-duration: 0.2s
 }
-#wrapper.overlayed {
+.Wrapper.overlayed {
 	-webkit-filter: blur(2px) grayscale(0.5);
 	filter: blur(2px) grayscale(0.5)
 }
 
 /* Overlay */
-#overlay {
+.Overlay {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

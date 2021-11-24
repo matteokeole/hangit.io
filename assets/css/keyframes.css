@@ -1,7 +1,7 @@
 /** Keyframes **/
 
 /* Overlay fade in */
-@-webkit-keyframes overlayFadeIn {
+@-webkit-keyframes OverlayFadeIn {
 	from {
 		visibility: hidden;
 		opacity: 0
@@ -10,7 +10,7 @@
 		opacity: 1
 	}
 }
-@keyframes overlayFadeIn {
+@keyframes OverlayFadeIn {
 	from {
 		visibility: hidden;
 		opacity: 0
@@ -21,7 +21,7 @@
 }
 
 /* Overlay fade out */
-@-webkit-keyframes overlayFadeOut {
+@-webkit-keyframes OverlayFadeOut {
 	from {
 		visibility: visible;
 		opacity: 1
@@ -30,7 +30,7 @@
 		opacity: 0
 	}
 }
-@-webkit-keyframes overlayFadeOut {
+@-webkit-keyframes OverlayFadeOut {
 	from {
 		visibility: visible;
 		opacity: 1

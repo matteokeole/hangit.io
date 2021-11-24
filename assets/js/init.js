@@ -1,64 +1,64 @@
-// DOM elements
-const wrapper = document.querySelector("#wrapper"),
-main = document.querySelector("main"),
-gameEndTitle = document.querySelector(".card.restart h3"),
-link = document.querySelector("#link"),
-MessageList = document.querySelector(".MessageList"),
+// Get DOM elements
+const Player = {
+	nickname: "",
+	defaultNickname: "Invité",
+	nicknameColor: ""
+},
+Wrapper = document.querySelector(".Wrapper"),
+Overlay = {
+	overlay: document.querySelector(".Overlay"),
+	show: () => {
+		Overlay.overlay.style["-webkit-animation-name"] = "OverlayFadeIn";
+		Overlay.overlay.style.animationName = "OverlayFadeIn";
+		Wrapper.classList.add("overlayed")
+	},
+	hide: () => {
+		Overlay.overlay.style["-webkit-animation-name"] = "OverlayFadeOut";
+		Overlay.overlay.style.animationName = "OverlayFadeOut";
+		Wrapper.classList.remove("overlayed")
+	}
+},
+Modal = {
+	current: document.querySelector(".Modal.current"),
+	hostForm: document.querySelector(".Modal.HostFormModal"),
+	open: (modal) => {
+		if (Modal.current) Modal.current.classList.remove("current");
+		modal.classList.add("current");
+		Overlay.show()
+	},
+	close: () => {
+		// Modal.current.classList.remove("current");
+		Overlay.hide()
+	}
+},
+Main = Wrapper.children[1],
+Container = {
+	nickname: document.querySelector(".NicknameContainer"),
+	openHostForm: document.querySelector(".OpenHostFormContainer"),
+	gameContainer: document.querySelector(".GameContainer"),
+	restartGame: document.querySelector(".RestartGameContainer")
+},
 Form = {
 	sendMessage: document.querySelector(".MessageForm")
 },
 Button = {
-	openHostForm: document.querySelector(".btn-open-host-form"),
-	startHostGame: document.querySelector(".btn-start-host-game"),
-	copyLink: document.querySelector(".btn-copy-link"),
-	start: document.querySelector(".btn-start"),
-	proposeLetter: document.querySelector(".btn-propose-letter"),
-	restart: document.querySelector(".btn-restart"),
+	openHostForm: document.querySelector("#OpenHostForm"),
+	startHostGame: document.querySelector("#StartHostGame"),
+	copyLink: document.querySelector("#CopyLink"),
+	restart: document.querySelector("#RestartGame"),
 	sendMessage: document.querySelector("#SendMessage")
 },
-Card = {
-	nickname: document.querySelector(".card.nickname"),
-	openHostForm: document.querySelector(".card.open-host-form"),
-	gameContainer: document.querySelector(".card.GameContainer"),
-	submitWord: document.querySelector(".card.submit-word"),
-	word: document.querySelector(".card.word"),
-	canvasContainer: document.querySelector(".card.CanvasContainer"),
-	proposeLetter: document.querySelector(".card.propose-letter"),
-	restart: document.querySelector(".card.restart")
-},
-joinHelp = document.querySelector(".join-help"),
-Overlay = {
-	overlay: document.querySelector("#overlay"),
-	show: () => {
-		setTimeout(() => {Input.submitLetter.focus()}, 10);
-		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeIn";
-		Overlay.overlay.style.animationName = "overlayFadeIn";
-		wrapper.classList.add("overlayed")
-	},
-	hide: () => {
-		if (Modal.current) Modal.current.classList.remove("current");
-		Overlay.overlay.style["-webkit-animation-name"] = "overlayFadeOut";
-		Overlay.overlay.style.animationName = "overlayFadeOut";
-		wrapper.classList.remove("overlayed");
-		// setTimeout(Modal.refreshInputError, 200)
-	}
-},
-Modal = {
-	current: document.querySelector(".modal.current"),
-	hostForm: document.querySelector(".modal.host-form"),
-	open: (modal) => {
-		if (Modal.current) Modal.current.classList.remove("current");
-		Modal[modal].classList.add("current");
-		Overlay.show()
-	}
-	// refreshInputError: () => {Modal.querySelector(".error").textContent = ""}
-},
+joinHelp = document.querySelector(".JoinHelp"),
 Input = {
+	nickname: Container.nickname.querySelector("#NicknameInput"),
 	submitWord: document.querySelector("input#submit-word"),
 	submitLetter: document.querySelector("input#submit-letter"),
 	message: document.querySelector("#MessageInput")
 },
 word = document.querySelector("#word"),
+gameEndTitle = document.querySelector(".RestartGameContainer h3"),
+link = document.querySelector("#link"),
+MessageList = document.querySelector(".MessageList"),
 Message = {
 	alphaNumValue: "❌ Veuillez rentrer une valeur alphanumérique ci-dessus",
 	requiredField: "❌ Ce champ est requis",
@@ -66,7 +66,18 @@ Message = {
 	letterNotInWord: "⛔ Cette lettre n'est pas dans le mot !",
 	gameOver: "🤕 Vous avez fait trop d'erreurs. Vous êtes pendu(e) !"
 },
-// validateLetter = () => {
+toggleDisplay = (element, displayType = "block") => {
+	// Change the element display value, block-displayed by default
+	element.style.display = displayType
+},
+startGame = (maxRounds, maxPlayers) => {
+	// Show game content
+	toggleDisplay(GameContainer);
+	/*for (let i = 0; i < maxRounds; i++) {
+		// Round i
+	}*/
+};
+/*validateLetter = () => {
 	// Empty input
 	if (Input.submitLetter.value === "") Modal.error.textContent = Message.requiredField;
 	// 2 or more letters
@@ -117,9 +128,9 @@ Message = {
 			gameEndTitle.textContent = `🎉 Bravo, vous avez trouvé le mot en ${Word.tries} essai(s) !`
 		}
 	}
-// };
+};*/
 
-// Game variables
+// Word variables
 let HiddenWord = {
 	tries: 0, // Number of tries
 	foundLetters: 0, // Number of found letters
@@ -127,8 +138,7 @@ let HiddenWord = {
 	currentLetterValidity: false, // Validity of the current submitted letter
 	originalWord: "Cassoulet", // Chosen word
 	displayWord: "", // This is the word displayed on the page
-	length: 0, // Word length
-	fontSize: 0
+	length: 0 // Word length
 };
 
 // Event listeners
@@ -137,7 +147,7 @@ document.addEventListener("keydown", (e) => {
 	if (e.keyCode == 27 && Overlay.overlay.style.opacity !== 0) Overlay.hide()
 });
 // Hide modal when cancel button clicked
-document.querySelectorAll(".modal .btn-cancel").forEach((btn) => {
+document.querySelectorAll(".Modal button.Cancel").forEach((btn) => {
 	btn.addEventListener("click", () => {Overlay.hide()})
 });
 // Input functions
@@ -155,12 +165,10 @@ document.querySelectorAll("input[type='text']:not(#link)").forEach((input) => {
 // Range inputs
 document.querySelectorAll("input[type='range']").forEach((input) => {
 	// Set default value
-	input.value = input.min;
+	input.value = input.min
 });
-// Open host game form button
-Button.openHostForm.addEventListener("click", () => {Modal.open("hostForm")});
 // Start button
-Button.start.addEventListener("click", () => {
+/*Button.start.addEventListener("click", () => {
 	if (Input.submitWord.value === "") Card.submitWord.querySelector(".error").textContent = Message.requiredField;
 	else {
 		// Word submitted, start game
@@ -175,6 +183,15 @@ Button.start.addEventListener("click", () => {
 		Card.proposeLetter.style.display = "block";
 		Button.proposeLetter.addEventListener("click", Overlay.show)
 	}
-});
+});*/
 // Restart button
 Button.restart.addEventListener("click", () => {location.reload()})
+
+
+
+
+// Display last used nickname from local storage
+if (localStorage.getItem("nickname")) {
+	Input.nickname.value = localStorage.getItem("nickname");
+	Input.nickname.classList.add("focused")
+}

@@ -4,12 +4,16 @@
 @import url(RoundIndicator.css);
 @import url(HiddenWord.css);
 @import url(InnerGameContainer.css);
-@import url(CanvasContainer.css);
-@import url(ChatContainer.css);
+@import url(Canvas.css);
+@import url(Chat.css);
 
 .GameContainer {
-	display: block;
-	box-shadow: none
+	display: none;
+	width: 720px;
+	margin: 0 0 16px 0;
+	padding: 8px;
+	border-radius: 8px;
+	background-color: #fff
 }
 
 .GameSubcontainer {

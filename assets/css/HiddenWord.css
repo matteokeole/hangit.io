@@ -4,12 +4,12 @@
 	margin-bottom: 16px
 }
 
-.HiddenWordAuthor {
+#HiddenWordAuthor {
 	opacity: 0.65;
 	color: var(--secondary);
 }
 
-.HiddenWord {
+#HiddenWord {
 	font-size: 30px;
 	letter-spacing: 4px;
 	word-wrap: break-word

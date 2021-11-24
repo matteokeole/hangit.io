@@ -1,6 +1,6 @@
 /** Modal & modal content **/
 
-.modal {
+.Modal {
 	display: none;
 	width: 720px;
 	padding: 8px;
@@ -10,9 +10,9 @@
 	transition-duration: 0.2s;
 	z-index: -1
 }
-.modal.current {display: block}
+.Modal.current {display: block}
 
-.modal .actions {
+.ModalActions {
 	display: flex;
 	justify-content: flex-end
 }
@@ -72,14 +72,14 @@
 }
 
 /* Copy link button */
-.inner-container.link .btn-copy-link {
+.inner-container.link #CopyLink {
 	margin: 4px;
 	position: absolute;
 	right: 0;
 	box-shadow: -10px 0px 10px 1px var(--primary-light);
 	background-color: #fff
 }
-.inner-container.link .btn-copy-link:hover, .inner-container.link .btn-copy-link:active {
+.inner-container.link #CopyLink:hover, .inner-container.link #CopyLink:active {
 	box-shadow: -10px 0px 10px 1px var(--primary-light), 0 4px 8px rgba(0, 0, 0, 0.2);
 	background-color: #fff
 }

@@ -1,0 +1,37 @@
+/** Containers **/
+
+/* Default container style */
+.Container {
+	display: none;
+	width: 720px;
+	margin: 0 0 16px 0;
+	padding: 8px;
+	border-radius: 8px;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	background-color: #fff
+}
+
+.ContainerActions {
+	display: flex;
+	justify-content: flex-end
+}
+
+.Container.NicknameContainer {display: block}
+
+/* Open host form content */
+
+.Container.OpenHostFormContainer {display: block}
+
+#OpenHostForm {width: 100%}
+
+/* Win/lose container */
+
+/*.Container.restart h3.win {color: var(--valid)}
+.Container.restart h3.lose {color: var(--invalid)}
+
+/* Help message about joining hosted games (not a container but eh, kinda) */
+.JoinHelp {
+	margin-top: 10px;
+	opacity: 0.5;
+	text-align: center
+}

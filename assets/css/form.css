@@ -102,7 +102,7 @@ input.focused ~ label.text {
 	margin-left: 6px;
 	padding: 0 4px;
 	border-radius: 4px;
-	background-color: var(--primary-light);
+	background-color: var(--primary-light)
 }
 
 /* Error spans */

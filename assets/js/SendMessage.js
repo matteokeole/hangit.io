@@ -58,7 +58,7 @@ Form.sendMessage.addEventListener("submit", (e) => {
 		// Send message & scroll
 		let listFullHeight = MessageList.scrollHeight,
 			listVisibleHeight = MessageList.offsetHeight;
-		sendMessage(false, msg, "Guest");
+		sendMessage(false, msg, Player.nickname);
 		setMessageListPosition(listFullHeight, listVisibleHeight);
 		// Disable send button & clear message input
 		Button.sendMessage.disabled = false;

@@ -30,11 +30,9 @@
 
 	<body>
 		<!-- Overlay -->
-		<div id="overlay">
-			<!-- Loading container -->
-			<div class="modal loading">Chargement...</div>
+		<div class="Overlay">
 			<!-- Host game form -->
-			<form class="modal host-form" method="POST">
+			<div class="Modal HostFormModal">
 				<h3>Héberger une partie</h3>
 				<div class="input-container">
 					<label class="range round-count">
@@ -61,56 +59,47 @@
 				</div>
 				<div class="inner-container link">
 					<input type="text" id="link" value="e8cb8486-814f-41c0-bd45-b3fd4e356a85" readonly>
-					<button type="button" class="btn-copy-link">Copier le lien</button>
+					<button type="button" id="CopyLink">Copier le lien</button>
 				</div>
-				<div class="actions">
-					<button type="button" class="btn-cancel">Annuler</button>
-					<button type="button" class="btn-start-host-game">Commencer</button>
+				<div class="ModalActions">
+					<button type="button" class="Cancel">Annuler</button>
+					<button type="button" id="StartHostGame">Commencer</button>
 				</div>
-			</form>
-			<!-- Letter form modal -->
-			<form class="modal propose-letter-form" method="POST">
-				<h3>Proposer une lettre</h3>
-				<input type="text" id="submit-letter">
-				<label class="text" for="submit-letter">Votre lettre</label>
-				<div class="error"></div>
-				<div class="actions">
-					<button class="btn-cancel">Annuler</button>
-					<button class="btn-okay">OK</button>
-				</div>
-			</form>
+			</div>
 		</div>
 		<!-- Wrapper (overlay effect) -->
-		<div id="wrapper">
+		<div class="Wrapper">
 			<!-- Header -->
 			<header>
 				<img src="assets/images/logo.png">
-				<h1>hangit.io</h1>
+				<h1 class="PageTitle">hangit.io</h1>
 			</header>
 			<!-- Content -->
 			<main>
-				<div class="card nickname">
+				<!-- Nickname form -->
+				<div class="Container NicknameContainer">
 					<h3>Quel est votre pseudo ?</h3>
-					<form method="POST">
-						<input type="text" id="nickname">
-						<label class="text" for="nickname">Invité</label>
-					</form>
+					<div class="NicknameForm">
+						<input type="text" id="NicknameInput">
+						<label class="text" for="NicknameInput">Invité</label>
+					</div>
 				</div>
-				<div class="card open-host-form">
-					<button class="btn-open-host-form">Héberger une partie</button>
+				<!-- Open host form container -->
+				<div class="Container OpenHostFormContainer">
+					<button id="OpenHostForm">Héberger une partie</button>
 				</div>
 				<!-- Word submit card -->
-				<div class="card submit-word">
+				<div class="Container SubmitWordContainer">
 					<h3>Choisissez un mot</h3>
-					<input type="text" id="submit-word">
-					<label class="text" for="submit-word">Votre mot</label>
+					<input type="text" id="WordInput">
+					<label class="text" for="WordInput">Votre mot</label>
 					<div class="error"></div>
-					<div class="actions">
-						<button class="btn-start">C'est parti !</button>
+					<div class="ContainerActions">
+						<button id="SubmitWord">C'est parti !</button>
 					</div>
 				</div>
 				<!-- Game container -->
-				<div class="card GameContainer">
+				<div class="GameContainer">
 					<!-- Current round information -->
 					<div class="RoundIndicator">
 						Round <span class="CurrentRound">1</span> / <span class="MaxRounds">4</span>
@@ -120,8 +109,8 @@
 						<div class="InnerGameContainer">
 							<!-- Hidden word -->
 							<div class="HiddenWordContainer">
-								<span class="HiddenWordAuthor">Devinez le mot de Mattéo !</span>
-								<span class="HiddenWord">_________</span>
+								<span id="HiddenWordAuthor">Devinez le mot de Mattéo !</span>
+								<span id="HiddenWord">_________</span>
 							</div>
 							<!-- Canvas -->
 							<div class="CanvasContainer">
@@ -141,31 +130,23 @@
 						</div>
 					</div>
 				</div>
-				<!-- Secret word card -->
-				<div class="card word">
-					<div id="word"></div>
-				</div>
-				<!-- Letter proposition card -->
-				<div class="card propose-letter">
-					<button class="btn-propose-letter">Proposer une lettre</button>
-				</div>
 				<!-- Restart card -->
-				<div class="card restart">
+				<div class="Container RestartGameContainer">
 					<h3></h3>
-					<div class="actions">
-						<button class="btn-restart">Nouvelle partie</button>
+					<div class="ContainerActions">
+						<button id="RestartGame">Nouvelle partie</button>
 					</div>
 				</div>
-				<div class="join-help">
-					Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.
-				</div>
+				<!-- Help for joining hosted games -->
+				<span class="JoinHelp">Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.</span>
 			</main>
 		</div>
 		<!-- Scripts -->
-		<script src="assets/js/main.js"></script>
+		<script src="assets/js/init.js"></script>
+		<script src="assets/js/HostForm.js"></script>
+		<script src="assets/js/SetNickname.js"></script>
 		<script src="assets/js/SendMessage.js"></script>
-		<script src="assets/js/host-form.js"></script>
-		<script src="assets/js/canvas.js"></script>
+		<script src="assets/js/Canvas.js"></script>
 	</body>
 
 </html>
