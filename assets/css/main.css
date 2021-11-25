@@ -2,15 +2,14 @@
 
 /* CSS imports */
 @import url(Overlay.css);
-@import url(RoundLayer.css);
-@import url(RoundPlayerLayer.css);
+@import url(Layer.css);
 @import url(Modal.css);
 @import url(Header.css);
 @import url(Container.css);
 @import url(GameContainer.css);
 @import url(Form.css);
 @import url(Button.css);
-@import url(Keyframes.css);
+@import url(Keyframe.css);
 
 /* Lilita One import */
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
@@ -72,8 +71,27 @@ main {
 
 /* Media queries */
 
-/* 740px max */
-@media screen and (max-width: 790px) {
-	.Container {width: 95%}
-	.Modal {width: 95%}
+/* 768px max */
+@media screen and (max-width: 768px) {
+	header {padding: 12px}
+	.PageTitle {font-size: 28px}
+	.Container {max-width: 100%}
+	.Modal {max-width: 100%}
+}
+
+/* 600px max */
+@media screen and (max-width: 600px) {
+	.GameSubcontainer {flex-direction: column}
+	.InnerGameContainer {
+		margin: 0 0 8px 0;
+		text-align: center
+	}
+	.ChatContainer {width: 100%}
+}
+
+/* 480px max */
+@media screen and (max-width: 480px) {
+	header {padding: 8px}
+	.PageTitle {font-size: 24px}
+	.HostFormModal input[type="range"] {width: 100%}
 }

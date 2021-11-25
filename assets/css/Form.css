@@ -12,12 +12,12 @@ input {
 	transition-duration: 0.2s
 }
 /* Text inputs */
-input[type="text"]:not(#link, #MessageInput) {
+input[type="text"]:not(#InvitationLinkInput, #MessageInput) {
 	width: 100%;
 	padding: 4px 0;
 	border: none;
 	border-radius: 0;
-	border-bottom: 2px solid #fff;
+	border-bottom: 2px solid var(--primary);
 	font-size: 16px
 }
 /* Range inputs */
@@ -75,6 +75,8 @@ input[type="range"]:hover::-ms-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
 
 /* Specific inputs */
 
+/* Nickname */
+
 #NicknameInput {
 	opacity: 0.65;
 	color: #fff
@@ -83,12 +85,22 @@ input[type="range"]:hover::-ms-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
 #NicknameInput::-moz-selection {background-color: var(--nickname-color-light)}
 #NicknameInput::selection {background-color: var(--nickname-color-light)}
 
+/* Submit word */
+
+#WordInput {
+	opacity: 0.65;
+	color: var(--primary)
+}
+#WordInput.focused {opacity: 1}
+
 /* Labels */
 
+/* For text inputs */
 label.TextLabel {
 	top: -24px;
 	position: relative;
 	opacity: 0.65;
+	color: var(--primary);
 	pointer-events: none;
 	font-size: 16px;
 	transition-duration: 0.2s
@@ -98,9 +110,10 @@ input.focused ~ label.TextLabel {
 	opacity: 1;
 	font-size: 12px
 }
+/* For range inputs */
 label.RangeLabel {color: var(--secondary)}
 
-/* Label values */
+/* Range value */
 .RangeValue {
 	margin-left: 6px;
 	padding: 0 4px;
@@ -108,11 +121,12 @@ label.RangeLabel {color: var(--secondary)}
 	background-color: var(--primary-light)
 }
 
-/* Error spans */
-.InputError {
+/* Input spans */
+.InputInfo, .InputError {
 	top: -14px;
 	position: relative;
-	color: var(--invalid);
 	font-size: 14px;
 	font-style: italic
 }
+.InputInfo {color: var(--secondary)}
+.InputError {color: var(--invalid)}

@@ -5,13 +5,14 @@ const Player = {
 		nicknameColor: null
 	},
 	HiddenWord = {
+		originalWord: "", // Chosen word
+		displayWord: "", // This is the word displayed on the page
+		length: 0, // Word length
 		tries: 0, // Number of tries
 		foundLetters: 0, // Number of found letters
 		invalidLetters: 0, // Number of errors
 		currentLetterValidity: false, // Validity of the current submitted letter
-		originalWord: "Cassoulet", // Chosen word
-		displayWord: "", // This is the word displayed on the page
-		length: 0 // Word length
+		refreshSpan: () => {Container.gameContainer.querySelector("#HiddenWord").textContent = HiddenWord.displayWord}
 	},
 	Message = {
 		alphaNumValue: "❌ Veuillez rentrer une valeur alphanumérique ci-dessus",
@@ -24,35 +25,50 @@ const Player = {
 	Overlay = {
 		overlay: document.body.children[0],
 		show: () => {
-			Overlay.overlay.style["-webkit-animation-name"] = "OverlayFadeIn";
-			Overlay.overlay.style.animationName = "OverlayFadeIn";
+			Overlay.overlay.classList.add("displayed");
 			Wrapper.classList.add("overlayed")
 		},
 		hide: () => {
-			Overlay.overlay.style["-webkit-animation-name"] = "OverlayFadeOut";
-			Overlay.overlay.style.animationName = "OverlayFadeOut";
+			Overlay.overlay.classList.remove("displayed");
 			Wrapper.classList.remove("overlayed")
 		}
 	},
 	Modal = {
-		current: Overlay.overlay.querySelector(".Modal.current"),
-		hostForm: Overlay.overlay.querySelector(".Modal.HostFormModal"),
+		current: null,
+		hostForm: Overlay.overlay.querySelector(".HostFormModal"),
+		submitWord: Overlay.overlay.querySelector(".SubmitWordModal"),
 		open: (modal) => {
 			// Show overlay & open requested modal
 			Overlay.show();
-			modal.classList.add("current");
+			toggleDisplay(modal);
+			setTimeout(() => {modal.classList.add("current")});
 			Modal.current = modal
 		},
 		close: () => {
 			// Close current opened modal & hide overlay
 			Overlay.hide();
-			setTimeout(() => {
-				if (Modal.current) Modal.current.classList.remove("current")
-			}, 200)
+			let modal = Modal.current;
+			if (modal) modal.classList.remove("current");
+			setTimeout(() => {toggleDisplay(modal, "none")}, 200)
 		}
 	},
-	RoundLayer = Overlay.overlay.querySelector(".RoundLayer"),
-	RoundPlayerLayer = Overlay.overlay.querySelector(".RoundPlayerLayer"),
+	Layer = {
+		current: null,
+		roundLayer: Overlay.overlay.querySelector(".RoundLayer"),
+		roundPlayerLayer: Overlay.overlay.querySelector(".RoundPlayerLayer"),
+		show: (layer) => {
+			// Show requested layer
+			toggleDisplay(layer);
+			setTimeout(() => {layer.classList.add("current")});
+			Layer.current = layer
+		},
+		hide: () => {
+			// Close current opened layer
+			let layer = Layer.current;
+			if (layer) layer.classList.remove("current");
+			setTimeout(() => {toggleDisplay(layer, "none")}, 200)
+		}
+	},
 	Wrapper = document.body.children[1],
 	Main = Wrapper.children[1],
 	Container = {
@@ -61,33 +77,33 @@ const Player = {
 		gameContainer: Main.children[2],
 		restartGame: Main.querySelector(".RestartGameContainer")
 	},
-	Form = {
-		sendMessage: document.querySelector(".MessageForm")
-	},
+	Form = {sendMessage: Container.gameContainer.querySelector(".MessageForm")},
 	Button = {
 		openHostForm: Container.openHostForm.children[0],
 		copyLink: Modal.hostForm.querySelector("#CopyLink"),
-		startHostGame: document.querySelector("#StartHostGame"),
-		sendMessage: document.querySelector("#SendMessage"),
-		restart: document.querySelector("#RestartGame")
+		startHostGame: Modal.hostForm.querySelector("#StartHostGame"),
+		submitWord: Modal.submitWord.querySelector("#SubmitWord"),
+		sendMessage: Form.sendMessage.querySelector("#SendMessage"),
+		restart: Container.restartGame.querySelector("#RestartGame")
 	},
 	Input = {
 		nickname: Container.nickname.querySelector("#NicknameInput"),
 		maxRounds: Modal.hostForm.querySelector("#MaxRoundsInput"),
 		maxPlayers: Modal.hostForm.querySelector("#MaxPlayersInput"),
-		// submitWord: document.querySelector("input#submit-word"),
-		message: document.querySelector("#MessageInput")
+		invitationLink: document.querySelector("#InvitationLinkInput"),
+		submitWord: Modal.submitWord.querySelector("#WordInput"),
+		message: Container.gameContainer.querySelector("#MessageInput")
 	},
-	Canvas = document.querySelector("#Canvas"),
-	joinHelp = document.querySelector(".JoinHelp"),
-	word = document.querySelector("#word"),
-	gameEndTitle = document.querySelector(".RestartGameContainer h3"),
-	link = document.querySelector("#link"),
+	Canvas = Container.gameContainer.querySelector("#Canvas"),
+	JoinHelp = Main.querySelector(".JoinHelp"),
+	Word = Container.gameContainer.querySelector("#word"),
+	GameEndTitle = Container.restartGame.querySelector(".RestartGameContainer h3"),
 	PlayerList = Modal.hostForm.querySelector(".PlayerList"),
 	MessageList = Container.gameContainer.querySelector(".MessageList"),
+	RemainingTries = Container.gameContainer.querySelector(".RemainingTries"),
 	// Functions
 	toggleDisplay = (element, displayType = "block") => {
-		// Change the element display value, block-displayed by default
+		// Change the element display value, "block" by default
 		element.style.display = displayType
 	},
 	startGame = (maxRounds, maxPlayers) => {
@@ -97,23 +113,29 @@ const Player = {
 		let i = 0;
 		nextRound(i)
 	},
-	nextRound = (i) => {
+	nextRound = (i, playerList) => {
 		i++;
+		// Display round number
 		Container.gameContainer.children[0].children[0].textContent = i;
-		RoundLayer.children[0].textContent = i;
-		RoundPlayerLayer.children[0].textContent = Player.nickname;
-		RoundPlayerLayer.children[0].style.color = Player.nicknameColor;
-		document.querySelector("#HiddenWordAuthor").textContent = Player.nickname;
+		Layer.roundLayer.children[0].textContent = i;
+		Layer.roundPlayerLayer.children[0].textContent = Player.nickname;
+		Layer.roundPlayerLayer.children[0].style.color = Player.nicknameColor;
+		Container.gameContainer.querySelector("#HiddenWordAuthor").textContent = Player.nickname;
+		// Show layers & word form
 		setTimeout(() => {
 			Overlay.show();
-			RoundLayer.classList.add("displayed");
+			Layer.show(Layer.roundLayer);
 			setTimeout(() => {
-				RoundLayer.classList.remove("displayed");
-				RoundPlayerLayer.classList.add("displayed");
+				Layer.hide();
+				setTimeout(() => {
+					Modal.open(Modal.submitWord);
+					Input.submitWord.focus()
+				}, 400);
+				/*Layer.roundPlayerLayer.classList.add("current");
 				setTimeout(() => {
 					Overlay.hide();
-					setTimeout(() => {RoundPlayerLayer.classList.remove("displayed")}, 200)
-				}, 3000)
+					setTimeout(() => {Layer.roundPlayerLayer.classList.remove("current")}, 200)
+				}, 3000)*/
 			}, 2000)
 		}, 200)
 	},
@@ -127,18 +149,17 @@ const Player = {
 	};
 
 // Event listeners
-// Hide modal when Escape key pressed
+// Hide host form modal when Escape key pressed
 addEventListener("keydown", (e) => {
-	if (e.keyCode == 27 && Overlay.overlay.style.opacity !== 0) Modal.close()
+	if (e.keyCode == 27 && Modal.hostForm.classList.contains("current")) Modal.close()
 });
 // Hide modal when cancel button clicked
 document.querySelectorAll(".Modal .CancelButton").forEach((btn) => {
 	btn.addEventListener("click", Modal.close)
 });
-// Input functions
-// Text inputs
-document.querySelectorAll("input[type='text']:not(#link)").forEach((input) => {
-	// Clear inputs
+// Input clearing & animations
+[Input.nickname, Input.submitWord].forEach((input) => {
+	// Clear input value
 	input.value = "";
 	// Focus animation
 	input.addEventListener("focus", () => {input.classList.add("focused")});
@@ -147,10 +168,7 @@ document.querySelectorAll("input[type='text']:not(#link)").forEach((input) => {
 		if (input.value.length == 0) input.classList.remove("focused")
 	})
 });
-// Range inputs
-const resetRangeInputs = (input) => {input.value = input.min};
-resetRangeInputs(Input.maxRounds);
-resetRangeInputs(Input.maxPlayers);
+[Input.maxRounds, Input.maxPlayers].forEach((input) => {input.value = input.min});
 // Display last used nickname from local storage if it exists
 if (localStorage.getItem("nickname")) {
 	Input.nickname.value = localStorage.getItem("nickname");
@@ -164,61 +182,3 @@ Input.nickname.nextElementSibling.style.color = Player.nicknameColor;
 // Set root variables for nickname color
 document.documentElement.style.setProperty("--nickname-color", Player.nicknameColor);
 document.documentElement.style.setProperty("--nickname-color-light", `${Player.nicknameColor}30`)
-
-
-
-/*Word.originalWord = Input.submitWord.value.toUpperCase();
-Word.length = Word.originalWord.length;
-Word.displayWord = Word.originalWord.replace(Word.originalWord, "_".repeat(Word.length));*/
-/*validateLetter = () => {
-	// Empty input
-	if (Input.submitLetter.value === "") Modal.error.textContent = Message.requiredField;
-	// 2 or more letters
-	else if (Input.submitLetter.value.length > 1) Modal.error.textContent = Message.onlyOneLetter;
-	// Valid input
-	else {
-		Word.tries++;
-		Overlay.hide();
-		let replacement = Input.submitLetter.value.toUpperCase();
-		// Clear input
-		Input.submitLetter.value = "";
-		Input.submitLetter.classList.remove("focused");
-		Word.currentLetterValidity = false;
-		// Change word content
-		for (let i = 0; i < Word.length; i++) {
-			if (Word.originalWord.charAt(i) == replacement) {
-				Word.currentLetterValidity = true;
-				Word.displayWord = Word.displayWord.substr(0, i) + replacement + Word.displayWord.substr(i + 1);
-				word.textContent = Word.displayWord;
-				Word.foundLetters++
-			}
-		}
-		if (!Word.currentLetterValidity) {
-			// Invalid letter, +1 error
-			Word.invalidLetters++;
-			if (Word.invalidLetters < 11) {
-				// Not enough errors to lose
-				toggleCanvasPart(Word.invalidLetters);
-				console.error(Message.letterNotInWord)
-			} else {
-				// Game over!
-				// Show canvas last part
-				toggleCanvasPart(11);
-				word.textContent = Word.originalWord;
-				Card.proposeLetter.style.display = "none";
-				Card.canvasContainer.style.display = "none";
-				Card.restart.style.display = "block";
-				gameEndTitle.classList.add("lose");
-				gameEndTitle.textContent = Message.gameOver
-			}
-		}
-		// Game end, display number of tries
-		if (Word.foundLetters == Word.length) {
-			Card.proposeLetter.style.display = "none";
-			Card.canvasContainer.style.display = "none";
-			Card.restart.style.display = "block";
-			gameEndTitle.classList.add("win");
-			gameEndTitle.textContent = `🎉 Bravo, vous avez trouvé le mot en ${Word.tries} essai(s) !`
-		}
-	}
-};*/

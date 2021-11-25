@@ -82,7 +82,7 @@ const ctx = Canvas.getContext("2d"),
 // Set canvas size
 ctx.canvas.width = 400;
 ctx.canvas.height = 400;
-ctx.globalCompositeOperation = "destination-over"; // Always draw above previous lines
+// ctx.globalCompositeOperation = "destination-over"; // Always draw above previous lines
 // Display canvas parts
 toggleCanvasPart("ground", 0);
 toggleCanvasPart("vertical", 0);

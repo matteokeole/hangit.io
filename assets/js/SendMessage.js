@@ -1,12 +1,48 @@
-// The message won't be sent if it's empty
+// The message won't be sent if it's empty or blank
 Input.message.addEventListener("input", () => {
-	if (Input.message.value.length === 0) Button.sendMessage.disabled = true;
+	if (/^\s*$/.test(Input.message.value)) Button.sendMessage.disabled = true;
 	else Button.sendMessage.disabled = false
 });
 
 // Send message function
 const checkMessage = (msg) => {
-	// Check if the value matches with a letter of the whole word
+	// Check if a sent message matches with the hidden word
+	msg = msg.toUpperCase();
+	if (msg.length == 1) {
+		// Letter found, reveal it on the hidden word
+		for (let i = 0; i < HiddenWord.length; i++) {
+			if (HiddenWord.originalWord[i] == msg) {
+				HiddenWord.currentLetterValidity = true;
+				// HiddenWord.foundLetters++;
+				HiddenWord.displayWord = HiddenWord.displayWord.substr(0, i) + msg + HiddenWord.displayWord.substr(i + 1)
+			}
+		}
+		if (!HiddenWord.currentLetterValidity) {
+			// Invalid letter, +1 error
+			HiddenWord.invalidLetters++;
+			// Display remaining tries
+			let remainingTries = (11 - HiddenWord.invalidLetters),
+				s = (remainingTries > 1) ? "s": "";
+			RemainingTries.textContent = (remainingTries > 0) ? `${remainingTries} essai${s} restant${s}.` : "Pendu(e) !";
+			if (HiddenWord.invalidLetters < 11) {
+				// Not enough errors to lose
+				toggleCanvasPart(HiddenWord.invalidLetters)
+			} else {
+				// Game over!
+				setTimeout(() => {Input.message.blur()});
+				toggleCanvasPart(11); // Show canvas last part
+				HiddenWord.displayWord = HiddenWord.originalWord;
+				HiddenWord.refreshSpan();
+				Overlay.show()
+			}
+		}
+	} else if (msg == HiddenWord.originalWord) {
+		// Whole word found, next turn
+		HiddenWord.displayWord = HiddenWord.originalWord
+	}
+	HiddenWord.refreshSpan();
+	// Reset word data
+	HiddenWord.currentLetterValidity = false
 },
 sendMessage = (auto, msg, authorName, authorColor) => {
 	// Send a message on the chat
@@ -50,20 +86,19 @@ setMessageListPosition = (fullHeight, visibleHeight) => {
 
 // Send message event listener
 Form.sendMessage.addEventListener("submit", (e) => {
+	// Prevent form from submitting
 	e.preventDefault();
-	if (!/^\s*$/.test(Input.message.value)) {
-		// Filled and non-blank input, check message before sending
-		let msg = Input.message.value;
-		checkMessage(msg);
-		// Send message & scroll
-		let listFullHeight = MessageList.scrollHeight,
-			listVisibleHeight = MessageList.offsetHeight;
-		sendMessage(false, msg, Player.nickname, Player.nicknameColor);
-		setMessageListPosition(listFullHeight, listVisibleHeight);
-		// Disable send button & clear message input
-		Button.sendMessage.disabled = false;
-		Input.message.value = "";
-		// Re-focus input
-		Input.message.focus()
-	}
+	// Filled and non-blank input, check message before sending
+	let msg = Input.message.value;
+	checkMessage(msg);
+	// Send message & scroll
+	let listFullHeight = MessageList.scrollHeight,
+		listVisibleHeight = MessageList.offsetHeight;
+	sendMessage(false, msg, Player.nickname, Player.nicknameColor);
+	setMessageListPosition(listFullHeight, listVisibleHeight);
+	// Disable send button & clear message input
+	Button.sendMessage.disabled = true;
+	Input.message.value = "";
+	// Re-focus input
+	Input.message.focus()
 })

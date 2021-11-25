@@ -1,0 +1,22 @@
+/** Layers **/
+
+/* Round layer */
+.RoundLayer {
+	display: none;
+	opacity: 0;
+	color: #fff;
+	font-size: 40px;
+	transition-duration: 0.2s
+}
+.RoundLayer.current {opacity: 1}
+
+/* Round player layer */
+
+.RoundPlayerLayer {
+	display: none;
+	color: rgba(255, 255, 255, 0.65);
+	font-size: 24px
+}
+.RoundPlayerLayer.current {opacity: 1}
+
+.RoundPlayer {color: #fff}

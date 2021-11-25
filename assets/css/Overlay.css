@@ -28,7 +28,11 @@
 	position: fixed;
 	opacity: 1;
 	background-color: rgba(0, 0, 0, 0.5);
-	-webkit-animation: 0.2s forwards;
-	animation: 0.2s forwards;
+	-webkit-animation: FadeOut 0.2s forwards;
+	animation: FadeOut 0.2s forwards;
 	z-index: 1
+}
+.Overlay.displayed {
+	-webkit-animation-name: FadeIn;
+	animation-name: FadeIn
 }

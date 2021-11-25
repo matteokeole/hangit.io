@@ -48,8 +48,8 @@
 					</label>
 					<input type="range" min="2" max="4" id="MaxPlayersInput">
 				</div>
-				<div class="inner-container connected-players">
-					<h4>Joueurs connectés — <span class="connected-player-count">4</span></h4>
+				<div class="InnerContainer ConnectedPlayers">
+					<h4>Joueurs connectés — <span class="ConnectedPlayersCount">4</span></h4>
 					<div class="PlayerList">
 						<div class="Player HostPlayer">
 							<span class="PlayerNickname"></span>
@@ -65,8 +65,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="inner-container link">
-					<input type="text" id="link" value="e8cb8486-814f-41c0-bd45-b3fd4e356a85" readonly>
+				<div class="InnerContainer Link">
+					<input type="text" id="InvitationLinkInput" value="e8cb8486-814f-41c0-bd45-b3fd4e356a85" readonly>
 					<button type="button" id="CopyLink">Copier le lien</button>
 				</div>
 				<div class="ModalActions">
@@ -80,8 +80,26 @@
 			</div>
 			<!-- Current round player name -->
 			<div class="RoundPlayerLayer">
-				Au tour de <span class="RoundPlayer"></span> !
+				<span class="RoundPlayer"></span> est en train de choisir un mot...
 			</div>
+			<!-- Word submit container -->
+			<form class="Modal SubmitWordModal" autocomplete="off">
+				<h3>C'est à vous !</h3>
+				<div class="WordForm">
+					<input type="text" id="WordInput">
+					<label class="TextLabel" for="WordInput">Choisissez un mot</label>
+					<div class="InputInfo">
+						Vous pouvez utiliser :<br>
+						- des caractères alphabétiques<br>
+						- des espaces<br>
+						- des tirets (-)<br>
+						Au moins 4 caractères !
+					</div>
+				</div>
+				<div class="ModalActions">
+					<button type="submit" id="SubmitWord" disabled>C'est parti !</button>
+				</div>
+			</form>
 		</div>
 		<!-- Wrapper (overlay effect) -->
 		<div class="Wrapper">
@@ -105,7 +123,7 @@
 					<button id="OpenHostForm">Héberger une partie</button>
 				</div>
 				<!-- Game container -->
-				<div class="GameContainer">
+				<div class="Container GameContainer">
 					<!-- Current round information -->
 					<div class="RoundIndicator">
 						Round <span class="CurrentRound"></span> / <span class="MaxRounds"></span>
@@ -116,11 +134,11 @@
 							<!-- Hidden word -->
 							<div class="HiddenWordContainer">
 								<div id="HiddenWordAuthorContent">Devinez le mot de <span id="HiddenWordAuthor"></span> !</div>
-								<span id="HiddenWord">_________</span>
+								<span id="HiddenWord"></span>
 							</div>
 							<!-- Canvas -->
 							<div class="CanvasContainer">
-								<h3>11 essais restants.</h3>
+								<h3 class="RemainingTries">11 essais restants.</h3>
 								<canvas id="Canvas"></canvas>
 							</div>
 						</div>
@@ -134,16 +152,6 @@
 								<button type="submit" id="SendMessage" disabled>Envoyer</button>
 							</form>
 						</div>
-					</div>
-				</div>
-				<!-- Word submit container -->
-				<div class="Container SubmitWordContainer">
-					<h3>Choisissez un mot</h3>
-					<input type="text" id="WordInput">
-					<label class="text" for="WordInput">Votre mot</label>
-					<div class="InputError"></div>
-					<div class="ContainerActions">
-						<button id="SubmitWord">C'est parti !</button>
 					</div>
 				</div>
 				<!-- End game container -->
@@ -160,7 +168,9 @@
 		<!-- Scripts -->
 		<script src="assets/js/init.js"></script>
 		<script src="assets/js/HostForm.js"></script>
+		<script src="assets/js/CopyLink.js"></script>
 		<script src="assets/js/SetNickname.js"></script>
+		<script src="assets/js/SubmitWord.js"></script>
 		<script src="assets/js/SendMessage.js"></script>
 		<script src="assets/js/Canvas.js"></script>
 	</body>

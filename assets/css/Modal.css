@@ -3,14 +3,16 @@
 .Modal {
 	display: none;
 	width: 720px;
+	margin: 0 8px;
 	padding: 8px;
 	border-radius: 6px;
 	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	opacity: 0;
 	background-color: #fff;
 	transition-duration: 0.2s;
 	z-index: -1
 }
-.Modal.current {display: block}
+.Modal.current {opacity: 1}
 
 .ModalActions {
 	display: flex;
@@ -18,26 +20,28 @@
 }
 
 /* Modal inner containers */
-.inner-container {
+.InnerContainer {
 	margin: 8px 0 8px 0;
 	border-radius: 6px;
 	background-color: var(--primary-light)
 }
 
+/* Specific modals */
+
 /* Connected players inner container */
-.inner-container.connected-players {
+.HostFormModal .ConnectedPlayers {
 	margin-top: 40px;
 	padding: 4px 8px 8px 8px
 }
 
-.inner-container.connected-players .PlayerList {
+.HostFormModal .ConnectedPlayers .PlayerList {
 	display: flex;
 	width: 100%;
 	height: 60px;
 	margin-top: 4px
 }
 
-.inner-container.connected-players .Player {
+.HostFormModal .ConnectedPlayers .Player {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -52,24 +56,24 @@
 	margin-left: 4px;
 	word-break: break-all
 }
-.inner-container.connected-players .Player:first-of-type {margin-left: 0}
-.inner-container.connected-players .Player:last-of-type {margin-right: 0}
-.inner-container.connected-players .HostPlayer {color: var(--nickname-color)}
-.inner-container.connected-players .HostPlayer::after {
+.HostFormModal .ConnectedPlayers .Player:first-of-type {margin-left: 0}
+.HostFormModal .ConnectedPlayers .Player:last-of-type {margin-right: 0}
+.HostFormModal .ConnectedPlayers .HostPlayer {color: var(--nickname-color)}
+.HostFormModal .ConnectedPlayers .HostPlayer::after {
 	content: "(vous)";
 	margin: 0 4px
 }
 
 /* Copy link inner container */
 
-.inner-container.link {
+.HostFormModal .Link {
 	display: flex;
 	align-items: center;
 	height: 36px;
 	position: relative;
 	overflow: hidden
 }
-.inner-container.link #link {
+.HostFormModal .Link #InvitationLinkInput {
 	width: 100%;
 	margin: 0 8px;
 	outline: none;
@@ -80,14 +84,16 @@
 }
 
 /* Copy link button */
-.inner-container.link #CopyLink {
+.HostFormModal .Link #CopyLink {
 	margin: 4px;
 	position: absolute;
 	right: 0;
-	box-shadow: -10px 0px 10px 1px var(--primary-light);
+	box-shadow: -10px 0 10px 1px var(--primary-light);
 	background-color: #fff
 }
-.inner-container.link #CopyLink:hover, .inner-container.link #CopyLink:active {
-	box-shadow: -10px 0px 10px 1px var(--primary-light), 0 4px 8px rgba(0, 0, 0, 0.2);
+.HostFormModal .Link #CopyLink:hover, .HostFormModal .Link #CopyLink:active {
+	box-shadow: -10px 0 10px 1px var(--primary-light), 0 4px 8px rgba(0, 0, 0, 0.2);
 	background-color: #fff
 }
+
+.SubmitWordModal {width: 320px}
