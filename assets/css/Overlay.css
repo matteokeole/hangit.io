@@ -1,21 +1,20 @@
 /** Overlay & wrapper **/
 
-/* Wrapper */
+/* Wrapper container */
 .Wrapper {
 	min-height: 100vh;
 	background-color: var(--primary);
-	letter-spacing: -0.5px;
-	transition-duration: 0.2s
+	letter-spacing: -0.5px
 }
 .Wrapper.overlayed {
 	-webkit-filter: blur(2px) grayscale(0.5);
-	filter: blur(2px) grayscale(0.5)
+	filter: blur(2px) grayscale(0.5);
+	transition-duration: 0.2s
 }
 
-/* Overlay */
+/* Overlay container */
 .Overlay {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	visibility: hidden;

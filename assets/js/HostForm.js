@@ -24,6 +24,6 @@ Button.startHostGame.addEventListener("click", () => {
 	toggleDisplay(Container.nickname, "none");
 	toggleDisplay(Container.openHostForm, "none");
 	toggleDisplay(joinHelp, "none");
-	// Show game content
-	toggleDisplay(Container.gameContainer, "block")
+	// Start game
+	startGame(Input.max)
 })

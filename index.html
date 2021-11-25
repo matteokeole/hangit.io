@@ -31,22 +31,28 @@
 	<body>
 		<!-- Overlay -->
 		<div class="Overlay">
+			<div class="RoundLayer">
+				Round <span class="RoundNumber">1</span>
+			</div>
+			<div class="RoundPlayerLayer">
+				Au tour de <span class="RoundPlayer">Invité</span> !
+			</div>
 			<!-- Host game form -->
 			<div class="Modal HostFormModal">
 				<h3>Héberger une partie</h3>
-				<div class="input-container">
-					<label class="range round-count">
+				<div class="InputContainer">
+					<label class="range round-count" for="MaxRoundsInput">
 						Nombre de tours
-						<span class="range-value">1</span>
+						<span class="RangeValue">1</span>
 					</label>
-					<input type="range" min="1" max="4" id="round-count">
+					<input type="range" min="1" max="4" id="MaxRoundsInput">
 				</div>
-				<div class="input-container">
-					<label class="range player-count">
+				<div class="InputContainer">
+					<label class="range player-count" for="MaxPlayersInput">
 						Nombre de joueurs
-						<span class="range-value">2</span>
+						<span class="RangeValue">2</span>
 					</label>
-					<input type="range" min="2" max="4" id="player-count">
+					<input type="range" min="2" max="4" id="MaxPlayersInput">
 				</div>
 				<div class="inner-container connected-players">
 					<h4>Joueurs connectés — <span class="connected-player-count">1</span></h4>
@@ -62,7 +68,7 @@
 					<button type="button" id="CopyLink">Copier le lien</button>
 				</div>
 				<div class="ModalActions">
-					<button type="button" class="Cancel">Annuler</button>
+					<button type="button" class="CancelButton">Annuler</button>
 					<button type="button" id="StartHostGame">Commencer</button>
 				</div>
 			</div>
@@ -87,16 +93,6 @@
 				<!-- Open host form container -->
 				<div class="Container OpenHostFormContainer">
 					<button id="OpenHostForm">Héberger une partie</button>
-				</div>
-				<!-- Word submit card -->
-				<div class="Container SubmitWordContainer">
-					<h3>Choisissez un mot</h3>
-					<input type="text" id="WordInput">
-					<label class="text" for="WordInput">Votre mot</label>
-					<div class="error"></div>
-					<div class="ContainerActions">
-						<button id="SubmitWord">C'est parti !</button>
-					</div>
 				</div>
 				<!-- Game container -->
 				<div class="GameContainer">
@@ -130,7 +126,17 @@
 						</div>
 					</div>
 				</div>
-				<!-- Restart card -->
+				<!-- Word submit container -->
+				<div class="Container SubmitWordContainer">
+					<h3>Choisissez un mot</h3>
+					<input type="text" id="WordInput">
+					<label class="text" for="WordInput">Votre mot</label>
+					<div class="InputError"></div>
+					<div class="ContainerActions">
+						<button id="SubmitWord">C'est parti !</button>
+					</div>
+				</div>
+				<!-- End game container -->
 				<div class="Container RestartGameContainer">
 					<h3></h3>
 					<div class="ContainerActions">

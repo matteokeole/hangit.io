@@ -98,7 +98,7 @@ input.focused ~ label.text {
 }
 
 /* Label values */
-.range-value {
+.RangeValue {
 	margin-left: 6px;
 	padding: 0 4px;
 	border-radius: 4px;
@@ -106,7 +106,7 @@ input.focused ~ label.text {
 }
 
 /* Error spans */
-.error {
+.InputError {
 	top: -14px;
 	position: relative;
 	color: var(--invalid);

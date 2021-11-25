@@ -1,12 +1,19 @@
-// Get DOM elements
+// Game data
 const Player = {
 	nickname: "",
 	defaultNickname: "Invité",
 	nicknameColor: ""
 },
-Wrapper = document.querySelector(".Wrapper"),
+Message = {
+	alphaNumValue: "❌ Veuillez rentrer une valeur alphanumérique ci-dessus",
+	requiredField: "❌ Ce champ est requis",
+	onlyOneLetter: "❌ Ecrivez seulement une lettre",
+	letterNotInWord: "⛔ Cette lettre n'est pas dans le mot !",
+	gameOver: "🤕 Vous avez fait trop d'erreurs. Vous êtes pendu(e) !"
+},
+// DOM elements
 Overlay = {
-	overlay: document.querySelector(".Overlay"),
+	overlay: document.body.children[0],
 	show: () => {
 		Overlay.overlay.style["-webkit-animation-name"] = "OverlayFadeIn";
 		Overlay.overlay.style.animationName = "OverlayFadeIn";
@@ -19,60 +26,60 @@ Overlay = {
 	}
 },
 Modal = {
-	current: document.querySelector(".Modal.current"),
-	hostForm: document.querySelector(".Modal.HostFormModal"),
+	current: Overlay.overlay.querySelector(".Modal.current"),
+	hostForm: Overlay.overlay.querySelector(".Modal.HostFormModal"),
 	open: (modal) => {
-		if (Modal.current) Modal.current.classList.remove("current");
+		// Show overlay & open requested modal
+		Overlay.show();
 		modal.classList.add("current");
-		Overlay.show()
+		Modal.current = modal
 	},
 	close: () => {
-		// Modal.current.classList.remove("current");
-		Overlay.hide()
+		// Close current opened modal & hide overlay
+		Overlay.hide();
+		setTimeout(() => {
+			if (Modal.current) Modal.current.classList.remove("current")
+		}, 200)
 	}
 },
+Wrapper = document.body.children[1],
 Main = Wrapper.children[1],
 Container = {
-	nickname: document.querySelector(".NicknameContainer"),
-	openHostForm: document.querySelector(".OpenHostFormContainer"),
-	gameContainer: document.querySelector(".GameContainer"),
-	restartGame: document.querySelector(".RestartGameContainer")
+	nickname: Main.children[0],
+	openHostForm: Main.children[1],
+	gameContainer: Main.children[2],
+	restartGame: Main.querySelector(".RestartGameContainer")
 },
 Form = {
 	sendMessage: document.querySelector(".MessageForm")
 },
 Button = {
-	openHostForm: document.querySelector("#OpenHostForm"),
+	openHostForm: Container.openHostForm.children[0],
+	copyLink: Modal.hostForm.querySelector("#CopyLink"),
 	startHostGame: document.querySelector("#StartHostGame"),
-	copyLink: document.querySelector("#CopyLink"),
-	restart: document.querySelector("#RestartGame"),
-	sendMessage: document.querySelector("#SendMessage")
+	sendMessage: document.querySelector("#SendMessage"),
+	restart: document.querySelector("#RestartGame")
 },
-joinHelp = document.querySelector(".JoinHelp"),
 Input = {
 	nickname: Container.nickname.querySelector("#NicknameInput"),
-	submitWord: document.querySelector("input#submit-word"),
-	submitLetter: document.querySelector("input#submit-letter"),
+	maxRounds: Modal.hostForm.querySelector("#MaxRoundsInput"),
+	maxPlayers: Modal.hostForm.querySelector("#MaxPlayersInput"),
+	// submitWord: document.querySelector("input#submit-word"),
 	message: document.querySelector("#MessageInput")
 },
+joinHelp = document.querySelector(".JoinHelp"),
 word = document.querySelector("#word"),
 gameEndTitle = document.querySelector(".RestartGameContainer h3"),
 link = document.querySelector("#link"),
 MessageList = document.querySelector(".MessageList"),
-Message = {
-	alphaNumValue: "❌ Veuillez rentrer une valeur alphanumérique ci-dessus",
-	requiredField: "❌ Ce champ est requis",
-	onlyOneLetter: "❌ Ecrivez seulement une lettre",
-	letterNotInWord: "⛔ Cette lettre n'est pas dans le mot !",
-	gameOver: "🤕 Vous avez fait trop d'erreurs. Vous êtes pendu(e) !"
-},
+// Functions
 toggleDisplay = (element, displayType = "block") => {
 	// Change the element display value, block-displayed by default
 	element.style.display = displayType
 },
 startGame = (maxRounds, maxPlayers) => {
 	// Show game content
-	toggleDisplay(GameContainer);
+	toggleDisplay(Container.gameContainer);
 	/*for (let i = 0; i < maxRounds; i++) {
 		// Round i
 	}*/
@@ -144,11 +151,11 @@ let HiddenWord = {
 // Event listeners
 // Hide modal when Escape key pressed
 document.addEventListener("keydown", (e) => {
-	if (e.keyCode == 27 && Overlay.overlay.style.opacity !== 0) Overlay.hide()
+	if (e.keyCode == 27 && Overlay.overlay.style.opacity !== 0) Modal.close()
 });
 // Hide modal when cancel button clicked
-document.querySelectorAll(".Modal button.Cancel").forEach((btn) => {
-	btn.addEventListener("click", () => {Overlay.hide()})
+document.querySelectorAll(".Modal .CancelButton").forEach((btn) => {
+	btn.addEventListener("click", Modal.close)
 });
 // Input functions
 // Text inputs
@@ -159,39 +166,24 @@ document.querySelectorAll("input[type='text']:not(#link)").forEach((input) => {
 	input.addEventListener("focus", () => {input.classList.add("focused")});
 	// Blur animation
 	input.addEventListener("blur", () => {
-		if (input.value === "") input.classList.remove("focused")
+		if (input.value.length == 0) input.classList.remove("focused")
 	})
 });
 // Range inputs
-document.querySelectorAll("input[type='range']").forEach((input) => {
-	// Set default value
-	input.value = input.min
-});
-// Start button
-/*Button.start.addEventListener("click", () => {
-	if (Input.submitWord.value === "") Card.submitWord.querySelector(".error").textContent = Message.requiredField;
-	else {
-		// Word submitted, start game
-		Word.originalWord = Input.submitWord.value.toUpperCase();
-		Word.length = Word.originalWord.length;
-		Word.displayWord = Word.originalWord.replace(Word.originalWord, "_".repeat(Word.length));
-		// Toggle cards
-		Card.submitWord.style.display = "none";
-		Card.word.style.display = "block";
-		word.textContent = Word.displayWord;
-		Card.canvasContainer.style.display = "block";
-		Card.proposeLetter.style.display = "block";
-		Button.proposeLetter.addEventListener("click", Overlay.show)
-	}
-});*/
-// Restart button
-Button.restart.addEventListener("click", () => {location.reload()})
-
-
-
-
-// Display last used nickname from local storage
+const resetRangeInputs = (input) => {input.value = input.min};
+resetRangeInputs(Input.maxRounds);
+resetRangeInputs(Input.maxPlayers);
+// Display last used nickname from local storage if it exists
 if (localStorage.getItem("nickname")) {
 	Input.nickname.value = localStorage.getItem("nickname");
 	Input.nickname.classList.add("focused")
 }
+
+
+
+/*Word.originalWord = Input.submitWord.value.toUpperCase();
+Word.length = Word.originalWord.length;
+Word.displayWord = Word.originalWord.replace(Word.originalWord, "_".repeat(Word.length));*/
+
+
+Overlay.show()

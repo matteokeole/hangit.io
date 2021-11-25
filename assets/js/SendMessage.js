@@ -51,8 +51,8 @@ setMessageListPosition = (fullHeight, visibleHeight) => {
 // Send message event listener
 Form.sendMessage.addEventListener("submit", (e) => {
 	e.preventDefault();
-	if (Input.message.value.length != 0) {
-		// Filled input, check message before sending
+	if (!/^\s*$/.test(Input.message.value)) {
+		// Filled and non-blank input, check message before sending
 		let msg = Input.message.value;
 		checkMessage(msg);
 		// Send message & scroll

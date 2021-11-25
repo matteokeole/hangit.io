@@ -2,12 +2,14 @@
 
 /* CSS imports */
 @import url(Overlay.css);
-@import url(header.css);
-@import url(Container.css);
+@import url(RoundLayer.css);
+@import url(RoundPlayerLayer.css);
 @import url(Modal.css);
-@import url(form.css);
-@import url(buttons.css);
+@import url(Header.css);
+@import url(Container.css);
 @import url(GameContainer.css);
+@import url(Form.css);
+@import url(Button.css);
 @import url(Keyframes.css);
 
 /* Lilita One import */
@@ -26,8 +28,26 @@ h1, h3 {margin: 12px 0}
 /* Text selection color */
 ::-moz-selection {background-color: var(--primary-light)}
 ::selection {background-color: var(--primary-light)}
-header h1::-moz-selection, .JoinHelp::-moz-selection {background-color: rgba(0, 0, 0, 0.1)}
-header h1::selection, .JoinHelp::selection {background-color: rgba(0, 0, 0, 0.1)}
+header h1::-moz-selection,
+.JoinHelp::-moz-selection {
+	background-color: rgba(0, 0, 0, 0.1)
+}
+header h1::selection,
+.JoinHelp::selection {
+	background-color: rgba(0, 0, 0, 0.1)
+}
+.RoundLayer::-moz-selection,
+.RoundNumber::-moz-selection,
+.RoundPlayerLayer::-moz-selection,
+.RoundPlayer::-moz-selection {
+	background-color: rgba(0, 0, 0, 0.2)
+}
+.RoundLayer:selection,
+.RoundNumber:selection,
+.RoundPlayerLayer:selection,
+.RoundPlayer:selection {
+	background-color: rgba(0, 0, 0, 0.2)
+}
 
 /* Variables */
 :root {
@@ -47,9 +67,6 @@ main {
 	align-items: center;
 	padding: 0 16px
 }
-
-/* Canvas */
-canvas {width: 300px}
 
 /* Media queries */
 
