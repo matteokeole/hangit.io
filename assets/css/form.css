@@ -17,13 +17,9 @@ input[type="text"]:not(#link, #MessageInput) {
 	padding: 4px 0;
 	border: none;
 	border-radius: 0;
-	border-bottom: 2px solid var(--secondary);
-	opacity: 0.65;
-	color: var(--secondary);
+	border-bottom: 2px solid #fff;
 	font-size: 16px
 }
-/* Focused text inputs */
-input[type="text"].focused {opacity: 1}
 /* Range inputs */
 input[type="range"] {
 	width: 240px;
@@ -77,25 +73,32 @@ input[type="range"]:hover::-webkit-slider-thumb {box-shadow: 0 4px 8px rgba(0, 0
 input[type="range"]:hover::-moz-range-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
 input[type="range"]:hover::-ms-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
 
+/* Specific inputs */
+
+#NicknameInput {
+	opacity: 0.65;
+	color: #fff
+}
+#NicknameInput.focused {opacity: 1}
+#NicknameInput::-moz-selection {background-color: var(--nickname-color-light)}
+#NicknameInput::selection {background-color: var(--nickname-color-light)}
+
 /* Labels */
 
-label {
-	color: var(--secondary);
-	pointer-events: none;
-	font-size: 16px
-}
-label.text {
+label.TextLabel {
 	top: -24px;
 	position: relative;
 	opacity: 0.65;
+	pointer-events: none;
+	font-size: 16px;
 	transition-duration: 0.2s
 }
-input.focused ~ label.text {
+input.focused ~ label.TextLabel {
 	top: -44px;
 	opacity: 1;
-	color: var(--secondary);
 	font-size: 12px
 }
+label.RangeLabel {color: var(--secondary)}
 
 /* Label values */
 .RangeValue {

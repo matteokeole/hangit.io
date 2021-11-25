@@ -31,36 +31,38 @@
 	<body>
 		<!-- Overlay -->
 		<div class="Overlay">
-			<div class="RoundLayer">
-				Round <span class="RoundNumber">1</span>
-			</div>
-			<div class="RoundPlayerLayer">
-				Au tour de <span class="RoundPlayer">Invité</span> !
-			</div>
 			<!-- Host game form -->
 			<div class="Modal HostFormModal">
 				<h3>Héberger une partie</h3>
 				<div class="InputContainer">
-					<label class="range round-count" for="MaxRoundsInput">
+					<label class="RangeLabel" for="MaxRoundsInput">
 						Nombre de tours
 						<span class="RangeValue">1</span>
 					</label>
 					<input type="range" min="1" max="4" id="MaxRoundsInput">
 				</div>
 				<div class="InputContainer">
-					<label class="range player-count" for="MaxPlayersInput">
+					<label class="RangeLabel" for="MaxPlayersInput">
 						Nombre de joueurs
 						<span class="RangeValue">2</span>
 					</label>
 					<input type="range" min="2" max="4" id="MaxPlayersInput">
 				</div>
 				<div class="inner-container connected-players">
-					<h4>Joueurs connectés — <span class="connected-player-count">1</span></h4>
-					<div class="player-list">
-						<div class="player you">VOUS</div>
-						<div class="player">Invité #2</div>
-						<div class="player">Invité #3</div>
-						<div class="player">Invité #4</div>
+					<h4>Joueurs connectés — <span class="connected-player-count">4</span></h4>
+					<div class="PlayerList">
+						<div class="Player HostPlayer">
+							<span class="PlayerNickname"></span>
+						</div>
+						<div class="Player">
+							<span class="PlayerNickname">Invité #2</span>
+						</div>
+						<div class="Player">
+							<span class="PlayerNickname">Invité #3</span>
+						</div>
+						<div class="Player">
+							<span class="PlayerNickname">Invité #4</span>
+						</div>
 					</div>
 				</div>
 				<div class="inner-container link">
@@ -71,6 +73,14 @@
 					<button type="button" class="CancelButton">Annuler</button>
 					<button type="button" id="StartHostGame">Commencer</button>
 				</div>
+			</div>
+			<!-- Current round number -->
+			<div class="RoundLayer">
+				Round <span class="RoundNumber"></span>
+			</div>
+			<!-- Current round player name -->
+			<div class="RoundPlayerLayer">
+				Au tour de <span class="RoundPlayer"></span> !
 			</div>
 		</div>
 		<!-- Wrapper (overlay effect) -->
@@ -87,7 +97,7 @@
 					<h3>Quel est votre pseudo ?</h3>
 					<div class="NicknameForm">
 						<input type="text" id="NicknameInput">
-						<label class="text" for="NicknameInput">Invité</label>
+						<label class="TextLabel" for="NicknameInput">Invité</label>
 					</div>
 				</div>
 				<!-- Open host form container -->
@@ -98,14 +108,14 @@
 				<div class="GameContainer">
 					<!-- Current round information -->
 					<div class="RoundIndicator">
-						Round <span class="CurrentRound">1</span> / <span class="MaxRounds">4</span>
+						Round <span class="CurrentRound"></span> / <span class="MaxRounds"></span>
 					</div>
 					<!-- Hidden word, canvas and chat -->
 					<div class="GameSubcontainer">
 						<div class="InnerGameContainer">
 							<!-- Hidden word -->
 							<div class="HiddenWordContainer">
-								<span id="HiddenWordAuthor">Devinez le mot de Mattéo !</span>
+								<div id="HiddenWordAuthorContent">Devinez le mot de <span id="HiddenWordAuthor"></span> !</div>
 								<span id="HiddenWord">_________</span>
 							</div>
 							<!-- Canvas -->

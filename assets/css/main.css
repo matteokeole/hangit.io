@@ -54,6 +54,8 @@ header h1::selection,
 	--primary: #ffb300; /* Orange */
 	--primary-light: #f2ecd9; /* Light orange */
 	--secondary: #cc8f00; /* Dark orange */
+	--nickname-color: 0; /* Nickname random color */
+	--nickname-color-light: 0; /* Nickname random color (light) */
 	--valid: #41ad49; /* Nice green */
 	--invalid: #de1744 /* Error red */
 }

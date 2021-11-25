@@ -1,4 +1,10 @@
-Button.openHostForm.addEventListener("click", () => {Modal.open(Modal.hostForm)})
+Button.openHostForm.addEventListener("click", () => {
+	// Set player nickname
+	SetNickname(Input.nickname.value);
+	// Open form modal
+	Modal.open(Modal.hostForm);
+	PlayerList.querySelector(".HostPlayer").children[0].textContent = Player.nickname
+})
 
 document.querySelectorAll("input[type='range']").forEach((input) => {
 	input.addEventListener("input", () => {
@@ -16,8 +22,6 @@ Button.copyLink.addEventListener("click", () => {
 })
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
-	// Set player nickname
-	SetNickname(Input.nickname.value);
 	// Close form modal
 	Modal.close();
 	// Close active containers
@@ -25,5 +29,5 @@ Button.startHostGame.addEventListener("click", () => {
 	toggleDisplay(Container.openHostForm, "none");
 	toggleDisplay(joinHelp, "none");
 	// Start game
-	startGame(Input.max)
+	startGame(Input.maxRounds.value, Input.maxPlayers.value)
 })

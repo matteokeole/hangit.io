@@ -1,4 +1,10 @@
 .RoundLayer {
+	display: none;
 	color: #fff;
-	font-size: 40px
+	font-size: 40px;
+	transition-duration: 0.2s
+}
+.RoundLayer.displayed {
+	display: block;
+	opacity: 1;
 }

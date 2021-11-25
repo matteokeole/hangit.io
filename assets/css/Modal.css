@@ -30,27 +30,34 @@
 	padding: 4px 8px 8px 8px
 }
 
-.inner-container.connected-players .player-list {
+.inner-container.connected-players .PlayerList {
 	display: flex;
 	width: 100%;
 	height: 60px;
 	margin-top: 4px
 }
 
-.inner-container.connected-players .player {
+.inner-container.connected-players .Player {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 25%;
+	height: 100%;
 	margin: 0 2px;
 	border-radius: 4px;
-	background-color: #fff;
-	color: var(--primary);
-	text-align: center
+	background-color: #fff
 }
-.inner-container.connected-players .player:first-of-type {margin-left: 0}
-.inner-container.connected-players .player:last-of-type {margin-right: 0}
-.inner-container.connected-players .player.you {color: var(--secondary)}
+.PlayerList .PlayerNickname {
+	margin-left: 4px;
+	word-break: break-all
+}
+.inner-container.connected-players .Player:first-of-type {margin-left: 0}
+.inner-container.connected-players .Player:last-of-type {margin-right: 0}
+.inner-container.connected-players .HostPlayer {color: var(--nickname-color)}
+.inner-container.connected-players .HostPlayer::after {
+	content: "(vous)";
+	margin: 0 4px
+}
 
 /* Copy link inner container */
 

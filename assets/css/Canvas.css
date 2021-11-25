@@ -1,7 +1,6 @@
 .CanvasContainer h3 {
 	margin: 0 0 8px 0;
-	opacity: 0.65;
-	color: var(--secondary);
+	color: var(--nickname-color);
 	font-size: 16px;
 }
 
@@ -9,5 +8,5 @@
 	display: block;
 	width: 100%;
 	border-radius: 4px;
-	box-shadow: inset 0 0 0 1px var(--primary)
+	box-shadow: inset 0 0 0 1px var(--nickname-color-light)
 }
