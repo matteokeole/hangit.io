@@ -9,9 +9,9 @@ const Player = {
 		displayWord: "", // This is the word displayed on the page
 		length: 0, // Word length
 		tries: 0, // Number of tries
-		foundLetters: 0, // Number of found letters
+		foundLetters: [], // Found letters array
 		invalidLetters: 0, // Number of errors
-		currentLetterValidity: false, // Validity of the current submitted letter
+		currentLetterValidity: false, // Validity of the current proposed letter
 		refreshSpan: () => {Container.gameContainer.querySelector("#HiddenWord").textContent = HiddenWord.displayWord}
 	},
 	Message = {

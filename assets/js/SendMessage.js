@@ -9,31 +9,42 @@ const checkMessage = (msg) => {
 	// Check if a sent message matches with the hidden word
 	msg = msg.toUpperCase();
 	if (msg.length == 1) {
-		// Letter found, reveal it on the hidden word
-		for (let i = 0; i < HiddenWord.length; i++) {
-			if (HiddenWord.originalWord[i] == msg) {
-				HiddenWord.currentLetterValidity = true;
-				// HiddenWord.foundLetters++;
-				HiddenWord.displayWord = HiddenWord.displayWord.substr(0, i) + msg + HiddenWord.displayWord.substr(i + 1)
-			}
+		// Letter sent, reveal it on the hidden word if valid
+		// Test if the letter hasn't already been proposed
+		let alreadyProposed = false;
+		for (let i = 0; i < HiddenWord.foundLetters.length; i++) {
+			if (HiddenWord.foundLetters[i] == msg) alreadyProposed = true
 		}
-		if (!HiddenWord.currentLetterValidity) {
+		if (alreadyProposed) sendMessage(true, "Vous avez déjà proposé cette lettre !");
+		else {
+			// Add letter to submitted letters
+			HiddenWord.foundLetters.push(msg);
+			// Check for letter in hidden word
+			for (let j = 0; j < HiddenWord.length; j++) {
+				if (HiddenWord.originalWord[j] == msg) {
+					// New letter found
+					HiddenWord.currentLetterValidity = true;
+					HiddenWord.displayWord = HiddenWord.displayWord.substr(0, j) + msg + HiddenWord.displayWord.substr(j + 1)
+				}
+			}
 			// Invalid letter, +1 error
-			HiddenWord.invalidLetters++;
-			// Display remaining tries
-			let remainingTries = (11 - HiddenWord.invalidLetters),
-				s = (remainingTries > 1) ? "s": "";
-			RemainingTries.textContent = (remainingTries > 0) ? `${remainingTries} essai${s} restant${s}.` : "Pendu(e) !";
-			if (HiddenWord.invalidLetters < 11) {
-				// Not enough errors to lose
-				toggleCanvasPart(HiddenWord.invalidLetters)
-			} else {
-				// Game over!
-				setTimeout(() => {Input.message.blur()});
-				toggleCanvasPart(11); // Show canvas last part
-				HiddenWord.displayWord = HiddenWord.originalWord;
-				HiddenWord.refreshSpan();
-				Overlay.show()
+			if (!HiddenWord.currentLetterValidity) {
+				HiddenWord.invalidLetters++;
+				// Display remaining tries
+				let remainingTries = (11 - HiddenWord.invalidLetters),
+					s = (remainingTries > 1) ? "s" : "";
+				RemainingTries.textContent = (remainingTries > 0) ? `${remainingTries} essai${s} restant${s}.` : "Pendu(e) !";
+				if (HiddenWord.invalidLetters < 11) {
+					// Not enough errors to lose
+					toggleCanvasPart(HiddenWord.invalidLetters)
+				} else {
+					// Game over!
+					setTimeout(() => {Input.message.blur()});
+					toggleCanvasPart(11); // Show canvas last part
+					HiddenWord.displayWord = HiddenWord.originalWord;
+					HiddenWord.refreshSpan();
+					Overlay.show()
+				}
 			}
 		}
 	} else if (msg == HiddenWord.originalWord) {
@@ -48,33 +59,36 @@ sendMessage = (auto, msg, authorName, authorColor) => {
 	// Send a message on the chat
 	// auto = send automatic message (author-less, true|false)
 	// Create message DOM
-	let message = document.createElement("li"),
+	let listFullHeight = MessageList.scrollHeight,
+		listVisibleHeight = MessageList.offsetHeight,
+		message = document.createElement("li"),
 		inner = document.createElement("div"),
-		content = document.createElement("span"),
-		date = document.createElement("span");
+		content = document.createElement("span");
 	// Set element classes
 	message.className = "Message";
 	inner.className = "MessageInner";
 	content.className = "MessageContent";
-	date.className = "MessageDate";
 	// Set values
 	content.textContent = msg;
-	date.textContent = "maintenant";
+	// Append elements
+	inner.appendChild(content);
 	// Non-automatic message
 	if (!auto) {
 		// User message, create author section
-		let author = document.createElement("span");
+		let author = document.createElement("span"),
+			date = document.createElement("span");
 		author.className = "MessageAuthor";
+		date.className = "MessageDate";
 		author.textContent = authorName;
 		author.style.color = authorColor;
-		message.appendChild(author)
+		date.textContent = "maintenant";
+		message.appendChild(author);
+		inner.appendChild(date)
 	}
-	// Append elements
-	inner.appendChild(content);
-	inner.appendChild(date);
 	message.appendChild(inner);
 	// Show message
-	MessageList.appendChild(message)
+	MessageList.appendChild(message);
+	setMessageListPosition(listFullHeight, listVisibleHeight)
 },
 setMessageListPosition = (fullHeight, visibleHeight) => {
 	// Scroll to end of the message list
@@ -90,12 +104,9 @@ Form.sendMessage.addEventListener("submit", (e) => {
 	e.preventDefault();
 	// Filled and non-blank input, check message before sending
 	let msg = Input.message.value;
-	checkMessage(msg);
-	// Send message & scroll
-	let listFullHeight = MessageList.scrollHeight,
-		listVisibleHeight = MessageList.offsetHeight;
+	// Send/check message
 	sendMessage(false, msg, Player.nickname, Player.nicknameColor);
-	setMessageListPosition(listFullHeight, listVisibleHeight);
+	checkMessage(msg);
 	// Disable send button & clear message input
 	Button.sendMessage.disabled = true;
 	Input.message.value = "";
