@@ -135,3 +135,7 @@ if (isset($_POST['message'])) {
 	$Partie->Setmessage($message);
 	echo  true;
 }
+
+if (isset($_GET['allmessage'])) {
+	echo json_encode($Partie->get_all_player_game());
+}

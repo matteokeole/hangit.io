@@ -13,7 +13,22 @@ function senddata(mon,data) {
     requete.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     requete.send(mon+"="+data);
 }
-
+function get_data(url) {
+	let req = new XMLHttpRequest();
+	//let url=url;
+	req.open('GET', url);
+	req.onreadystatechange = function() {
+	if (req.readyState == 4 && req.status == 200) {
+	    let data = JSON.parse(req.responseText);
+	    //return data;
+	    console.log(data);
+	    }
+	    else{
+	    	return "probleme server";
+	    }
+	}
+	req.send();
+}
 // The message won't be sent if it's empty or blank
 Input.message.addEventListener("input", () => {
 	if (/^\s*$/.test(Input.message.value)) Button.sendMessage.disabled = true;
@@ -128,6 +143,7 @@ Form.sendMessage.addEventListener("submit", (e) => {
 
 	//send player msg to the server
 	senddata('message',msg);
+	console.log(get_data('server.php?allmessage=1'));
 	// Send/check message
 	sendMessage(false, msg, Player.nickname, Player.nicknameColor);
 	checkMessage(msg);
