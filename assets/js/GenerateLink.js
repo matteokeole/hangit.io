@@ -18,7 +18,7 @@ function senddata(mon,data) {
 const GenerateLink = () => {return (new Date()).getTime()};
 
 // Generate game link
-//Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${GenerateLink()}`
+Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${GenerateLink()}`
 
 // Generate game linktest in local
 //Input.invitationLink.value = `http://localhost:1000/?g=${GenerateLink()}`
