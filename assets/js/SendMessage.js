@@ -143,7 +143,7 @@ Form.sendMessage.addEventListener("submit", (e) => {
 
 	//send player msg to the server
 	senddata('message',msg);
-	console.log(get_data('server.php?allmessage=1'));
+	console.log(get_data('https://m2x.alwaysdata.net/hangit/server.php?allmessage=1'));
 	// Send/check message
 	sendMessage(false, msg, Player.nickname, Player.nicknameColor);
 	checkMessage(msg);

@@ -35,4 +35,4 @@ if (req.readyState == 4 && req.status == 200) {
 
 req.send();
 */
-console.log(get_data('server.php?allmessage=1'));
+console.log(get_data('https://m2x.alwaysdata.net/hangit/server.php?allmessage=1'));
