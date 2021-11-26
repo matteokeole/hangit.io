@@ -41,13 +41,6 @@
 					</label>
 					<input type="range" min="1" max="4" id="MaxRoundsInput">
 				</div>
-				<div class="InputContainer">
-					<label class="RangeLabel" for="MaxPlayersInput">
-						Nombre de joueurs
-						<span class="RangeValue">2</span>
-					</label>
-					<input type="range" min="2" max="4" id="MaxPlayersInput">
-				</div>
 				<div class="InnerContainer ConnectedPlayers">
 					<h4>Joueurs connectés — <span class="ConnectedPlayersCount">4</span></h4>
 					<div class="PlayerList">
@@ -66,7 +59,7 @@
 					</div>
 				</div>
 				<div class="InnerContainer Link">
-					<input type="text" id="InvitationLinkInput" value="e8cb8486-814f-41c0-bd45-b3fd4e356a85" readonly>
+					<input type="text" id="InvitationLinkInput" readonly>
 					<button type="button" id="CopyLink">Copier le lien</button>
 				</div>
 				<div class="ModalActions">
@@ -168,10 +161,12 @@
 		<!-- Scripts -->
 		<script src="assets/js/init.js"></script>
 		<script src="assets/js/HostForm.js"></script>
+		<script src="assets/js/GenerateLink.js"></script>
 		<script src="assets/js/CopyLink.js"></script>
 		<script src="assets/js/SetNickname.js"></script>
 		<script src="assets/js/SubmitWord.js"></script>
 		<script src="assets/js/SendMessage.js"></script>
+		<script src="assets/js/FindWord.js"></script>
 		<script src="assets/js/Canvas.js"></script>
 	</body>
 

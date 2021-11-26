@@ -20,58 +20,6 @@ input[type="text"]:not(#InvitationLinkInput, #MessageInput) {
 	border-bottom: 2px solid var(--primary);
 	font-size: 16px
 }
-/* Range inputs */
-input[type="range"] {
-	width: 240px;
-	margin: 10px 0;
-	cursor: ew-resize
-}
-/* Range input track */
-input[type="range"]::-webkit-slider-runnable-track {
-	width: 100%;
-	height: 2px;
-	background-color: var(--primary)
-}
-input[type="range"]::-moz-range-track {
-	width: 100%;
-	height: 2px;
-	background-color: var(--primary)
-}
-input[type="range"]::-ms-track {
-	width: 100%;
-	height: 2px;
-	background-color: var(--primary)
-}
-/* Range input thumb */
-input[type="range"]::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	width: 16px;
-	height: 16px;
-	margin-top: -7px;
-	border: none;
-	border-radius: 50%;
-	background-color: var(--primary);
-	transition-duration: 0.2s
-}
-input[type="range"]::-moz-range-thumb {
-	width: 16px;
-	height: 16px;
-	border: none;
-	border-radius: 50%;
-	background-color: var(--primary);
-	transition-duration: 0.2s
-}
-input[type="range"]::-ms-thumb {
-	width: 16px;
-	height: 16px;
-	border: none;
-	border-radius: 50%;
-	background-color: var(--primary);
-	transition-duration: 0.2s
-}
-input[type="range"]:hover::-webkit-slider-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
-input[type="range"]:hover::-moz-range-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
-input[type="range"]:hover::-ms-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
 
 /* Specific inputs */
 
@@ -84,6 +32,61 @@ input[type="range"]:hover::-ms-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
 #NicknameInput.focused {opacity: 1}
 #NicknameInput::-moz-selection {background-color: var(--nickname-color-light)}
 #NicknameInput::selection {background-color: var(--nickname-color-light)}
+
+/* Range input for round max number */
+
+#MaxRoundsInput {
+	width: 240px;
+	margin: 10px 0;
+	cursor: ew-resize
+}
+/* Range input track */
+#MaxRoundsInput::-webkit-slider-runnable-track {
+	width: 100%;
+	height: 2px;
+	background-color: var(--primary)
+}
+#MaxRoundsInput::-moz-range-track {
+	width: 100%;
+	height: 2px;
+	background-color: var(--primary)
+}
+#MaxRoundsInput::-ms-track {
+	width: 100%;
+	height: 2px;
+	background-color: var(--primary)
+}
+/* Range input thumb */
+#MaxRoundsInput::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 16px;
+	height: 16px;
+	margin-top: -7px;
+	border: none;
+	border-radius: 50%;
+	background-color: var(--primary);
+	transition-duration: 0.2s
+}
+#MaxRoundsInput::-moz-range-thumb {
+	width: 16px;
+	height: 16px;
+	border: none;
+	border-radius: 50%;
+	background-color: var(--primary);
+	transition-duration: 0.2s
+}
+#MaxRoundsInput::-ms-thumb {
+	width: 16px;
+	height: 16px;
+	border: none;
+	border-radius: 50%;
+	background-color: var(--primary);
+	transition-duration: 0.2s
+}
+/* Hover animations for input thumb */
+#MaxRoundsInput:hover::-webkit-slider-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
+#MaxRoundsInput:hover::-moz-range-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
+#MaxRoundsInput:hover::-ms-thumb {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)}
 
 /* Submit word */
 

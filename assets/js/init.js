@@ -9,9 +9,10 @@ const Player = {
 		displayWord: "", // This is the word displayed on the page
 		length: 0, // Word length
 		tries: 0, // Number of tries
-		foundLetters: [], // Found letters array
-		invalidLetters: 0, // Number of errors
-		currentLetterValidity: false, // Validity of the current proposed letter
+		sentLetters: [], // Sent letters array
+		sentWords: [], // Sent words array
+		invalidInputs: 0, // Number of errors
+		currentInputValidity: true, // Validity of the current proposed letter
 		refreshSpan: () => {Container.gameContainer.querySelector("#HiddenWord").textContent = HiddenWord.displayWord}
 	},
 	Message = {
@@ -89,7 +90,6 @@ const Player = {
 	Input = {
 		nickname: Container.nickname.querySelector("#NicknameInput"),
 		maxRounds: Modal.hostForm.querySelector("#MaxRoundsInput"),
-		maxPlayers: Modal.hostForm.querySelector("#MaxPlayersInput"),
 		invitationLink: document.querySelector("#InvitationLinkInput"),
 		submitWord: Modal.submitWord.querySelector("#WordInput"),
 		message: Container.gameContainer.querySelector("#MessageInput")
@@ -106,7 +106,8 @@ const Player = {
 		// Change the element display value, "block" by default
 		element.style.display = displayType
 	},
-	startGame = (maxRounds, maxPlayers) => {
+	startGame = (maxRounds) => {
+		// Start a new game (player max number = 4)
 		// Show game content
 		toggleDisplay(Container.gameContainer);
 		Container.gameContainer.children[0].children[1].textContent = maxRounds;
@@ -168,7 +169,7 @@ document.querySelectorAll(".Modal .CancelButton").forEach((btn) => {
 		if (input.value.length == 0) input.classList.remove("focused")
 	})
 });
-[Input.maxRounds, Input.maxPlayers].forEach((input) => {input.value = input.min});
+Input.maxRounds.value = Input.maxRounds.min;
 // Display last used nickname from local storage if it exists
 if (localStorage.getItem("nickname")) {
 	Input.nickname.value = localStorage.getItem("nickname");

@@ -20,5 +20,5 @@ Button.startHostGame.addEventListener("click", () => {
 	toggleDisplay(Container.openHostForm, "none");
 	toggleDisplay(JoinHelp, "none");
 	// Start game
-	startGame(Input.maxRounds.value, Input.maxPlayers.value)
+	startGame(Input.maxRounds.value)
 })

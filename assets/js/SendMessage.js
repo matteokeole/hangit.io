@@ -8,52 +8,57 @@ Input.message.addEventListener("input", () => {
 const checkMessage = (msg) => {
 	// Check if a sent message matches with the hidden word
 	msg = msg.toUpperCase();
-	if (msg.length == 1) {
-		// Letter sent, reveal it on the hidden word if valid
-		// Test if the letter hasn't already been proposed
-		let alreadyProposed = false;
-		for (let i = 0; i < HiddenWord.foundLetters.length; i++) {
-			if (HiddenWord.foundLetters[i] == msg) alreadyProposed = true
-		}
-		if (alreadyProposed) sendMessage(true, "Vous avez déjà proposé cette lettre !");
-		else {
-			// Add letter to submitted letters
-			HiddenWord.foundLetters.push(msg);
-			// Check for letter in hidden word
-			for (let j = 0; j < HiddenWord.length; j++) {
-				if (HiddenWord.originalWord[j] == msg) {
-					// New letter found
-					HiddenWord.currentLetterValidity = true;
-					HiddenWord.displayWord = HiddenWord.displayWord.substr(0, j) + msg + HiddenWord.displayWord.substr(j + 1)
-				}
+	if (msg[0] == "!") {
+		// Command
+		msg = msg.substr(1, msg.length - 1);
+		if (/^[A-ZÀ-Ú]{1}$/.test(msg)) {
+			// Letter sent, reveal it on the hidden word if valid
+			// Test if the letter hasn't already been proposed
+			let letterAlreadyProposed = false;
+			for (let i = 0; i < HiddenWord.sentLetters.length; i++) {
+				if (HiddenWord.sentLetters[i] == msg) letterAlreadyProposed = true
 			}
-			// Invalid letter, +1 error
-			if (!HiddenWord.currentLetterValidity) {
-				HiddenWord.invalidLetters++;
-				// Display remaining tries
-				let remainingTries = (11 - HiddenWord.invalidLetters),
-					s = (remainingTries > 1) ? "s" : "";
-				RemainingTries.textContent = (remainingTries > 0) ? `${remainingTries} essai${s} restant${s}.` : "Pendu(e) !";
-				if (HiddenWord.invalidLetters < 11) {
-					// Not enough errors to lose
-					toggleCanvasPart(HiddenWord.invalidLetters)
-				} else {
-					// Game over!
-					setTimeout(() => {Input.message.blur()});
-					toggleCanvasPart(11); // Show canvas last part
-					HiddenWord.displayWord = HiddenWord.originalWord;
-					HiddenWord.refreshSpan();
-					Overlay.show()
-				}
+			if (letterAlreadyProposed) sendMessage(true, "Vous avez déjà proposé cette lettre !");
+			else {
+				// Add letter to submitted letters
+				HiddenWord.sentLetters.push(msg);
+				// Check for letter in hidden word
+				HiddenWord.currentInputValidity = checkForCharInWord(msg)
+			}
+		} else if (msg.length > 1) {
+			// Word sent, reveal it on the hidden word if valid
+			// Test if the word hasn't already been proposed
+			let wordAlreadyProposed = false;
+			for (let i = 0; i < HiddenWord.sentWords.length; i++) {
+				if (HiddenWord.sentWords[i] == msg) wordAlreadyProposed = true
+			}
+			if (wordAlreadyProposed) sendMessage(true, "Vous avez déjà proposé ce mot !");
+			else {
+				// Add letter to submitted letters
+				HiddenWord.sentWords.push(msg);
+				// Check for word in hidden word
+				HiddenWord.currentInputValidity = checkForFullWord(msg)
 			}
 		}
-	} else if (msg == HiddenWord.originalWord) {
-		// Whole word found, next turn
-		HiddenWord.displayWord = HiddenWord.originalWord
 	}
-	HiddenWord.refreshSpan();
-	// Reset word data
-	HiddenWord.currentLetterValidity = false
+	if (!HiddenWord.currentInputValidity) {
+		// Invalid input, +1 error
+		HiddenWord.invalidInputs++;
+		// Display remaining tries
+		let remainingTries = (11 - HiddenWord.invalidInputs),
+			s = (remainingTries > 1) ? "s" : "";
+		RemainingTries.textContent = (remainingTries > 0) ? `${remainingTries} essai${s} restant${s}.` : "Pendu(e) !";
+		if (HiddenWord.invalidInputs < 11) {
+			// Not enough errors to lose
+			toggleCanvasPart(HiddenWord.invalidInputs)
+		} else {
+			// Game over!
+			setTimeout(() => {Input.message.blur()});
+			toggleCanvasPart(11) // Show canvas last part
+		}
+	}
+	// Set input validity to true
+	HiddenWord.currentInputValidity = true
 },
 sendMessage = (auto, msg, authorName, authorColor) => {
 	// Send a message on the chat
