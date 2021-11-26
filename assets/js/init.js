@@ -141,10 +141,10 @@ const Player = {
 		}, 200)
 	},
 	randomHexColor = () => {
-		let hex = "0123456789ABCDEF",
+		let hex = "0123456789ABC",
 			color = "#";
 		for (let i = 0; i < 6; i++) {
-			color += hex[Math.floor(16 * Math.random())]
+			color += hex[Math.floor(13 * Math.random())]
 		};
 		return color
 	};
