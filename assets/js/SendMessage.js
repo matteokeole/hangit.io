@@ -62,7 +62,11 @@ const checkMessage = (msg) => {
 				// Add letter to submitted letters
 				HiddenWord.sentWords.push(msg);
 				// Check for word in hidden word
-				HiddenWord.currentInputValidity = checkForFullWord(msg)
+				HiddenWord.currentInputValidity = checkForFullWord(msg);
+				// Increment score if currentInput = HiddenWord
+				if (HiddenWord.currentInputValidity){
+					Player.score += 200;
+				}
 			}
 		}
 	}

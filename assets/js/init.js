@@ -2,7 +2,8 @@
 const Player = {
 		nickname: "",
 		defaultNickname: "Invité",
-		nicknameColor: null
+		nicknameColor: null,
+		score:0
 	},
 	HiddenWord = {
 		originalWord: "", // Chosen word
