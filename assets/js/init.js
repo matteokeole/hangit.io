@@ -128,15 +128,15 @@ const Player = {
 			Layer.show(Layer.roundLayer);
 			setTimeout(() => {
 				Layer.hide();
-				setTimeout(() => {
+				/*setTimeout(() => {
 					Modal.open(Modal.submitWord);
 					Input.submitWord.focus()
-				}, 400);
-				/*Layer.roundPlayerLayer.classList.add("current");
+				}, 400);*/
+				Layer.show(Layer.roundPlayerLayer);
 				setTimeout(() => {
 					Overlay.hide();
-					setTimeout(() => {Layer.roundPlayerLayer.classList.remove("current")}, 200)
-				}, 3000)*/
+					Layer.hide()
+				}, 3000)
 			}, 2000)
 		}, 200)
 	},

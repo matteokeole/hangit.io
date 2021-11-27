@@ -8,4 +8,4 @@ Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${Generat
 // Input.invitationLink.value = `http://localhost:1000/?g=${GenerateLink()}`;
 
 // Send player nickname to server
-sendData("Link_game", Input.invitationLink.value)
+// sendData("Link_game", Input.invitationLink.value)
