@@ -2,7 +2,8 @@
 const Player = {
 		nickname: "",
 		defaultNickname: "Invité",
-		nicknameColor: null
+		nicknameColor: null,
+		score: 0
 	},
 	HiddenWord = {
 		originalWord: "", // Chosen word
@@ -55,8 +56,9 @@ const Player = {
 	},
 	Layer = {
 		current: null,
-		roundLayer: Overlay.overlay.querySelector(".RoundLayer"),
-		roundPlayerLayer: Overlay.overlay.querySelector(".RoundPlayerLayer"),
+		round: Overlay.overlay.querySelector(".RoundLayer"),
+		roundPlayer: Overlay.overlay.querySelector(".RoundPlayerLayer"),
+		roundPlayerEnd: Overlay.overlay.querySelector(".RoundPlayerEndLayer"),
 		show: (layer) => {
 			// Show requested layer
 			toggleDisplay(layer);
@@ -106,39 +108,104 @@ const Player = {
 		// Change the element display value, "block" by default
 		element.style.display = displayType
 	},
+	Round = {
+		max: 0,
+		currentIndex: 0,
+		currentPlayerIndex: 0
+	},
+	playerList = ["bob", "pouet", "majel beddouze", "zemmour"],
 	startGame = (maxRounds) => {
 		// Start a new game (player max number = 4)
 		// Show game content
 		toggleDisplay(Container.gameContainer);
-		Container.gameContainer.children[0].children[1].textContent = maxRounds;
-		let i = 0;
-		nextRound(i)
+		Round.max = maxRounds;
+		Container.gameContainer.children[0].children[1].textContent = Round.max;
+		nextRound()
 	},
-	nextRound = (i, playerList) => {
-		i++;
-		// Display round number
-		Container.gameContainer.children[0].children[0].textContent = i;
-		Layer.roundLayer.children[0].textContent = i;
-		Layer.roundPlayerLayer.children[0].textContent = Player.nickname;
-		Layer.roundPlayerLayer.children[0].style.color = Player.nicknameColor;
-		Container.gameContainer.querySelector("#HiddenWordAuthor").textContent = Player.nickname;
-		// Show layers & word form
-		setTimeout(() => {
-			Overlay.show();
-			Layer.show(Layer.roundLayer);
+	nextRound = () => {
+		// Force next round
+		Round.currentIndex++;
+		if (Round.currentIndex > Round.max) {
+			// All rounds finished, game ended
+			toggleDisplay(Container.gameContainer, "none");
+			GameEndTitle.textContent = "Partie terminée!"
+			toggleDisplay(Container.restartGame)
+		} else {
+			console.warn(`Début du round ${Round.currentIndex}`);
+			// Display round number
+			Container.gameContainer.children[0].children[0].textContent = Round.currentIndex;
+			Layer.round.children[0].textContent = Round.currentIndex;
+			// Show layers & word form
 			setTimeout(() => {
-				Layer.hide();
+				Overlay.show();
+				Layer.show(Layer.round);
 				setTimeout(() => {
-					Modal.open(Modal.submitWord);
-					Input.submitWord.focus()
-				}, 400);
-				/*Layer.roundPlayerLayer.classList.add("current");
-				setTimeout(() => {
-					Overlay.hide();
-					setTimeout(() => {Layer.roundPlayerLayer.classList.remove("current")}, 200)
-				}, 3000)*/
-			}, 2000)
-		}, 200)
+					Layer.hide();
+					setTimeout(nextRoundPlayer)
+				}, 2000)
+			}, 200)
+		}
+	},
+	nextRoundPlayer = () => {
+		// Force next round player
+		if (Round.currentPlayerIndex == playerList.length) {
+			// All players proposed a word, round finished
+			// Reset current player index
+			Round.currentPlayerIndex = 0;
+			nextRound()
+		} else {
+			// Round not finished
+			console.info(`Au tour de ${playerList[Round.currentPlayerIndex]} !`);
+			// Increment player index
+			Round.currentPlayerIndex++;
+			// Clear player data
+			HiddenWord.sentLetters = [];
+			HiddenWord.sentWords = [];
+			// Display round player number
+			Layer.roundPlayer.children[0].textContent = Player.nickname;
+			Layer.roundPlayer.children[0].style.color = Player.nicknameColor;
+			Layer.roundPlayerEnd.children[0].textContent = Player.nickname;
+			Layer.roundPlayerEnd.children[0].style.color = Player.nicknameColor;
+			Container.gameContainer.querySelector("#HiddenWordAuthor").textContent = Player.nickname;
+			// Show layers & word form
+			setTimeout(() => {
+				Overlay.show();
+				if (Round.currentPlayerIndex != 1) {
+					Layer.show(Layer.roundPlayerEnd);
+					setTimeout(() => {
+						Layer.hide();
+						// Submit word modal
+						setTimeout(() => {
+							Modal.open(Modal.submitWord);
+							Input.submitWord.focus()
+						}, 400);
+						// Waiting for submitted word layer
+						/*setTimeout(() => {
+							Layer.show(Layer.roundPlayer);
+							setTimeout(() => {
+								Layer.hide();
+								Overlay.hide()
+							}, 3000)
+						}, 400)*/
+					}, 2000)
+				} else {
+					// Round just started
+					// Submit word modal
+					setTimeout(() => {
+						Modal.open(Modal.submitWord);
+						Input.submitWord.focus()
+					}, 200);
+					// Waiting for submitted word layer
+					/*setTimeout(() => {
+						Layer.show(Layer.roundPlayer);
+						setTimeout(() => {
+							Layer.hide();
+							Overlay.hide()
+						}, 3000)
+					}, 400)*/
+				}
+			}, 200)
+		}
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
@@ -182,4 +249,6 @@ Input.nickname.style.color = Player.nicknameColor;
 Input.nickname.nextElementSibling.style.color = Player.nicknameColor;
 // Set root variables for nickname color
 document.documentElement.style.setProperty("--nickname-color", Player.nicknameColor);
-document.documentElement.style.setProperty("--nickname-color-light", `${Player.nicknameColor}30`)
+document.documentElement.style.setProperty("--nickname-color-light", `${Player.nicknameColor}30`);
+// Restart game
+Button.restart.addEventListener("click", () => {location.href = ""})

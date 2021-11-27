@@ -1,22 +1,25 @@
 /** Layers **/
 
-/* Round layer */
-.RoundLayer {
+.Layer {
 	display: none;
 	opacity: 0;
-	color: #fff;
-	font-size: 40px;
 	transition-duration: 0.2s
 }
-.RoundLayer.current {opacity: 1}
+.Layer.current {opacity: 1}
 
-/* Round player layer */
+/* Specific layers */
 
-.RoundPlayerLayer {
-	display: none;
+/* Round layer */
+.RoundLayer {
+	color: #fff;
+	font-size: 40px
+}
+
+/* Round player layers */
+
+.RoundPlayerLayer, .RoundPlayerEndLayer {
 	color: rgba(255, 255, 255, 0.65);
 	font-size: 24px
 }
-.RoundPlayerLayer.current {opacity: 1}
 
-.RoundPlayer {color: #fff}
+.RoundPlayer, .RoundPlayerEnd {color: #fff}

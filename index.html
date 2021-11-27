@@ -31,6 +31,18 @@
 	<body>
 		<!-- Overlay -->
 		<div class="Overlay">
+			<!-- Current round indication -->
+			<div class="Layer RoundLayer">
+				Round <span class="RoundNumber"></span>
+			</div>
+			<!-- Current round player is choosing a word -->
+			<div class="Layer RoundPlayerLayer">
+				<span class="RoundPlayer"></span> est en train de choisir un mot...
+			</div>
+			<!-- Current round player end -->
+			<div class="Layer RoundPlayerEndLayer">
+				Fin du tour pour <span class="RoundPlayerEnd"></span> !
+			</div>
 			<!-- Host game form -->
 			<div class="Modal HostFormModal">
 				<h3>Héberger une partie</h3>
@@ -66,14 +78,6 @@
 					<button type="button" class="CancelButton">Annuler</button>
 					<button type="button" id="StartHostGame">Commencer</button>
 				</div>
-			</div>
-			<!-- Current round number -->
-			<div class="RoundLayer">
-				Round <span class="RoundNumber"></span>
-			</div>
-			<!-- Current round player name -->
-			<div class="RoundPlayerLayer">
-				<span class="RoundPlayer"></span> est en train de choisir un mot...
 			</div>
 			<!-- Word submit container -->
 			<form class="Modal SubmitWordModal" autocomplete="off">
@@ -149,9 +153,9 @@
 				</div>
 				<!-- End game container -->
 				<div class="Container RestartGameContainer">
-					<h3></h3>
+					<h3>Partie terminée !</h3>
 					<div class="ContainerActions">
-						<button id="RestartGame">Nouvelle partie</button>
+						<button id="RestartGame">Recommencer</button>
 					</div>
 				</div>
 				<!-- Help for joining hosted games -->
@@ -160,15 +164,15 @@
 		</div>
 		<!-- Scripts -->
 		<script src="assets/js/init.js"></script>
+		<script src="assets/js/SendMessage.js"></script>
 		<script src="assets/js/HostForm.js"></script>
 		<script src="assets/js/GenerateLink.js"></script>
 		<script src="assets/js/CopyLink.js"></script>
 		<script src="assets/js/SetNickname.js"></script>
 		<script src="assets/js/SubmitWord.js"></script>
-		<script src="assets/js/SendMessage.js"></script>
 		<script src="assets/js/FindWord.js"></script>
 		<script src="assets/js/Canvas.js"></script>
-		<script src="assets/js/geturl.js"></script>
+		<script src="assets/js/GetURL.js"></script>
 	</body>
 
 </html>
