@@ -61,11 +61,12 @@ const checkMessage = (msg) => {
 			else {
 				// Add letter to submitted letters
 				HiddenWord.sentWords.push(msg);
-				// Check for word in hidden word
+				// Check if the hidden word is found
 				HiddenWord.currentInputValidity = checkForFullWord(msg);
-				// Increment score if currentInput = HiddenWord
-				if (HiddenWord.currentInputValidity){
+				// If found, increment score & next round
+				if (HiddenWord.currentInputValidity) {
 					Player.score += 200;
+					nextRoundPlayer()
 				}
 			}
 		}

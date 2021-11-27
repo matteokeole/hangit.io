@@ -31,13 +31,17 @@
 	<body>
 		<!-- Overlay -->
 		<div class="Overlay">
-			<!-- Current round number -->
+			<!-- Current round indication -->
 			<div class="Layer RoundLayer">
 				Round <span class="RoundNumber"></span>
 			</div>
-			<!-- Current round player name -->
+			<!-- Current round player is choosing a word -->
 			<div class="Layer RoundPlayerLayer">
 				<span class="RoundPlayer"></span> est en train de choisir un mot...
+			</div>
+			<!-- Current round player end -->
+			<div class="Layer RoundPlayerEndLayer">
+				Fin du tour pour <span class="RoundPlayerEnd"></span> !
 			</div>
 			<!-- Host game form -->
 			<div class="Modal HostFormModal">
@@ -149,9 +153,9 @@
 				</div>
 				<!-- End game container -->
 				<div class="Container RestartGameContainer">
-					<h3></h3>
+					<h3>Partie terminée !</h3>
 					<div class="ContainerActions">
-						<button id="RestartGame">Nouvelle partie</button>
+						<button id="RestartGame">Recommencer</button>
 					</div>
 				</div>
 				<!-- Help for joining hosted games -->

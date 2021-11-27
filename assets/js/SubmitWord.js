@@ -26,5 +26,7 @@ Modal.submitWord.addEventListener("submit", (e) => {
 	Modal.close();
 	// Send player word to server
 	// sendData("Word", Input.submitWord.value);
-	SubmitWord(Input.submitWord.value)
+	SubmitWord(Input.submitWord.value);
+	Input.submitWord.value = "";
+	Button.submitWord.disabled = true
 })
