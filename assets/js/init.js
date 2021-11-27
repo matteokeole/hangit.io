@@ -112,10 +112,17 @@ const Player = {
 		// Show game content
 		toggleDisplay(Container.gameContainer);
 		Container.gameContainer.children[0].children[1].textContent = maxRounds;
-		let i = 0;
-		nextRound(i)
+		let roundIndex = 0,
+			roundPlayerIndex = 0,
+			players = [];
+		nextRound(i);
+		if (i > maxRounds) {
+			// All rounds finished
+			alert("Game finished!")
+		}
 	},
 	nextRound = (i, playerList) => {
+		// Force next round
 		i++;
 		// Display round number
 		Container.gameContainer.children[0].children[0].textContent = i;
@@ -129,19 +136,25 @@ const Player = {
 			Layer.show(Layer.roundLayer);
 			setTimeout(() => {
 				Layer.hide();
+				// Submit word modal
 				setTimeout(() => {
 					Modal.open(Modal.submitWord);
 					Input.submitWord.focus()
 				}, 400);
+				// Waiting for submitted word layer
 				/*setTimeout(() => {
 					Layer.show(Layer.roundPlayerLayer);
 					setTimeout(() => {
-						Overlay.hide();
-						Layer.hide()
+						Layer.hide();
+						Overlay.hide()
 					}, 3000)
 				}, 400)*/
 			}, 2000)
 		}, 200)
+	},
+	nextRoundPlayer = (i, playerList) => {
+		// Force next round player
+		i++;
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",

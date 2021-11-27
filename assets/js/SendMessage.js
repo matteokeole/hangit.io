@@ -139,9 +139,9 @@ Form.sendMessage.addEventListener("submit", (e) => {
 	// Filled and non-blank input, check message before sending
 	let msg = Input.message.value;
 
-	//send player msg to the server
-	senddata('message',msg);
-	console.log(get_data('https://m2x.alwaysdata.net/hangit/server.php?allmessage=1'));
+	// Send message to server
+	// sendData("message", msg);
+	// console.log(getData("https://m2x.alwaysdata.net/hangit/server.php?allmessage=1"));
 	// Send/check message
 	sendMessage(false, msg, Player.nickname, Player.nicknameColor);
 	checkMessage(msg);
