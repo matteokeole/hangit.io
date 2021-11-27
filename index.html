@@ -31,6 +31,14 @@
 	<body>
 		<!-- Overlay -->
 		<div class="Overlay">
+			<!-- Current round number -->
+			<div class="Layer RoundLayer">
+				Round <span class="RoundNumber"></span>
+			</div>
+			<!-- Current round player name -->
+			<div class="Layer RoundPlayerLayer">
+				<span class="RoundPlayer"></span> est en train de choisir un mot...
+			</div>
 			<!-- Host game form -->
 			<div class="Modal HostFormModal">
 				<h3>Héberger une partie</h3>
@@ -66,14 +74,6 @@
 					<button type="button" class="CancelButton">Annuler</button>
 					<button type="button" id="StartHostGame">Commencer</button>
 				</div>
-			</div>
-			<!-- Current round number -->
-			<div class="RoundLayer">
-				Round <span class="RoundNumber"></span>
-			</div>
-			<!-- Current round player name -->
-			<div class="RoundPlayerLayer">
-				<span class="RoundPlayer"></span> est en train de choisir un mot...
 			</div>
 			<!-- Word submit container -->
 			<form class="Modal SubmitWordModal" autocomplete="off">
