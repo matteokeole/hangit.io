@@ -62,7 +62,12 @@ const checkMessage = (msg) => {
 				// Add letter to submitted letters
 				HiddenWord.sentWords.push(msg);
 				// Check for word in hidden word
-				HiddenWord.currentInputValidity = checkForFullWord(msg)
+				HiddenWord.currentInputValidity = checkForFullWord(msg);
+				// Increment score if currentInput = HiddenWord
+				let ScoreFromCurrentPlayer = 0;
+				if (HiddenWord.currentInputValidity == true){
+					ScoreFromCurrentPlayer = ScoreFromCurrentPlayer + 200;
+				}
 			}
 		}
 	}
