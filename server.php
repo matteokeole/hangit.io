@@ -8,7 +8,7 @@ header('Access-Control-Allow-Headers: X-Requested-With');
  */
 class Game_Server 
 {
-	private $bdd , $game ,$chat,$player,$hidenword;
+	private $bdd , $game ,$chat,$player,$hidenword,$round,$link_game;
 	function __construct()
 	{
 		 $this->bdd= new pdo('mysql:host=mysql-m2x.alwaysdata.net;dbname=m2x_game','m2x','moul_976',array(PDO::ATTR_ERRMODE=> PDO::ERRMODE_EXCEPTION)) ;
