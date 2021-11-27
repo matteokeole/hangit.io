@@ -1,34 +1,28 @@
-function senddata(mon,data) {
-    var requete = new XMLHttpRequest();
-    requete.onreadystatechange=function(){
-        if(this.readyState==4 && this.status==200){
-            console.log(this.response);
-            //document.getElementById('pet-select').value;
-            //console.log(document.getElementById('pet-select').value);
-        }else if (this.readyState==4){
-            console.log("Un probleme avec le server");
-        }
-    };
-    requete.open("POST","https://m2x.alwaysdata.net/hangit/server.php",true)
-    requete.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    requete.send(mon+"="+data);
-}
-function get_data(url) {
-	let req = new XMLHttpRequest();
-	//let url=url;
-	req.open('GET', url);
-	req.onreadystatechange = function() {
-	if (req.readyState == 4 && req.status == 200) {
-	    let data = JSON.parse(req.responseText);
-	    //return data;
-	    console.log(data);
-	    }
-	    else{
-	    	return "probleme server";
-	    }
+// Send/get data functions
+const sendData = (mon, data) => {
+	var r = new XMLHttpRequest();
+	r.onreadystatechange = function() {
+		if (r.readyState == 4) {
+			if (r.status == 200) console.info(r.response);
+			else console.error("Erreur du serveur")
+		}
 	}
-	req.send();
-}
+	r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true)
+	r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	r.send(`${mon}=${data}`)
+},
+getData = (url) => {
+	let r = new XMLHttpRequest();
+	r.open("GET", url);
+	r.onreadystatechange = () => {
+		if (r.readyState == 4 && r.status == 200) {
+			let data = r.responseText;
+			console.info(data)
+		} else return "Erreur du serveur"
+	}
+	r.send()
+};
+
 // The message won't be sent if it's empty or blank
 Input.message.addEventListener("input", () => {
 	if (/^\s*$/.test(Input.message.value)) Button.sendMessage.disabled = true;
