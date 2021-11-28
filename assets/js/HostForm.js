@@ -6,6 +6,8 @@ Button.openHostForm.addEventListener("click", () => {
 	//console.log(Input.nickname.value);
 	// Open form modal
 	Modal.open(Modal.hostForm);
+	// Input disabled when modal is open
+	Input.nickname.disabled="true";
 	PlayerList.querySelector(".HostPlayer").children[0].textContent = Player.nickname
 });
 document.querySelectorAll("input[type='range']").forEach((input) => {
@@ -18,6 +20,7 @@ document.querySelectorAll("input[type='range']").forEach((input) => {
 Button.startHostGame.addEventListener("click", () => {
 	// Close form modal
 	Modal.close();
+	Input.nickname.disabled="false";
 	// Close active containers
 	toggleDisplay(Container.nickname, "none");
 	toggleDisplay(Container.openHostForm, "none");
