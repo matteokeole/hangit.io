@@ -55,6 +55,7 @@ const Player = {
 			Overlay.hide();
 			let modal = Modal.current;
 			if (modal) modal.classList.remove("current");
+			Input.nickname.disabled=false;
 			setTimeout(() => {toggleDisplay(modal, "none")}, 200)
 		}
 	},

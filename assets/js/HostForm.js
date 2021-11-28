@@ -20,7 +20,6 @@ document.querySelectorAll("input[type='range']").forEach((input) => {
 Button.startHostGame.addEventListener("click", () => {
 	// Close form modal
 	Modal.close();
-	Input.nickname.disabled=false;
 	// Close active containers
 	toggleDisplay(Container.nickname, "none");
 	toggleDisplay(Container.openHostForm, "none");
