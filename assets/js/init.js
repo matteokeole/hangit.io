@@ -5,6 +5,9 @@ const Player = {
 		nicknameColor: null,
 		score: 0
 	},
+	Chat = {
+		lastMessageSender: null
+	},
 	HiddenWord = {
 		originalWord: "", // Chosen word
 		displayWord: "", // This is the word displayed on the page
@@ -17,6 +20,7 @@ const Player = {
 		refreshSpan: () => {Container.gameContainer.querySelector("#HiddenWord").textContent = HiddenWord.displayWord}
 	},
 	Message = {
+		commandPrefixTip: "Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient correctement interprétées.",
 		alphaNumValue: "❌ Veuillez rentrer une valeur alphanumérique ci-dessus",
 		requiredField: "❌ Ce champ est requis",
 		onlyOneLetter: "❌ Ecrivez seulement une lettre",
@@ -97,7 +101,7 @@ const Player = {
 		message: Container.gameContainer.querySelector("#MessageInput")
 	},
 	Canvas = Container.gameContainer.querySelector("#Canvas"),
-	JoinHelp = Main.querySelector(".JoinHelp"),
+	GameTip = Main.querySelector(".GameTip"),
 	Word = Container.gameContainer.querySelector("#word"),
 	GameEndTitle = Container.restartGame.querySelector(".RestartGameContainer h3"),
 	PlayerList = Modal.hostForm.querySelector(".PlayerList"),
@@ -128,10 +132,9 @@ const Player = {
 		if (Round.currentIndex > Round.max) {
 			// All rounds finished, game ended
 			toggleDisplay(Container.gameContainer, "none");
-			GameEndTitle.textContent = "Partie terminée!"
 			toggleDisplay(Container.restartGame)
 		} else {
-			console.warn(`Début du round ${Round.currentIndex}`);
+			sendMessage(true, `Début du round ${Round.currentIndex} !`);
 			// Display round number
 			Container.gameContainer.children[0].children[0].textContent = Round.currentIndex;
 			Layer.round.children[0].textContent = Round.currentIndex;
@@ -154,9 +157,7 @@ const Player = {
 			Round.currentPlayerIndex = 0;
 			nextRound()
 		} else {
-			// Round not finished
-			console.info(`Au tour de ${playerList[Round.currentPlayerIndex]} !`);
-			// Increment player index
+			// Round not finished, increment player index
 			Round.currentPlayerIndex++;
 			// Clear player data
 			HiddenWord.sentLetters = [];

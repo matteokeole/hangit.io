@@ -19,7 +19,7 @@
 }
 
 /* Single message element */
-.Message {padding: 4px}
+.Message {padding: 4px 4px 0 4px}
 
 /* Message sender */
 .MessageAuthor {
