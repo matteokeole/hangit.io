@@ -228,15 +228,18 @@ const Player = {
 		r.send(`${mon}=${data}`)
 	},
 	getData = (url) => {
-		let r = new XMLHttpRequest();
+		let r = new XMLHttpRequest(),data="";
 		r.open("GET", url);
 		r.onreadystatechange = () => {
 			if (r.readyState == 4 && r.status == 200) {
-				let data = r.responseText;
-				console.info(data)
+				 data = r.responseText;
+				// console.log(data);
+				// return data;
+				//console.info(data)
+				updateResult(data);
 			} else return "Erreur du serveur"
 		}
-		r.send()
+		r.send();
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
@@ -245,7 +248,13 @@ const Player = {
 			color += hex[Math.floor(13 * Math.random())]
 		};
 		return color
+	},
+	updateResult = (data) => {
+		return data;	
 	};
+	let current_url = document.location.href;
+	console.log(getData('https://luha.alwaysdata.net/api/'));
+    //queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
 // Event listeners
 // Hide host form modal when Escape key pressed
 addEventListener("keydown", (e) => {
