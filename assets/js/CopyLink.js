@@ -16,7 +16,7 @@ r.addEventListener("load", () => {
     data = JSON.parse(r.response);
     if (data.liens) {
         // The player is about to join a game
-        toggleDisplay(Container.nickname);
+        toggleDisplay(Container.nickname, "flex");
         toggleDisplay(Container.joinGame);
         console.info("Status: Joining game")
     } else if (current_url.includes("?")) {

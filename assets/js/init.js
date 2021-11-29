@@ -58,7 +58,7 @@ const Player = {
 			Overlay.hide();
 			let modal = Modal.current;
 			if (modal) modal.classList.remove("current");
-			Input.nickname.disabled=false;
+			Input.nickname.disabled = false;
 			setTimeout(() => {toggleDisplay(modal, "none")}, 200)
 		}
 	},
@@ -129,6 +129,7 @@ const Player = {
 		// Start a new game (player max number = 4)
 		// Show game content
 		toggleDisplay(Container.gameContainer, "flex");
+		resizeChat();
 		Round.max = maxRounds;
 		Container.gameContainer.children[0].children[1].textContent = Round.max;
 		nextRound()
@@ -140,6 +141,7 @@ const Player = {
 		toggleDisplay(Container.nickname, "none");
 		toggleDisplay(Container.joinGame, "none");
 		toggleDisplay(Container.gameContainer, "flex");
+		resizeChat()
 	},
 	nextRound = () => {
 		// Force next round
@@ -277,12 +279,12 @@ const Player = {
 		};
 		return color
 	},
-	/*resizeChat = () => {
+	resizeChat = () => {
 		let height = 0;
 		if (window.innerHeight <= 600) height = 200;
 		else height = document.querySelector(".GameInnerContainer3").offsetHeight;
 		ChatContainer.style.height = `${height}px`
-	},*/
+	},
 	updateResult = (data) => {console.log(data)};
 let current_url = document.location.href;
 console.log(getData('https://luha.alwaysdata.net/api/'));

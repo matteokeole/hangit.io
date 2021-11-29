@@ -16,7 +16,8 @@ const SubmitWord = (word) => {
 	// Highlight spaces and hyphens
 	checkForCharInWord(" ");
 	checkForCharInWord("-");
-	HiddenWord.refreshSpan()
+	HiddenWord.refreshSpan();
+	resizeChat()
 };
 
 // Submit word event listener
