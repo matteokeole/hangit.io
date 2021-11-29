@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Content-type: text/html; charset=UTF-8'); 
@@ -51,11 +52,12 @@ class Game_Server
 		$setmessage->execute(array($text,$this->getgame(),$this->getplayer()));
 	}
 =======
+=======
+>>>>>>> 9b5876d53c9ffef963c3fd7695ba0e95108ca074
 	header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 	header("Content-type: text/html; charset=UTF-8"); 
 	header("Access-Control-Allow-Headers: X-Requested-With");
->>>>>>> fb056af7cbf135c40e783a07ffd86df4fe2f870e
 
 	class Game_Server {
 		private $bdd, $game, $chat, $player, $hiddenword;

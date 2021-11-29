@@ -7,6 +7,7 @@
 @import url(Header.css);
 @import url(Container.css);
 @import url(GameContainer.css);
+@import url(GameTip.css);
 @import url(Form.css);
 @import url(Button.css);
 @import url(Keyframe.css);
@@ -28,19 +29,15 @@ h1, h3 {margin: 12px 0}
 ::-moz-selection {background-color: var(--primary-light)}
 ::selection {background-color: var(--primary-light)}
 header h1::-moz-selection,
-.JoinHelp::-moz-selection {
-	background-color: rgba(0, 0, 0, 0.1)
-}
-header h1::selection,
-.JoinHelp::selection {
-	background-color: rgba(0, 0, 0, 0.1)
-}
+.GameTip::-moz-selection,
 .RoundLayer::-moz-selection,
 .RoundNumber::-moz-selection,
 .RoundPlayerLayer::-moz-selection,
 .RoundPlayer::-moz-selection {
 	background-color: rgba(0, 0, 0, 0.2)
 }
+header h1::selection,
+.GameTip::selection,
 .RoundLayer:selection,
 .RoundNumber:selection,
 .RoundPlayerLayer:selection,
@@ -73,8 +70,8 @@ main {
 
 /* 768px max */
 @media screen and (max-width: 768px) {
-	header {padding: 12px}
-	.PageTitle {font-size: 28px}
+	header {display: none}
+	main {padding-top: 8px}
 	.Container {max-width: 100%}
 	.Modal {max-width: 100%}
 }

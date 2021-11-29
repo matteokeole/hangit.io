@@ -28,10 +28,3 @@
 
 /*.Container.restart h3.win {color: var(--valid)}
 .Container.restart h3.lose {color: var(--invalid)}
-
-/* Help message about joining hosted games (not a container but eh, kinda) */
-.JoinHelp {
-	margin-top: 10px;
-	opacity: 0.5;
-	text-align: center
-}

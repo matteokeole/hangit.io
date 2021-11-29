@@ -1,28 +1,3 @@
-// Send/get data functions
-const sendData = (mon, data) => {
-	var r = new XMLHttpRequest();
-	r.onreadystatechange = function() {
-		if (r.readyState == 4) {
-			if (r.status == 200) console.info(r.response);
-			else console.error("Erreur du serveur")
-		}
-	}
-	r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true)
-	r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	r.send(`${mon}=${data}`)
-},
-getData = (url) => {
-	let r = new XMLHttpRequest();
-	r.open("GET", url);
-	r.onreadystatechange = () => {
-		if (r.readyState == 4 && r.status == 200) {
-			let data = r.responseText;
-			console.info(data)
-		} else return "Erreur du serveur"
-	}
-	r.send()
-};
-
 // The message won't be sent if it's empty or blank
 Input.message.addEventListener("input", () => {
 	if (/^\s*$/.test(Input.message.value)) Button.sendMessage.disabled = true;
@@ -48,7 +23,11 @@ const checkMessage = (msg) => {
 				// Add letter to submitted letters
 				HiddenWord.sentLetters.push(msg);
 				// Check for letter in hidden word
-				HiddenWord.currentInputValidity = checkForCharInWord(msg)
+				HiddenWord.currentInputValidity = checkForCharInWord(msg);
+				if (HiddenWord.originalWord == HiddenWord.displayWord) {
+					Player.score += 100;
+					nextRoundPlayer()
+				}
 			}
 		} else if (msg.length > 1) {
 			// Word sent, reveal it on the hidden word if valid
@@ -64,7 +43,7 @@ const checkMessage = (msg) => {
 				// Check if the hidden word is found
 				HiddenWord.currentInputValidity = checkForFullWord(msg);
 				// If found, increment score & next round
-				if (HiddenWord.currentInputValidity) {
+				if (HiddenWord.originalWord == HiddenWord.displayWord) {
 					Player.score += 200;
 					nextRoundPlayer()
 				}
@@ -110,14 +89,24 @@ sendMessage = (auto, msg, authorName, authorColor) => {
 	// Non-automatic message
 	if (!auto) {
 		// User message, create author section
-		let author = document.createElement("span"),
-			date = document.createElement("span");
-		author.className = "MessageAuthor";
+		if (Chat.lastMessageSender == authorName) {
+			// This is the same author who sent the last message
+			// Do not display the author element and reduce message padding
+			message.style.padding = "0 4px"
+		} else {
+			// Message from a new author
+			// Display an author element
+			let author = document.createElement("span");
+			author.className = "MessageAuthor";
+			author.textContent = authorName;
+			author.style.color = authorColor;
+			message.appendChild(author)
+		}
+		// Update last message author
+		Chat.lastMessageSender = authorName;
+		let date = document.createElement("span");
 		date.className = "MessageDate";
-		author.textContent = authorName;
-		author.style.color = authorColor;
 		date.textContent = "maintenant";
-		message.appendChild(author);
 		inner.appendChild(date)
 	}
 	message.appendChild(inner);

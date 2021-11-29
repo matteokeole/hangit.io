@@ -6,6 +6,8 @@ Button.openHostForm.addEventListener("click", () => {
 	//console.log(Input.nickname.value);
 	// Open form modal
 	Modal.open(Modal.hostForm);
+	// Input disabled when modal is open
+	Input.nickname.disabled=true;
 	PlayerList.querySelector(".HostPlayer").children[0].textContent = Player.nickname
 });
 document.querySelectorAll("input[type='range']").forEach((input) => {
@@ -21,7 +23,7 @@ Button.startHostGame.addEventListener("click", () => {
 	// Close active containers
 	toggleDisplay(Container.nickname, "none");
 	toggleDisplay(Container.openHostForm, "none");
-	toggleDisplay(JoinHelp, "none");
+	GameTip.textContent = Message.commandPrefixTip;
 	// Start game
 	// Send max rounds value to  server
 	// sendData("Max_Rounds", Input.maxRounds.value);
