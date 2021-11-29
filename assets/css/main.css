@@ -11,7 +11,6 @@
 @import url(GameTip.css);
 @import url(Form.css);
 @import url(Button.css);
-@import url(Keyframe.css);
 
 /* Lilita One import */
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
@@ -76,6 +75,48 @@ main {
 	padding: 0 8px
 }
 
+/* Keyframes */
+
+/* Fade in */
+@-webkit-keyframes FadeIn {
+	from {
+		visibility: hidden;
+		opacity: 0
+	} to {
+		visibility: visible;
+		opacity: 1
+	}
+}
+@keyframes FadeIn {
+	from {
+		visibility: hidden;
+		opacity: 0
+	} to {
+		visibility: visible;
+		opacity: 1
+	}
+}
+
+/* Fade out */
+@-webkit-keyframes FadeOut {
+	from {
+		visibility: visible;
+		opacity: 1
+	} to {
+		visibility: hidden;
+		opacity: 0
+	}
+}
+@-webkit-keyframes FadeOut {
+	from {
+		visibility: visible;
+		opacity: 1
+	} to {
+		visibility: hidden;
+		opacity: 0
+	}
+}
+
 /* Media queries */
 
 /* 1140px max */
@@ -102,7 +143,7 @@ main {
 /* 768px max */
 @media screen and (max-width: 768px) {
 	header {padding: 0 12px}
-	.Container {max-width: 100%}
+	.Container {max-width: calc(100% - 16px)}
 	.Modal {max-width: 100%}
 }
 
@@ -123,5 +164,5 @@ main {
 
 /* 480px max */
 @media screen and (max-width: 480px) {
-	.HostFormModal input[type="range"] {width: 100%}
+	#MaxRoundsInput {width: 100%}
 }
