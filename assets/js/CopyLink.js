@@ -22,13 +22,15 @@ r.addEventListener("load", () => {
     } else if (current_url.includes("?")) {
         // There is a link but it is invalid (not into the database)
         GameTip.textContent = Return.tip.invalidLink;
-        toggleDisplay(GameTip)
+        toggleDisplay(GameTip);
+        console.info("Status: Invalid invitation link")
     } else if (!data.liens) {
         // The player is about to host a new game
         toggleDisplay(Container.nickname);
         toggleDisplay(Container.openHostForm);
         GameTip.textContent = Return.tip.joinGame;
         toggleDisplay(GameTip);
+        console.info("Status: Hosting game");
         sendData("Link_game", Input.invitationLink.value)
     }
 })

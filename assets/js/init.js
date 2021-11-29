@@ -252,8 +252,8 @@ const Player = {
 	},
 	getData = (url) => {
 		fetch(url)
-		 .then(response => response.json())
-		 .then(data => {return data});
+			.then(response => response.json())
+			.then(data => {return data});
 		/*
 		let data="terminaison";
 		let req = new XMLHttpRequest();
