@@ -66,10 +66,10 @@
 			$this->player = $this->getplayer();
 		    return true;
 		}
-		public function Setplayer_on_partie($name, $score,$game) {
-			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game) VALUES (?, ?, ?)");
-			$setmessage->execute(array($name, $score,$game));
-			$this->player = $this->getplayer();
+		public function Setplayer_on_partie($name,$game_url,$score) {
+			$setmessage = $this->bdd->prepare("INSERT INTO player (nickname,id_game,score) VALUES (?,(SELECT id_game FROM game WHERE link_game=?),?);");
+			$setmessage->execute(array($name,$game_url,$score));
+			#$this->player = $this->getplayer();
 		    return true;
 		}
 		public function Edit_player($name, $score) :void {
@@ -107,8 +107,12 @@
 	$Partie = new Game_Server();
 	if (isset($_POST["Link_game"])) {
 		$Link_game = htmlspecialchars($_POST["Link_game"]);
-		$Partie->Set_Game("0", "0", "0", $Link_game);
-		echo true;
+		if ($Partie->url_existe($Link_game )){
+			echo "erreur lien existe";
+		}else{
+			$Partie->Set_Game("0", "0", "0", $Link_game);
+			echo true;
+		}
 	}
 	if (isset($_POST["First_player"])) {
 		$First_player = htmlspecialchars($_POST["First_player"]);
@@ -118,10 +122,10 @@
 	}
 
    
-	if (isset($_POST["inite"])) {
+	if (isset($_POST["invite"])) {
 		$First_player = htmlspecialchars($_POST["First_player"]);
 		$Partie->Edit_Game("0", "0", "1");
-		$Partie->Setplayer_on_partie($First_player, "0",);
+		$Partie->Setplayer_on_partie($First_player, "0",'0');
 		echo true;
 	}
 

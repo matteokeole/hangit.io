@@ -7,6 +7,7 @@ Button.copyLink.addEventListener("click", () => {
 	document.execCommand("copy")
 });
 
+
 let req = new XMLHttpRequest(),
 	url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url}`,
 	data = "";
@@ -24,6 +25,7 @@ req.onreadystatechange = function() {
 			// There is a link but it is invalid
 			GameTip.textContent = Return.tip.invalidLink;
 			toggleDisplay(GameTip)
+			console.log('test');
 		} else if (!data.liens) {
 			// Host game
 			toggleDisplay(Container.nickname);
