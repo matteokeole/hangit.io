@@ -299,8 +299,7 @@ const Player = {
 	},
 	updateResult = (data) => {console.log(data)};
 let current_url = document.location.href;
-console.log(getData('https://luha.alwaysdata.net/api/'));
-//queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
+// queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
 // Event listeners
 // Hide host form modal when Escape key pressed
 addEventListener("keydown", (e) => {
