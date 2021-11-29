@@ -134,6 +134,8 @@ const Player = {
 		nextRound()
 	},
 	joinGame = () => {
+		// Send link to database
+		sendData("Invite", current_url);
 		// Toggle containers display
 		toggleDisplay(Container.nickname, "none");
 		toggleDisplay(Container.joinGame, "none");
