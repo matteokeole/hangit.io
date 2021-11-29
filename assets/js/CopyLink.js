@@ -19,7 +19,11 @@ if (req.status == 200) {
     		toggleDisplay(Container.nickname);
     		toggleDisplay(Container.joinGame);
     		console.log('je rejoint une game'); 
-
+    	}else{
+    		toggleDisplay(Container.nickname);
+    		toggleDisplay(Container.openHostForm);
+    		GameTip.textContent=Return.tip.joinGame;
+    		toggleDisplay(GameTip);
     	}
     	console.log(data);
     	console.log(data);
