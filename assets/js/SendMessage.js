@@ -1,28 +1,3 @@
-// Send/get data functions
-const sendData = (mon, data) => {
-	var r = new XMLHttpRequest();
-	r.onreadystatechange = function() {
-		if (r.readyState == 4) {
-			if (r.status == 200) console.info(r.response);
-			else console.error("Erreur du serveur")
-		}
-	}
-	r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true)
-	r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	r.send(`${mon}=${data}`)
-},
-getData = (url) => {
-	let r = new XMLHttpRequest();
-	r.open("GET", url);
-	r.onreadystatechange = () => {
-		if (r.readyState == 4 && r.status == 200) {
-			let data = r.responseText;
-			console.info(data)
-		} else return "Erreur du serveur"
-	}
-	r.send()
-};
-
 // The message won't be sent if it's empty or blank
 Input.message.addEventListener("input", () => {
 	if (/^\s*$/.test(Input.message.value)) Button.sendMessage.disabled = true;
