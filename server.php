@@ -34,7 +34,10 @@
 		}
 		public function url_existe($url)
 		{
-			
+			$url_existe=$this->bdd->prepare('SELECT * from game WHERE link_game =?');
+			$url_existe->execute(array($url));
+			return $url_existe->rowCount();
+
 		}
 		public function getchat() :string {
 			$setgame = $this->bdd->query("SELECT * FROM `chat` ORDER BY id_chat DESC LIMIT 1");
@@ -126,6 +129,8 @@
 		echo json_encode($Partie->get_all_player_game());
 	}
 	if ($_GET['liens']) {
-		echo json_encode($Partie->geturlgame());
+		$mon_liens=htmlspecialchars($_GET['liens']);
+		$arrayName = array('liens' => $Partie->url_existe($mon_liens));
+		echo json_encode($arrayName);
 	}
 ?>

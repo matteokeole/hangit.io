@@ -7,13 +7,21 @@ Button.copyLink.addEventListener("click", () => {
 	document.execCommand("copy")
 })
 
-url='server.php?liens=1';
+url='server.php?liens='+current_url;
 let req = new XMLHttpRequest();
 req.open('GET', url);
 req.send();
 req.onreadystatechange = function() {
 if (req.status == 200) {
-    	let data = req.responseText;
+    	let data = JSON.parse(req.responseText);
+    	//data.liens=1;
+    	if (data.liens==1) { 
+    		toggleDisplay(Container.nickname);
+    		toggleDisplay(Container.joinGame);
+    		console.log('je rejoint une game'); 
+
+    	}
+    	console.log(data);
     	console.log(data);
     	//console.log(data);
     	//return data 
