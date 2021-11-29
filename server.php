@@ -91,13 +91,13 @@
 			$setmessage->execute(array($word, $this->getplayer()));
 			$this->hiddenword = $this->gethiddenword();
 		}
-		/*
+		
 		public function gethiddenword() {
 			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer() . " ORDER BY id_player DESC LIMIT 1");
 			$value = $setgame->fetch();
 			return $value["word"];
 		}
-
+/*
 		public function ($value='')
 		{
 			# code...
@@ -114,10 +114,11 @@
 			echo true;
 		}
 	}
-	if (isset($_POST["First_player"])) {
+	if (isset($_POST["First_player"], $_POST["color"])) {
 		$First_player = htmlspecialchars($_POST["First_player"]);
+		$color = htmlspecialchars($_POST["color"]);
 		$Partie->Edit_Game("0", "0", "1");
-		$Partie->Setplayer($First_player, "0", $_POST['color']);
+		$Partie->Setplayer($First_player, "0", $color);
 		echo true;
 	}
 

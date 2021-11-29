@@ -11,7 +11,7 @@ const SetNickname = (nickname) => {
 		} else {
 			Player.nickname = nickname;
 			// Send player nickname to server
-			sendData("First_player", Player.nickname);
+			sendDataTwo("First_player", Player.nickname, "color", Player.nicknameColor);
 			localStorage.setItem("nickname", Player.nickname)
 		}
 	} else {
