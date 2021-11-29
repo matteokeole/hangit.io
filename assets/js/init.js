@@ -289,6 +289,7 @@ const Player = {
 		for (let i = 0; i < 6; i++) {
 			color += hex[Math.floor(13 * Math.random())]
 		};
+		sendData('color', color);
 		return color
 	},
 	resizeChat = () => {

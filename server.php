@@ -60,9 +60,9 @@
 			$value = $setgame->fetch();
 			return $value["score"];
 		}
-		public function Setplayer($name, $score) {
-			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game) VALUES (?, ?, ?)");
-			$setmessage->execute(array($name, $score, $this->getgame()));
+		public function Setplayer($name, $score, $color) {
+			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, color) VALUES (?, ?, ?, ?)");
+			$setmessage->execute(array($name, $score, $this->getgame(), $color));
 			$this->player = $this->getplayer();
 		    return true;
 		}
@@ -117,7 +117,7 @@
 	if (isset($_POST["First_player"])) {
 		$First_player = htmlspecialchars($_POST["First_player"]);
 		$Partie->Edit_Game("0", "0", "1");
-		$Partie->Setplayer($First_player, "0");
+		$Partie->Setplayer($First_player, "0", $_POST['color']);
 		echo true;
 	}
 
