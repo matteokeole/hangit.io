@@ -6,19 +6,19 @@ const SetNickname = (nickname) => {
 			// Guest player
 			Player.nickname = Player.defaultNickname;
 			// Send player nickname to server
-			sendDataTwo("First_player", Player.nickname, "color", Player.nicknameColor);
-			localStorage.removeItem("nickname")
+			localStorage.removeItem("nickname");
+			sendDataTwo("First_player", Player.nickname, "color", Player.nicknameColor)
 		} else {
 			Player.nickname = nickname;
 			// Send player nickname to server
-			sendDataTwo("First_player", Player.nickname, "color", Player.nicknameColor);
-			localStorage.setItem("nickname", Player.nickname)
+			localStorage.setItem("nickname", Player.nickname);
+			sendDataTwo("First_player", Player.nickname, "color", Player.nicknameColor)
 		}
 	} else {
 		// Guest player
 		Player.nickname = Player.defaultNickname;
 		// Send player nickname to server
-		sendDataTwo("First_player", Player.nickname, "color", Player.nicknameColor);
-		localStorage.removeItem("nickname")
+		localStorage.removeItem("nickname");
+		sendDataTwo("First_player", Player.nickname, "color", Player.nicknameColor)
 	}
 }

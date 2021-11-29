@@ -34,5 +34,3 @@ r.addEventListener("load", () => {
 		sendData("Link_game", Input.invitationLink.value)
 	}
 })
-
-https://m2x.alwaysdata.net/hangit/server.php?liens=getmessage=${current_url}
