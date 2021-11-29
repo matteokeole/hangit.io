@@ -90,6 +90,7 @@ const Player = {
 		restartGame: Main.querySelector(".RestartGameContainer")
 	},
 	Form = {sendMessage: Container.gameContainer.querySelector(".MessageForm")},
+	ChatContainer = Container.gameContainer.querySelector(".ChatContainer"),
 	Button = {
 		openHostForm: Container.openHostForm.children[0],
 		joinGame: Container.joinGame.children[0],
@@ -249,12 +250,16 @@ const Player = {
 		};
 		return color
 	},
-	updateResult = (data) => {
-		return data;	
-	};
-	let current_url = document.location.href;
-	console.log(getData('https://luha.alwaysdata.net/api/'));
-    //queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
+	resizeChat = () => {
+		let height = 0;
+		if (window.innerHeight <= 600) height = 200;
+		else height = document.querySelector(".GameInnerContainer3").offsetHeight;
+		ChatContainer.style.height = `${height}px`
+	},
+	updateResult = (data) => {return data};
+let current_url = document.location.href;
+console.log(getData('https://luha.alwaysdata.net/api/'));
+//queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
 // Event listeners
 // Hide host form modal when Escape key pressed
 addEventListener("keydown", (e) => {
@@ -292,4 +297,7 @@ Input.nickname.nextElementSibling.style.color = Player.nicknameColor;
 document.documentElement.style.setProperty("--nickname-color", Player.nicknameColor);
 document.documentElement.style.setProperty("--nickname-color-light", `${Player.nicknameColor}30`);
 // Restart game
-Button.restart.addEventListener("click", () => {location.href = ""})
+Button.restart.addEventListener("click", () => {location.href = ""});
+// Window resize function on load & resize
+addEventListener("load", resizeChat);
+addEventListener("resize", resizeChat)

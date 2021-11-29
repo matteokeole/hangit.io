@@ -106,10 +106,7 @@ main {
 		width: 150px;
 		margin: auto
 	}
-	.ChatContainer {
-		width: 100%;
-		height: 300px
-	}
+	.ChatContainer {width: 100%}
 }
 
 /* 480px max */
