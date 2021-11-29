@@ -76,7 +76,7 @@
 			$setmessage = $this->bdd->prepare("UPDATE `player` SET nickname = ?, score = ? WHERE id_player = ?");
 			$setmessage->execute(array($name, $score, $this->getplayer()));
 		}
-		public function get_all_message_game() {
+		public function get_all_message_game($game) {
 			$getmessage = $this->bdd->query("SELECT  player.nickname, message.text FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.id_game = " . $this->getgame());
 			$value = $getmessage->fetchAll();
 			return $value;
