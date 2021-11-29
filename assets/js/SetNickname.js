@@ -5,15 +5,20 @@ const SetNickname = (nickname) => {
 		if (/^\s*$/.test(nickname)) {
 			// Guest player
 			Player.nickname = Player.defaultNickname;
+			// Send player nickname to server
 			sendData("First_player", Player.nickname);
 			localStorage.removeItem("nickname")
 		} else {
 			Player.nickname = nickname;
+			// Send player nickname to server
+			sendData("First_player", Player.nickname);
 			localStorage.setItem("nickname", Player.nickname)
 		}
 	} else {
 		// Guest player
 		Player.nickname = Player.defaultNickname;
+		// Send player nickname to server
+		sendData("First_player", Player.nickname);
 		localStorage.removeItem("nickname")
 	}
 }
