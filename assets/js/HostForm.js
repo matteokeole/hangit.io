@@ -3,12 +3,11 @@ Button.openHostForm.addEventListener("click", () => {
 	SetNickname(Input.nickname.value);
 	// Send player nickname to server
 	// sendData("First_player", Input.nickname.value);
-	//console.log(Input.nickname.value);
 	// Open form modal
 	Modal.open(Modal.hostForm);
 	// Input disabled when modal is open
 	Input.nickname.disabled = true;
-	PlayerList.querySelector(".HostPlayer").children[0].textContent = Player.nickname
+	PlayerList.querySelector(".HostPlayer").textContent = Player.nickname
 });
 document.querySelectorAll("input[type='range']").forEach((input) => {
 	input.addEventListener("input", () => {
