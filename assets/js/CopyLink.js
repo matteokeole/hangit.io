@@ -6,34 +6,29 @@ Button.copyLink.addEventListener("click", () => {
 	Input.invitationLink.setSelectionRange(0, Input.invitationLink.value.length);
 	document.execCommand("copy")
 });
-
-
-let req = new XMLHttpRequest(),
-	url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url}`,
-	data = "";
-req.open("GET", url);
-req.send();
-req.onreadystatechange = function() {
-	if (req.status == 200) {
-		data = JSON.parse(req.response);
-		if (data.liens) {
-			// Join game
-			toggleDisplay(Container.nickname);
-			toggleDisplay(Container.joinGame);
-			console.info("Joining game")
-		} else if (current_url.includes("?")) {
-			// There is a link but it is invalid
-			GameTip.textContent = Return.tip.invalidLink;
-			toggleDisplay(GameTip)
-			console.log('test');
-		} else if (!data.liens) {
-			// Host game
-			toggleDisplay(Container.nickname);
-			toggleDisplay(Container.openHostForm);
-			GameTip.textContent = Return.tip.joinGame;
-			toggleDisplay(GameTip);
-			sendData("Link_game", Input.invitationLink.value)
-		}
-	}
-}
-// console.log(test('https://luha.alwaysdata.net/api/'))
+// Get URL invitation link
+let r = new XMLHttpRequest(),
+    url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url}`,
+    data = "";
+r.open("GET", url);
+r.send();
+r.addEventListener("load", () => {
+    data = JSON.parse(r.response);
+    if (data.liens) {
+        // The player is about to join a game
+        toggleDisplay(Container.nickname);
+        toggleDisplay(Container.joinGame);
+        console.info("Status: Joining game")
+    } else if (current_url.includes("?")) {
+        // There is a link but it is invalid (not into the database)
+        GameTip.textContent = Return.tip.invalidLink;
+        toggleDisplay(GameTip)
+    } else if (!data.liens) {
+        // The player is about to host a new game
+        toggleDisplay(Container.nickname);
+        toggleDisplay(Container.openHostForm);
+        GameTip.textContent = Return.tip.joinGame;
+        toggleDisplay(GameTip);
+        sendData("Link_game", Input.invitationLink.value)
+    }
+})
