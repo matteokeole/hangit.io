@@ -26,6 +26,12 @@
 			$value = $setgame->fetch();
 			return $value["id_game"];
 		}
+		public function geturlgame():string
+		{
+			$setgame=$this->bdd->query('SELECT * from game order by id_game desc limit 1');
+			$value=$setgame->fetch();
+			return $value['link_game'];
+		}
 		public function getchat() :string {
 			$setgame = $this->bdd->query("SELECT * FROM `chat` ORDER BY id_chat DESC LIMIT 1");
 			$value = $setgame->fetch();
@@ -76,6 +82,10 @@
 			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer() . " ORDER BY id_player DESC LIMIT 1");
 			$value = $setgame->fetch();
 			return $value["word"];
+		}
+		public function ($value='')
+		{
+			# code...
 		}
 	}
 
