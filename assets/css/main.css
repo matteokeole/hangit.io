@@ -128,16 +128,16 @@ main {
 @media screen and (max-width: 968px) {
 	.GameContainer {flex-direction: column}
 	.GameInnerContainer {max-width: 100%}
-	.ConnectedPlayers {
+	.GameContainer .ConnectedPlayers {
 		flex-direction: row;
 		width: 100%;
 		margin-bottom: 8px
 	}
-	.ConnectedPlayers .Player {
+	.GameContainer .ConnectedPlayers .Player {
 		width: 25%;
 		margin: 0 8px 0 0
 	}
-	.ConnectedPlayers .Player:last-of-type {margin-right: 0}
+	.GameContainer .ConnectedPlayers .Player:last-of-type {margin-right: 0}
 }
 
 /* 768px max */
@@ -149,6 +149,13 @@ main {
 
 /* 600px max */
 @media screen and (max-width: 600px) {
+	.HostFormModal .PlayerList {flex-direction: column}
+	.HostFormModal .PlayerList .Player {
+		width: 100%;
+		height: 40px;
+		margin: 0 0 4px 0
+	}
+	.HostFormModal .PlayerList .Player:last-of-type {margin: 0}
 	.GameContainer {width: 100%}
 	.GameInnerContainer2 {flex-direction: column}
 	.GameInnerContainer3 {
