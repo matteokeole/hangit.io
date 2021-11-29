@@ -130,7 +130,7 @@ Form.sendMessage.addEventListener("submit", (e) => {
 	let msg = Input.message.value;
 
 	// Send message to server
-	// sendData("message", msg);
+	sendData("message", msg);
 	// console.log(getData("https://m2x.alwaysdata.net/hangit/server.php?allmessage=1"));
 	// Send/check message
 	sendMessage(false, msg, Player.nickname, Player.nicknameColor);

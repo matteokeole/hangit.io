@@ -5,6 +5,7 @@ const SetNickname = (nickname) => {
 		if (/^\s*$/.test(nickname)) {
 			// Guest player
 			Player.nickname = Player.defaultNickname;
+			sendData("First_player", Player.nickname);
 			localStorage.removeItem("nickname")
 		} else {
 			Player.nickname = nickname;

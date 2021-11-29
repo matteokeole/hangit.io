@@ -32,6 +32,10 @@
 			$value=$setgame->fetch();
 			return $value['link_game'];
 		}
+		public function url_existe($url)
+		{
+			
+		}
 		public function getchat() :string {
 			$setgame = $this->bdd->query("SELECT * FROM `chat` ORDER BY id_chat DESC LIMIT 1");
 			$value = $setgame->fetch();
@@ -78,15 +82,17 @@
 			$setmessage->execute(array($word, $this->getplayer()));
 			$this->hiddenword = $this->gethiddenword();
 		}
+		/*
 		public function gethiddenword() {
 			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer() . " ORDER BY id_player DESC LIMIT 1");
 			$value = $setgame->fetch();
 			return $value["word"];
 		}
+
 		public function ($value='')
 		{
 			# code...
-		}
+		}*/
 	}
 
 	$Partie = new Game_Server();
@@ -118,5 +124,8 @@
 	}
 	if (isset($_GET["allmessage"])) {
 		echo json_encode($Partie->get_all_player_game());
+	}
+	if ($_GET['liens']) {
+		echo json_encode($Partie->geturlgame());
 	}
 ?>

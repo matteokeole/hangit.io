@@ -26,6 +26,6 @@ Button.startHostGame.addEventListener("click", () => {
 	GameTip.textContent = Return.tip.commandPrefix;
 	// Start game
 	// Send max rounds value to  server
-	// sendData("Max_Rounds", Input.maxRounds.value);
+	sendData("Max_Rounds", Input.maxRounds.value);
 	startGame(Input.maxRounds.value)
 })

@@ -229,6 +229,26 @@ const Player = {
 		r.send(`${mon}=${data}`)
 	},
 	getData = (url) => {
+		fetch(url)
+		 .then(response => response.json())
+		 .then(data => {return data});
+		/*
+		let data="terminaison";
+		let req = new XMLHttpRequest();
+	    req.open('GET', url);
+	    req.send();
+	     req.onreadystatechange = function(data) {
+	    	if (req.status == 200) {
+	        	return data = req.responseText;
+
+	        	//console.log(data);
+	        	//return data 
+	        	//return data;
+	       		// updateResult(data);
+	    	} 
+	     
+		}
+		/*
 		let r = new XMLHttpRequest(),
 			data = null;
 		r.open("GET", url);
@@ -239,6 +259,7 @@ const Player = {
 			} else return "Erreur du serveur"
 		}
 		r.send()
+		*/
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
@@ -254,9 +275,9 @@ const Player = {
 		else height = document.querySelector(".GameInnerContainer3").offsetHeight;
 		ChatContainer.style.height = `${height}px`
 	},
-	updateResult = (data) => {return data};
+	updateResult = (data) => {console.log(data)};
 let current_url = document.location.href;
-getData("https://luha.alwaysdata.net/api");
+console.log(getData('https://luha.alwaysdata.net/api/'));
 //queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
 // Event listeners
 // Hide host form modal when Escape key pressed
