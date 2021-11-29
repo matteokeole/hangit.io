@@ -316,7 +316,7 @@ Input.nickname.nextElementSibling.style.color = Player.nicknameColor;
 document.documentElement.style.setProperty("--nickname-color", Player.nicknameColor);
 document.documentElement.style.setProperty("--nickname-color-light", `${Player.nicknameColor}30`);
 // Restart game
-Button.restart.addEventListener("click", () => {location.href = ""});
+Button.restart.addEventListener("click", () => {location.href = "https://"});
 // Window resize function on load & resize
 addEventListener("load", resizeChat);
 addEventListener("resize", resizeChat)

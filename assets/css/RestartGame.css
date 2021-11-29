@@ -1,9 +1,9 @@
 /** Win/lose container **/
 
 .RestartGameContainer {
-	display: flex;
+	display: none;
 	flex-direction: column;
-	align-items: center;
+	align-items: center
 }
 
 /* Win/lose title */
@@ -42,17 +42,17 @@
 	flex-direction: column
 }
 
-.PlayerValue {
-	font-size: 18px
-}
+.PlayerValue {font-size: 18px}
 
 .ScoreValue {
 	opacity: 0.5;
 	font-size: 14px
 }
 
+/* Restart button */
 .RestartGameContainer .ContainerActions {
 	width: 100%;
 	margin-top: 8px
 }
+
 #RestartGame {flex-grow: 1}
