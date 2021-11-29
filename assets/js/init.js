@@ -133,6 +133,12 @@ const Player = {
 		Container.gameContainer.children[0].children[1].textContent = Round.max;
 		nextRound()
 	},
+	joinGame = () => {
+		// Toggle containers display
+		toggleDisplay(Container.nickname, "none");
+		toggleDisplay(Container.joinGame, "none");
+		toggleDisplay(Container.gameContainer, "flex");
+	},
 	nextRound = () => {
 		// Force next round
 		Round.currentIndex++;
@@ -269,12 +275,12 @@ const Player = {
 		};
 		return color
 	},
-	resizeChat = () => {
+	/*resizeChat = () => {
 		let height = 0;
 		if (window.innerHeight <= 600) height = 200;
 		else height = document.querySelector(".GameInnerContainer3").offsetHeight;
 		ChatContainer.style.height = `${height}px`
-	},
+	},*/
 	updateResult = (data) => {console.log(data)};
 let current_url = document.location.href;
 console.log(getData('https://luha.alwaysdata.net/api/'));
