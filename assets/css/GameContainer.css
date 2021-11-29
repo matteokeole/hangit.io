@@ -3,42 +3,38 @@
 /* CSS imports */
 @import url(RoundIndicator.css);
 @import url(HiddenWord.css);
-@import url(InnerGameContainer.css);
 @import url(Canvas.css);
 @import url(Chat.css);
 
-.GameContainer {
-	display: flex;
-}
+.GameContainer {display: flex}
 
 .ConnectedPlayers {
-	display: block;
+	display: flex;
+	flex-direction: column;
 	width: 200px;
-	margin-right: 8px;
-	padding: 0;
-	overflow: hidden;
-	box-shadow: none;
-	background-color: transparent
+	margin-right: 8px
 }
 
 .ConnectedPlayers .Player {
-	display: block;
-	margin-bottom: 4px;
-	padding: 8px;
+	margin-bottom: 8px;
+	padding: 4px 8px;
+	overflow: hidden;
 	border-radius: 8px;
-	/*background-color: var(--primary-light)*/
+	background-color: var(--primary-light);
+	text-overflow: ellipsis
 }
 
 .GameInnerContainer {
-	display: block;
-	width: 720px;
+	max-width: 720px;
 	margin: 0 0 16px 0;
 	padding: 8px;
 	border-radius: 8px;
 	background-color: #fff
 }
 
-.GameSubcontainer {
-	display: flex;
-	margin-top: 8px
+.GameInnerContainer2 {display: flex}
+
+.GameInnerContainer3 {
+	min-width: 0;
+	margin-right: 8px
 }

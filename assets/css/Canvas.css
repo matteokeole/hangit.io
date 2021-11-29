@@ -6,7 +6,7 @@
 
 #Canvas {
 	display: block;
-	width: 100%;
+	width: 50%;
 	border-radius: 4px;
 	box-shadow: inset 0 0 0 1px var(--nickname-color-light)
 }

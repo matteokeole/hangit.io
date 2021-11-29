@@ -3,17 +3,15 @@
 .ChatContainer {
 	display: flex;
 	flex-direction: column;
-	width: 300px;
-	height: 509px;
 	border-radius: 4px;
 	background-color: var(--primary-light)
 }
 
 /* Message container */
 .MessageList {
+	flex-grow: 1;
 	margin: 0;
 	padding: 0 0 8px 0;
-	flex-grow: 1;
 	overflow-y: scroll;
 	list-style-type: none
 }
