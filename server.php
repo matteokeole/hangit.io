@@ -122,10 +122,10 @@
 	}
 
    
-	if (isset($_POST["invite"])) {
-		$First_player = htmlspecialchars($_POST["First_player"]);
-		$Partie->Setplayer_on_partie('');
-		$Partie->Setplayer_on_partie($First_player, "0",'0');
+	if (isset($_POST["invite"],$_POST['joinlink'])) {
+		$joinlink = htmlspecialchars($_POST["joinlink"]);
+		$invite = htmlspecialchars($_POST["invite"]);
+		$Partie->Setplayer_on_partie($invite,$joinlink,'0');
 		echo true;
 	}
 

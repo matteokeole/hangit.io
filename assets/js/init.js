@@ -238,6 +238,18 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`${mon}=${data}`)
 	},
+	sendDataTwo = (mon, data,montwo,datatwo) => {
+		var r = new XMLHttpRequest();
+		r.onreadystatechange = function() {
+			if (r.readyState == 4) {
+				if (r.status == 200) console.info(r.response);
+				else console.error("Erreur du serveur")
+			}
+		}
+		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true)
+		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(`${mon}=${data}&${montwo}=${datatwo}`)
+	},
 	getData = (url) => {
 		fetch(url)
 		 .then(response => response.json())
