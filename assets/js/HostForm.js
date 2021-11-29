@@ -14,18 +14,9 @@ document.querySelectorAll("input[type='range']").forEach((input) => {
 	})
 });
 let refreshReadyPlayers = setInterval(() => {
-	let r = new XMLHttpRequest(),
-		url = `https://m2x.alwaysdata.net/hangit/server.php?liens=getmessage=${current_url}`,
-		data = "";
-	r.open("GET", url);
-	r.send();
-	r.addEventListener("load", () => {
-		data = JSON.parse(r.response);
-		console.warn(data)
-	})
-	/*fetch(`https://m2x.alwaysdata.net/hangit/server.php?liens=getmessage=${current_url}`)
+	fetch(`https://m2x.alwaysdata.net/hangit/server.php?liens=getmessage=${current_url}`)
 		.then(response => response.json())
-		.then(data => {console.log(data)})*/
+		.then(data => {console.log(data)})
 }, 1000);
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
