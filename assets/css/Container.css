@@ -29,8 +29,3 @@
 .Container.JoinGameContainer {display: none}
 
 #JoinGame {width: 100%}
-
-/* Win/lose container */
-
-/*.Container.restart h3.win {color: var(--valid)}
-.Container.restart h3.lose {color: var(--invalid)}
