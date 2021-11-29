@@ -1,6 +1,6 @@
 const SetNickname = (nickname) => {
 	// Test for empty or blank nickname
-	if (/^[A-Za-zÀ-ú-_ ]*$/.test(nickname)) {
+	if (/^[A-Za-zÀ-ú0-9-_ ]*$/.test(nickname)) {
 		// Blank nickname
 		if (/^\s*$/.test(nickname)) {
 			// Guest player
