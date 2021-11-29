@@ -128,7 +128,7 @@ const Player = {
 	startGame = (maxRounds) => {
 		// Start a new game (player max number = 4)
 		// Show game content
-		toggleDisplay(Container.gameContainer);
+		toggleDisplay(Container.gameContainer, "flex");
 		Round.max = maxRounds;
 		Container.gameContainer.children[0].children[1].textContent = Round.max;
 		nextRound()

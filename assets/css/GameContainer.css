@@ -6,7 +6,7 @@
 @import url(Canvas.css);
 @import url(Chat.css);
 
-.GameContainer {display: flex}
+.GameContainer {display: none}
 
 .ConnectedPlayers {
 	display: flex;
