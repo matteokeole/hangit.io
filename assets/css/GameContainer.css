@@ -8,7 +8,29 @@
 @import url(Chat.css);
 
 .GameContainer {
-	display: none;
+	display: flex;
+}
+
+.ConnectedPlayers {
+	display: block;
+	width: 200px;
+	margin-right: 8px;
+	padding: 0;
+	overflow: hidden;
+	box-shadow: none;
+	background-color: transparent
+}
+
+.ConnectedPlayers .Player {
+	display: block;
+	margin-bottom: 4px;
+	padding: 8px;
+	border-radius: 8px;
+	/*background-color: var(--primary-light)*/
+}
+
+.GameInnerContainer {
+	display: block;
 	width: 720px;
 	margin: 0 0 16px 0;
 	padding: 8px;

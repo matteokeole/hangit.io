@@ -119,35 +119,47 @@
 				<div class="Container OpenHostFormContainer">
 					<button id="OpenHostForm">Héberger une partie</button>
 				</div>
+				<!-- Join game container -->
+				<div class="Container JoinGameContainer">
+					<button id="JoinGame">Rejoindre la partie</button>
+				</div>
 				<!-- Game container -->
-				<div class="Container GameContainer">
-					<!-- Current round information -->
-					<div class="RoundIndicator">
-						Round <span class="CurrentRound"></span> / <span class="MaxRounds"></span>
+				<div class="GameContainer">
+					<div class="Container ConnectedPlayers">
+						<div class="Player">Bob</div>
+						<div class="Player">Bob</div>
+						<div class="Player">Bob</div>
+						<div class="Player">Bob</div>
 					</div>
-					<!-- Hidden word, canvas and chat -->
-					<div class="GameSubcontainer">
-						<div class="InnerGameContainer">
-							<!-- Hidden word -->
-							<div class="HiddenWordContainer">
-								<div id="HiddenWordAuthorContent">Devinez le mot de <span id="HiddenWordAuthor"></span> !</div>
-								<span id="HiddenWord"></span>
-							</div>
-							<!-- Canvas -->
-							<div class="CanvasContainer">
-								<h3 class="RemainingTries">11 essais restants.</h3>
-								<canvas id="Canvas"></canvas>
-							</div>
+					<div class="Container GameInnerContainer">
+						<!-- Current round information -->
+						<div class="RoundIndicator">
+							Round <span class="CurrentRound"></span> / <span class="MaxRounds"></span>
 						</div>
-						<!-- Chat -->
-						<div class="ChatContainer">
-							<!-- Message list -->
-							<ol class="MessageList"></ol>
-							<!-- Send message form -->
-							<form class="MessageForm" autocomplete="off">
-								<input type="text" name="message" id="MessageInput" placeholder="Message...">
-								<button type="submit" id="SendMessage" disabled>Envoyer</button>
-							</form>
+						<!-- Hidden word, canvas and chat -->
+						<div class="GameSubcontainer">
+							<div class="InnerGameContainer2">
+								<!-- Hidden word -->
+								<div class="HiddenWordContainer">
+									<div id="HiddenWordAuthorContent">Devinez le mot de <span id="HiddenWordAuthor"></span> !</div>
+									<span id="HiddenWord"></span>
+								</div>
+								<!-- Canvas -->
+								<div class="CanvasContainer">
+									<h3 class="RemainingTries">11 essais restants.</h3>
+									<canvas id="Canvas"></canvas>
+								</div>
+							</div>
+							<!-- Chat -->
+							<div class="ChatContainer">
+								<!-- Message list -->
+								<ol class="MessageList"></ol>
+								<!-- Send message form -->
+								<form class="MessageForm" autocomplete="off">
+									<input type="text" name="message" id="MessageInput" placeholder="Message...">
+									<button type="submit" id="SendMessage" disabled>Envoyer</button>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -159,13 +171,13 @@
 					</div>
 				</div>
 				<!-- Help for joining hosted games -->
-				<span class="GameTip">Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.</span>
+				<span class="GameTip"></span>
 			</main>
 		</div>
 		<!-- Scripts -->
 		<script src="assets/js/init.js"></script>
-		<script src="assets/js/SendMessage.js"></script>
 		<script src="assets/js/HostForm.js"></script>
+		<script src="assets/js/SendMessage.js"></script>
 		<script src="assets/js/GenerateLink.js"></script>
 		<script src="assets/js/CopyLink.js"></script>
 		<script src="assets/js/SetNickname.js"></script>

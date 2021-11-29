@@ -19,12 +19,15 @@ const Player = {
 		currentInputValidity: true, // Validity of the current proposed letter
 		refreshSpan: () => {Container.gameContainer.querySelector("#HiddenWord").textContent = HiddenWord.displayWord}
 	},
-	Message = {
-		commandPrefixTip: "Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient correctement interprétées.",
-		alphaNumValue: "❌ Veuillez rentrer une valeur alphanumérique ci-dessus",
-		requiredField: "❌ Ce champ est requis",
-		onlyOneLetter: "❌ Ecrivez seulement une lettre",
-		letterNotInWord: "⛔ Cette lettre n'est pas dans le mot !",
+	Return = {
+		tip: {
+			joinGame: "Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.",
+			invalidLink: "Ce lien n'est pas valide. Demandez à l'hébergeur de vous renvoyer un lien valide.",
+			commandPrefix: "Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient correctement interprétées."
+		},
+		eligibleChars: "❌ Le mot peut contenir uniquement des caractères alphabétiques, des espaces et des tirets (-).",
+		invalidLetter: "⛔ Cette lettre n'est pas dans le mot !",
+		invalidWord: "⛔ Ce n'est pas le bon mot !",
 		gameOver: "🤕 Vous avez fait trop d'erreurs. Vous êtes pendu(e) !"
 	},
 	// DOM elements
@@ -82,12 +85,14 @@ const Player = {
 	Container = {
 		nickname: Main.children[0],
 		openHostForm: Main.children[1],
-		gameContainer: Main.children[2],
+		joinGame: Main.children[2],
+		gameContainer: Main.children[3],
 		restartGame: Main.querySelector(".RestartGameContainer")
 	},
 	Form = {sendMessage: Container.gameContainer.querySelector(".MessageForm")},
 	Button = {
 		openHostForm: Container.openHostForm.children[0],
+		joinGame: Container.joinGame.children[0],
 		copyLink: Modal.hostForm.querySelector("#CopyLink"),
 		startHostGame: Modal.hostForm.querySelector("#StartHostGame"),
 		submitWord: Modal.submitWord.querySelector("#SubmitWord"),
@@ -241,7 +246,6 @@ const Player = {
 		};
 		return color
 	};
-
 // Event listeners
 // Hide host form modal when Escape key pressed
 addEventListener("keydown", (e) => {
@@ -263,6 +267,8 @@ document.querySelectorAll(".Modal .CancelButton").forEach((btn) => {
 	})
 });
 Input.maxRounds.value = Input.maxRounds.min;
+// Display join game tip
+GameTip.textContent = Return.tip.joinGame;
 // Display last used nickname from local storage if it exists
 if (localStorage.getItem("nickname")) {
 	Input.nickname.value = localStorage.getItem("nickname");

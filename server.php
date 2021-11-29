@@ -8,8 +8,8 @@
 		private $bdd, $game, $chat, $player, $hiddenword;
 		// Constructor
 		function __construct() {
-			 $this->bdd = new PDO("mysql:host=mysql-m2x.alwaysdata.net;dbname=m2x_game", "m2x", "moul_976", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-			 $this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->bdd = new PDO("mysql:host=mysql-m2x.alwaysdata.net;dbname=m2x_game", "m2x", "moul_976", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+			$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		// Create new game
 		public function Set_Game($round_number, $max_player, $player_activ, $link_game) :void {

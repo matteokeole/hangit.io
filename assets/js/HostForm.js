@@ -23,7 +23,7 @@ Button.startHostGame.addEventListener("click", () => {
 	// Close active containers
 	toggleDisplay(Container.nickname, "none");
 	toggleDisplay(Container.openHostForm, "none");
-	GameTip.textContent = Message.commandPrefixTip;
+	GameTip.textContent = Return.tip.commandPrefix;
 	// Start game
 	// Send max rounds value to  server
 	// sendData("Max_Rounds", Input.maxRounds.value);
