@@ -66,6 +66,12 @@
 			$this->player = $this->getplayer();
 		    return true;
 		}
+		public function Setplayer_on_partie($name, $score,$game) {
+			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game) VALUES (?, ?, ?)");
+			$setmessage->execute(array($name, $score,$game));
+			$this->player = $this->getplayer();
+		    return true;
+		}
 		public function Edit_player($name, $score) :void {
 			$setmessage = $this->bdd->prepare("UPDATE `player` SET nickname = ?, score = ? WHERE id_player = ?");
 			$setmessage->execute(array($name, $score, $this->getplayer()));
@@ -110,6 +116,15 @@
 		$Partie->Setplayer($First_player, "0");
 		echo true;
 	}
+
+   
+	if (isset($_POST["inite"])) {
+		$First_player = htmlspecialchars($_POST["First_player"]);
+		$Partie->Edit_Game("0", "0", "1");
+		$Partie->Setplayer_on_partie($First_player, "0",);
+		echo true;
+	}
+
 	if (isset($_POST["Max_Rounds"])) {
 		$Max_Rounds = htmlspecialchars($_POST["Max_Rounds"]);
 		$Partie->Edit_Game($Max_Rounds, "4", "1");
