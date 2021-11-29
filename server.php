@@ -124,7 +124,7 @@
    
 	if (isset($_POST["invite"])) {
 		$First_player = htmlspecialchars($_POST["First_player"]);
-		$Partie->Edit_Game("0", "0", "1");
+		$Partie->Setplayer_on_partie('');
 		$Partie->Setplayer_on_partie($First_player, "0",'0');
 		echo true;
 	}
