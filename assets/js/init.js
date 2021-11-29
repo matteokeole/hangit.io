@@ -22,7 +22,7 @@ const Player = {
 	Return = {
 		tip: {
 			joinGame: "Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.",
-			invalidLink: "Ce lien n'est pas valide. Demandez à l'hébergeur de vous renvoyer un lien valide.",
+			invalidLink: "⚠️ Ce lien n'est pas valide. Demandez à l'hébergeur de vous renvoyer un autre lien.",
 			commandPrefix: "Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient correctement interprétées."
 		},
 		eligibleChars: "❌ Le mot peut contenir uniquement des caractères alphabétiques, des espaces et des tirets (-).",

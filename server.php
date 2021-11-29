@@ -128,7 +128,7 @@
 	if (isset($_GET["allmessage"])) {
 		echo json_encode($Partie->get_all_player_game());
 	}
-	if ($_GET['liens']) {
+	if (isset($_GET['liens'])) {
 		$mon_liens=htmlspecialchars($_GET['liens']);
 		$arrayName = array('liens' => $Partie->url_existe($mon_liens));
 		echo json_encode($arrayName);
