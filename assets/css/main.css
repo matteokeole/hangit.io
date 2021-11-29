@@ -7,6 +7,7 @@
 @import url(Header.css);
 @import url(Container.css);
 @import url(GameContainer.css);
+@import url(RestartGame.css);
 @import url(GameTip.css);
 @import url(Form.css);
 @import url(Button.css);
@@ -33,7 +34,10 @@ header h1::-moz-selection,
 .RoundLayer::-moz-selection,
 .RoundNumber::-moz-selection,
 .RoundPlayerLayer::-moz-selection,
-.RoundPlayer::-moz-selection {
+.RoundPlayer::-moz-selection,
+.PlayerScoreContainer .Icon::-moz-selection,
+.PlayerScore .PlayerValue::-moz-selection,
+.PlayerScore .ScoreValue::-moz-selection {
 	background-color: rgba(0, 0, 0, 0.2)
 }
 header h1::selection,
@@ -41,7 +45,10 @@ header h1::selection,
 .RoundLayer:selection,
 .RoundNumber:selection,
 .RoundPlayerLayer:selection,
-.RoundPlayer:selection {
+.RoundPlayer:selection,
+.PlayerScoreContainer .Icon::selection,
+.PlayerScore .PlayerValue::selection,
+.PlayerScore .ScoreValue::selection {
 	background-color: rgba(0, 0, 0, 0.2)
 }
 
@@ -53,7 +60,10 @@ header h1::selection,
 	--nickname-color: 0; /* Nickname random color */
 	--nickname-color-light: 0; /* Nickname random color (light) */
 	--valid: #41ad49; /* Nice green */
-	--invalid: #de1744 /* Error red */
+	--invalid: #de1744; /* Error red */
+	--podium-gold: #ffdf82; /* Gold medal */
+	--podium-silver: #eaeae8; /* Silver medal */
+	--podium-bronze: #f7caa0 /* Bronze medal */
 }
 
 body {margin: 0}
