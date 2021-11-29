@@ -78,12 +78,15 @@ main {
 
 /* Media queries */
 
+/* 1140px max */
+@media screen and (max-width: 1140px) {
+	.GameContainer {max-width: 100%}
+}
+
 /* 968px max */
 @media screen and (max-width: 968px) {
-	.GameContainer {
-		flex-direction: column;
-		max-width: 100%
-	}
+	.GameContainer {flex-direction: column}
+	.GameInnerContainer {max-width: 100%}
 	.ConnectedPlayers {
 		flex-direction: row;
 		width: 100%;
@@ -98,8 +101,7 @@ main {
 
 /* 768px max */
 @media screen and (max-width: 768px) {
-	header {display: none}
-	main {padding-top: 8px}
+	header {padding: 0 12px}
 	.Container {max-width: 100%}
 	.Modal {max-width: 100%}
 }

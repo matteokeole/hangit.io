@@ -6,7 +6,10 @@
 @import url(Canvas.css);
 @import url(Chat.css);
 
-.GameContainer {display: none}
+.GameContainer {
+	display: none;
+	width: 1000px
+}
 
 .ConnectedPlayers {
 	display: flex;
@@ -25,7 +28,7 @@
 }
 
 .GameInnerContainer {
-	max-width: 720px;
+	flex-grow: 1;
 	margin: 0 0 16px 0;
 	padding: 8px;
 	border-radius: 8px;
@@ -35,6 +38,7 @@
 .GameInnerContainer2 {display: flex}
 
 .GameInnerContainer3 {
+	flex-grow: 1;
 	min-width: 0;
 	margin-right: 8px
 }
