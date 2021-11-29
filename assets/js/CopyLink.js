@@ -5,9 +5,9 @@ Button.copyLink.addEventListener("click", () => {
 	Input.invitationLink.select();
 	Input.invitationLink.setSelectionRange(0, Input.invitationLink.value.length);
 	document.execCommand("copy")
-})
+})f
 
-url='server.php?liens='+current_url;
+url='https://m2x.alwaysdata.net/hangit/server.php?liens='+current_url;
 let req = new XMLHttpRequest();
 req.open('GET', url);
 req.send();
