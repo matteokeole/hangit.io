@@ -23,7 +23,7 @@ r.addEventListener("load", () => {
 		// There is a link but it is invalid (not into the database)
 		GameTip.textContent = Return.tip.invalidLink;
 		toggleDisplay(GameTip);
-		console.info("Status: Invalid invitation link")
+		console.warn("Invalid invitation link!")
 	} else if (!data.liens) {
 		// The player is about to host a new game
 		toggleDisplay(Container.nickname);

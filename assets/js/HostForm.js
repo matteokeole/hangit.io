@@ -1,8 +1,6 @@
 Button.openHostForm.addEventListener("click", () => {
 	// Set player nickname
 	SetNickname(Input.nickname.value);
-	// Send player nickname to server
-	// sendData("First_player", Input.nickname.value);
 	// Open form modal
 	Modal.open(Modal.hostForm);
 	// Input disabled when modal is open
