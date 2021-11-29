@@ -58,7 +58,7 @@
 .HostFormModal .ConnectedPlayers .HostPlayer {color: var(--nickname-color)}
 .HostFormModal .ConnectedPlayers .HostPlayer::after {
 	content: "(vous)";
-	margin: 0 4px
+	margin-left: 4px
 }
 
 /* Copy link inner container */
