@@ -14,7 +14,7 @@ document.querySelectorAll("input[type='range']").forEach((input) => {
 	})
 });
 let refreshReadyPlayers = setInterval(() => {
-	fetch("https://m2x.alwaysdata.net/hangit/server.php?liens=getmessage=${current_url}")
+	fetch(`https://m2x.alwaysdata.net/hangit/server.php?liens=getmessage=${current_url}`)
 		.then(response => response.json())
 		.then(data => {console.log(data)})
 }, 1000);
