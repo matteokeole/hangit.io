@@ -8,7 +8,7 @@
 		private $bdd, $game, $chat, $player, $hiddenword;
 		// Constructor
 		function __construct() {
-			$this->bdd = new PDO("mysql:host=mysql-m2x.alwaysdata.net;dbname=m2x_game", "m2x", "moul_976", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+			$this->bdd = new PDO("mysql:host=mysql-m2x.alwaysdata.net;dbname=m2x_game", "m2x", "moul_976");
 			$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		// Create new game
@@ -52,14 +52,14 @@
 		}
 		/*
 		public function Setmessage($text,$nickname) :void {
-            $setmessage = $this->bdd->prepare("INSERT INTO message (text, id_game, id_player) VALUES (?, ?, ?)");
-            $setmessage->execute(array($text,$this->getgame(),getplayer($nickname)));
-        }*/
+						$setmessage = $this->bdd->prepare("INSERT INTO message (text, id_game, id_player) VALUES (?, ?, ?)");
+						$setmessage->execute(array($text,$this->getgame(),getplayer($nickname)));
+				}*/
 		public function getplayer($player) :string {
-            $setgame = $this->bdd->query("SELECT id_player FROM player where id_game=;");
-            $value = $setgame->fetch();
-            return $value["id_player"];
-        }
+						$setgame = $this->bdd->query("SELECT id_player FROM player where id_game=;");
+						$value = $setgame->fetch();
+						return $value["id_player"];
+				}
 		// public function get_score_player($name) :string {
 		// 	$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
 		// 	$setgame->execute(array($name, $this->getgame()));
@@ -76,13 +76,13 @@
 			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, nicknameColor) VALUES (?, ?, ?, ?)");
 			$setmessage->execute(array($name, $score, $this->getgame($link_game), $nicknameColor));
 			//$this->player = $this->getplayer();
-		    return true;
+				return true;
 		}
 		public function Setplayer_on_partie($name,$game_url,$score) {
 			$setmessage = $this->bdd->prepare("INSERT INTO player (nickname,id_game,score) VALUES (?,(SELECT id_game FROM game WHERE link_game=?),?);");
 			$setmessage->execute(array($name,$game_url,$score));
 			#$this->player = $this->getplayer();
-		    return true;
+				return true;
 		}
 		public function Edit_player($name, $score,$link_game) :void {
 			$setmessage = $this->bdd->prepare("UPDATE `player` SET nickname = ?, score = ? WHERE id_player = ?");
@@ -94,9 +94,9 @@
 			$value = $getmessage->fetchAll();
 			/*
 			$value=array();
-            while ($g = $getmessage -> fetch()){
-              $value[]= [$g['nickname'] => ['text' => $g['text'], 'color' => $g['nicknameColor']]];
-            }*/
+						while ($g = $getmessage -> fetch()){
+							$value[]= [$g['nickname'] => ['text' => $g['text'], 'color' => $g['nicknameColor']]];
+						}*/
 			return $value;
 		}
 		public function set_hidden_word($word, $player,$link_game) :void {
@@ -126,12 +126,12 @@
 		} 
 
 		public function set_round($game)
-    	{
-        $setmessage=$this->bdd->prepare('INSERT INTO round (id_game) VALUES ((SELECT id_game from `game` where link_game=?))');
-        $setmessage->execute(array($game));
-        // $this->round=$this->getround($game);
-   		}
-		   /*
+			{
+				$setmessage=$this->bdd->prepare('INSERT INTO round (id_game) VALUES ((SELECT id_game from `game` where link_game=?))');
+				$setmessage->execute(array($game));
+				// $this->round=$this->getround($game);
+			}
+			 /*
 		public function set_put_player_in_round($game,$player) //// en cours de travaille
 		{
 			///$setplayerinround = $this->bdd->prepare('INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player FROM `player` JOIN game ON game.id_game=player.id_game where link_game='http://localhost/hangit.io/?s1638270215336'),(SELECT id_round FROM `round` JOIN game ON game.id_game=round.id_game where link_game='http://localhost/hangit.io/?g=1638270215336'));');
@@ -157,10 +157,10 @@
 	}
 	/*
 	if (isset($_POST["message"],$_POST['nickmane'])) {
-        $message = htmlspecialchars($_POST["message"]);
-        $Partie->Setmessage($message,$_POST['nickmane']);
-        echo true;
-    }
+				$message = htmlspecialchars($_POST["message"]);
+				$Partie->Setmessage($message,$_POST['nickmane']);
+				echo true;
+		}
 	*/
 	if (isset($_POST['set_round'])){
 		$setround = $_POST['set_round'];
@@ -177,7 +177,7 @@
 		echo true;
 	}
 
-   
+	 
 	if (isset($_POST["invite"],$_POST['joinlink'])) {
 		$joinlink = htmlspecialchars($_POST["joinlink"]);
 		$invite = htmlspecialchars($_POST["invite"]);
