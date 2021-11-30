@@ -60,12 +60,18 @@
             $value = $setgame->fetch();
             return $value["id_player"];
         }
-		public function get_score_player($name) :string {
-			$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE nickname = ? AND id_game = ? LIMIT 1");
-			$setgame->execute(array($name, $this->getgame()));
-			$value = $setgame->fetch();
-			return $value["score"];
-		}
+		// public function get_score_player($name) :string {
+		// 	$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
+		// 	$setgame->execute(array($name, $this->getgame()));
+		// 	$value = $setgame->fetch();
+		// 	return $value["score"];
+		// }
+		// public function get_score_player() :string {
+		// 	$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
+		// 	$setgame->execute(array($this->getplayer(), $this->getgame()));
+		// 	$value = $setgame->fetch();
+		// 	return $value["score"];
+		// }
 		public function Setplayer($name, $score, $nicknameColor) {
 			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, nicknameColor) VALUES (?, ?, ?, ?)");
 			$setmessage->execute(array($name, $score, $this->getgame(), $nicknameColor));
@@ -100,7 +106,7 @@
 		}
 		public function get_all_player_game($game)
 		{
-			$getmessage=$this->bdd->prepare("SELECT player.nickname,player.nicknameColor FROM `player` JOIN game ON player.id_game=game.id_game WHERE game.link_game=?");
+			$getmessage=$this->bdd->prepare("SELECT player.nickname,player.nicknameColor,player.score FROM `player` JOIN game ON player.id_game=game.id_game WHERE game.link_game=?");
 			$getmessage->execute(array($game));
 			$value=$getmessage->fetchAll();
 		return $value;
