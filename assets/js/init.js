@@ -241,8 +241,8 @@ const Player = {
 	},
 	sendDatabasePlayer = (nickname, color) => {
 		let r = new XMLHttpRequest(),
-			roundPlayer = false;
-		if (Player.role == "host") roundPlayer = true;
+			roundPlayer = "false";
+		if (Player.role == "host") roundPlayer = "true";
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
 				if (r.status == 200) console.info(`[sendDatabasePlayer] ${r.response}`);
