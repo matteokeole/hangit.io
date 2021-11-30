@@ -148,7 +148,9 @@
 		echo true;
 	}
 	if (isset($_GET["allplayer"])) {
-		echo json_encode($Partie->get_all_player_game());
+		$getallplayer = htmlspecialchars($_GET['allplayer']);
+		$Partie->get_all_player_game($getallplayer);
+		echo true;
 	}
 	if (isset($_GET['liens'])) {
 		$mon_liens=htmlspecialchars($_GET['liens']);

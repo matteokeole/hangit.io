@@ -41,6 +41,9 @@ let refreshReadyPlayers = setInterval(() => {
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}`)
 			.then(response => response.text())
 			.then(data => {console.warn(JSON.parse(data))})
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}`)
+			.then(response => response.text())
+			.then(data => {console.warn(JSON.parse(data))})
 	} else {
 		// Host game
 		console.info(invitationLink);
@@ -48,6 +51,7 @@ let refreshReadyPlayers = setInterval(() => {
 			.then(response => response.text())
 			.then(data => {console.warn(JSON.parse(data))})
 	}
+	
 }, 1000);
 
 
