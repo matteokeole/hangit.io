@@ -229,7 +229,7 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info("Data sent");
+				if (r.status == 200) console.info(`[sendData]\n${r.response}`);
 				else console.error("Server error")
 			}
 		}
@@ -241,7 +241,7 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info((r.response.length == 0) ? "Player data sent!" : r.response);
+				if (r.status == 200) console.info(`[sendDatabasePlayer]\n${r.response}`);
 				else console.error("Server error")
 			}
 		}
@@ -254,20 +254,20 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info((r.response.length == 0) ? "Hidden word sent!" : r.response);
+				if (r.status == 200) console.info(`[sendHiddenWord]\n${r.response}`);
 				else console.error("Server error")
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`word=${word}`)
+		r.send(`word=${word}&player=${Player.nickname}`)
 	},
 	sendDatabaseMessage = (msg, authorName) => {
 		// Send a message to the database
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info((r.response.length == 0) ? "Message sent!" : r.response);
+				if (r.status == 200) console.info(`[sendDatabaseMessage]\n${r.response}`);
 				else console.error("Server error")
 			}
 		}

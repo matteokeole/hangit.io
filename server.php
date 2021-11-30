@@ -99,9 +99,9 @@
             }*/
 			return $value;
 		}
-		public function set_hidden_word($word) :void {
+		public function set_hidden_word($word, $player) :void {
 			$setmessage = $this->bdd->prepare("INSERT INTO `hidden_word` (word, id_player) VALUES (?, ?)");
-			$setmessage->execute(array($word, $this->getplayer()));
+			$setmessage->execute(array($word, $this->getplayer($player)));
 			$this->hiddenword = $this->gethiddenword();
 		}
 		public function get_all_player_game($game)
@@ -190,8 +190,8 @@
 		echo true;
 	}
 	if (isset($_POST["word"])) {
-		$Word = htmlspecialchars($_POST["word"]);
-		$Partie->set_hidden_word($Word);
+		$word = htmlspecialchars($_POST["word"]);
+		$Partie->set_hidden_word($word);
 		echo true;
 	}
 	
