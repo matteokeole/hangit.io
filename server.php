@@ -106,7 +106,7 @@
 			return $value["word"];
 		}
 
-		public function getround($game)
+		public function get_round($game)
 		{
 			$setgame = $this->bdd->query('SELECT count(id_round) FROM `round` JOIN game ON game.id_game=round.id_game  WHERE link_game=' . $game . ';');
 			$value = $setgame->fetch();
@@ -115,10 +115,15 @@
 
 		public function set_round($game)
     	{
-        $setmessage=$this->bdd->prepare('INSERT INTO round (id_game) VALUES (SELECT id_game from `game` where link_game=?)');
+        $setmessage=$this->bdd->prepare('INSERT INTO round (id_game) VALUES ((SELECT id_game from `game` where link_game=?))');
         $setmessage->execute(array($game));
         // $this->round=$this->getround($game);
    		}
+
+		public function set_put_player_in_round($game,$player) //// en cours de travaille
+		{
+			$setplayerinround = $this->bdd->prepare('INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player FROM `player` JOIN game ON game.id_game=player.id_game where link_game='http://localhost/hangit.io/?g=1638270215336'),(SELECT id_round FROM `round` JOIN game ON game.id_game=round.id_game where link_game='http://localhost/hangit.io/?g=1638270215336'));');
+		} 
 
 /*
 		public function ($value='')
