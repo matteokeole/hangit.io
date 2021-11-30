@@ -80,6 +80,11 @@
 			$getmessage = $this->bdd->prepare("SELECT player.nickname, message.text ,player.nicknameColor FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game =?;");
 			$getmessage->execute(array($game));
 			$value = $getmessage->fetchAll();
+			/*
+			$value=array();
+            while ($g = $getmessage -> fetch()){
+              $value[]= [$g['nickname'] => ['text' => $g['text'], 'color' => $g['nicknameColor']]];
+            }*/
 			return $value;
 		}
 		public function set_hidden_word($word) :void {
@@ -89,7 +94,7 @@
 		}
 		public function get_all_player_game($game)
 		{
-			$getmessage=$this->bdd->prepare("SELECT player.nickname FROM `player` JOIN game ON player.id_game=game.id_game WHERE game.link_game=?");
+			$getmessage=$this->bdd->prepare("SELECT player.nickname,player.nicknameColor FROM `player` JOIN game ON player.id_game=game.id_game WHERE game.link_game=?");
 			$getmessage->execute(array($game));
 			$value=$getmessage->fetchAll();
 			return $value;
@@ -147,8 +152,8 @@
 		$Partie->Setmessage($message);
 		echo true;
 	}
-	if (isset($_GET["allplayer"])) {
-		$getallplayer = htmlspecialchars($_GET['allplayer']);
+	if (isset($_GET["getallplayer"])) {
+		$getallplayer = htmlspecialchars($_GET['getallplayer']);
 		$Partie->get_all_player_game($getallplayer);
 		echo json_encode($Partie->get_all_player_game($getallplayer));
 	}
