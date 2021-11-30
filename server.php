@@ -191,7 +191,7 @@
 	
 	if (isset($_POST["message"],$_POST["authorName"],$_POST['url'])){
 		$message = htmlspecialchars($_POST["message"]);
-		$authorName= htmlentities($_POST["authorName"]);
+		$authorName= htmlspecialchars($_POST["authorName"]);
 		$Partie->Setmessage($message,$authorName,$_POST['url']);
 		echo "message envoyer";
 		echo true;
