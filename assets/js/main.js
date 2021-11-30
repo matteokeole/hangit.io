@@ -1,6 +1,6 @@
 // Get URL invitation link
 let r = new XMLHttpRequest(),
-	url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url}`,
+	url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?g=")[1]}`,
 	link = "",
 	invitationLink = "";
 r.open("GET", url);
@@ -36,9 +36,8 @@ r.addEventListener("load", () => {
 // Set interval Ajax
 let readyPlayers = [],
 	refreshReadyPlayers = setInterval(() => {
-		// Host game
 		// Get ready players
-		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}`)
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${invitationLink}`)
 			.then(response => response.text())
 			.then(data => {readyPlayers = JSON.parse(data)});
 		ReadyPlayersList.parentNode.children[0].children[0].textContent = readyPlayers.length;
@@ -73,13 +72,13 @@ let readyPlayers = [],
 			player2.appendChild(player2Score);
 			ConnectedPlayersList.appendChild(player2)
 		}
-	}, 200),
+	}, 1000),
 	messages = [],
 	oldMessages = [],
 	newMessages = [];
-	refreshMessages = setInterval(() => {
+	/*refreshMessages = setInterval(() => {
 		newMessages = [];
-		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}`)
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${invitationLink}`)
 			.then(response => response.text())
 			.then(data => {messages = JSON.parse(data)});
 		// console.warn(messages)
@@ -92,10 +91,10 @@ let readyPlayers = [],
 		}
 		for (let i = 0; i < newMessages.length; i++) {
 			// Send/check message
-			/*if (!(/^!/.test(newMessages[i].text))) */sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
+			// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
 			checkMessage(newMessages[i].text)
 		}
-	}, 100)
+	}, 100)*/
 
 
 

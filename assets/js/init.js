@@ -152,7 +152,7 @@ const Player = {
 		} else {
 			sendMessage(true, `Début du round ${Round.currentIndex} !`);
 			// Display round number
-			Container.gameContainer.children[0].children[0].textContent = Round.currentIndex;
+			Container.gameContainer.children[1].children[0].children[0].textContent = Round.currentIndex;
 			Layer.round.children[0].textContent = Round.currentIndex;
 			// Show layers & word form
 			setTimeout(() => {
