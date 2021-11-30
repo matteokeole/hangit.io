@@ -248,7 +248,7 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`${mon}=${data}&${montwo}=${datatwo}`)
 	},
-	sendDatabaseMessage = (msg) => {
+	sendDatabaseMessage = (auto, msg, authorName) => {
 		// Send a message to the database
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
@@ -259,8 +259,7 @@ const Player = {
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		// r.send(`auto=${auto}&msg=${msg}&authorName=${authorName}`)
-		r.send(`url=${invitationLink}&msg=${msg}`)
+		r.send(`url=${current_url}&auto=${auto}&msg=${msg}&authorName=${authorName}`)
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
