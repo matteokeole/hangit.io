@@ -30,7 +30,7 @@ r.addEventListener("load", () => {
 		toggleDisplay(Container.openHostForm);
 		GameTip.textContent = Return.tip.joinGame;
 		toggleDisplay(GameTip);
-		sendData("link_game", Input.invitationLink.value)
+		sendData("link_game", invitationLink)
 	}
 });
 // Set interval Ajax
