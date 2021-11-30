@@ -19,8 +19,8 @@ r.addEventListener("load", () => {
 	} else if (!link.liens) {
 		// The player is about to host a new game
 		invitationLink = GenerateLink();
-		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
