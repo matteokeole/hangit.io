@@ -229,19 +229,19 @@ const Player = {
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
 				if (r.status == 200) console.info("Data sent");
-				else console.error("Erreur du serveur")
+				else console.error("Server error")
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`${mon}=${data}`)
 	},
-	sendDataTwo = (mon, data, montwo, datatwo) => {
+	sendData2 = (mon, data, montwo, datatwo) => {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
 				if (r.status == 200) console.info("Data sent");
-				else console.error("Erreur du serveur")
+				else console.error("Server error")
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
@@ -254,7 +254,7 @@ const Player = {
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
 				if (r.status == 200) console.info("Message sent");
-				else console.error("Erreur du serveur")
+				else console.error("Server error")
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
