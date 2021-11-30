@@ -190,7 +190,7 @@
 		echo true;
 	}
 	if (isset($_POST["word"], $_POST["player"])) {
-		$word = htmlspecialchars($_POST["word"]);
+		$word = htmlspecialchars($_POST["word"]);q
 		$player = htmlspecialchars($_POST["player"]);
 		$Partie->set_hidden_word($word, $player);
 		echo true;
