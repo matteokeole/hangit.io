@@ -28,11 +28,7 @@
 }
 
 /* Message content */
-.MessageInner {
-	display: flex;
-	align-items: center;
-	white-space: nowrap
-}
+.MessageInner {word-wrap: break-word}
 
 /* Message & date */
 .MessageDate {
