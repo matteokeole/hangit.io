@@ -126,14 +126,14 @@ const Player = {
 		currentPlayerIndex: 0
 	},
 	playerList = ["bob", "pouet", "majel beddouze", "zemmour"],
-	startGame = (maxRounds) => {
+	startGame = () => {
 		// Start a new game (player max number = 4)
 		// Show game content
 		toggleDisplay(Container.gameContainer, "flex");
 		resizeChat();
-		Round.max = maxRounds;
-		Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
-		nextRound()
+		// Round.max = maxRounds;
+		// Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
+		// nextRound()
 	},
 	joinGame = () => {
 		// Toggle containers display
@@ -229,7 +229,7 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendData]\n${r.response}`);
+				if (r.status == 200) console.info(`[sendData] ${r.response}`);
 				else console.error("Server error")
 			}
 		}
@@ -241,7 +241,7 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendDatabasePlayer]\n${r.response}`);
+				if (r.status == 200) console.info(`[sendDatabasePlayer] ${r.response}`);
 				else console.error("Server error")
 			}
 		}
@@ -254,7 +254,7 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendHiddenWord]\n${r.response}`);
+				if (r.status == 200) console.info(`[sendHiddenWord] ${r.response}`);
 				else console.error("Server error")
 			}
 		}
@@ -267,7 +267,7 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendDatabaseMessage]\n${r.response}`);
+				if (r.status == 200) console.info(`[sendDatabaseMessage] ${r.response}`);
 				else console.error("Server error")
 			}
 		}

@@ -3,7 +3,7 @@
 	header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 	header("Content-type: text/html; charset=UTF-8"); 
 	header("Access-Control-Allow-Headers: X-Requested-With");
-
+	// Server methods
 	class Game_Server {
 		private $bdd, $game, $chat, $player, $hiddenword;
 		// Constructor
@@ -163,10 +163,10 @@
 		$Partie->Setplayer_on_partie($invite, $joinlink, "0");
 		echo true;
 	}
-	if (isset($_POST["Max_Rounds"], $_POST["url"])) {
+	if (isset($_POST["maxRounds"], $_POST["url"])) {
 		$link_game = htmlspecialchars($_POST["url"]);
-		$Max_Rounds = htmlspecialchars($_POST["Max_Rounds"]);
-		$Partie->Edit_Game($Max_Rounds, "4", "1", $link_game);
+		$maxRounds = htmlspecialchars($_POST["maxRounds"]);
+		$Partie->Edit_Game($maxRounds, "4", "1", $link_game);
 		echo true;
 	}
 	if (isset($_POST["word"], $_POST["player"], $_POST["url"])) {
@@ -182,6 +182,9 @@
 		$Partie->Setmessage($message, $authorName, $_POST["url"]);
 		echo "[server.php] Message sent!";
 		echo true;
+	}
+	if (isset($_GET["wtf"])) {
+		echo "ok";
 	}
 	if (isset($_GET["getallplayer"])) {
 		$getallplayer = htmlspecialchars($_GET["getallplayer"]);

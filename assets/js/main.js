@@ -64,7 +64,7 @@ let readyPlayers = [],
 			player2Score.className = "PlayerScore";
 			player.textContent = readyPlayers[i].nickname;
 			player2Nickname.textContent = readyPlayers[i].nickname;
-			player2Score.textContent = readyPlayers[i].score;
+			player2Score.textContent = `${readyPlayers[i].score} points`;
 			player.style.color = readyPlayers[i].nicknameColor;
 			player2.style.color = readyPlayers[i].nicknameColor;
 			ReadyPlayersList.appendChild(player);
@@ -87,7 +87,7 @@ let readyPlayers = [],
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
 	// clearInterval(refreshReadyPlayers);
-	refreshMessages = setInterval(() => {
+	/*refreshMessages = setInterval(() => {
 		newMessages = [];
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${invitationLink}`)
 			.then(response => response.text())
@@ -103,9 +103,10 @@ Button.startHostGame.addEventListener("click", () => {
 		for (let i = 0; i < newMessages.length; i++) {
 			// Send/check message
 			// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
+			sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
 			checkMessage(newMessages[i].text)
 		}
-	}, 100);
+	}, 100);*/
 	// Close form modal
 	Modal.close();
 	// Close active containers
@@ -114,16 +115,16 @@ Button.startHostGame.addEventListener("click", () => {
 	GameTip.textContent = Return.tip.commandPrefix;
 	// Start game
 	// Send max rounds value to  server
-	sendData("Max_Rounds", Input.maxRounds.value);
-	startGame(Input.maxRounds.value)
+	sendData("maxRounds", Input.maxRounds.value);
+	startGame()
 })
-// Copy invitation link
+// Copy invitation link to clipboard
 Button.copyLink.addEventListener("click", () => {
-	Button.copyLink.textContent = "✔️ Copié !";
-	setTimeout(() => {Button.copyLink.textContent = "Copier le lien"}, 2000);
 	Input.invitationLink.select();
 	Input.invitationLink.setSelectionRange(0, Input.invitationLink.value.length);
-	document.execCommand("copy")
+	document.execCommand("copy");
+	Button.copyLink.textContent = "✔️ Copié !";
+	setTimeout(() => {Button.copyLink.textContent = "Copier le lien"}, 2000)
 });
 Button.openHostForm.addEventListener("click", () => {
 	// Set player nickname
