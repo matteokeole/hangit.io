@@ -35,7 +35,8 @@ r.addEventListener("load", () => {
 		sendData("link_game", invitationLink)
 	}
 });
-// Set interval Ajax
+// Fetch intervals
+// Refresh ready player list
 let readyPlayers = [],
 	refreshReadyPlayers = setInterval(() => {
 		// Get ready players
@@ -82,6 +83,7 @@ let readyPlayers = [],
 			}
 		}
 	}, 100),
+	// Refresh messages
 	messages = [],
 	oldMessages = [],
 	newMessages = [],

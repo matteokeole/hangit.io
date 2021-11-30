@@ -108,7 +108,7 @@ const checkMessage = (msg) => {
 			let date = document.createElement("span");
 			date.className = "MessageDate";
 			date.textContent = "maintenant";
-			refreshMessageDate(message);
+			refreshMessageDate(date);
 			inner.appendChild(date)
 		}
 		message.appendChild(inner);
@@ -123,10 +123,8 @@ const checkMessage = (msg) => {
 			MessageList.scrollTop = MessageList.scrollHeight
 		}
 	},
-	refreshMessageDate = (message) => {
-		console.warn(message)
-		let date = message.querySelector(".MessageDate"),
-			oldDate = Date.now(),
+	refreshMessageDate = (date) => {
+		let oldDate = Date.now(),
 			newDate,
 			delay = 0,
 			minutesInterval,
