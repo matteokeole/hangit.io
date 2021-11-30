@@ -26,8 +26,8 @@
 		// 	$value = $setgame->fetch();
 		// 	return $value;
 		// }
-		public function getgame($link_game): string {
-			$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game = ". $this->geturlgame($link_game));
+		public function getgame($game_url): string {
+			$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game = $game_url");
 			$value = $setgame->fetch();
 			return $value;
 		}
