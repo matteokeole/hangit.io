@@ -35,17 +35,19 @@ r.addEventListener("load", () => {
 		sendData("link_game", invitationLink)
 	}
 });
-// Set interval Ajax
+// Fetch intervals
+// Refresh ready player list
 let readyPlayers = [],
 	refreshReadyPlayers = setInterval(() => {
 		// Get ready players
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${invitationLink}`)
 			.then(response => response.text())
 			.then(data => {readyPlayers = JSON.parse(data)});
+		// console.log(readyPlayers)
 		ReadyPlayersList.parentNode.children[0].children[0].textContent = readyPlayers.length;
 		let lastChild = ReadyPlayersList.lastElementChild,
 			lastChild2 = ConnectedPlayersList.lastElementChild;
-		// Remove old players
+		// Remove old players in lists
 		while (lastChild) {
 			ReadyPlayersList.removeChild(lastChild);
 			lastChild = ReadyPlayersList.lastElementChild
@@ -54,7 +56,7 @@ let readyPlayers = [],
 			ConnectedPlayersList.removeChild(lastChild2);
 			lastChild2 = ConnectedPlayersList.lastElementChild
 		}
-		// Add new players
+		// Add new players to lists
 		for (let i = 0; i < readyPlayers.length; i++) {
 			let player = document.createElement("div"),
 				player2 = document.createElement("div"),
@@ -76,12 +78,14 @@ let readyPlayers = [],
 		}
 		// Check for current round player
 		for (let i = 0; i < readyPlayers.length; i++) {
+			// console.warn(readyPlayers[i].roundPlayer)
 			if (readyPlayers[i].roundPlayer && readyPlayers[i].nickname == Player.nickname) {
 				Player.roundPlayer = true;
 				console.warn(readyPlayers[i])
 			}
 		}
 	}, 100),
+	// Refresh messages
 	messages = [],
 	oldMessages = [],
 	newMessages = [],
