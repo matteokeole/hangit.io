@@ -21,7 +21,9 @@ r.addEventListener("load", () => {
 	} else if (!data.liens) {
 		// The player is about to host a new game
 		invitationLink = GenerateLink();
+		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
 		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
 		GameTip.textContent = Return.tip.joinGame;
@@ -29,34 +31,22 @@ r.addEventListener("load", () => {
 		console.info("Status: Hosting game");
 		sendData("Link_game", Input.invitationLink.value)
 	}
-})
-
-
-
-
-
-// Generate game link
-// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-// Generate game link (local test 2)
-// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`	
-// Generate game link (local test)
+});
+// Set interval Ajax
 console.log(`${current_url}?g=${invitationLink}`);
 let refreshReadyPlayers = setInterval(() => {
 	if (current_url.includes("?")) {
 		// Join game
-		console.error(invitationLink)
-		// console.log("contien:"+current_url);
-		//current_url = `${current_url}?g=${Queliens}`;
-		fetch("https://m2x.alwaysdata.net/hangit/server.php?getmessage="+current_url)
+		console.info(invitationLink);
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}`)
 			.then(response => response.text())
-			.then(data => {console.log(data)})
-	}else{
+			.then(data => {console.warn(JSON.parse(data))})
+	} else {
 		// Host game
-		// console.log("ne contien pas :"+current_url)
-		console.warn(invitationLink)
-		fetch("https://m2x.alwaysdata.net/hangit/server.php?getmessage="+current_url+"?g="+invitationLink)
+		console.info(invitationLink);
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}?g=${invitationLink}`)
 			.then(response => response.text())
-			.then(data => {console.log(data)})
+			.then(data => {console.warn(JSON.parse(data))})
 	}
 }, 1000);
 
