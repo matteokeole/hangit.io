@@ -79,7 +79,11 @@
 		public function get_all_message_game($game) {
 			$getmessage = $this->bdd->prepare("SELECT player.nickname, message.text ,player.nicknameColor FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game =?;");
 			$getmessage->execute(array($game));
-			$value = $getmessage->fetchAll();
+			//$value = $getmessage->fetchAll();
+			$value=array();
+            while ($g = $getmessage -> fetch()){
+              $value[]= [$g['player.nickname'] => ['text' => $g['message.text'], 'color' => $g['player.color']]];
+            }
 			return $value;
 		}
 		public function set_hidden_word($word) :void {
