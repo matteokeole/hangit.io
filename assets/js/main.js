@@ -23,8 +23,8 @@ r.addEventListener("load", () => {
 		// The player is about to host a new game
 		invitationLink = GenerateLink();
 		current_url += `?g=${invitationLink}`;
-		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
@@ -73,6 +73,7 @@ let readyPlayers = {},
 			oldMessages = messages
 		}
 		for (let i = 0; i < newMessages.length; i++) {
+			console.warn(newMessages[i].nickname)
 			// Send/check message
 			sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
 			// checkMessage(newMessages[i].text)

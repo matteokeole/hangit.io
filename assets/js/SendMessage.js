@@ -103,6 +103,7 @@ sendMessage = (auto, msg, authorName, authorColor) => {
 			message.appendChild(author)
 		}
 		// Update last message author
+		// console.log("Message envoyé par " + authorName)
 		Chat.lastMessageSender = authorName;
 		let date = document.createElement("span");
 		date.className = "MessageDate";
@@ -129,7 +130,7 @@ Form.sendMessage.addEventListener("submit", (e) => {
 	// Filled and non-blank input, check message before sending
 	let msg = Input.message.value;
 	// Send message to server
-	sendData("message", msg);
+	sendDatabaseMessage(false, msg, Player.nickname);
 	// Disable send button & clear message input
 	Button.sendMessage.disabled = true;
 	Input.message.value = "";
