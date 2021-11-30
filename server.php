@@ -89,7 +89,7 @@
 		}
 		public function get_all_player_game($game)
 		{
-			$getmessage=$this->bdd->prepare("SELECT player.nickname FROM `player` JOIN game ON player.id_game=game.id_game WHERE game.link_game=?");
+			$getmessage=$this->bdd->prepare("SELECT player.nickname,player.nicknameColor FROM `player` JOIN game ON player.id_game=game.id_game WHERE game.link_game=?");
 			$getmessage->execute(array($game));
 			$value=$getmessage->fetchAll();
 			return $value;
