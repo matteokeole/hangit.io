@@ -22,15 +22,15 @@
 			$setmessage->execute(array($round_number, $max_player, $player_activ, $this->getgame($link_game)));
 		}
 		public function getgame($link_game) :string {
-			$setgame = $this->bdd->query("SELECT * FROM `game` where link_game=$link_game");
+			$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game=$link_game");
 			$value = $setgame->fetch();
-			return $value["id_game"];
+			return $value;
 		}
 		public function geturlgame($link_game):string
 		{
-			$setgame=$this->bdd->query('SELECT * from game where id_game='.$this->getgame($link_game));
+			$setgame=$this->bdd->query('SELECT link_game from game where id_game='.$this->getgame($link_game));
 			$value=$setgame->fetch();
-			return $value['link_game'];
+			return $value;
 		}
 		public function url_existe($url)
 		{
