@@ -128,13 +128,8 @@ Form.sendMessage.addEventListener("submit", (e) => {
 	e.preventDefault();
 	// Filled and non-blank input, check message before sending
 	let msg = Input.message.value;
-
 	// Send message to server
 	sendData("message", msg);
-	// console.log(getData("https://m2x.alwaysdata.net/hangit/server.php?allmessage=1"));
-	// Send/check message
-	sendMessage(false, msg, Player.nickname, Player.nicknameColor);
-	checkMessage(msg);
 	// Disable send button & clear message input
 	Button.sendMessage.disabled = true;
 	Input.message.value = "";

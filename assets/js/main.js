@@ -8,17 +8,21 @@ r.send();
 r.addEventListener("load", () => {
 	link = JSON.parse(r.response);
 	if (link.liens) {
-		// The player is about to join a game
-		invitationLink = window.location.href.split("?g=")[1];
+		// The player is about to join a GameTip
+		// Change current URL
+		invitationLink = window.location.href.split("?");
+		invitationLink = invitationLink[invitationLink.length - 1];
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.joinGame)
 	} else if (current_url.includes("?")) {
 		// There is a link but it is invalid (not into the database)
+		current_url = window.location.href.split("?")[0];
 		GameTip.textContent = Return.tip.invalidLink;
 		toggleDisplay(GameTip)
 	} else if (!link.liens) {
 		// The player is about to host a new game
 		invitationLink = GenerateLink();
+		current_url += `?g=${invitationLink}`;
 		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
@@ -32,23 +36,17 @@ r.addEventListener("load", () => {
 // Set interval Ajax
 let readyPlayers = {},
 	refreshReadyPlayers = setInterval(() => {
-	if (current_url.includes("?")) {
-		// Join game
-		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}`)
-			.then(response => response.text())
-			.then(data => {console.warn(JSON.parse(data))})
-	} else {
 		// Host game
 		// Get ready players
-		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}?g=${invitationLink}`)
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}`)
 			.then(response => response.text())
 			.then(data => {readyPlayers = JSON.parse(data)});
 		ReadyPlayersList.parentNode.children[0].children[0].textContent = readyPlayers.length;
-		let child = ReadyPlayersList.lastElementChild;
+		let lastChild = ReadyPlayersList.lastElementChild;
 		// Remove old players
-		while (child) {
-			ReadyPlayersList.removeChild(child);
-			child = ReadyPlayersList.lastElementChild
+		while (lastChild) {
+			ReadyPlayersList.removeChild(lastChild);
+			lastChild = ReadyPlayersList.lastElementChild
 		}
 		// Add new players
 		for (let i = 0; i < readyPlayers.length; i++) {
@@ -58,8 +56,28 @@ let readyPlayers = {},
 			player.style.color = readyPlayers[i].nicknameColor;
 			ReadyPlayersList.appendChild(player)
 		}
-	}
-}, 1000);
+	}, 1000),
+	messages = [],
+	oldMessages = [],
+	newMessages = [],
+	refreshMessages = setInterval(() => {
+		newMessages = [];
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}`)
+			.then(response => response.text())
+			.then(data => {messages = JSON.parse(data)});
+		if (messages.length > 0) {
+			for (let i = 0; i < messages.length; i++) {
+				if (oldMessages[i] == undefined) newMessages.push(messages[i])
+			}
+			// Update old messages
+			oldMessages = messages
+		}
+		for (let i = 0; i < newMessages.length; i++) {
+			// Send/check message
+			sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
+			// checkMessage(newMessages[i].text)
+		}
+	}, 100);
 
 
 
@@ -69,7 +87,7 @@ let readyPlayers = {},
 
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
-	//clearInterval(refreshReadyPlayers);
+	// clearInterval(refreshReadyPlayers);
 	// Close form modal
 	Modal.close();
 	// Close active containers
