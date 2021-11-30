@@ -136,8 +136,8 @@
 	}
 	// Game server
 	$Partie = new Game_Server();
-	if (isset($_POST["Link_game"])) {
-		$Link_game = htmlspecialchars($_POST["Link_game"]);
+	if (isset($_POST["link_game"])) {
+		$Link_game = htmlspecialchars($_POST["link_game"]);
 		if ($Partie->url_existe($Link_game)) echo "erreur lien existe";
 		else {
 			$Partie->Set_Game("0", "0", "0", $Link_game);
