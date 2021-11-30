@@ -45,9 +45,9 @@
 			return $value["id_chat"];
 		}
 		// Write message in chat
-		public function Setmessage($text) :void {
-			$setmessage = $this->bdd->prepare("INSERT INTO `message` (text, id_game, id_player) VALUES (?, ?, ?)");
-			$setmessage->execute(array($text, $this->getgame(), $this->getplayer()));
+		public function Setmessage($text,$player,$auto) :void {
+			$setmessage = $this->bdd->prepare("INSERT INTO `message` (text, id_game, id_player,auto) VALUES (?, ?,?,?)");
+			$setmessage->execute(array($text, $this->getgame(),$player,$auto));
 		}
 		public function getplayer() :string {
 			$setgame = $this->bdd->query("SELECT * FROM `player` ORDER BY id_player DESC LIMIT 1");
@@ -119,10 +119,10 @@
         $setmessage->execute(array($game));
         // $this->round=$this->getround($game);
    		}
-
+		   /*
 		public function set_put_player_in_round($game,$player) //// en cours de travaille
 		{
-			$setplayerinround = $this->bdd->prepare('INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player FROM `player` JOIN game ON game.id_game=player.id_game where link_game='http://localhost/hangit.io/?g=1638270215336'),(SELECT id_round FROM `round` JOIN game ON game.id_game=round.id_game where link_game='http://localhost/hangit.io/?g=1638270215336'));');
+			///$setplayerinround = $this->bdd->prepare('INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player FROM `player` JOIN game ON game.id_game=player.id_game where link_game='http://localhost/hangit.io/?g=1638270215336'),(SELECT id_round FROM `round` JOIN game ON game.id_game=round.id_game where link_game='http://localhost/hangit.io/?g=1638270215336'));');
 		} 
 
 /*
@@ -176,9 +176,10 @@
 		$Partie->set_hidden_word($Word);
 		echo true;
 	}
-	if (isset($_POST["message"])) {
+	if (isset($_POST["auto"],$_POST["msg"],$_POST["authorName"])){
 		$message = htmlspecialchars($_POST["message"]);
-		$Partie->Setmessage($message);
+		$authorName= htmlentities($_POST["authorName"]);
+		$Partie->Setmessage($message,$authorName,$_POST["auto"]);
 		echo true;
 	}
 	if (isset($_GET["getallplayer"])) {
