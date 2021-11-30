@@ -82,7 +82,7 @@
 			//$value = $getmessage->fetchAll();
 			$value=array();
             while ($g = $getmessage -> fetch()){
-              $value[]= [$g['player.nickname'] => ['text' => $g['message.text'], 'color' => $g['player.color']]];
+              $value[]= [$g['player.nickname'] => ['text' => $g['message.text'], 'color' => $g['player.nicknameColor']]];
             }
 			return $value;
 		}
