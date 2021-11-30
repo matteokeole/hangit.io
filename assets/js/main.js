@@ -74,6 +74,13 @@ let readyPlayers = [],
 			player2.appendChild(player2Score);
 			ConnectedPlayersList.appendChild(player2)
 		}
+		// Check for current round player
+		for (let i = 0; i < readyPlayers.length; i++) {
+			if (readyPlayers[i].roundPlayer && readyPlayers[i].nickname == Player.nickname) {
+				Player.roundPlayer = true;
+				console.warn(readyPlayers[i])
+			}
+		}
 	}, 100),
 	messages = [],
 	oldMessages = [],
@@ -91,13 +98,13 @@ let readyPlayers = [],
 					if (oldMessages[i] == undefined) newMessages.push(messages[i])
 				}
 				// Update old messages
-				oldMessages = messages
-			}
-			for (let i = 0; i < newMessages.length; i++) {
-				// Send/check message
-				// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
-				sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
-				// checkMessage(newMessages[i].text)
+				oldMessages = messages;
+				for (let i = 0; i < newMessages.length; i++) {
+					// Send/check message
+					// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
+					sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
+					// checkMessage(newMessages[i].text)
+				}
 			}
 		}, 100)
 	};

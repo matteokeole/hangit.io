@@ -108,12 +108,12 @@ const checkMessage = (msg) => {
 			let date = document.createElement("span");
 			date.className = "MessageDate";
 			date.textContent = "maintenant";
+			refreshMessageDate(message);
 			inner.appendChild(date)
 		}
 		message.appendChild(inner);
 		// Show message
 		MessageList.appendChild(message);
-		refreshMessageDate(message);
 		setMessageListPosition(listFullHeight, listVisibleHeight)
 	},
 	setMessageListPosition = (fullHeight, visibleHeight) => {
@@ -124,6 +124,7 @@ const checkMessage = (msg) => {
 		}
 	},
 	refreshMessageDate = (message) => {
+		console.warn(message)
 		let date = message.querySelector(".MessageDate"),
 			oldDate = Date.now(),
 			newDate,
