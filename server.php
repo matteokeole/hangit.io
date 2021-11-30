@@ -15,20 +15,20 @@
 		public function Set_Game($round_number, $max_player, $player_activ, $link_game) :void {
 			$setmessage = $this->bdd->prepare("INSERT INTO `game` (round_number, max_player, player_activ, link_game) VALUES (?, ?, ?, ?)");
 			$setmessage->execute(array($round_number, $max_player, $player_activ, $link_game));
-			$this->game = $this->getgame();
+			$this->game = $this->getgame($link_game);
 		}
-		public function Edit_Game($round_number, $max_player, $player_activ) :void {
+		public function Edit_Game($round_number, $max_player, $player_activ,$link_game) :void {
 			$setmessage = $this->bdd->prepare("UPDATE `game` SET round_number = ?, max_player = ?, player_activ = ? WHERE id_game = ?");
-			$setmessage->execute(array($round_number, $max_player, $player_activ, $this->getgame()));
+			$setmessage->execute(array($round_number, $max_player, $player_activ, $this->getgame($link_game)));
 		}
-		public function getgame() :string {
-			$setgame = $this->bdd->query("SELECT * FROM `game` ORDER BY id_game DESC LIMIT 1");
+		public function getgame($link_game) :string {
+			$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game=$link_game");
 			$value = $setgame->fetch();
 			return $value["id_game"];
 		}
-		public function geturlgame():string
+		public function geturlgame($link_game):string
 		{
-			$setgame=$this->bdd->query('SELECT * from game order by id_game desc limit 1');
+			$setgame=$this->bdd->query('SELECT link_game from game where id_game='.$this->getgame($link_game));
 			$value=$setgame->fetch();
 			return $value['link_game'];
 		}
@@ -56,7 +56,7 @@
             $setmessage->execute(array($text,$this->getgame(),getplayer($nickname)));
         }*/
 		public function getplayer($player) :string {
-            $setgame = $this->bdd->query("SELECT id_player FROM player where nickname ='$player';");
+            $setgame = $this->bdd->query("SELECT id_player FROM player where id_game=;");
             $value = $setgame->fetch();
             return $value["id_player"];
         }
@@ -72,9 +72,9 @@
 		// 	$value = $setgame->fetch();
 		// 	return $value["score"];
 		// }
-		public function Setplayer($name, $score, $nicknameColor) {
+		public function Setplayer($name, $score, $nicknameColor,$link_game) {
 			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, nicknameColor) VALUES (?, ?, ?, ?)");
-			$setmessage->execute(array($name, $score, $this->getgame(), $nicknameColor));
+			$setmessage->execute(array($name, $score, $this->getgame($link_game), $nicknameColor));
 			//$this->player = $this->getplayer();
 		    return true;
 		}
@@ -84,9 +84,9 @@
 			#$this->player = $this->getplayer();
 		    return true;
 		}
-		public function Edit_player($name, $score) :void {
+		public function Edit_player($name, $score,$link_game) :void {
 			$setmessage = $this->bdd->prepare("UPDATE `player` SET nickname = ?, score = ? WHERE id_player = ?");
-			$setmessage->execute(array($name, $score, $this->getplayer()));
+			$setmessage->execute(array($name, $score, $this->getplayer($link_game)));
 		}
 		public function get_all_message_game($game) {
 			$getmessage = $this->bdd->prepare("SELECT player.nickname, message.text ,player.nicknameColor FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game =?;");
@@ -99,10 +99,10 @@
             }*/
 			return $value;
 		}
-		public function set_hidden_word($word, $player) :void {
+		public function set_hidden_word($word, $player,$link_game) :void {
 			$setmessage = $this->bdd->prepare("INSERT INTO `hidden_word` (word, id_player) VALUES (?, ?)");
 			$setmessage->execute(array($word, $this->getplayer($player)));
-			$this->hiddenword = $this->gethiddenword();
+			$this->hiddenword = $this->gethiddenword($link_game);
 		}
 		public function get_all_player_game($game)
 		{
@@ -111,9 +111,9 @@
 			$value=$getmessage->fetchAll();
 		return $value;
 		}
-		public function gethiddenword()
+		public function gethiddenword($link_game)
 		{
-			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer() . " ORDER BY id_player DESC LIMIT 1");
+			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer($link_game) . " ORDER BY id_player DESC LIMIT 1");
 			$value = $setgame->fetch();
 			return $value["word"];
 		}
@@ -171,8 +171,8 @@
 	if (isset($_POST["nickname"], $_POST["color"])) {
 		$First_player = htmlspecialchars($_POST["nickname"]);
 		$nicknameColor = htmlspecialchars($_POST["color"]);
-		$Partie->Edit_Game("0", "0", "1");
-		$Partie->Setplayer($First_player, "0", $nicknameColor);
+		$Partie->Edit_Game("0", "0", "1",$link_game);
+		$Partie->Setplayer($First_player, "0", $nicknameColor,$link_game);
 		echo true;
 	}
 
@@ -186,13 +186,13 @@
 
 	if (isset($_POST["Max_Rounds"])) {
 		$Max_Rounds = htmlspecialchars($_POST["Max_Rounds"]);
-		$Partie->Edit_Game($Max_Rounds, "4", "1");
+		$Partie->Edit_Game($Max_Rounds, "4", "1",$link_game);
 		echo true;
 	}
 	if (isset($_POST["word"], $_POST["player"])) {
 		$word = htmlspecialchars($_POST["word"]);
 		$player = htmlspecialchars($_POST["player"]);
-		$Partie->set_hidden_word($word, $player);
+		$Partie->set_hidden_word($word, $player,$link_game);
 		echo true;
 	}
 	
