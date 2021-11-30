@@ -240,7 +240,9 @@ const Player = {
 		r.send(`url=${invitationLink}&${property}=${data}`)
 	},
 	sendDatabasePlayer = (nickname, color) => {
-		let r = new XMLHttpRequest();
+		let r = new XMLHttpRequest(),
+			roundPlayer = false;
+		if (Player.role == "host") roundPlayer = true;
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
 				if (r.status == 200) console.info(`[sendDatabasePlayer] ${r.response}`);
@@ -249,7 +251,7 @@ const Player = {
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitationLink}&nickname=${nickname}&color=${color}`)
+		r.send(`url=${invitationLink}&nickname=${nickname}&color=${color}&roundPlayer=${roundPlayer}`)
 	},
 	sendHiddenWord = (word) => {
 		// Send the hidden word to the database
