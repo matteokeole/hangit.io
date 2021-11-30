@@ -150,7 +150,7 @@
 	if (isset($_GET["allplayer"])) {
 		$getallplayer = htmlspecialchars($_GET['allplayer']);
 		$Partie->get_all_player_game($getallplayer);
-		echo true;
+		echo json_encode($Partie->get_all_player_game($getallplayer));
 	}
 	if (isset($_GET['liens'])) {
 		$mon_liens=htmlspecialchars($_GET['liens']);
