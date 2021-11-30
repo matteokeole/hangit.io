@@ -51,7 +51,7 @@
 			$setmessage->execute(array($text,$this->getgame(),getplayer($nickname)));
 		}*/
 		public function getplayer($player): string {
-			$setgame = $this->bdd->query("SELECT id_player FROM player where id_game = ;");
+			$setgame = $this->bdd->query("SELECT id_player FROM player where id_game = " . $this->getgame($link_game));
 			$value = $setgame->fetch();
 			return $value["id_player"];
 		}
@@ -74,7 +74,7 @@
 			return true;
 		}
 		public function Setplayer_on_partie($name, $game_url, $score) {
-			$setmessage = $this->bdd->prepare("INSERT INTO player (nickname,id_game,score) VALUES (?,(SELECT id_game FROM game WHERE link_game=?),?);");
+			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, id_game, score) VALUES (?, (SELECT id_game FROM game WHERE link_game = ?), ?);");
 			$setmessage->execute(array($name,$game_url,$score));
 			// $this->player = $this->getplayer();
 			return true;
