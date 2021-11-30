@@ -34,14 +34,15 @@
 	padding: 4px 8px 8px 8px
 }
 
-.HostFormModal .ConnectedPlayers .ReadyPlayersList {
+.ReadyPlayersList {
 	display: flex;
 	width: 100%;
-	min-height: 60px;
+	min-height: 40px;
 	margin-top: 4px
 }
 
-.HostFormModal .ConnectedPlayers .Player {
+.ReadyPlayersList .Player {
+	flex-grow: 1;
 	height: 60px;
 	line-height: 60px;
 	margin: 0 2px;
@@ -53,12 +54,8 @@
 	text-overflow: ellipsis;
 	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2)
 }
-.HostFormModal .ConnectedPlayers .Player:first-of-type {margin-left: 0}
-.HostFormModal .ConnectedPlayers .Player:first-of-type::after {
-	content: "(vous)";
-	margin-left: 4px
-}
-.HostFormModal .ConnectedPlayers .Player:last-of-type {margin-right: 0}
+.ReadyPlayersList .Player:first-of-type {margin-left: 0}
+.ReadyPlayersList .Player:last-of-type {margin-right: 0}
 
 /* Copy link inner container */
 

@@ -19,8 +19,8 @@ r.addEventListener("load", () => {
 	} else if (!link.liens) {
 		// The player is about to host a new game
 		invitationLink = GenerateLink();
-		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
@@ -43,6 +43,7 @@ let readyPlayers = {},
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}?g=${invitationLink}`)
 			.then(response => response.text())
 			.then(data => {readyPlayers = JSON.parse(data)});
+		ReadyPlayersList.parentNode.children[0].children[0].textContent = readyPlayers.length;
 		let child = ReadyPlayersList.lastElementChild;
 		// Remove old players
 		while (child) {
