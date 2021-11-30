@@ -75,8 +75,19 @@ let readyPlayers = [],
 	}, 1000),
 	messages = [],
 	oldMessages = [],
-	newMessages = [];
-	/*refreshMessages = setInterval(() => {
+	newMessages = [],
+	refreshMessages;
+
+
+
+
+
+
+
+// Launch hosted game
+Button.startHostGame.addEventListener("click", () => {
+	// clearInterval(refreshReadyPlayers);
+	refreshMessages = setInterval(() => {
 		newMessages = [];
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${invitationLink}`)
 			.then(response => response.text())
@@ -94,17 +105,7 @@ let readyPlayers = [],
 			// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
 			checkMessage(newMessages[i].text)
 		}
-	}, 100)*/
-
-
-
-
-
-
-
-// Launch hosted game
-Button.startHostGame.addEventListener("click", () => {
-	// clearInterval(refreshReadyPlayers);
+	}, 100);
 	// Close form modal
 	Modal.close();
 	// Close active containers
