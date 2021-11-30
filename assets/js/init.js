@@ -135,6 +135,18 @@ const Player = {
 		resizeChat();
 		Round.max = 1;
 		// Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
+		// Submit word modal
+		setTimeout(() => {
+			Overlay.show();
+			Layer.show(Layer.round);
+			setTimeout(() => {
+				Layer.hide();
+				setTimeout(() => {
+					Modal.open(Modal.submitWord);
+					Input.submitWord.focus()
+				}, 400)
+			}, 2000)
+		}, 200)
 		// nextRound()
 	},
 	joinGame = () => {
@@ -143,23 +155,21 @@ const Player = {
 		toggleDisplay(Container.joinGame, "none");
 		toggleDisplay(Container.gameContainer, "flex");
 		resizeChat();
-		/*if (Player.role == "host") {
-			// Submit word modal
-			setTimeout(() => {
-				Modal.open(Modal.submitWord);
-				Input.submitWord.focus()
-			}, 200);
-		} else {
-			// Waiting for submitted word layer
+		// Waiting for submitted word layer
+		setTimeout(() => {
 			Overlay.show();
+			Layer.show(Layer.round);
 			setTimeout(() => {
-				Layer.show(Layer.roundPlayer);
+				Layer.hide();
 				setTimeout(() => {
-					Layer.hide();
-					Overlay.hide()
-				}, 3000)
-			}, 400)
-		}*/
+					Layer.show(Layer.roundPlayer);
+					setTimeout(() => {
+						Layer.hide();
+						Overlay.hide()
+					}, 3000)
+				}, 400)
+			}, 2000)
+		}, 200)
 	},
 	/*nextRound = () => {
 		// Force next round
@@ -217,7 +227,7 @@ const Player = {
 								Input.submitWord.focus()
 							}, 200);
 						} else {
-							// Waiting for submitted word layer
+							// Wait for submitted word layer
 							setTimeout(() => {
 								Layer.show(Layer.roundPlayer);
 								setTimeout(() => {
@@ -236,7 +246,7 @@ const Player = {
 							Input.submitWord.focus()
 						}, 200);
 					} else {
-						// Waiting for submitted word layer
+						// Wait for submitted word layer
 						setTimeout(() => {
 							Layer.show(Layer.roundPlayer);
 							setTimeout(() => {
