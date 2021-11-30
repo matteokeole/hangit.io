@@ -11,13 +11,11 @@ r.addEventListener("load", () => {
 		// The player is about to join a game
 		invitationLink = window.location.href.split("?g=")[1];
 		toggleDisplay(Container.nickname);
-		toggleDisplay(Container.joinGame);
-		console.info("Status: Joining game")
+		toggleDisplay(Container.joinGame)
 	} else if (current_url.includes("?")) {
 		// There is a link but it is invalid (not into the database)
 		GameTip.textContent = Return.tip.invalidLink;
-		toggleDisplay(GameTip);
-		console.warn("Invalid invitation link!")
+		toggleDisplay(GameTip)
 	} else if (!data.liens) {
 		// The player is about to host a new game
 		invitationLink = GenerateLink();
@@ -28,12 +26,10 @@ r.addEventListener("load", () => {
 		toggleDisplay(Container.openHostForm);
 		GameTip.textContent = Return.tip.joinGame;
 		toggleDisplay(GameTip);
-		console.info("Status: Hosting game");
 		sendData("Link_game", Input.invitationLink.value)
 	}
 });
 // Set interval Ajax
-console.log(`${current_url}?g=${invitationLink}`);
 let refreshReadyPlayers = setInterval(() => {
 	if (current_url.includes("?")) {
 		// Join game
