@@ -128,16 +128,16 @@ main {
 @media screen and (max-width: 968px) {
 	.GameContainer {flex-direction: column}
 	.GameInnerContainer {max-width: 100%}
-	.GameContainer .ConnectedPlayers {
+	.ConnectedPlayersList {
 		flex-direction: row;
 		width: 100%;
 		margin-bottom: 8px
 	}
-	.GameContainer .ConnectedPlayers .Player {
+	.ConnectedPlayersList .Player {
 		width: 25%;
 		margin: 0 8px 0 0
 	}
-	.GameContainer .ConnectedPlayers .Player:last-of-type {margin-right: 0}
+	.ConnectedPlayersList .Player:last-of-type {margin-right: 0}
 }
 
 /* 768px max */

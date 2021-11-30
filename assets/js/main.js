@@ -42,19 +42,29 @@ let readyPlayers = [],
 			.then(response => response.text())
 			.then(data => {readyPlayers = JSON.parse(data)});
 		ReadyPlayersList.parentNode.children[0].children[0].textContent = readyPlayers.length;
-		let lastChild = ReadyPlayersList.lastElementChild;
+		let lastChild = ReadyPlayersList.lastElementChild,
+			lastChild2 = ConnectedPlayersList.lastElementChild;
 		// Remove old players
 		while (lastChild) {
 			ReadyPlayersList.removeChild(lastChild);
 			lastChild = ReadyPlayersList.lastElementChild
 		}
+		while (lastChild2) {
+			ConnectedPlayersList.removeChild(lastChild2);
+			lastChild2 = ConnectedPlayersList.lastElementChild
+		}
 		// Add new players
 		for (let i = 0; i < readyPlayers.length; i++) {
-			let player = document.createElement("div");
+			let player = document.createElement("div"),
+				player2 = document.createElement("div");
 			player.className = "Player";
+			player2.className = "Player";
 			player.textContent = readyPlayers[i].nickname;
+			player2.textContent = readyPlayers[i].nickname;
 			player.style.color = readyPlayers[i].nicknameColor;
-			ReadyPlayersList.appendChild(player)
+			player2.style.color = readyPlayers[i].nicknameColor;
+			ReadyPlayersList.appendChild(player);
+			ConnectedPlayersList.appendChild(player2)
 		}
 	}, 1000),
 	messages = [],
@@ -74,10 +84,8 @@ let readyPlayers = [],
 			oldMessages = messages
 		}
 		for (let i = 0; i < newMessages.length; i++) {
-			// console.warn(newMessages[i])
-			// console.warn(newMessages[i].nickname)
 			// Send/check message
-			sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
+			/*if (!(/^!/.test(newMessages[i].text))) */sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
 			// checkMessage(newMessages[i].text)
 		}
 	}, 100)

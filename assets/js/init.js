@@ -112,6 +112,7 @@ const Player = {
 	Word = Container.gameContainer.querySelector("#word"),
 	GameEndTitle = Container.restartGame.querySelector(".RestartGameContainer h3"),
 	ReadyPlayersList = Modal.hostForm.querySelector(".ReadyPlayersList"),
+	ConnectedPlayersList = Container.gameContainer.querySelector(".ConnectedPlayersList"),
 	MessageList = Container.gameContainer.querySelector(".MessageList"),
 	RemainingTries = Container.gameContainer.querySelector(".RemainingTries"),
 	// Functions

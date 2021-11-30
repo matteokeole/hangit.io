@@ -11,14 +11,14 @@
 	width: 1000px
 }
 
-.GameContainer .ConnectedPlayers {
+.ConnectedPlayersList {
 	display: flex;
 	flex-direction: column;
 	width: 200px;
 	margin-right: 8px
 }
 
-.GameContainer .ConnectedPlayers .Player {
+.ConnectedPlayersList .Player {
 	margin-bottom: 8px;
 	padding: 4px 8px;
 	overflow: hidden;
