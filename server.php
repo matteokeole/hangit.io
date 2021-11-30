@@ -159,14 +159,14 @@
 		$Partie->$setround($setround);
 		echo true;
 	}
-	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"])) {
-		$url = htmlspecialchars($_POST["url"]);
-		$nickname = htmlspecialchars($_POST["nickname"]);
-		$nicknameColor = htmlspecialchars($_POST["color"]);
-		$Partie->Edit_Game("0", "0", "1", $url);
-		$Partie->Setplayer($nickname, "0", $nicknameColor, $url);
-		echo true;
-	}
+	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"],$_POST['roundPlayer'])) {
+        $url = htmlspecialchars($_POST["url"]);
+        $nickname = htmlspecialchars($_POST["nickname"]);
+        $nicknameColor = htmlspecialchars($_POST["color"]);
+        $Partie->Edit_Game("0", "0", "1", $url);
+        $Partie->Setplayer($nickname, "0", $nicknameColor, $url,$_POST['roundPlayer']);
+        echo true;
+    }
 	if (isset($_POST["invite"], $_POST["joinlink"])) {
 		$joinlink = htmlspecialchars($_POST["joinlink"]);
 		$invite = htmlspecialchars($_POST["invite"]);
