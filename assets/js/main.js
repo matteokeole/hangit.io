@@ -77,11 +77,7 @@ let readyPlayers = [],
 		}
 		// Check for current round player
 		for (let i = 0; i < readyPlayers.length; i++) {
-			console.warn(readyPlayers[i].roundPlayer)
-			if (readyPlayers[i].roundPlayer && readyPlayers[i].nickname == Player.nickname) {
-				Player.roundPlayer = true;
-				console.warn(readyPlayers[i])
-			}
+			if (readyPlayers[i].roundPlayer && readyPlayers[i].nickname == Player.nickname) Player.roundPlayer = true
 		}
 	}, 100),
 	// Refresh messages
@@ -95,7 +91,6 @@ let readyPlayers = [],
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${invitationLink}`)
 				.then(response => response.text())
 				.then(data => {messages = JSON.parse(data)});
-			// console.warn(messages)
 			if (messages.length > 0) {
 				for (let i = 0; i < messages.length; i++) {
 					if (oldMessages[i] == undefined) newMessages.push(messages[i])

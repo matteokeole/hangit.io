@@ -142,9 +142,26 @@ const Player = {
 		toggleDisplay(Container.nickname, "none");
 		toggleDisplay(Container.joinGame, "none");
 		toggleDisplay(Container.gameContainer, "flex");
-		resizeChat()
+		resizeChat();
+		/*if (Player.role == "host") {
+			// Submit word modal
+			setTimeout(() => {
+				Modal.open(Modal.submitWord);
+				Input.submitWord.focus()
+			}, 200);
+		} else {
+			// Waiting for submitted word layer
+			Overlay.show();
+			setTimeout(() => {
+				Layer.show(Layer.roundPlayer);
+				setTimeout(() => {
+					Layer.hide();
+					Overlay.hide()
+				}, 3000)
+			}, 400)
+		}*/
 	},
-	nextRound = () => {
+	/*nextRound = () => {
 		// Force next round
 		Round.currentIndex++;
 		if (Round.currentIndex > Round.max) {
@@ -193,39 +210,45 @@ const Player = {
 					Layer.show(Layer.roundPlayerEnd);
 					setTimeout(() => {
 						Layer.hide();
+						if (Player.role == "host") {
+							// Submit word modal
+							setTimeout(() => {
+								Modal.open(Modal.submitWord);
+								Input.submitWord.focus()
+							}, 200);
+						} else {
+							// Waiting for submitted word layer
+							setTimeout(() => {
+								Layer.show(Layer.roundPlayer);
+								setTimeout(() => {
+									Layer.hide();
+									Overlay.hide()
+								}, 3000)
+							}, 400)
+						}
+					}, 2000)
+				} else {
+					// Round just started
+					if (Player.role == "host") {
 						// Submit word modal
 						setTimeout(() => {
 							Modal.open(Modal.submitWord);
 							Input.submitWord.focus()
-						}, 400);
+						}, 200);
+					} else {
 						// Waiting for submitted word layer
-						/*setTimeout(() => {
+						setTimeout(() => {
 							Layer.show(Layer.roundPlayer);
 							setTimeout(() => {
 								Layer.hide();
 								Overlay.hide()
 							}, 3000)
-						}, 400)*/
-					}, 2000)
-				} else {
-					// Round just started
-					// Submit word modal
-					setTimeout(() => {
-						Modal.open(Modal.submitWord);
-						Input.submitWord.focus()
-					}, 200);
-					// Waiting for submitted word layer
-					/*setTimeout(() => {
-						Layer.show(Layer.roundPlayer);
-						setTimeout(() => {
-							Layer.hide();
-							Overlay.hide()
-						}, 3000)
-					}, 400)*/
+						}, 400)
+					}
 				}
 			}, 200)
 		}
-	},
+	},*/
 	// Send/get data functions
 	sendData = (property, data) => {
 		let r = new XMLHttpRequest();
