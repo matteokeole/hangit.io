@@ -275,6 +275,32 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&message=${msg}&authorName=${authorName}`)
 	},
+	clearGame = () => {
+		// Clear all current game data
+		let r = new XMLHttpRequest();
+		r.onreadystatechange = () => {
+			if (r.readyState == 4) {
+				if (r.status == 200) console.info(`[clearGame] ${r.response}`);
+				else console.error("Server error")
+			}
+		}
+		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
+		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(`url=${invitationLink}&clearGame=1`)
+	},
+	clearGuestData = () => {
+		// Clear all data for the current guest
+		let r = new XMLHttpRequest();
+		r.onreadystatechange = () => {
+			if (r.readyState == 4) {
+				if (r.status == 200) console.info(`[clearGuestData] ${r.response}`);
+				else console.error("Server error")
+			}
+		}
+		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
+		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(`url=${invitationLink}&clearGuestData=1`)
+	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
 			color = "#";
@@ -295,6 +321,13 @@ const Player = {
 let current_url = document.location.href;
 // queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
 // Event listeners
+// Close window triggers the clearGame() function if host or clearGuestData() function if guest
+window.addEventListener("beforeunload", (e) => {
+	clearGame();
+	let prevent = 1;
+	(e || window.event).returnValue = prevent;
+	return prevent
+});
 // Hide host form modal when Escape key pressed
 addEventListener("keydown", (e) => {
 	if (e.keyCode == 27 && Modal.hostForm.classList.contains("current")) Modal.close()
