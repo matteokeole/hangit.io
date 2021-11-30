@@ -41,7 +41,7 @@ let refreshReadyPlayers = setInterval(() => {
 		/*fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}?g=${invitationLink}`)
 			.then(response => response.text())
 			.then(data => {console.warn(JSON.parse(data))})*/
-		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}`)
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}?g=${invitationLink}`)
 			.then(response => response.text())
 			.then(data => {console.warn(JSON.parse(data))})
 	}
