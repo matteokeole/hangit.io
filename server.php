@@ -46,8 +46,8 @@
 		}
 		// Write message in chat
 		public function Setmessage($text,$player,$auto) :void {
-			$setmessage = $this->bdd->prepare("INSERT INTO `message` (text, id_game, id_player,auto) VALUES (?, ?,?,?)");
-			$setmessage->execute(array($text, $this->getgame(),$player,$auto));
+			$setmessage = $this->bdd->prepare("INSERT INTO message (text,id_game,id_player,auto) VALUES (?,?,(SELECT id_player FROM player WHERE nickname =?),?);");
+			$setmessage->execute(array($text,$this->getgame(),$player,$auto));
 		}
 		public function getplayer() :string {
 			$setgame = $this->bdd->query("SELECT * FROM `player` ORDER BY id_player DESC LIMIT 1");
@@ -177,9 +177,10 @@
 		echo true;
 	}
 	if (isset($_POST["auto"],$_POST["msg"],$_POST["authorName"])){
-		$message = htmlspecialchars($_POST["message"]);
+		$message = htmlspecialchars($_POST["msg"]);
 		$authorName= htmlentities($_POST["authorName"]);
 		$Partie->Setmessage($message,$authorName,$_POST["auto"]);
+		echo "message envoyer";
 		echo true;
 	}
 	if (isset($_GET["getallplayer"])) {
