@@ -10,7 +10,7 @@ r.addEventListener("load", () => {
 	if (link.liens) {
 		// The player is about to join a GameTip
 		// Change current URL
-		invitationLink = window.location.href.split("?");
+		invitationLink = window.location.href.split("?g=");
 		invitationLink = invitationLink[invitationLink.length - 1];
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.joinGame)
@@ -23,8 +23,8 @@ r.addEventListener("load", () => {
 		// The player is about to host a new game
 		invitationLink = GenerateLink();
 		current_url += `?g=${invitationLink}`;
-		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
@@ -34,7 +34,7 @@ r.addEventListener("load", () => {
 	}
 });
 // Set interval Ajax
-let readyPlayers = {},
+let readyPlayers = [],
 	refreshReadyPlayers = setInterval(() => {
 		// Host game
 		// Get ready players
@@ -59,13 +59,13 @@ let readyPlayers = {},
 	}, 1000),
 	messages = [],
 	oldMessages = [],
-	newMessages = [],
+	newMessages = [];
 	refreshMessages = setInterval(() => {
 		newMessages = [];
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}`)
 			.then(response => response.text())
 			.then(data => {messages = JSON.parse(data)});
-		console.warn(messages)
+		// console.warn(messages)
 		if (messages.length > 0) {
 			for (let i = 0; i < messages.length; i++) {
 				if (oldMessages[i] == undefined) newMessages.push(messages[i])
@@ -74,8 +74,8 @@ let readyPlayers = {},
 			oldMessages = messages
 		}
 		for (let i = 0; i < newMessages.length; i++) {
-			console.warn(newMessages[i])
-			console.warn(newMessages[i].nickname)
+			// console.warn(newMessages[i])
+			// console.warn(newMessages[i].nickname)
 			// Send/check message
 			sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
 			// checkMessage(newMessages[i].text)
@@ -110,7 +110,6 @@ Button.copyLink.addEventListener("click", () => {
 	Input.invitationLink.setSelectionRange(0, Input.invitationLink.value.length);
 	document.execCommand("copy")
 });
-
 Button.openHostForm.addEventListener("click", () => {
 	// Set player nickname
 	SetNickname(Input.nickname.value);

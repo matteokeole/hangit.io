@@ -133,7 +133,8 @@ Form.sendMessage.addEventListener("submit", (e) => {
 	Input.message.value = "";
 	Button.sendMessage.disabled = true;
 	// Send message to server
-	sendDatabaseMessage(false, msg, Player.nickname);
+	sendDatabaseMessage(msg, Player.nickname);
+	// sendData("message", msg);
 	// Re-focus input
 	Input.message.focus()
 })

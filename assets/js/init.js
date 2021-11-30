@@ -23,7 +23,7 @@ const Player = {
 		tip: {
 			joinGame: "Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.",
 			invalidLink: "⚠️ Ce lien n'est pas valide. Demandez à l'hébergeur de vous renvoyer un autre lien.",
-			commandPrefix: "Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient correctement interprétées."
+			commandPrefix: "Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient interprétées."
 		},
 		eligibleChars: "❌ Le mot peut contenir uniquement des caractères alphabétiques, des espaces et des tirets (-).",
 		invalidLetter: "⛔ Cette lettre n'est pas dans le mot !",
@@ -236,30 +236,30 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`${mon}=${data}`)
 	},
-	sendData2 = (mon, data, montwo, datatwo) => {
+	sendDatabasePlayer = (nickname, color) => {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info("Data sent");
+				if (r.status == 200) console.info((r.response.length == 0) ? "Player data sent!" : r.response);
 				else console.error("Server error")
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`${mon}=${data}&${montwo}=${datatwo}`)
+		r.send(`nickname=${nickname}&color=${color}`)
 	},
-	sendDatabaseMessage = (auto, msg, authorName) => {
+	sendDatabaseMessage = (msg, authorName) => {
 		// Send a message to the database
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(r.response);
+				if (r.status == 200) console.info((r.response.length == 0) ? "Message sent!" : r.response);
 				else console.error("Server error")
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${current_url}&auto=${auto}&msg=${msg}&authorName=${authorName}`)
+		r.send(`url=${invitationLink}&message=${msg}&authorName=${authorName}`)
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
