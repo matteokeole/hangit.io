@@ -225,7 +225,7 @@ const Player = {
 		}
 	},
 	// Send/get data functions
-	sendData = (mon, data) => {
+	sendData = (property, data) => {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
@@ -235,7 +235,7 @@ const Player = {
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`${mon}=${data}`)
+		r.send(`url=${invitationLink}&${property}=${data}`)
 	},
 	sendDatabasePlayer = (nickname, color) => {
 		let r = new XMLHttpRequest();
@@ -247,7 +247,7 @@ const Player = {
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`nickname=${nickname}&color=${color}`)
+		r.send(`url=${invitationLink}&nickname=${nickname}&color=${color}`)
 	},
 	sendHiddenWord = (word) => {
 		// Send the hidden word to the database
@@ -260,7 +260,7 @@ const Player = {
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`word=${word}&player=${Player.nickname}`)
+		r.send(`url=${invitationLink}&word=${word}&player=${Player.nickname}`)
 	},
 	sendDatabaseMessage = (msg, authorName) => {
 		// Send a message to the database
