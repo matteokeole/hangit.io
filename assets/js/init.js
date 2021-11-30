@@ -295,6 +295,8 @@ const Player = {
 		else height = document.querySelector(".GameInnerContainer3").offsetHeight;
 		ChatContainer.style.height = `${height}px`
 	},
+	// Generate unique link function
+	GenerateLink = () => {return (new Date()).getTime()},
 	updateResult = (data) => {console.log(data)};
 let current_url = document.location.href;
 // queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
