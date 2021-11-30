@@ -9,6 +9,7 @@ r.addEventListener("load", () => {
 	link = JSON.parse(r.response);
 	if (link.liens) {
 		// The player is about to join a GameTip
+		Player.role = "guest";
 		// Change current URL
 		invitationLink = window.location.href.split("?g=");
 		invitationLink = invitationLink[invitationLink.length - 1];
@@ -21,6 +22,7 @@ r.addEventListener("load", () => {
 		toggleDisplay(GameTip)
 	} else if (!link.liens) {
 		// The player is about to host a new game
+		Player.role = "host";
 		invitationLink = GenerateLink();
 		current_url += `?g=${invitationLink}`;
 		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;

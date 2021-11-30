@@ -3,6 +3,7 @@ const Player = {
 		nickname: "",
 		defaultNickname: "Invité",
 		nicknameColor: null,
+		role: null,
 		score: 0
 	},
 	Chat = {
@@ -323,7 +324,8 @@ let current_url = document.location.href;
 // Event listeners
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
 window.addEventListener("beforeunload", (e) => {
-	clearGame();
+	if (Player.role == "host") clearGame();
+	else clearGuestData(Player.nickname);
 	let prevent = 1;
 	(e || window.event).returnValue = prevent;
 	return prevent
