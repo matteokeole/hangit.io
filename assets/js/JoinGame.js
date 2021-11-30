@@ -4,5 +4,6 @@ Button.joinGame.addEventListener("click", () => {
 	Input.nickname.value = "";
 	Input.nickname.disabled = true;
 	// Join game
-	joinGame()
+	joinGame();
+	startRefreshMessages()
 })

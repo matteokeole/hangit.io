@@ -76,7 +76,29 @@ let readyPlayers = [],
 	messages = [],
 	oldMessages = [],
 	newMessages = [],
-	refreshMessages;
+	refreshMessages,
+	startRefreshMessages = () => {
+		refreshMessages = setInterval(() => {
+			newMessages = [];
+			fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${invitationLink}`)
+				.then(response => response.text())
+				.then(data => {messages = JSON.parse(data)});
+			// console.warn(messages)
+			if (messages.length > 0) {
+				for (let i = 0; i < messages.length; i++) {
+					if (oldMessages[i] == undefined) newMessages.push(messages[i])
+				}
+				// Update old messages
+				oldMessages = messages
+			}
+			for (let i = 0; i < newMessages.length; i++) {
+				// Send/check message
+				// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
+				sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
+				// checkMessage(newMessages[i].text)
+			}
+		}, 100)
+	};
 
 
 
@@ -87,26 +109,7 @@ let readyPlayers = [],
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
 	// clearInterval(refreshReadyPlayers);
-	/*refreshMessages = setInterval(() => {
-		newMessages = [];
-		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${invitationLink}`)
-			.then(response => response.text())
-			.then(data => {messages = JSON.parse(data)});
-		// console.warn(messages)
-		if (messages.length > 0) {
-			for (let i = 0; i < messages.length; i++) {
-				if (oldMessages[i] == undefined) newMessages.push(messages[i])
-			}
-			// Update old messages
-			oldMessages = messages
-		}
-		for (let i = 0; i < newMessages.length; i++) {
-			// Send/check message
-			// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
-			sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
-			checkMessage(newMessages[i].text)
-		}
-	}, 100);*/
+	startRefreshMessages();
 	// Close form modal
 	Modal.close();
 	// Close active containers
