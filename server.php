@@ -45,9 +45,9 @@
 			return $value["id_chat"];
 		}
 		// Write message in chat
-		public function Setmessage($text,$player,$auto) :void {
-			$setmessage = $this->bdd->prepare("INSERT INTO message (text,id_game,id_player,auto) VALUES (?,?,(SELECT id_player FROM player WHERE nickname =?),?);");
-			$setmessage->execute(array($text,$this->getgame(),$player,$auto));
+		public function Setmessage($text,$player,$auto,$link) :void {
+			$setmessage = $this->bdd->prepare("INSERT INTO message (text,id_game,id_player,auto) VALUES (?,?,(SELECT id_player FROM player JOIN game ON game.id_game=player.id_game WHERE nickname =? AND game.link_game=?),?);");
+			$setmessage->execute(array($text,$player,$link,$auto));
 		}
 		public function getplayer() :string {
 			$setgame = $this->bdd->query("SELECT * FROM `player` ORDER BY id_player DESC LIMIT 1");
@@ -176,13 +176,14 @@
 		$Partie->set_hidden_word($Word);
 		echo true;
 	}
-	if (isset($_POST["auto"],$_POST["msg"],$_POST["authorName"])){
+	/*
+	if (isset($_POST["auto"],$_POST["msg"],$_POST["authorName"],$_POST['url'])){
 		$message = htmlspecialchars($_POST["msg"]);
 		$authorName= htmlentities($_POST["authorName"]);
-		$Partie->Setmessage($message,$authorName,$_POST["auto"]);
+		$Partie->Setmessage($message,$authorName,$_POST["auto"],$_POST['url']);
 		echo "message envoyer";
 		echo true;
-	}
+	}*/
 	if (isset($_GET["getallplayer"])) {
 		$getallplayer = htmlspecialchars($_GET['getallplayer']);
 		$Partie->get_all_player_game($getallplayer);
