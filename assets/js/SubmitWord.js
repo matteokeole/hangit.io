@@ -12,7 +12,7 @@ Modal.submitWord.addEventListener("submit", (e) => {
 	// Prevent form from submitting
 	e.preventDefault();
 	Modal.close();
-	HiddenWord.originalWord = word.toUpperCase();
+	HiddenWord.originalWord = Input.submitWord.value.toUpperCase();
 	HiddenWord.length = HiddenWord.originalWord.length;
 	Input.submitWord.value = "";
 	Button.submitWord.disabled = true;
