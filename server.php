@@ -97,13 +97,29 @@
 			$getmessage=$this->bdd->prepare("SELECT player.nickname,player.nicknameColor FROM `player` JOIN game ON player.id_game=game.id_game WHERE game.link_game=?");
 			$getmessage->execute(array($game));
 			$value=$getmessage->fetchAll();
-			return $value;
+		return $value;
 		}
-		public function gethiddenword() {
+		public function gethiddenword()
+		{
 			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer() . " ORDER BY id_player DESC LIMIT 1");
 			$value = $setgame->fetch();
 			return $value["word"];
 		}
+
+		public function getround($game)
+		{
+			$setgame = $this->bdd->query('SELECT count(id_round) FROM `round` JOIN game ON game.id_game=round.id_game  WHERE link_game=' . $game . ';');
+			$value = $setgame->fetch();
+			return $value;
+		} 
+
+		public function set_round($game)
+    	{
+        $setmessage=$this->bdd->prepare('INSERT INTO round (id_game) VALUES (SELECT id_game from `game` where link_game=?)');
+        $setmessage->execute(array($game));
+        // $this->round=$this->getround($game);
+   		}
+
 /*
 		public function ($value='')
 		{
@@ -120,7 +136,15 @@
 			$Partie->Set_Game("0", "0", "0", $Link_game);
 			echo true;
 		}
+
 	}
+
+	if (isset($_POST['set_round'])){
+		$setround = $_POST['set_round'];
+		$Partie->$setround($setround);
+		echo true;
+	}
+
 	if (isset($_POST["First_player"], $_POST["nicknameColor"])) {
 		$First_player = htmlspecialchars($_POST["First_player"]);
 		$nicknameColor = htmlspecialchars($_POST["nicknameColor"]);
