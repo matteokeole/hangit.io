@@ -189,8 +189,8 @@
 		$Partie->Edit_Game($Max_Rounds, "4", "1");
 		echo true;
 	}
-	if (isset($_POST["Word"])) {
-		$Word = htmlspecialchars($_POST["Word"]);
+	if (isset($_POST["word"])) {
+		$Word = htmlspecialchars($_POST["word"]);
 		$Partie->set_hidden_word($Word);
 		echo true;
 	}
