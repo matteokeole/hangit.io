@@ -45,10 +45,12 @@
 			return $value["id_chat"];
 		}
 		// Write message in chat
+		/*
 		public function Setmessage($text,$player,$auto,$link) :void {
 			$setmessage = $this->bdd->prepare("INSERT INTO message (text,id_game,id_player,auto) VALUES (?,?,(SELECT id_player FROM player JOIN game ON game.id_game=player.id_game WHERE nickname =? AND game.link_game=?),?);");
 			$setmessage->execute(array($text,$player,$link,$auto));
-		}
+		}*/
+		
 		public function getplayer() :string {
 			$setgame = $this->bdd->query("SELECT * FROM `player` ORDER BY id_player DESC LIMIT 1");
 			$value = $setgame->fetch();
