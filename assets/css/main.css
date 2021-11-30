@@ -149,14 +149,14 @@ main {
 
 /* 600px max */
 @media screen and (max-width: 600px) {
-	.HostFormModal .PlayerList {flex-direction: column}
-	.HostFormModal .PlayerList .Player {
+	.ReadyPlayerList {flex-direction: column}
+	.ReadyPlayerList .Player {
 		width: 100%;
 		height: 40px;
 		line-height: 40px;
 		margin: 0 0 4px 0
 	}
-	.HostFormModal .PlayerList .Player:last-of-type {margin: 0}
+	.ReadyPlayerList .Player:last-of-type {margin: 0}
 	.GameContainer {width: 100%}
 	.GameInnerContainer2 {flex-direction: column}
 	.GameInnerContainer3 {

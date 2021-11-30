@@ -34,7 +34,7 @@
 	padding: 4px 8px 8px 8px
 }
 
-.HostFormModal .ConnectedPlayers .PlayerList {
+.HostFormModal .ConnectedPlayers .ReadyPlayersList {
 	display: flex;
 	width: 100%;
 	min-height: 60px;
@@ -54,12 +54,11 @@
 	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2)
 }
 .HostFormModal .ConnectedPlayers .Player:first-of-type {margin-left: 0}
-.HostFormModal .ConnectedPlayers .Player:last-of-type {margin-right: 0}
-.HostFormModal .ConnectedPlayers .HostPlayer {color: var(--nickname-color)}
-.HostFormModal .ConnectedPlayers .HostPlayer::after {
+.HostFormModal .ConnectedPlayers .Player:first-of-type::after {
 	content: "(vous)";
 	margin-left: 4px
 }
+.HostFormModal .ConnectedPlayers .Player:last-of-type {margin-right: 0}
 
 /* Copy link inner container */
 

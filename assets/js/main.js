@@ -1,13 +1,13 @@
 // Get URL invitation link
 let r = new XMLHttpRequest(),
 	url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url}`,
-	data = "",
+	link = "",
 	invitationLink = "";
 r.open("GET", url);
 r.send();
 r.addEventListener("load", () => {
-	data = JSON.parse(r.response);
-	if (data.liens) {
+	link = JSON.parse(r.response);
+	if (link.liens) {
 		// The player is about to join a game
 		invitationLink = window.location.href.split("?g=")[1];
 		toggleDisplay(Container.nickname);
@@ -16,7 +16,7 @@ r.addEventListener("load", () => {
 		// There is a link but it is invalid (not into the database)
 		GameTip.textContent = Return.tip.invalidLink;
 		toggleDisplay(GameTip)
-	} else if (!data.liens) {
+	} else if (!link.liens) {
 		// The player is about to host a new game
 		invitationLink = GenerateLink();
 		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
@@ -30,7 +30,8 @@ r.addEventListener("load", () => {
 	}
 });
 // Set interval Ajax
-let refreshReadyPlayers = setInterval(() => {
+let readyPlayers = {},
+	refreshReadyPlayers = setInterval(() => {
 	if (current_url.includes("?")) {
 		// Join game
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}`)
@@ -38,12 +39,24 @@ let refreshReadyPlayers = setInterval(() => {
 			.then(data => {console.warn(JSON.parse(data))})
 	} else {
 		// Host game
-		/*fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}?g=${invitationLink}`)
-			.then(response => response.text())
-			.then(data => {console.warn(JSON.parse(data))})*/
+		// Get ready players
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}?g=${invitationLink}`)
 			.then(response => response.text())
-			.then(data => {console.warn(JSON.parse(data))})
+			.then(data => {readyPlayers = JSON.parse(data)});
+		let child = ReadyPlayersList.lastElementChild;
+		// Remove old players
+		while (child) {
+			ReadyPlayersList.removeChild(child);
+			child = ReadyPlayersList.lastElementChild
+		}
+		// Add new players
+		for (let i = 0; i < readyPlayers.length; i++) {
+			let player = document.createElement("div");
+			player.className = "Player";
+			player.textContent = readyPlayers[i].nickname;
+			player.style.color = readyPlayers[i].nicknameColor;
+			ReadyPlayersList.appendChild(player)
+		}
 	}
 }, 1000);
 
@@ -82,8 +95,7 @@ Button.openHostForm.addEventListener("click", () => {
 	// Open form modal
 	Modal.open(Modal.hostForm);
 	// Input disabled when modal is open
-	Input.nickname.disabled = true;
-	PlayerList.querySelector(".HostPlayer").textContent = Player.nickname
+	Input.nickname.disabled = true
 });
 document.querySelectorAll("input[type='range']").forEach((input) => {
 	input.addEventListener("input", () => {
