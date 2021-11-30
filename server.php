@@ -21,6 +21,7 @@
 			$setmessage = $this->bdd->prepare("UPDATE `game` SET round_number = ?, max_player = ?, player_activ = ? WHERE id_game = ?");
 			$setmessage->execute(array($round_number, $max_player, $player_activ, $this->getgame($link_game)));
 		}
+
 		// public function getgame($link_game): string {
 		// 	$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game = $link_game");
 		// 	$value = $setgame->fetch();
@@ -59,6 +60,10 @@
 			$setgame = $this->bdd->query("SELECT id_player FROM player where id_game = " . $this->getgame($link_game));
 			$value = $setgame->fetch();
 			return $value["id_player"];
+		}
+		public function Edit_score($name, $score,$link_game): void {
+			$setmessage = $this->bdd->prepare("UPDATE `player` SET score = ? WHERE id_game = ? and id_player=?");
+			$setmessage->execute(array($name, $this->getgame($link_game),$this->getplayer($name)));
 		}
 		/*public function get_score_player($name): string {
 			$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
