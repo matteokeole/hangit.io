@@ -73,6 +73,7 @@ let readyPlayers = {},
 			oldMessages = messages
 		}
 		for (let i = 0; i < newMessages.length; i++) {
+			console.warn(newMessages[i].nickname)
 			// Send/check message
 			sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
 			// checkMessage(newMessages[i].text)

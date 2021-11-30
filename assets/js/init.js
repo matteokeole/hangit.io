@@ -225,61 +225,41 @@ const Player = {
 	},
 	// Send/get data functions
 	sendData = (mon, data) => {
-		var r = new XMLHttpRequest();
-		r.onreadystatechange = function() {
+		let r = new XMLHttpRequest();
+		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(r.response);
-				else console.error("Erreur du serveur")
+				if (r.status == 200) console.info("Data sent");
+				else console.error("Server error")
 			}
 		}
-		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true)
+		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`${mon}=${data}`)
 	},
-	sendDataTwo = (mon, data,montwo,datatwo) => {
-		var r = new XMLHttpRequest();
-		r.onreadystatechange = function() {
+	sendData2 = (mon, data, montwo, datatwo) => {
+		let r = new XMLHttpRequest();
+		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(r.response);
-				else console.error("Erreur du serveur")
+				if (r.status == 200) console.info("Data sent");
+				else console.error("Server error")
 			}
 		}
-		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true)
+		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`${mon}=${data}&${montwo}=${datatwo}`)
 	},
-	getData = (url) => {
-		fetch(url)
-			.then(response => response.json())
-			.then(data => {return data});
-		/*
-		let data="terminaison";
-		let req = new XMLHttpRequest();
-	    req.open('GET', url);
-	    req.send();
-	     req.onreadystatechange = function(data) {
-	    	if (req.status == 200) {
-	        	return data = req.responseText;
-
-	        	//console.log(data);
-	        	//return data 
-	        	//return data;
-	       		// updateResult(data);
-	    	} 
-	     
-		}
-		/*
-		let r = new XMLHttpRequest(),
-			data = null;
-		r.open("GET", url);
+	sendDatabaseMessage = (auto, msg, authorName) => {
+		// Send a message to the database
+		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
-			if (r.readyState == 4 && r.status == 200) {
-				data = r.response;
-				console.log(data)
-			} else return "Erreur du serveur"
+			if (r.readyState == 4) {
+				if (r.status == 200) console.info("Message sent");
+				else console.error("Server error")
+			}
 		}
-		r.send()
-		*/
+		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
+		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(`auto=${auto}&msg=${msg}&authorName=${authorName}`)
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
