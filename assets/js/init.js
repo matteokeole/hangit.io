@@ -249,6 +249,19 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`nickname=${nickname}&color=${color}`)
 	},
+	sendHiddenWord = (word) => {
+		// Send the hidden word to the database
+		let r = new XMLHttpRequest();
+		r.onreadystatechange = () => {
+			if (r.readyState == 4) {
+				if (r.status == 200) console.info((r.response.length == 0) ? "Hidden word sent!" : r.response);
+				else console.error("Server error")
+			}
+		}
+		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
+		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(`word=${word}`)
+	},
 	sendDatabaseMessage = (msg, authorName) => {
 		// Send a message to the database
 		let r = new XMLHttpRequest();

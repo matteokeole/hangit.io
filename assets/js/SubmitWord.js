@@ -7,27 +7,22 @@ Input.submitWord.addEventListener("input", () => {
 	} else Button.submitWord.disabled = true
 });
 
-
-// Submit word function
-const SubmitWord = (word) => {
-	HiddenWord.originalWord = word.toUpperCase();
-	HiddenWord.length = HiddenWord.originalWord.length;
-	HiddenWord.displayWord = HiddenWord.originalWord.replace(HiddenWord.originalWord, "_".repeat(HiddenWord.length));
-	// Highlight spaces and hyphens
-	checkForCharInWord(" ");
-	checkForCharInWord("-");
-	HiddenWord.refreshSpan();
-	resizeChat()
-};
-
 // Submit word event listener
 Modal.submitWord.addEventListener("submit", (e) => {
 	// Prevent form from submitting
 	e.preventDefault();
 	Modal.close();
-	// Send player word to server
-	sendData("Word", Input.submitWord.value);
-	SubmitWord(Input.submitWord.value);
+	HiddenWord.originalWord = word.toUpperCase();
+	HiddenWord.length = HiddenWord.originalWord.length;
 	Input.submitWord.value = "";
-	Button.submitWord.disabled = true
+	Button.submitWord.disabled = true;
+	// Send player word to server
+	sendHiddenWord(HiddenWord.originalWord);
+	HiddenWord.displayWord = HiddenWord.originalWord.replace(HiddenWord.originalWord, "_".repeat(HiddenWord.length));
+	// Highlight spaces and hyphens
+	checkForCharInWord(" ");
+	checkForCharInWord("-");
+	// Display span
+	HiddenWord.refreshSpan();
+	resizeChat()
 })
