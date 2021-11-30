@@ -43,7 +43,6 @@ let readyPlayers = [],
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${invitationLink}`)
 			.then(response => response.text())
 			.then(data => {readyPlayers = JSON.parse(data)});
-		// console.log(readyPlayers)
 		ReadyPlayersList.parentNode.children[0].children[0].textContent = readyPlayers.length;
 		let lastChild = ReadyPlayersList.lastElementChild,
 			lastChild2 = ConnectedPlayersList.lastElementChild;
@@ -78,7 +77,7 @@ let readyPlayers = [],
 		}
 		// Check for current round player
 		for (let i = 0; i < readyPlayers.length; i++) {
-			// console.warn(readyPlayers[i].roundPlayer)
+			console.warn(readyPlayers[i].roundPlayer)
 			if (readyPlayers[i].roundPlayer && readyPlayers[i].nickname == Player.nickname) {
 				Player.roundPlayer = true;
 				console.warn(readyPlayers[i])
