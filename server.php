@@ -147,8 +147,8 @@
 		$Partie->Setmessage($message);
 		echo true;
 	}
-	if (isset($_GET["allplayer"])) {
-		$getallplayer = htmlspecialchars($_GET['allplayer']);
+	if (isset($_GET["getallplayer"])) {
+		$getallplayer = htmlspecialchars($_GET['getallplayer']);
 		$Partie->get_all_player_game($getallplayer);
 		echo json_encode($Partie->get_all_player_game($getallplayer));
 	}
