@@ -77,9 +77,9 @@
 			$value = $setgame->fetch();
 			return $value["score"];
 		}*/
-		public function Setplayer($name, $score, $nicknameColor, $link_game) {
-			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, nicknameColor) VALUES (?, ?, ?, ?)");
-			$setmessage->execute(array($name, $score, $this->getgame($link_game), $nicknameColor));
+		public function Setplayer($name, $score, $nicknameColor, $link_game, $roundPlayer) {
+			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, nicknameColor, roundPlayer) VALUES (?, ?, ?, ?, ?)");
+			$setmessage->execute(array($name, $score, $this->getgame($link_game), $nicknameColor, $roundPlayer));
 			// $this->player = $this->getplayer();
 			return true;
 		}
