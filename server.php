@@ -29,7 +29,7 @@
 		public function getgame($game_url): string {
 			$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game = $game_url");
 			$value = $setgame->fetch();
-			return $value;
+			return $value['id_game'];
 		}
 		public function geturlgame($link_game): string {
 			$setgame = $this->bdd->query("SELECT link_game FROM `game` WHERE id_game = " . $this->getgame($link_game));
