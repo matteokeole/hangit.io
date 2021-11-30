@@ -13,14 +13,27 @@ document.querySelectorAll("input[type='range']").forEach((input) => {
 		input.previousElementSibling.children[0].textContent = value
 	})
 });
+const GenerateLink = () => {return (new Date()).getTime()};
+Queliens=GenerateLink();
+
+console.log(Queliens);
+console.log(current_url+Queliens);
 let refreshReadyPlayers = setInterval(() => {
-	fetch(`https://m2x.alwaysdata.net/hangit/server.php?liens=getmessage=${current_url}`)
-		.then(response => response.json())
+	if (current_url.includes("?=g")) {
+		console.log("contien:"+current_url)
+		fetch("https://m2x.alwaysdata.net/hangit/server.php?getmessage="+current_url)
+		.then(response => response.text())
 		.then(data => {console.log(data)})
+	}else{
+		console.log("ne contien pas :"+current_url)
+		fetch("https://m2x.alwaysdata.net/hangit/server.php?getmessage="+current_url+"?g="+Queliens)
+		.then(response => response.text())
+		.then(data => {console.log(data)})
+	}
 }, 1000);
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
-	clearInterval(refreshReadyPlayers);
+	//clearInterval(refreshReadyPlayers);
 	// Close form modal
 	Modal.close();
 	// Close active containers

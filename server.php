@@ -77,12 +77,8 @@
 			$setmessage->execute(array($name, $score, $this->getplayer()));
 		}
 		public function get_all_message_game($game) {
-			$getmessage = $this->bdd->query("SELECT  player.nickname, message.text FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game = " .$game);
-			$value = $getmessage->fetchAll();
-			return $value;
-		}
-		public function get_all_player_game() {
-			$getmessage = $this->bdd->query("SELECT player.nickname FROM `player` JOIN `game` ON player.id_game=game.id_game WHERE game.id_game = " . $this->getgame());
+			$getmessage = $this->bdd->prepare("SELECT player.nickname, message.text FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game =?;");
+			$getmessage->execute(array($game));
 			$value = $getmessage->fetchAll();
 			return $value;
 		}
@@ -91,7 +87,13 @@
 			$setmessage->execute(array($word, $this->getplayer()));
 			$this->hiddenword = $this->gethiddenword();
 		}
-		
+		public function get_all_player_game($game)
+		{
+			$getmessage=$this->bdd->prepare("SELECT player.nickname FROM `player` JOIN game ON player.id_game=game.id_game WHERE game.link_game=?");
+			$getmessage->execute(array($game));
+			$value=$getmessage->fetchAll();
+			return $value;
+		}
 		public function gethiddenword() {
 			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer() . " ORDER BY id_player DESC LIMIT 1");
 			$value = $setgame->fetch();
@@ -145,7 +147,7 @@
 		$Partie->Setmessage($message);
 		echo true;
 	}
-	if (isset($_GET["allmessage"])) {
+	if (isset($_GET["allplayer"])) {
 		echo json_encode($Partie->get_all_player_game());
 	}
 	if (isset($_GET['liens'])) {
@@ -153,9 +155,16 @@
 		$arrayName = array('liens' => $Partie->url_existe($mon_liens));
 		echo json_encode($arrayName);
 	}
+	/*
 	if (isset($_GET['getmessage'])) {
 		$getmessage=htmlspecialchars($_GET['getmessage']);
-		$arrayName = array('o' => $Partie->get_all_message_game($getmessage));
-		echo json_encode($arrayName);
+		//$arrayName = array('o' => $Partie->get_all_message_game($getmessage));
+		echo json_encode($Partie->get_all_message_game($getmessage));
+	}
+	*/
+	if (isset($_GET['getmessage'])) {
+		$getmessage=htmlspecialchars($_GET['getmessage']);
+		//$arrayName = array('o' => $Partie->get_all_message_game($getmessage));
+		echo var_dump($Partie->get_all_message_game($getmessage));
 	}
 ?>
