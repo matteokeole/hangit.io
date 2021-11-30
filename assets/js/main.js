@@ -72,7 +72,7 @@ let readyPlayers = [],
 			player2.appendChild(player2Score);
 			ConnectedPlayersList.appendChild(player2)
 		}
-	}, 1000),
+	}, 100),
 	messages = [],
 	oldMessages = [],
 	newMessages = [],
