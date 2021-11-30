@@ -22,12 +22,12 @@
 			$setmessage->execute(array($round_number, $max_player, $player_activ, $this->getgame($link_game)));
 		}
 		public function getgame($link_game): string {
-			$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game = $link_game");
+			$setgame = $this->bdd->query("SELECT id_game FROM `game` WHERE link_game = $link_game");
 			$value = $setgame->fetch();
 			return $value;
 		}
 		public function geturlgame($link_game): string {
-			$setgame = $this->bdd->query("SELECT link_game from game where id_game = " . $this->getgame($link_game));
+			$setgame = $this->bdd->query("SELECT link_game FROM `game` WHERE id_game = " . $this->getgame($link_game));
 			$value = $setgame->fetch();
 			return $value;
 		}
@@ -149,12 +149,12 @@
 		$Partie->$setround($setround);
 		echo true;
 	}
-	if (isset($_POST["nickname"], $_POST["color"], $_POST["url"])) {
-		$link_game = htmlspecialchars($_POST["url"]);
-		$First_player = htmlspecialchars($_POST["nickname"]);
+	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"])) {
+		$url = htmlspecialchars($_POST["url"]);
+		$nickname = htmlspecialchars($_POST["nickname"]);
 		$nicknameColor = htmlspecialchars($_POST["color"]);
-		$Partie->Edit_Game("0", "0", "1", $link_game);
-		$Partie->Setplayer($First_player, "0", $nicknameColor, $link_game);
+		$Partie->Edit_Game("0", "0", "1", $url);
+		$Partie->Setplayer($nickname, "0", $nicknameColor, $url);
 		echo true;
 	}
 	if (isset($_POST["invite"], $_POST["joinlink"])) {
