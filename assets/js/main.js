@@ -65,6 +65,7 @@ let readyPlayers = {},
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}`)
 			.then(response => response.text())
 			.then(data => {messages = JSON.parse(data)});
+		console.warn(messages)
 		if (messages.length > 0) {
 			for (let i = 0; i < messages.length; i++) {
 				if (oldMessages[i] == undefined) newMessages.push(messages[i])
@@ -73,12 +74,13 @@ let readyPlayers = {},
 			oldMessages = messages
 		}
 		for (let i = 0; i < newMessages.length; i++) {
+			console.warn(newMessages[i])
 			console.warn(newMessages[i].nickname)
 			// Send/check message
 			sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
 			// checkMessage(newMessages[i].text)
 		}
-	}, 100);
+	}, 100)
 
 
 

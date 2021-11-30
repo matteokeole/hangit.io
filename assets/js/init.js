@@ -253,13 +253,13 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info("Message sent");
+				if (r.status == 200) console.info(r.response);
 				else console.error("Server error")
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`auto=${auto}&msg=${msg}&authorName=${authorName}`)
+		r.send(`url=${current_url}&auto=${auto}&msg=${msg}&authorName=${authorName}`)
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",

@@ -129,11 +129,11 @@ Form.sendMessage.addEventListener("submit", (e) => {
 	e.preventDefault();
 	// Filled and non-blank input, check message before sending
 	let msg = Input.message.value;
+	// Disable send button & clear message input
+	Input.message.value = "";
+	Button.sendMessage.disabled = true;
 	// Send message to server
 	sendDatabaseMessage(false, msg, Player.nickname);
-	// Disable send button & clear message input
-	Button.sendMessage.disabled = true;
-	Input.message.value = "";
 	// Re-focus input
 	Input.message.focus()
 })
