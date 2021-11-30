@@ -169,6 +169,7 @@
 	}
 
 	if (isset($_POST["nickname"], $_POST["color"],$_POST['url'])) {
+		$link_game = htmlspecialchars($_POST["url"]);
 		$First_player = htmlspecialchars($_POST["nickname"]);
 		$nicknameColor = htmlspecialchars($_POST["color"]);
 		$Partie->Edit_Game("0", "0", "1",$link_game);
@@ -185,11 +186,13 @@
 	}
 
 	if (isset($_POST["Max_Rounds"],$_POST['url'])) {
+		$link_game = htmlspecialchars($_POST["url"]);
 		$Max_Rounds = htmlspecialchars($_POST["Max_Rounds"]);
 		$Partie->Edit_Game($Max_Rounds, "4", "1",$link_game);
 		echo true;
 	}
 	if (isset($_POST["word"], $_POST["player"],$_POST['url'])) {
+		$link_game = htmlspecialchars($_POST["url"]);
 		$word = htmlspecialchars($_POST["word"]);
 		$player = htmlspecialchars($_POST["player"]);
 		$Partie->set_hidden_word($word, $player,$link_game);
