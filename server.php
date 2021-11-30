@@ -77,7 +77,7 @@
 			$setmessage->execute(array($name, $score, $this->getplayer()));
 		}
 		public function get_all_message_game($game) {
-			$getmessage = $this->bdd->prepare("SELECT player.nickname, message.text FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game =?;");
+			$getmessage = $this->bdd->prepare("SELECT player.nickname, message.text ,player.color FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game =?;");
 			$getmessage->execute(array($game));
 			$value = $getmessage->fetchAll();
 			return $value;
@@ -165,6 +165,6 @@
 	if (isset($_GET['getmessage'])) {
 		$getmessage=htmlspecialchars($_GET['getmessage']);
 		//$arrayName = array('o' => $Partie->get_all_message_game($getmessage));
-		echo var_dump($Partie->get_all_message_game($getmessage));
+		echo json_encode($Partie->get_all_message_game($getmessage));
 	}
 ?>
