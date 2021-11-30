@@ -33,21 +33,18 @@ r.addEventListener("load", () => {
 let refreshReadyPlayers = setInterval(() => {
 	if (current_url.includes("?")) {
 		// Join game
-		console.info(invitationLink);
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}`)
-			.then(response => response.text())
-			.then(data => {console.warn(JSON.parse(data))})
-		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}`)
 			.then(response => response.text())
 			.then(data => {console.warn(JSON.parse(data))})
 	} else {
 		// Host game
-		console.info(invitationLink);
-		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}?g=${invitationLink}`)
+		/*fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${current_url}?g=${invitationLink}`)
+			.then(response => response.text())
+			.then(data => {console.warn(JSON.parse(data))})*/
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${current_url}`)
 			.then(response => response.text())
 			.then(data => {console.warn(JSON.parse(data))})
 	}
-	
 }, 1000);
 
 
