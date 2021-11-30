@@ -159,7 +159,7 @@
 		$Partie->$setround($setround);
 		echo true;
 	}
-	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"],$_POST['roundPlayer'])) {
+	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"], $_POST['roundPlayer'])) {
 		$url = htmlspecialchars($_POST["url"]);
 		$nickname = htmlspecialchars($_POST["nickname"]);
 		$nicknameColor = htmlspecialchars($_POST["color"]);
