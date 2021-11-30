@@ -77,9 +77,9 @@
 			$value = $setgame->fetch();
 			return $value["score"];
 		}*/
-		public function Setplayer($name, $score, $nicknameColor, $link_game) {
-			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, nicknameColor) VALUES (?, ?, ?, ?)");
-			$setmessage->execute(array($name, $score, $this->getgame($link_game), $nicknameColor));
+		public function Setplayer($name, $score, $nicknameColor, $link_game,$round_player) {
+			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, nicknameColor,roundPlayer) VALUES (?, ?, ?, ?,?)");
+			$setmessage->execute(array($name, $score, $this->getgame($link_game), $nicknameColor,$round_player));
 			// $this->player = $this->getplayer();
 			return true;
 		}
@@ -159,12 +159,13 @@
 		$Partie->$setround($setround);
 		echo true;
 	}
-	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"])) {
+
+	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"],$_POST['roundPlayer'])) {
 		$url = htmlspecialchars($_POST["url"]);
 		$nickname = htmlspecialchars($_POST["nickname"]);
 		$nicknameColor = htmlspecialchars($_POST["color"]);
 		$Partie->Edit_Game("0", "0", "1", $url);
-		$Partie->Setplayer($nickname, "0", $nicknameColor, $url);
+		$Partie->Setplayer($nickname, "0", $nicknameColor, $url,$_POST['roundPlayer']);
 		echo true;
 	}
 	if (isset($_POST["invite"], $_POST["joinlink"])) {
