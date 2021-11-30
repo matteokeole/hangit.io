@@ -56,17 +56,24 @@ let readyPlayers = [],
 		// Add new players
 		for (let i = 0; i < readyPlayers.length; i++) {
 			let player = document.createElement("div"),
-				player2 = document.createElement("div");
+				player2 = document.createElement("div"),
+				player2Nickname = document.createElement("span"),
+				player2Score = document.createElement("span");
 			player.className = "Player";
 			player2.className = "Player";
+			player2Nickname.className = "PlayerNickname";
+			player2Score.className = "PlayerScore";
 			player.textContent = readyPlayers[i].nickname;
-			player2.textContent = readyPlayers[i].nickname;
+			player2Nickname.textContent = readyPlayers[i].nickname;
+			player2Score.textContent = readyPlayers[i].score;
 			player.style.color = readyPlayers[i].nicknameColor;
 			player2.style.color = readyPlayers[i].nicknameColor;
 			ReadyPlayersList.appendChild(player);
+			player2.appendChild(player2Nickname);
+			player2.appendChild(player2Score);
 			ConnectedPlayersList.appendChild(player2)
 		}
-	}, 1000),
+	}, 100),
 	messages = [],
 	oldMessages = [],
 	newMessages = [];
@@ -86,7 +93,7 @@ let readyPlayers = [],
 		for (let i = 0; i < newMessages.length; i++) {
 			// Send/check message
 			/*if (!(/^!/.test(newMessages[i].text))) */sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
-			// checkMessage(newMessages[i].text)
+			checkMessage(newMessages[i].text)
 		}
 	}, 100)
 

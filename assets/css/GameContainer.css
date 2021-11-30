@@ -19,12 +19,21 @@
 }
 
 .ConnectedPlayersList .Player {
+	display: flex;
+	flex-direction: column;
 	margin-bottom: 8px;
 	padding: 4px 8px;
 	overflow: hidden;
 	border-radius: 8px;
 	background-color: var(--primary-light);
 	text-overflow: ellipsis
+}
+
+.ConnectedPlayersList .PlayerNickname {font-size: 18px}
+
+.ConnectedPlayersList .PlayerScore {
+	opacity: 0.5;
+	font-size: 14px
 }
 
 .GameInnerContainer {

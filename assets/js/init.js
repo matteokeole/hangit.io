@@ -132,7 +132,7 @@ const Player = {
 		toggleDisplay(Container.gameContainer, "flex");
 		resizeChat();
 		Round.max = maxRounds;
-		Container.gameContainer.children[0].children[1].textContent = Round.max;
+		Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
 		nextRound()
 	},
 	joinGame = () => {

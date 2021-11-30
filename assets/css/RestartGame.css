@@ -37,16 +37,9 @@
 	margin-right: 8px
 }
 
-.PlayerScore {
+.RestartGameContainer .PlayerScore {
 	display: flex;
 	flex-direction: column
-}
-
-.PlayerValue {font-size: 18px}
-
-.ScoreValue {
-	opacity: 0.5;
-	font-size: 14px
 }
 
 /* Restart button */
