@@ -114,7 +114,7 @@
 			$this->hiddenword = $this->gethiddenword($link_game);
 		}
 		public function get_all_player_game($game) {
-			$getmessage = $this->bdd->prepare("SELECT player.nickname, player.nicknameColor, player.score FROM `player` JOIN `game` ON player.id_game = game.id_game WHERE game.link_game = ?");
+			$getmessage = $this->bdd->prepare("SELECT player.nickname, player.nicknameColor, player.score , player.roundPlayer FROM `player` JOIN `game` ON player.id_game = game.id_game WHERE game.link_game = ?");
 			$getmessage->execute(array($game));
 			$value = $getmessage->fetchAll();
 			return $value;
@@ -196,6 +196,11 @@
 	}
 	if (isset($_GET["wtf"])) {
 		echo "ok";
+	}
+	if (isset($_GET["getallplayer"])) {
+		$getallplayer = htmlspecialchars($_GET["getallplayer"]);
+		$Partie->get_all_player_game($getallplayer);
+		echo json_encode($Partie->get_all_player_game($getallplayer));
 	}
 	if (isset($_GET["getallplayer"])) {
 		$getallplayer = htmlspecialchars($_GET["getallplayer"]);
