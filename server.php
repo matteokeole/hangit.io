@@ -77,7 +77,7 @@
 			$setmessage->execute(array($name, $score, $this->getplayer()));
 		}
 		public function get_all_message_game($game) {
-			$getmessage = $this->bdd->prepare("SELECT nickname, message.text ,nicknameColor FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game =?;");
+			$getmessage = $this->bdd->prepare("SELECT player.nickname, message.text ,player.nicknameColor FROM `player` JOIN `message` ON message.id_player=player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game =?;");
 			$getmessage->execute(array($game));
 			//$value = $getmessage->fetchAll();
 			$value=array();
