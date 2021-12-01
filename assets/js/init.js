@@ -351,7 +351,7 @@ Input.nickname.nextElementSibling.style.color = Player.nicknameColor;
 document.documentElement.style.setProperty("--nickname-color", Player.nicknameColor);
 document.documentElement.style.setProperty("--nickname-color-light", `${Player.nicknameColor}30`);
 // Restart game
-Button.restart.addEventListener("click", () => {location.href = "https://"});
+Button.restart.addEventListener("click", () => {location.href = "https://matteoo34.github.io/hangit.io"});
 // Window resize function on load & resize
 addEventListener("load", resizeChat);
 addEventListener("resize", resizeChat)
