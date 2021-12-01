@@ -134,6 +134,12 @@
 			$setmessage->execute(array($game));
 			// $this->round = $this->getround($game);
 		}
+		public function get_max_round($game_url) {
+			$setmessage = $this->bdd->query("SELECT round_number FROM game WHERE id_game=$this->getgame($game_url)");
+			$value = $setgame->fetch();
+			return $value;
+			// $this->round = $this->getround($game);
+		}
 		/*public function set_put_player_in_round($game, $player) {
 			// En cours
 			// $setplayerinround = $this->bdd->prepare("INSERT INTO `round_player` (id_player, id_round) VALUES ((SELECT id_player FROM `player` JOIN `game` ON game.id_game = player.id_game WHERE link_game = "http://localhost/hangit.io/?s1638270215336"), (SELECT id_round FROM `round` JOIN `game` ON game.id_game = round.id_game WHERE link_game = "http://localhost/hangit.io/?g=1638270215336"));");
@@ -212,5 +218,10 @@
 		$getmessage = htmlspecialchars($_GET["getmessage"]);
 		// $arrayName = array("o" => $Partie->get_all_message_game($getmessage));
 		echo json_encode($Partie->get_all_message_game($getmessage));
+	}
+	if (isset($_GET["get_max_round"])) {
+		$get_max_round = htmlspecialchars($_GET["get_max_round"]);
+		// $arrayName = array("o" => $Partie->get_all_message_game($getmessage));
+		echo json_encode($Partie->get_max_round($getmessage));
 	}
 ?>
