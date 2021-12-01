@@ -232,12 +232,12 @@
 		print_r($players);
 		do {
 			$found = false;
-			$i = 2;
 			foreach ($players as $player) {
 				if ($player['nickname'] == $nickname) {
 					$found = true;
 				}
 			}
+			$i = 2;
 			if ($found) {
 				$nickname = $nickname.$i;
 				$i +=1;
