@@ -80,7 +80,8 @@ let readyPlayers = [],
 		// Check for current round player
 		for (let i = 0; i < readyPlayers.length; i++) {
 			if (readyPlayers[i].roundPlayer == "true") {
-				Player.currentRoundPlayerNickname = readyPlayers[i].nickname;
+				Round.currentRoundPlaye.nickname = readyPlayers[i].nickname;
+				Round.currentRoundPlaye.nicknameColor = readyPlayers[i].nicknameColor;
 				if (readyPlayers[i].nickname == Player.nickname) Player.roundPlayer = true
 			}
 		}
