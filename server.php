@@ -145,14 +145,14 @@
 			$value = $allplayer->fetch();
 			return $value['count(id_player)'];
 		}
-
+		
 		public function get_idplayer_by_nickname($name,$link_game) :string
     	{
 			$setgame=$this->bdd->query("SELECT id_player FROM player join game on game.id_game = player.id_game where nickname='$name' and game.link_game = $link_game;");
 			$value=$setgame->fetch();
 			return $value['id_player'];
     	} 
-
+		
 		//when 1 row in player is deleted all table with id_player in are deleted
 		public function delet_player_info($link_game,$name){
 			$setmessage = $this->bdd->prepare("DELETE FROM player WHERE id_player =?");
@@ -163,40 +163,48 @@
 			$this->bdd->query("DELETE FROM player WHERE id_player =". $this->getplayer($link_game));
 			$this->bdd->query("DELETE FROM game WHERE id_game =". $this->getgame($game_url));
 		}
-
-
-
-
+		
+		
+		
 		// public function set_put_player_in_round($game_url) {
-		// 	$setplayerinround = $this->bdd->prepare("INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player from player WHERE id_gamer=?),(SELECT id_round FROM round WHERE id_game=?)");
-		// 	$setplayerinround -> execute(array($game_url,$game_url));			
-		// }
-	}
-	// Game server
-	$Partie = new Game_Server();
-	if (isset($_POST["link_game"])) {
-		$Link_game = htmlspecialchars($_POST["link_game"]);
-		if ($Partie->url_existe($Link_game)) echo "erreur lien existe";
-		else {
-			$Partie->Set_Game("0", "0", "0", $Link_game);
-			echo true;
+			// 	$setplayerinround = $this->bdd->prepare("INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player from player WHERE id_gamer=?),(SELECT id_round FROM round WHERE id_game=?)");
+			// 	$setplayerinround -> execute(array($game_url,$game_url));			
+			// }
 		}
-	}
+		// Game server
+		$Partie = new Game_Server();
+		if (isset($_POST["link_game"])) {
+			$Link_game = htmlspecialchars($_POST["link_game"]);
+			if ($Partie->url_existe($Link_game)) echo "erreur lien existe";
+			else {
+				$Partie->Set_Game("0", "0", "0", $Link_game);
+				echo true;
+			}
+		}
 	/*if (isset($_POST["message"], $_POST["nickmane"])) {
 		$message = htmlspecialchars($_POST["message"]);
 		$Partie->Setmessage($message, $_POST["nickmane"]);
 		echo true;
 	}*/
-
+	
 	// if(isset($_POST['set_player_round'],$_POST['url'])){
-	// 	$Partie->set_put_player_in_round($_POST['url']);
-	// 	echo true;
-	// }
-
-	// if (isset($_POST['clearGuestData'])){
-
-	// }
-
+		// 	$Partie->set_put_player_in_round($_POST['url']);
+		// 	echo true;
+		// }
+		
+		// if (isset($_POST['clearGuestData'])){
+			
+			// }
+			public function set_found($found,$name,$link_game){
+				$setmessage = $this->bdd->prepare("UPDATE player SET found = ? WHERE id_player = ?");
+				$setmessage->execute(array($found,$this->$this->get_idplayer_by_nickname($name,$link_game)));
+				return true;
+			}
+	if(isset($_POST['wordFound'],$_POST['nickname'],$_POST['url'])){
+		$Partie->set_found($_POST['wordFound'],$_POST['nickname'],$_POST['url']);
+		echo true;
+	}		
+			
 	if (isset($_POST['url'],$_POST['nickname'],$_POST['foundIndex'])){
 		$a = 1000/(($Partie->get_player_number($_POST['url']))-1);
 		$score = 1000 - $a * $_POST['foundIndex'];
@@ -230,6 +238,8 @@
 		$Partie->Edit_Game("0", "0", "1", $url);
 		$players = $Partie->get_all_player_game($_POST["url"]);
 		print_r($players);
+		$base = $nickname;
+		$i = 2;
 		do {
 			$found = false;
 			foreach ($players as $player) {
@@ -237,12 +247,12 @@
 					$found = true;
 				}
 			}
-			$i = 2;
 			if ($found) {
-				if($nickname[strlen($nickname) - 1]==$i){
-					$nickname = $nickname[strlen($nickname) - 1]+1;
+				if(substr($nickname, - strlen((string)$i))==$i){
+					$nickname = $base."#".$i;
+					$i++;
 				} else{
-					$nickname = $nickname.$i;
+					$nickname = $base."#".$i;
 				}
 			}
 		} while($found == true);
