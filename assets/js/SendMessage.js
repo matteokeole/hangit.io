@@ -24,7 +24,10 @@ const checkMessage = (msg) => {
 					HiddenWord.sentLetters.push(msg);
 					// Check for letter in hidden word
 					HiddenWord.currentInputValidity = checkForCharInWord(msg);
-					if (HiddenWord.originalWord == HiddenWord.displayWord) Player.score += 100
+					if (HiddenWord.originalWord == HiddenWord.displayWord) {
+						sendPlayerScore(Player.nickname, 1);
+						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname)
+					}
 				}
 			} else if (msg.length > 1) {
 				// Word sent, reveal it on the hidden word if valid
@@ -40,7 +43,10 @@ const checkMessage = (msg) => {
 					// Check if the hidden word is found
 					HiddenWord.currentInputValidity = checkForFullWord(msg);
 					// If found, increment score & next round
-					if (HiddenWord.originalWord == HiddenWord.displayWord) Player.score += 200
+					if (HiddenWord.originalWord == HiddenWord.displayWord) {
+						sendPlayerScore(Player.nickname, 1);
+						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname)
+					}
 				}
 			}
 		}
@@ -150,7 +156,6 @@ Form.sendMessage.addEventListener("submit", (e) => {
 	Input.message.value = "";
 	Button.sendMessage.disabled = true;
 	// Send message to server
-	console.log(msg)
 	sendDatabaseMessage(msg, Player.nickname);
 	// Re-focus input
 	Input.message.focus()

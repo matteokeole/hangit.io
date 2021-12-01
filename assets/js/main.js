@@ -25,8 +25,8 @@ r.addEventListener("load", () => {
 		Player.role = "host";
 		invitationLink = GenerateLink();
 		current_url += `?g=${invitationLink}`;
-		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
@@ -120,15 +120,31 @@ let readyPlayers = [],
 				}
 			}
 			// Get sent hidden word
-			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_hidden_word=${invitationLink}`)
-				.then(response => response.text())
-				.then(data => {HiddenWord.originalWord = data});
-			if (/^[A-Za-zÀ-ú- ]{4,}$/.test(HiddenWord.originalWord)) {
-				// The word has been submitted
-				// Hide waiting layer for guests
-				Layer.hide();
-				Overlay.hide();
-				displayHiddenWord(HiddenWord.originalWord)
+			if (!HiddenWord.submitted) {
+				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_hidden_word=${invitationLink}`)
+					.then(response => response.text())
+					.then(data => {HiddenWord.originalWord = data});
+				if (/^[A-Za-zÀ-ú- ]{4,}$/.test(HiddenWord.originalWord)) {
+					// The word has been submitted
+					HiddenWord.submitted = true;
+					// Hide waiting layer for guests
+					Layer.hide();
+					Overlay.hide();
+					// Show/hide hidden word to players
+					HiddenWord.length = HiddenWord.originalWord.length;
+					if (Round.currentRoundPlayer.nickname == Player.nickname) {
+						// Show the word for the player who submitted it
+						HiddenWord.displayWord = HiddenWord.originalWord
+					} else {
+						// Hide the word for the others players
+						HiddenWord.displayWord = HiddenWord.originalWord.replace(HiddenWord.originalWord, "_".repeat(HiddenWord.length));
+						// Highlight spaces and hyphens
+						checkForCharInWord(" ");
+						checkForCharInWord("-")
+					}
+					// Display word span
+					HiddenWord.refreshSpan()
+				}
 			}
 		}
 	}, 100);
