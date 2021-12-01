@@ -24,6 +24,7 @@ const Player = {
 		lastMessageSender: null
 	},
 	HiddenWord = {
+		submitted: false,
 		originalWord: "", // Chosen word
 		displayWord: "", // This is the word displayed on the page
 		length: 0, // Word length
@@ -239,20 +240,18 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&message=${msg}&authorName=${authorName}`)
 	},
-	editScore = (score, operation, amount, nickname) => {
-		// Change the score of the player
-		if (operation == "+") score += amount;
-		else if (operation == "-") score -= amount;
+	sendPlayerScore = (nickname, foundIndex) => {
+		// Change the score of the specified player
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[editScore] ${r.response}`);
+				if (r.status == 200) console.info(`[sendPlayerScore] ${r.response}`);
 				else console.error("Server error")
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitationLink}&score=${score}&nickname=${nickname}`)
+		r.send(`url=${invitationLink}&nickname=${nickname}&foundIndex=${foundIndex}`)
 	},
 	clearGame = () => {
 		// Clear all current game data

@@ -7,17 +7,6 @@ Input.submitWord.addEventListener("input", () => {
 	} else Button.submitWord.disabled = true
 });
 
-const displayHiddenWord = (word) => {
-	// Display hidden word on the game
-	HiddenWord.length = HiddenWord.originalWord.length;
-	HiddenWord.displayWord = HiddenWord.originalWord.replace(HiddenWord.originalWord, "_".repeat(HiddenWord.length));
-	// Highlight spaces and hyphens
-	checkForCharInWord(" ");
-	checkForCharInWord("-");
-	// Display word span
-	HiddenWord.refreshSpan()
-};
-
 // Submit word event listener
 Modal.submitWord.addEventListener("submit", (e) => {
 	// Prevent form from submitting
