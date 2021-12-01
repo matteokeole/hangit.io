@@ -310,6 +310,9 @@ const Player = {
 	// Generate unique link function
 	GenerateLink = () => {return (new Date()).getTime()},
 	updateResult = (data) => {console.log(data)};
+
+
+
 let current_url = document.location.href;
 // Event listeners
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
