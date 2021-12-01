@@ -203,6 +203,11 @@
 		$arrayName = array("liens" => $Partie->url_existe($mon_liens));
 		echo json_encode($arrayName);
 	}
+	if (isset($_GET["get_round"])) {
+		$mon_liens = htmlspecialchars($_GET["get_round"]);
+		$arrayName = array("round" => $Partie->get_round($mon_liens));
+		echo json_encode($arrayName);
+	}
 	if (isset($_GET["getmessage"])) {
 		$getmessage = htmlspecialchars($_GET["getmessage"]);
 		// $arrayName = array("o" => $Partie->get_all_message_game($getmessage));
