@@ -154,9 +154,10 @@
 		$Partie->Setmessage($message, $_POST["nickmane"]);
 		echo true;
 	}*/
-	if (isset($_POST["set_round"])) {
+	if (isset($_POST["set_round"],$_POST['url'])){
 		$setround = $_POST["set_round"];
-		$Partie->$setround($setround);
+		$url=$_POST['url'];
+		$Partie->$set_round($url);
 		echo true;
 	}
 	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"], $_POST['roundPlayer'])) {
