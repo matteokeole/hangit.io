@@ -62,7 +62,7 @@
 			return $value["id_player"];
 		}
 		public function Edit_score($score,$game_url,$link_game,$name): void {
-			$setmessage = $this->bdd->prepare("UPDATE `player` SET score = ? WHERE id_game = ? and nickname=?");
+			$setmessage = $this->bdd->prepare("UPDATE `player` SET score = ? WHERE id_game = ? and id_player=?");
 			$setmessage->execute(array($score,$this->getgame($game_url),$this->get_idplayer_by_nickname($name,$link_game)));
 		}
 		/*public function get_score_player($name): string {
@@ -152,10 +152,10 @@
 			$value=$setgame->fetch();
 			return $value['id_player'];
     	} 
-		// public function delet_player_info($link_game){
-		// 	$setmessage = $this->bdd->prepare("DELETE FROM player WHERE id_player =?");
-		// 	$setmessage-> execute(array($this->getplayer($link_game)));
-		// }
+		public function delet_player_info($link_game,$name){
+			$setmessage = $this->bdd->prepare("DELETE FROM player WHERE id_player =? and nickname=?");
+			$setmessage-> execute(array($this->getplayer($link_game),$this->get_idplayer_by_nickname($name,$link_game)));
+		}
 
 
 
@@ -192,11 +192,16 @@
 
 	if (isset($_POST['url'],$_POST['nickname'],$_POST['foundIndex'])){
 		$a = 1000/(($Partie->get_player_number($_POST['url']))-1);
-		var_dump($score = 1000 - $a * $_POST['foundIndex']);
+		$score = 1000 - $a * $_POST['foundIndex'];
 		$Partie->Edit_score($score,$_POST['url'],$_POST['url'],$_POST['nickname']);
 		echo true;
 		
 
+	}
+
+	if (isset($_POST['url'],$_POST['nickname'])){
+		$Partie->delet_player_info($_POST['url'],$_POST['nickname']);
+		echo true;
 	}
 
 	// if (isset($_POST['edit_score'],$_POST['url'])){
