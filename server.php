@@ -127,7 +127,7 @@
 		public function get_round($game) {
 			$setgame = $this->bdd->query("SELECT count(id_round) FROM `round` JOIN `game` ON game.id_game = round.id_game WHERE link_game =  $game group by link_game");
 			$value = $setgame->fetch();
-			return $value;
+			return $value['count(id_round)'];
 		} 
 		public function set_round($game) {
 			$setmessage = $this->bdd->prepare("INSERT INTO `round` (id_game) VALUES ((SELECT id_game from `game` where link_game = ?))");
@@ -137,7 +137,7 @@
 		public function get_max_round($game_url) {
 			$setmessage = $this->bdd->query("SELECT round_number FROM game WHERE id_game=$this->getgame($game_url)");
 			$value = $setmessage->fetch();
-			return $value;
+			return $value['round_number'];
 			// $this->round = $this->getround($game);
 		}
 		/*public function set_put_player_in_round($game, $player) {
@@ -211,8 +211,8 @@
 	}
 	if (isset($_GET["get_round"])) {
 		$mon_liens = htmlspecialchars($_GET["get_round"]);
-		$arrayName = array("round" => $Partie->get_round($mon_liens));
-		echo json_encode($arrayName);
+		// $arrayName = array("round" => $Partie->get_round($mon_liens));
+		echo ($Partie->get_round($mon_liens));
 	}
 	if (isset($_GET["getmessage"])) {
 		$getmessage = htmlspecialchars($_GET["getmessage"]);
@@ -222,6 +222,6 @@
 	if (isset($_GET["get_max_round"])) {
 		$get_max_round = htmlspecialchars($_GET["get_max_round"]);
 		// $arrayName = array("o" => $Partie->get_all_message_game($getmessage));
-		echo json_encode($Partie->get_max_round($getmessage));
+		echo ($Partie->get_max_round($getmessage));
 	}
 ?>
