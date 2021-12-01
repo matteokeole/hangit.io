@@ -140,6 +140,11 @@
 			return $value['round_number'];
 			// $this->round = $this->getround($game);
 		}
+		public function set_found($found,$name,$link_game){
+			$setmessage = $this->bdd->prepare("UPDATE player SET found = ? WHERE id_player = ?");
+			$setmessage->execute(array($found,$this->$this->get_idplayer_by_nickname($name,$link_game)));
+			return true;
+		}
 		public function get_player_number($link_game){
 			$allplayer = $this->bdd->query("SELECT count(id_player) from player where id_game = ".$this->getgame($link_game));
 			$value = $allplayer->fetch();
@@ -195,11 +200,6 @@
 		// if (isset($_POST['clearGuestData'])){
 			
 			// }
-			public function set_found($found,$name,$link_game){
-				$setmessage = $this->bdd->prepare("UPDATE player SET found = ? WHERE id_player = ?");
-				$setmessage->execute(array($found,$this->$this->get_idplayer_by_nickname($name,$link_game)));
-				return true;
-			}
 	if(isset($_POST['wordFound'],$_POST['nickname'],$_POST['url'])){
 		$Partie->set_found($_POST['wordFound'],$_POST['nickname'],$_POST['url']);
 		echo true;
