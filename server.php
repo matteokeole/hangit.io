@@ -61,9 +61,9 @@
 			$value = $setgame->fetch();
 			return $value["id_player"];
 		}
-		public function Edit_score($score,$game_url,$link_game): void {
-			$setmessage = $this->bdd->prepare("UPDATE `player` SET score = ? WHERE id_game = ? and id_player=?");
-			$setmessage->execute(array($score, $this->getgame($game_url),$this->getplayer($link_game)));
+		public function Edit_score($score,$game_url,$link_game,$name): void {
+			$setmessage = $this->bdd->prepare("UPDATE `player` SET score = ? WHERE id_game = ? and nickname=?");
+			$setmessage->execute(array($score, $this->getgame($game_url),$this->get_idplayer_by_nickname($name,$link_game)));
 		}
 		/*public function get_score_player($name): string {
 			$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
@@ -146,12 +146,12 @@
 			return $value['count(id_player)'];
 		}
 
-		// public function get_idplayer_by_nickname($name,$link_game) :string
-    	// {
-		// 	$setgame=$this->bdd->query("SELECT id_player FROM 'player' join game on game.id_game = player.id_game where nickname=$name and link_game = $link_game;");
-		// 	$value=$setgame->fetch();
-		// 	return $value['id_player'];
-    	// } 
+		public function get_idplayer_by_nickname($name,$link_game) :string
+    	{
+			$setgame=$this->bdd->query("SELECT id_player FROM 'player' join game on game.id_game = player.id_game where nickname='$name' and link_game = $link_game;");
+			$value=$setgame->fetch();
+			return $value['id_player'];
+    	} 
 		// public function delet_player_info($link_game){
 		// 	$setmessage = $this->bdd->prepare("DELETE FROM player WHERE id_player =?");
 		// 	$setmessage-> execute(array($this->getplayer($link_game)));
@@ -191,16 +191,18 @@
 	// }
 
 	if (isset($_POST['url'],$_POST['nickname'],$_POST['foundIndex'])){
-		$a = 1000/($Partie->get_player_number($_POST['url'])-1);
-		$score = 1000 - $a * $_POST['foundIndex'];
-		$Partie->Edit_score($score,$_POST['url'],$_POST['url']);
+		$a = 1000/(($Partie->get_player_number($_POST['url']))-1);
+		var_dump($score = 1000 - $a * $_POST['foundIndex']);
+		$Partie->Edit_score($score,$_POST['url'],$_POST['url'],$_POST['nickname']);
+		echo true;
+		
+
 	}
 
-	if (isset($_POST['edit_score'],$_POST['url'])){
-		$score = htmlspecialchars($_POST['edit_score']);
-		$Partie->Edit_score($score,$_POST['url'],$_POST['url']);
-	}
-
+	// if (isset($_POST['edit_score'],$_POST['url'])){
+	// 	$score = htmlspecialchars($_POST['edit_score']);
+	// 	$Partie->Edit_score($score,$_POST['url'],$_POST['url'],$);
+	// }
 	if (isset($_POST["set_round"],$_POST['url'])){
 		$setround = $_POST["set_round"];
 		$url=$_POST['url'];
