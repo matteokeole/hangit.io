@@ -102,10 +102,10 @@ let readyPlayers = [],
 				}
 			}
 			// Check if all players have either found the word or lost
-			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get=${invitationLink}`)
+			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_found=${invitationLink}`)
 				.then(response => response.text())
 				.then(data => {
-					if (data readyPlayers.length - 1) {
+					if (data == readyPlayers.length - 1) {
 						Game.finished = true;
 						endGame()
 					}
