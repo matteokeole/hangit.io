@@ -155,6 +155,8 @@ const Player = {
 		GameTip.textContent = Return.tip.commandPrefix;
 		resizeChat();
 		Game.started = true;
+		Layer.roundPlayer.children[0].textContent = Round.currentRoundPlayer.nickname;
+		Layer.roundPlayer.children[0].style.color = Round.currentRoundPlayer.nicknameColor;
 		Container.gameContainer.querySelector(".HiddenWordContainer").children[0].children[0].textContent = Round.currentRoundPlayer.nickname;
 		Container.gameContainer.querySelector(".HiddenWordContainer").children[0].style.color = Round.currentRoundPlayer.nicknameColor;
 		Container.gameContainer.querySelector(".CanvasContainer").children[0].style.color = Round.currentRoundPlayer.nicknameColor;
@@ -179,11 +181,7 @@ const Player = {
 				Layer.show(Layer.round);
 				setTimeout(() => {
 					Layer.hide();
-					setTimeout(() => {
-						Layer.roundPlayer.children[0].textContent = Round.currentRoundPlayer.nickname;
-						Layer.roundPlayer.children[0].style.color = Round.currentRoundPlayer.nicknameColor;
-						Layer.show(Layer.roundPlayer)
-					}, 400)
+					setTimeout(() => {Layer.show(Layer.roundPlayer)}, 400)
 				}, 2000)
 			}, 200)
 		}

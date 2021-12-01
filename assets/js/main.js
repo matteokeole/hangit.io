@@ -105,6 +105,7 @@ let readyPlayers = [],
 				.then(response => response.text())
 				.then(data => {Round.current = data});
 			if (Round.current > 0) Container.gameContainer.children[1].children[0].children[0].textContent = Round.current;
+			Layer.round.children[0].textContent = Round.current;
 			// Get max rounds number
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_max_round=${invitationLink}`)
 				.then(response => response.text())
