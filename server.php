@@ -199,7 +199,7 @@
 
 	}
 
-	if (isset($_POST['url'],$_POST['nickname'])){
+	if (isset($_POST['url'],$_POST['nickname'],$_POST['clearGuestData'])){
 		$Partie->delet_player_info($_POST['url'],$_POST['nickname']);
 		echo true;
 	}
