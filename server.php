@@ -108,10 +108,10 @@
 			}*/
 			return $value;
 		}
-		public function set_hidden_word($word, $player, $link_game): void {
+		public function set_hidden_word($word,$link_game): void {
 			$setmessage = $this->bdd->prepare("INSERT INTO `hidden_word` (word, id_player) VALUES (?, ?)");
-			$setmessage->execute(array($word, $this->getplayer($player)));
-			$this->hiddenword = $this->gethiddenword($link_game);
+			$setmessage->execute(array($word, $this->getplayer($link_game)));
+			//$this->hiddenword = $this->gethiddenword($link_game);
 		}
 		public function get_all_player_game($game) {
 			$getmessage = $this->bdd->prepare("SELECT player.nickname, player.nicknameColor, player.score, player.roundPlayer FROM `player` JOIN `game` ON player.id_game = game.id_game WHERE game.link_game = ?");
@@ -184,7 +184,7 @@
 		$link_game = htmlspecialchars($_POST["url"]);
 		$word = htmlspecialchars($_POST["word"]);
 		$player = htmlspecialchars($_POST["player"]);
-		$Partie->set_hidden_word($word, $player, $link_game);
+		$Partie->set_hidden_word($word,$link_game);
 		echo true;
 	}
 	if (isset($_POST["message"], $_POST["authorName"], $_POST["url"])) {
