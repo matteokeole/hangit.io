@@ -20,7 +20,6 @@ r.addEventListener("load", () => {
 		// There is a link but it is invalid (not into the database)
 		current_url = window.location.href.split("?")[0];
 		GameTip.textContent = Return.tip.invalidLink;
-		toggleDisplay(GameTip)
 	} else if (!link.liens) {
 		// The player is about to host a new game
 		Player.role = "host";
@@ -32,7 +31,6 @@ r.addEventListener("load", () => {
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
 		GameTip.textContent = Return.tip.joinGame;
-		toggleDisplay(GameTip);
 		sendData("link_game", invitationLink)
 	}
 });

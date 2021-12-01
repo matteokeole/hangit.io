@@ -306,10 +306,12 @@ let current_url = document.location.href;
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
 window.addEventListener("beforeunload", (e) => {
 	if (Player.role == "host") clearGame();
-	else clearGuestData(Player.nickname);
-	let prevent = 1;
-	(e || window.event).returnValue = prevent;
-	return prevent
+	else {
+		clearGuestData(Player.nickname)
+		setTimeout(() => {
+			sendDatabaseMessage(`${Player.nickname} a quitté la partie.`, Player.nickname);
+		})
+	}
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {

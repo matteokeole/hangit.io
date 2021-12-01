@@ -1,6 +1,5 @@
 /* Help message about joining hosted games and sending letters & words in the chat (not a container but eh, kinda) */
 .GameTip {
-	display: none;
 	margin: 10px 0 20px 0;
 	padding: 0 8px;
 	opacity: 0.5;
