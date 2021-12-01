@@ -11,9 +11,8 @@ const Player = {
 		started: false
 	},
 	Round = {
+		current: 0,
 		max: 0,
-		currentIndex: 0,
-		currentPlayerIndex: 0,
 		currentRoundPlayer: {
 			nickname: "",
 			nicknameColor: ""
@@ -140,7 +139,6 @@ const Player = {
 		// Change the element display value, "block" by default
 		element.style.display = displayType
 	},
-	playerList = ["bob", "pouet", "majel beddouze", "zemmour"],
 	startGame = () => {
 		// Start a new game (player max number = 4)
 		// Close active containers & modals
@@ -153,8 +151,6 @@ const Player = {
 		GameTip.textContent = Return.tip.commandPrefix;
 		resizeChat();
 		Game.started = true;
-		Round.max = 1;
-		// Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
 		if (Player.role == "host") {
 			// Submit word modal
 			setTimeout(() => {

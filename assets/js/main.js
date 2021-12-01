@@ -85,8 +85,19 @@ let readyPlayers = [],
 				if (readyPlayers[i].nickname == Player.nickname) Player.roundPlayer = true
 			}
 		}
-		// Refresh messages
+		// These fetch() occur only after the game launch
 		if (Game.started) {
+			// Get current round number
+			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_round=${invitationLink}`)
+				.then(response => response.text())
+				.then(data => {Round.current = data});
+			if (Round.current > 0) Container.gameContainer.children[1].children[0].children[0].textContent = Round.current;
+			// Get max rounds number
+			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_max_round=${invitationLink}`)
+				.then(response => response.text())
+				.then(data => {Round.max = data});
+			if (Round.max > 0) Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
+			// Refresh messages
 			newMessages = [];
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${invitationLink}`)
 				.then(response => response.text())
