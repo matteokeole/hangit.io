@@ -15,7 +15,8 @@ r.addEventListener("load", () => {
 		invitationLink = window.location.href.split("?g=");
 		invitationLink = invitationLink[invitationLink.length - 1];
 		toggleDisplay(Container.nickname);
-		toggleDisplay(Container.joinGame)
+		toggleDisplay(Container.joinGame);
+		GameTip.textContent = ""
 	} else if (current_url.includes("?")) {
 		// There is a link but it is invalid (not into the database)
 		current_url = window.location.href.split("?")[0];
@@ -25,8 +26,8 @@ r.addEventListener("load", () => {
 		Player.role = "host";
 		invitationLink = GenerateLink();
 		current_url += `?g=${invitationLink}`;
-		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);

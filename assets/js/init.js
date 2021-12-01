@@ -26,7 +26,7 @@ const Player = {
 		lastMessageSender: null
 	},
 	HiddenWord = {
-		submitted: false,
+		submitted: false, // Is the word submitted?
 		originalWord: "", // Chosen word
 		displayWord: "", // This is the word displayed on the page
 		length: 0, // Word length
@@ -306,12 +306,7 @@ let current_url = document.location.href;
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
 window.addEventListener("beforeunload", (e) => {
 	if (Player.role == "host") clearGame();
-	else {
-		clearGuestData(Player.nickname)
-		setTimeout(() => {
-			sendDatabaseMessage(`${Player.nickname} a quitté la partie.`, Player.nickname);
-		})
-	}
+	else clearGuestData(Player.nickname)
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {
