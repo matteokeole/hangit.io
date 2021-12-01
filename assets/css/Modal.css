@@ -39,7 +39,7 @@
 	min-height: 40px;
 	max-height: 300px;
 	margin-top: 4px;
-	overflow-y: scroll
+	overflow-y: overlay
 }
 
 .ReadyPlayersList .Player {
