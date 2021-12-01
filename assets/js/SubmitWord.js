@@ -14,15 +14,15 @@ Modal.submitWord.addEventListener("submit", (e) => {
 	Modal.close();
 	HiddenWord.originalWord = Input.submitWord.value.toUpperCase();
 	HiddenWord.length = HiddenWord.originalWord.length;
-	Input.submitWord.value = "";
-	Button.submitWord.disabled = true;
+	HiddenWord.displayWord = HiddenWord.originalWord.replace(HiddenWord.originalWord, "_".repeat(HiddenWord.length));
 	// Send player word to server
 	sendHiddenWord(HiddenWord.originalWord);
-	HiddenWord.displayWord = HiddenWord.originalWord.replace(HiddenWord.originalWord, "_".repeat(HiddenWord.length));
+	// Clear word input & disable send word button
+	Input.submitWord.value = "";
+	Button.submitWord.disabled = true;
 	// Highlight spaces and hyphens
-	checkForCharInWord(" ");
-	checkForCharInWord("-");
+	// checkForCharInWord(" ");
+	// checkForCharInWord("-");
 	// Display span
-	HiddenWord.refreshSpan();
-	resizeChat()
+	// HiddenWord.refreshSpan()
 })
