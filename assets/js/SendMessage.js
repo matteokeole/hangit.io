@@ -24,10 +24,7 @@ const checkMessage = (msg) => {
 					HiddenWord.sentLetters.push(msg);
 					// Check for letter in hidden word
 					HiddenWord.currentInputValidity = checkForCharInWord(msg);
-					if (HiddenWord.originalWord == HiddenWord.displayWord) {
-						Player.score += 100;
-						nextRoundPlayer()
-					}
+					if (HiddenWord.originalWord == HiddenWord.displayWord) Player.score += 100
 				}
 			} else if (msg.length > 1) {
 				// Word sent, reveal it on the hidden word if valid
@@ -43,10 +40,7 @@ const checkMessage = (msg) => {
 					// Check if the hidden word is found
 					HiddenWord.currentInputValidity = checkForFullWord(msg);
 					// If found, increment score & next round
-					if (HiddenWord.originalWord == HiddenWord.displayWord) {
-						Player.score += 200;
-						nextRoundPlayer()
-					}
+					if (HiddenWord.originalWord == HiddenWord.displayWord) Player.score += 200
 				}
 			}
 		}

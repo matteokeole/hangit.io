@@ -25,8 +25,8 @@ r.addEventListener("load", () => {
 		Player.role = "host";
 		invitationLink = GenerateLink();
 		current_url += `?g=${invitationLink}`;
-		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
@@ -108,8 +108,15 @@ let readyPlayers = [],
 				oldMessages = messages;
 				for (let i = 0; i < newMessages.length; i++) {
 					// Send & check message
-					if (!(/^!/.test(newMessages[i].text))) sendMessage(false, htmlDecode(newMessages[i].text), newMessages[i].nickname, newMessages[i].nicknameColor);
-					// checkMessage(newMessages[i].text)
+					if (/^!/.test(newMessages[i].text)) {
+						if (newMessages[i].nickname == Round.currentRoundPlayer.nickname && newMessages[i].nickname == Player.nickname) {
+							sendMessage(true, "Attendez que les joueurs trouvent votre mot avant d'écrire des commandes.")
+						} else if (newMessages[i].nickname == Player.nickname) {
+							if (Player.status == "lost") sendMessage(true, "Vous avez utilisé tous vos essais !");
+							else checkMessage(newMessages[i].text)
+						}
+					}
+					else sendMessage(false, htmlDecode(newMessages[i].text), newMessages[i].nickname, newMessages[i].nicknameColor)
 				}
 			}
 			// Get sent hidden word
@@ -118,6 +125,9 @@ let readyPlayers = [],
 				.then(data => {HiddenWord.originalWord = data});
 			if (/^[A-Za-zÀ-ú- ]{4,}$/.test(HiddenWord.originalWord)) {
 				// The word has been submitted
+				// Hide waiting layer for guests
+				Layer.hide();
+				Overlay.hide();
 				displayHiddenWord(HiddenWord.originalWord)
 			}
 		}

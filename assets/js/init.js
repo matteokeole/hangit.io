@@ -3,8 +3,9 @@ const Player = {
 		nickname: "",
 		defaultNickname: "Invité",
 		nicknameColor: null,
-		role: null,
 		score: 0,
+		role: null,
+		status: "",
 		roundPlayer: false
 	},
 	Game = {
