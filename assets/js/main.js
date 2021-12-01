@@ -31,8 +31,7 @@ r.addEventListener("load", () => {
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
-		GameTip.textContent = Return.tip.joinGame;
-		sendData("link_game", invitationLink)
+		GameTip.textContent = Return.tip.joinGame
 	}
 });
 // Ajax requests
@@ -195,7 +194,7 @@ Button.joinGame.addEventListener("click", () => {
 	Player.inQueue = true;
 	Button.joinGame.disabled = true;
 	Button.joinGame.textContent = "Veuillez patienter pendant que l'hôte lance la partie...";
-	SetNickname(Input.nickname.value);
+	setNickname(Input.nickname.value);
 	Input.nickname.disabled = true
 });
 // Copy invitation link to clipboard
@@ -207,9 +206,11 @@ Button.copyLink.addEventListener("click", () => {
 	setTimeout(() => {Button.copyLink.textContent = "Copier le lien"}, 2000)
 });
 Button.openHostForm.addEventListener("click", () => {
+	// Create game
+	sendData("link_game", invitationLink);
 	// Set player nickname
-	SetNickname(Input.nickname.value);
-	// Open form modal
+	setTimeout(() => {setNickname(Input.nickname.value)}, 200);
+	// Open form 
 	Modal.open(Modal.hostForm);
 	// Input disabled when modal is open
 	Input.nickname.disabled = true

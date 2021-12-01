@@ -313,7 +313,7 @@ const Player = {
 let current_url = document.location.href;
 // Event listeners
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
-window.addEventListener("beforeunload", (e) => {
+window.addEventListener("beforeunload", () => {
 	if (Player.role == "host") clearGame();
 	else clearGuestData(Player.nickname)
 });

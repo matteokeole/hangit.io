@@ -48,15 +48,18 @@ const checkMessage = (msg) => {
 			// Invalid input, +1 error
 			HiddenWord.invalidInputs++;
 			// Display remaining tries
-			let remainingTries = (11 - HiddenWord.invalidInputs),
+			let remainingTries = 11 - HiddenWord.invalidInputs,
 				s = (remainingTries > 1) ? "s" : "";
 			RemainingTries.textContent = (remainingTries > 0) ? `${remainingTries} essai${s} restant${s}.` : "Pendu(e) !";
 			if (HiddenWord.invalidInputs < 11) {
 				// Not enough errors to lose
-				toggleCanvasPart(HiddenWord.invalidInputs)
+				toggleCanvasPart(HiddenWord.invalidInputs);
+				sendMessage(true, `Faux ! Plus que ${remainingTries} essais restants.`)
 			} else {
 				// Game over!
 				setTimeout(() => {Input.message.blur()});
+				sendMessage(true, Return.gameOver);
+				Player.status = "lost";
 				toggleCanvasPart(11) // Show canvas last part
 			}
 		}
