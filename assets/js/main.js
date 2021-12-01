@@ -148,13 +148,6 @@ let readyPlayers = [],
 			}
 		}
 	}, 100);
-
-
-
-
-
-
-
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
 	// Start game

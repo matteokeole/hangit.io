@@ -3,73 +3,8 @@ Input.message.addEventListener("input", () => {
 	if (/^\s*$/.test(Input.message.value)) Button.sendMessage.disabled = true;
 	else Button.sendMessage.disabled = false
 });
-
-// Send message function
-const checkMessage = (msg) => {
-		// Check if a sent message matches with the hidden word
-		msg = msg.toUpperCase();
-		if (msg[0] == "!") {
-			// Command
-			msg = msg.substr(1, msg.length - 1);
-			if (/^[A-ZÀ-Ú]{1}$/.test(msg)) {
-				// Letter sent, reveal it on the hidden word if valid
-				// Test if the letter hasn't already been proposed
-				let letterAlreadyProposed = false;
-				for (let i = 0; i < HiddenWord.sentLetters.length; i++) {
-					if (HiddenWord.sentLetters[i] == msg) letterAlreadyProposed = true
-				}
-				if (letterAlreadyProposed) sendMessage(true, "Vous avez déjà proposé cette lettre !");
-				else {
-					// Add letter to submitted letters
-					HiddenWord.sentLetters.push(msg);
-					// Check for letter in hidden word
-					HiddenWord.currentInputValidity = checkForCharInWord(msg);
-					if (HiddenWord.originalWord == HiddenWord.displayWord) {
-						sendPlayerScore(Player.nickname, 1);
-						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname)
-					}
-				}
-			} else if (msg.length > 1) {
-				// Word sent, reveal it on the hidden word if valid
-				// Test if the word hasn't already been proposed
-				let wordAlreadyProposed = false;
-				for (let i = 0; i < HiddenWord.sentWords.length; i++) {
-					if (HiddenWord.sentWords[i] == msg) wordAlreadyProposed = true
-				}
-				if (wordAlreadyProposed) sendMessage(true, "Vous avez déjà proposé ce mot !");
-				else {
-					// Add letter to submitted letters
-					HiddenWord.sentWords.push(msg);
-					// Check if the hidden word is found
-					HiddenWord.currentInputValidity = checkForFullWord(msg);
-					// If found, increment score & next round
-					if (HiddenWord.originalWord == HiddenWord.displayWord) {
-						sendPlayerScore(Player.nickname, 1);
-						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname)
-					}
-				}
-			}
-		}
-		if (!HiddenWord.currentInputValidity) {
-			// Invalid input, +1 error
-			HiddenWord.invalidInputs++;
-			// Display remaining tries
-			let remainingTries = (11 - HiddenWord.invalidInputs),
-				s = (remainingTries > 1) ? "s" : "";
-			RemainingTries.textContent = (remainingTries > 0) ? `${remainingTries} essai${s} restant${s}.` : "Pendu(e) !";
-			if (HiddenWord.invalidInputs < 11) {
-				// Not enough errors to lose
-				toggleCanvasPart(HiddenWord.invalidInputs)
-			} else {
-				// Game over!
-				setTimeout(() => {Input.message.blur()});
-				toggleCanvasPart(11) // Show canvas last part
-			}
-		}
-		// Set input validity to true
-		HiddenWord.currentInputValidity = true
-	},
-	sendMessage = (auto, msg, authorName, authorColor) => {
+// Send message function (only UI)
+const sendMessage = (auto, msg, authorName, authorColor) => {
 		// Send a message on the chat
 		// auto = send automatic message (author-less, true|false)
 		// Create message DOM
