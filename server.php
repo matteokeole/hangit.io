@@ -240,7 +240,7 @@
 			$i = 2;
 			if ($found) {
 				$nickname = $nickname.$i;
-				$i +=1;
+				$i = $i+1;
 			}
 		} while($found == true);
 
