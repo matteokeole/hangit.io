@@ -46,6 +46,10 @@ let readyPlayers = [],
 			.then(response => response.text())
 			.then(data => {readyPlayers = JSON.parse(data)});
 		ReadyPlayersList.parentNode.children[0].children[0].textContent = readyPlayers.length;
+		if (readyPlayers.length > 1) {
+			// There is at least 1 guest ready, the game can be started
+			Button.startHostGame.disabled = false
+		} else Button.startHostGame.disabled = true;
 		let lastChild = ReadyPlayersList.lastElementChild,
 			lastChild2 = ConnectedPlayersList.lastElementChild;
 		// Remove old players in lists
@@ -82,6 +86,17 @@ let readyPlayers = [],
 				Round.currentRoundPlayer.nicknameColor = readyPlayers[i].nicknameColor;
 				if (readyPlayers[i].nickname == Player.nickname) Player.roundPlayer = true
 			}
+		}
+		// Detect if the guest is in queue
+		if (Player.role == "guest" && Player.inQueue && !Game.started) {
+			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_round=${invitationLink}`)
+				.then(response => response.text())
+				.then(data => {
+					if (data == 1) {
+						Player.inQueue = false;
+						startGame()
+					}
+				})
 		}
 		// These fetch() occur only after the game launch
 		if (Game.started) {
@@ -148,13 +163,6 @@ let readyPlayers = [],
 			}
 		}
 	}, 100);
-
-
-
-
-
-
-
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
 	// Start game
@@ -167,10 +175,11 @@ Button.startHostGame.addEventListener("click", () => {
 Button.joinGame.addEventListener("click", () => {
 	// Join game
 	// Set player nickname
+	Player.inQueue = true;
+	Button.joinGame.disabled = true;
+	Button.joinGame.textContent = "Veuillez patienter pendant que l'hôte lance la partie...";
 	SetNickname(Input.nickname.value);
-	Input.nickname.value = "";
-	Input.nickname.disabled = true;
-	startGame()
+	Input.nickname.disabled = true
 });
 // Copy invitation link to clipboard
 Button.copyLink.addEventListener("click", () => {

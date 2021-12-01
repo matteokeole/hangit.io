@@ -6,6 +6,7 @@ const Player = {
 		score: 0,
 		role: null,
 		status: "",
+		inQueue: false,
 		roundPlayer: false
 	},
 	Game = {
@@ -311,14 +312,6 @@ window.addEventListener("beforeunload", (e) => {
 	let prevent = 1;
 	(e || window.event).returnValue = prevent;
 	return prevent
-});
-// Hide host form modal when Escape key pressed
-addEventListener("keydown", (e) => {
-	if (e.keyCode == 27 && Modal.hostForm.classList.contains("current")) Modal.close()
-});
-// Hide modal when cancel button clicked
-document.querySelectorAll(".Modal .CancelButton").forEach((btn) => {
-	btn.addEventListener("click", Modal.close)
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {
