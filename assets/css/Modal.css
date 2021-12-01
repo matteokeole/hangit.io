@@ -36,6 +36,7 @@
 
 .ReadyPlayersList {
 	display: flex;
+	flex-direction: column;
 	width: 100%;
 	min-height: 40px;
 	margin-top: 4px
@@ -43,9 +44,9 @@
 
 .ReadyPlayersList .Player {
 	flex-grow: 1;
-	height: 60px;
-	line-height: 60px;
-	margin: 0 2px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0 0 4px 0;
 	padding: 0 4px;
 	overflow: hidden;
 	border-radius: 4px;
@@ -54,8 +55,7 @@
 	text-overflow: ellipsis;
 	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2)
 }
-.ReadyPlayersList .Player:first-of-type {margin-left: 0}
-.ReadyPlayersList .Player:last-of-type {margin-right: 0}
+.ReadyPlayersList .Player:last-of-type {margin-bottom: 0}
 
 /* Copy link inner container */
 

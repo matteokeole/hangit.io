@@ -1,11 +1,5 @@
 /** Game content **/
 
-/* CSS imports */
-@import url(RoundIndicator.css);
-@import url(HiddenWord.css);
-@import url(Canvas.css);
-@import url(Chat.css);
-
 .GameContainer {
 	display: none;
 	width: 1000px

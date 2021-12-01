@@ -7,23 +7,26 @@
 @import url(Header.css);
 @import url(Container.css);
 @import url(GameContainer.css);
+@import url(RoundIndicator.css);
+@import url(HiddenWord.css);
+@import url(Canvas.css);
+@import url(Chat.css);
 @import url(RestartGame.css);
 @import url(GameTip.css);
 @import url(Form.css);
 @import url(Button.css);
 
-/* Lilita One import */
+/* Lilita One */
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
 
 /* Apply font */
 
-body, button, input, textarea {font-family: "Lilita One", sans-serif}
+* {font-family: "Lilita One", sans-serif}
 
-h1, h3, h4 {
-	margin: 0;
+h1, h3 {
+	margin: 12px 0;
 	font-weight: normal
 }
-h1, h3 {margin: 12px 0}
 
 /* Text selection color */
 
@@ -36,6 +39,7 @@ h1, h3 {margin: 12px 0}
 #InvitationLinkInput::selection {
 	background-color: rgba(0, 0, 0, 0.15)
 }
+
 /* --primary-light */
 h3::-moz-selection,
 .RangeLabel::-moz-selection,
@@ -51,6 +55,7 @@ h3::selection,
 .HiddenWordContainer *::selection {
 	background-color: var(--primary-light)
 }
+
 /* --nickname-color-light */
 #NicknameInput::-moz-selection,
 .TextLabel::-moz-selection {
@@ -161,13 +166,6 @@ main {
 
 /* 600px max */
 @media screen and (max-width: 600px) {
-	.ReadyPlayersList {flex-direction: column}
-	.ReadyPlayersList .Player {
-		height: 40px;
-		line-height: 40px;
-		margin: 0 0 4px 0
-	}
-	.ReadyPlayersList .Player:last-of-type {margin: 0}
 	.GameContainer {width: 100%}
 	.GameInnerContainer2 {flex-direction: column}
 	.GameInnerContainer3 {
