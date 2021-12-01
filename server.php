@@ -120,10 +120,10 @@
 			return $value;
 		}
 
-		public function get_found($game){
-			$getmessage = $this->bdd->query("SELECT count(found) from player where id_player =".$this->getplayer($link_game));
+		public function get_found($game_url){
+			$getmessage = $this->bdd->query("SELECT count(*) from player where id_game =".$this->getgame($game_url));
 			$value = $getmessage->fetch();
-			return $value['count(found)'];
+			return $value['count(*)'];
 		}
 
 		public function gethiddenword($link_game) {
