@@ -153,8 +153,8 @@
 			return $value['id_player'];
     	} 
 		public function delet_player_info($link_game,$name){
-			$setmessage = $this->bdd->prepare("DELETE FROM player WHERE id_player =? and nickname=?");
-			$setmessage-> execute(array($this->getplayer($link_game),$this->get_idplayer_by_nickname($name,$link_game)));
+			$setmessage = $this->bdd->prepare("DELETE FROM player WHERE id_player =?");
+			$setmessage-> execute(array($this->get_idplayer_by_nickname($name,$link_game)));
 		}
 
 
