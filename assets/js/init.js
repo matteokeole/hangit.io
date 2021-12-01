@@ -10,7 +10,8 @@ const Player = {
 		roundPlayer: false
 	},
 	Game = {
-		started: false
+		started: false,
+		deleted: false
 	},
 	Round = {
 		current: 0,
