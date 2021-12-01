@@ -21,6 +21,7 @@
 			$setmessage = $this->bdd->prepare("UPDATE `game` SET round_number = ?, max_player = ?, player_activ = ? WHERE id_game = ?");
 			$setmessage->execute(array($round_number, $max_player, $player_activ, $this->getgame($link_game)));
 		}
+<<<<<<< Updated upstream
 
 		// public function getgame($link_game): string {
 		// 	$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game = $link_game");
@@ -29,6 +30,10 @@
 		// }
 		public function getgame($game_url): string {
 			$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game = $game_url");
+=======
+		public function getgame($link_game) :string {
+			$setgame = $this->bdd->query("SELECT id_game FROM `game` where link_game=".$link_game);
+>>>>>>> Stashed changes
 			$value = $setgame->fetch();
 			return $value['id_game'];
 		}
@@ -141,14 +146,24 @@
 	}
 	// Game server
 	$Partie = new Game_Server();
+<<<<<<< Updated upstream
 	if (isset($_POST["link_game"])) {
 		$Link_game = htmlspecialchars($_POST["link_game"]);
 		if ($Partie->url_existe($Link_game)) echo "erreur lien existe";
 		else {
+=======
+
+	if (isset($_POST["link_game"],$_POST["url"])) {
+		$Link_game = htmlspecialchars($_POST["link_game"]);
+		if ($Partie->url_existe($Link_game )){
+			echo "erreur lien existe";
+		}else{
+>>>>>>> Stashed changes
 			$Partie->Set_Game("0", "0", "0", $Link_game);
 			echo true;
 		}
 	}
+<<<<<<< Updated upstream
 	/*if (isset($_POST["message"], $_POST["nickmane"])) {
 		$message = htmlspecialchars($_POST["message"]);
 		$Partie->Setmessage($message, $_POST["nickmane"]);
@@ -162,12 +177,36 @@
 	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"], $_POST['roundPlayer'])) {
 		$url = htmlspecialchars($_POST["url"]);
 		$nickname = htmlspecialchars($_POST["nickname"]);
+=======
+	/*
+	if (isset($_POST["message"],$_POST['nickmane'])) {
+        $message = htmlspecialchars($_POST["message"]);
+        $Partie->Setmessage($message,$_POST['nickmane']);
+        echo true;
+    }
+	
+	if (isset($_POST['set_round'])){
+		$setround = $_POST['set_round'];
+		$Partie->$setround($setround);
+		echo true;
+	}
+    */
+	if (isset($_POST["nickname"], $_POST["color"],$_POST['url'])) {
+		$link_game = htmlspecialchars($_POST["url"]);
+		$First_player = htmlspecialchars($_POST["nickname"]);
+>>>>>>> Stashed changes
 		$nicknameColor = htmlspecialchars($_POST["color"]);
 		$Partie->Edit_Game("0", "0", "1", $url);
 		$Partie->Setplayer($nickname, "0", $nicknameColor, $url, $_POST['roundPlayer']);
 		echo true;
 	}
+<<<<<<< Updated upstream
 	if (isset($_POST["invite"], $_POST["joinlink"])) {
+=======
+
+   /*
+	if (isset($_POST["invite"],$_POST['joinlink'])) {
+>>>>>>> Stashed changes
 		$joinlink = htmlspecialchars($_POST["joinlink"]);
 		$invite = htmlspecialchars($_POST["invite"]);
 		$Partie->Setplayer_on_partie($invite, $joinlink, "0");
@@ -192,15 +231,20 @@
 		$Partie->Setmessage($message, $authorName, $_POST["url"]);
 		echo "[server.php] Message sent!";
 		echo true;
+<<<<<<< Updated upstream
 	}
 	if (isset($_GET["wtf"])) {
 		echo "ok";
 	}
+=======
+	}*/
+>>>>>>> Stashed changes
 	if (isset($_GET["getallplayer"])) {
 		$getallplayer = htmlspecialchars($_GET["getallplayer"]);
 		$Partie->get_all_player_game($getallplayer);
 		echo json_encode($Partie->get_all_player_game($getallplayer));
 	}
+<<<<<<< Updated upstream
 	if (isset($_GET["liens"])) {
 		$mon_liens = htmlspecialchars($_GET["liens"]);
 		$arrayName = array("liens" => $Partie->url_existe($mon_liens));
@@ -209,6 +253,25 @@
 	if (isset($_GET["getmessage"])) {
 		$getmessage = htmlspecialchars($_GET["getmessage"]);
 		// $arrayName = array("o" => $Partie->get_all_message_game($getmessage));
+=======
+	
+	if (isset($_GET['liens'])) {
+		$mon_liens=htmlspecialchars($_GET['liens']);
+		$arrayName = array('liens' => $Partie->url_existe($mon_liens));
+		echo json_encode($arrayName);
+	}
+	/*
+	if (isset($_GET['getmessage'])) {
+		$getmessage=htmlspecialchars($_GET['getmessage']);
+		//$arrayName = array('o' => $Partie->get_all_message_game($getmessage));
 		echo json_encode($Partie->get_all_message_game($getmessage));
 	}
+	
+	if (isset($_GET['getmessage'])) {
+		$getmessage=htmlspecialchars($_GET['getmessage']);
+		//$arrayName = array('o' => $Partie->get_all_message_game($getmessage));
+>>>>>>> Stashed changes
+		echo json_encode($Partie->get_all_message_game($getmessage));
+	}
+	*/
 ?>
