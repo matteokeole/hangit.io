@@ -114,11 +114,18 @@
 			//$this->hiddenword = $this->gethiddenword($link_game);
 		}
 		public function get_all_player_game($game) {
-			$getmessage = $this->bdd->prepare("SELECT player.nickname, player.nicknameColor, player.score, player.roundPlayer, player.found FROM `player` JOIN `game` ON player.id_game = game.id_game WHERE game.link_game = ?");
+			$getmessage = $this->bdd->prepare("SELECT player.nickname, player.nicknameColor, player.score, player.roundPlayer FROM `player` JOIN `game` ON player.id_game = game.id_game WHERE game.link_game = ?");
 			$getmessage->execute(array($game));
 			$value = $getmessage->fetchAll();
 			return $value;
 		}
+
+		public function get_found($game){
+			$getmessage = $this->bdd->query("SELECT count(found) from player where id_player =".$this->getplayer($link_game));
+			$value = $getmessage->fetch();
+			return $value['count(found)'];
+		}
+
 		public function gethiddenword($link_game) {
 			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer($link_game));
 			$value = $setgame->fetch();
@@ -315,6 +322,10 @@
 	if (isset($_GET['get_hidden_word'])){
 		$get_hidden_word = htmlspecialchars($_GET['get_hidden_word']);
 		echo ($Partie->gethiddenword($get_hidden_word));
+	}
+	if (isset($_GET['get_found'])){
+		$get_found = htmlspecialchars($_GET['get_found']);
+		echo ($Partie->get_found($get_found));
 	}
 	
 ?>
