@@ -11,7 +11,7 @@
 
 .GameTip a {
 	position: relative;
-	color: #000;
+	color: var(--secondary-dark);
 	text-decoration: none;
 	transition-duration: 0.2s
 }
@@ -21,6 +21,6 @@
 	height: 2px;
 	top: 100%;
 	position: absolute;
-	background-color: #000
+	background-color: var(--secondary-dark)
 }
 .GameTip a:hover {opacity: 0.65}
