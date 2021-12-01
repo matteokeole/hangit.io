@@ -57,7 +57,7 @@
 			$setmessage->execute(array($text,$this->getgame(),getplayer($nickname)));
 		}*/
 		public function getplayer($link_game): string {
-			$setgame = $this->bdd->query("SELECT id_player FROM player where link_game = " . $this->getgame($link_game));
+			$setgame = $this->bdd->query("SELECT id_player FROM player where id_player = " . $this->getgame($link_game));
 			$value = $setgame->fetch();
 			return $value["id_player"];
 		}
