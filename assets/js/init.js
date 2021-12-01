@@ -265,7 +265,7 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&clearGame=1`)
 	},
-	clearGuestData = () => {
+	clearGuestData = (nickname) => {
 		// Clear all data for the current guest
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
@@ -276,7 +276,7 @@ const Player = {
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitationLink}&clearGuestData=1`)
+		r.send(`url=${invitationLink}&clearGuestData=1&nickname=${nickname}`)
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
@@ -301,7 +301,6 @@ const Player = {
 	GenerateLink = () => {return (new Date()).getTime()},
 	updateResult = (data) => {console.log(data)};
 let current_url = document.location.href;
-// queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
 // Event listeners
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
 window.addEventListener("beforeunload", (e) => {

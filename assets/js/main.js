@@ -10,6 +10,7 @@ r.addEventListener("load", () => {
 	if (link.liens) {
 		// The player is about to join a GameTip
 		Player.role = "guest";
+		document.querySelector(".RepeatedNicknamesTip").style.display = "block";
 		// Change current URL
 		invitationLink = window.location.href.split("?g=");
 		invitationLink = invitationLink[invitationLink.length - 1];
