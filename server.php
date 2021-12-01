@@ -140,10 +140,10 @@
 			return $value['round_number'];
 			// $this->round = $this->getround($game);
 		}
-		public function set_put_player_in_round($game_url) {
-			$setplayerinround = $this->bdd->prepare("INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player from player WHERE id_gamer=?),(SELECT id_round FROM round WHERE id_game=?)");
-			$setplayerinround -> execute(array($game_url,$game_url));			
-		}
+		// public function set_put_player_in_round($game_url) {
+		// 	$setplayerinround = $this->bdd->prepare("INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player from player WHERE id_gamer=?),(SELECT id_round FROM round WHERE id_game=?)");
+		// 	$setplayerinround -> execute(array($game_url,$game_url));			
+		// }
 	}
 	// Game server
 	$Partie = new Game_Server();
@@ -161,10 +161,10 @@
 		echo true;
 	}*/
 
-	if(isset($_POST['set_player_round'],$_POST['url'])){
-		$Partie->set_put_player_in_round($_POST['url']);
-		echo true;
-	}
+	// if(isset($_POST['set_player_round'],$_POST['url'])){
+	// 	$Partie->set_put_player_in_round($_POST['url']);
+	// 	echo true;
+	// }
 
 	if (isset($_POST["set_round"],$_POST['url'])){
 		$setround = $_POST["set_round"];
