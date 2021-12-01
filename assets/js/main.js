@@ -98,9 +98,9 @@ let readyPlayers = [],
 				// Update old messages
 				oldMessages = messages;
 				for (let i = 0; i < newMessages.length; i++) {
-					// Send/check message
-					// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
-					sendMessage(false, newMessages[i].text, newMessages[i].nickname, newMessages[i].nicknameColor);
+					// Send & check message
+					// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, htmlDecode(newMessages[i].text), newMessages[i].nickname, newMessages[i].nicknameColor);
+					sendMessage(false, htmlDecode(newMessages[i].text), newMessages[i].nickname, newMessages[i].nicknameColor);
 					// checkMessage(newMessages[i].text)
 				}
 			}

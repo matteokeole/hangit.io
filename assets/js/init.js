@@ -271,6 +271,11 @@ const Player = {
 		};
 		return color
 	},
+	htmlDecode = (input) => {
+		let test = document.createElement("div");
+		test.innerHTML = input;
+		return test.childNodes[0].nodeValue
+	},
 	resizeChat = () => {
 		let height = 0;
 		if (window.innerHeight <= 600) height = 200;
