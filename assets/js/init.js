@@ -196,6 +196,12 @@ const Player = {
 			}, 200)
 		}
 	},
+	endGame = () => {
+		// End the current game for all users
+		toggleDisplay(Container.gameContainer, "none");
+		toggleDisplay(GameTip, "none");
+		toggleDisplay(Container.restartGame, "flex")
+	},
 	// Send/get data functions
 	sendData = (property, data) => {
 		let r = new XMLHttpRequest();

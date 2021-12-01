@@ -26,8 +26,8 @@ r.addEventListener("load", () => {
 		Player.role = "host";
 		invitationLink = GenerateLink();
 		current_url += `?g=${invitationLink}`;
-		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
 		GameTip.textContent = Return.tip.joinGame
@@ -100,15 +100,16 @@ let readyPlayers = [],
 					Round.currentRoundPlayer.nicknameColor = readyPlayers[i].nicknameColor;
 					if (readyPlayers[i].nickname == Player.nickname) Player.roundPlayer = true
 				}
-				// Check if all players have either found the word or lost
-				if (readyPlayers[i].nickname != Round.currentRoundPlayer.nickname) {
-					if (readyPlayers[i].found) allPlayersDone = true
-					else allPlayersDone = false
-				}
 			}
-			if (allPlayersDone) {
-				console.warn("TERMINE")
-			}
+			// Check if all players have either found the word or lost
+			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get=${invitationLink}`)
+				.then(response => response.text())
+				.then(data => {
+					if (data readyPlayers.length - 1) {
+						Game.finished = true;
+						endGame()
+					}
+				});
 			// Detect if the guest is in queue
 			if (Player.role == "guest" && Player.inQueue && !Game.started) {
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_round=${invitationLink}`)
