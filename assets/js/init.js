@@ -5,7 +5,11 @@ const Player = {
 		nicknameColor: null,
 		role: null,
 		roundPlayer: false,
+		currentRoundPlayerNickname: "",
 		score: 0
+	},
+	Game = {
+		started: false
 	},
 	Chat = {
 		lastMessageSender: null
@@ -144,8 +148,8 @@ const Player = {
 		// Show game content
 		toggleDisplay(Container.gameContainer, "flex");
 		GameTip.textContent = Return.tip.commandPrefix;
-		startRefreshMessages();
 		resizeChat();
+		Game.started = true;
 		Round.max = 1;
 		// Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
 		if (Player.role == "host") {
@@ -169,6 +173,7 @@ const Player = {
 				setTimeout(() => {
 					Layer.hide();
 					setTimeout(() => {
+						Layer.roundPlayer.children[0].textContent = Player.currentRoundPlayerNickname;
 						Layer.show(Layer.roundPlayer)
 					}, 400)
 				}, 2000)
