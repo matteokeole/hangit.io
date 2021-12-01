@@ -42,6 +42,9 @@
 	flex-direction: column
 }
 
+.RestartGameContainer .PlayerValue {font-size: 18px}
+.RestartGameContainer .ScoreValue {opacity: 0.65}
+
 /* Restart button */
 .RestartGameContainer .ContainerActions {
 	width: 100%;
@@ -49,3 +52,10 @@
 }
 
 #RestartGame {flex-grow: 1}
+
+/* Donate form */
+
+.PayPalForm {
+	display: flex;
+	margin: 16px 0
+}

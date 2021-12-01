@@ -54,7 +54,7 @@
 					<input type="range" min="1" max="4" id="MaxRoundsInput">
 				</div>
 				<div class="InnerContainer ConnectedPlayers">
-					<h4>Joueurs connectés — <span class="ConnectedPlayersCount">0</span></h4>
+					<span>Joueurs connectés — <span class="ConnectedPlayersCount">0</span></span>
 					<div class="ReadyPlayersList"></div>
 				</div>
 				<div class="InnerContainer Link">
@@ -62,8 +62,7 @@
 					<button type="button" id="CopyLink">Copier le lien</button>
 				</div>
 				<div class="ModalActions">
-					<button type="button" class="CancelButton">Annuler</button>
-					<button type="button" id="StartHostGame">Commencer</button>
+					<button type="button" id="StartHostGame" disabled>Commencer la partie</button>
 				</div>
 			</div>
 			<!-- Word submit container -->
@@ -101,6 +100,7 @@
 						<input type="text" id="NicknameInput">
 						<label class="TextLabel" for="NicknameInput">Invité</label>
 					</div>
+					<span class="RepeatedNicknamesTip">⚠️ Vous ne pourrez pas prendre le même pseudonyme qu'un autre joueur.</span>
 				</div>
 				<!-- Open host form container -->
 				<div class="Container OpenHostFormContainer">
@@ -150,35 +150,40 @@
 				<div class="Container RestartGameContainer">
 					<h3 class="GameStatus">🎉 Partie terminée ! 🎉</h3>
 					<div class="ScoreList">
-						<div class="PlayerScoreContainer Player1">
+						<div class="PlayerScoreContainer Player">
 							<span class="Icon">🥇</span>
 							<div class="PlayerScore">
-								<span class="PlayerValue">pouet</span>
-								<span class="ScoreValue">300</span>
+								<span class="PlayerValue"></span>
+								<span class="ScoreValue"></span>
 							</div>
 						</div>
-						<div class="PlayerScoreContainer Player2">
+						<div class="PlayerScoreContainer Player">
 							<span class="Icon">🥈</span>
 							<div class="PlayerScore">
-								<span class="PlayerValue">pouet pouet</span>
-								<span class="ScoreValue">270</span>
+								<span class="PlayerValue"></span>
+								<span class="ScoreValue"></span>
 							</div>
 						</div>
-						<div class="PlayerScoreContainer Player3">
+						<div class="PlayerScoreContainer Player">
 							<span class="Icon">🥉</span>
 							<div class="PlayerScore">
-								<span class="PlayerValue">Bob</span>
-								<span class="ScoreValue">235</span>
+								<span class="PlayerValue"></span>
+								<span class="ScoreValue"></span>
 							</div>
 						</div>
-						<div class="PlayerScoreContainer Player4">
+						<!-- <div class="PlayerScoreContainer Player">
 							<span class="Icon">💩</span>
 							<div class="PlayerScore">
-								<span class="PlayerValue">Zemmour</span>
-								<span class="ScoreValue">120</span>
+								<span class="PlayerValue"></span>
+								<span class="ScoreValue"></span>
 							</div>
-						</div>
+						</div> -->
 					</div>
+					<form action="https://www.paypal.com/donate" method="post" target="_top" class="PayPalForm">
+						<input type="hidden" name="hosted_button_id" value="G5BDL4PYRFYZW">
+						<input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Faites un don avec PayPal">
+						<img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+					</form>
 					<div class="ContainerActions">
 						<button id="RestartGame">Recommencer</button>
 					</div>
@@ -190,10 +195,9 @@
 		<!-- Scripts -->
 		<script src="assets/js/init.js"></script>
 		<script src="assets/js/main.js"></script>
-		<script src="assets/js/JoinGame.js"></script>
 		<script src="assets/js/SendMessage.js"></script>
 		<script src="assets/js/SetNickname.js"></script>
-		<script src="assets/js/SubmitWord.js"></script>
+		<script src="assets/js/HiddenWord.js"></script>
 		<script src="assets/js/FindWord.js"></script>
 		<script src="assets/js/Canvas.js"></script>
 	</body>

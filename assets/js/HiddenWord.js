@@ -12,17 +12,10 @@ Modal.submitWord.addEventListener("submit", (e) => {
 	// Prevent form from submitting
 	e.preventDefault();
 	Modal.close();
-	HiddenWord.originalWord = Input.submitWord.value.toUpperCase();
-	HiddenWord.length = HiddenWord.originalWord.length;
-	Input.submitWord.value = "";
-	Button.submitWord.disabled = true;
+	Round.wordSubmitted = true;
 	// Send player word to server
-	sendHiddenWord(HiddenWord.originalWord);
-	HiddenWord.displayWord = HiddenWord.originalWord.replace(HiddenWord.originalWord, "_".repeat(HiddenWord.length));
-	// Highlight spaces and hyphens
-	checkForCharInWord(" ");
-	checkForCharInWord("-");
-	// Display span
-	HiddenWord.refreshSpan();
-	resizeChat()
+	sendHiddenWord(Input.submitWord.value.toUpperCase());
+	// Clear word input & disable send word button
+	Input.submitWord.value = "";
+	Button.submitWord.disabled = true
 })

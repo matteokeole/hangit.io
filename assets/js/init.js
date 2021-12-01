@@ -3,14 +3,30 @@ const Player = {
 		nickname: "",
 		defaultNickname: "Invité",
 		nicknameColor: null,
+		score: 0,
 		role: null,
-		roundPlayer: false,
-		score: 0
+		status: "",
+		inQueue: false,
+		roundPlayer: false
+	},
+	Game = {
+		started: false,
+		finished: false
+	},
+	Round = {
+		current: 0,
+		max: 0,
+		currentRoundPlayer: {
+			nickname: "",
+			nicknameColor: ""
+		},
+		wordSubmitted: false
 	},
 	Chat = {
 		lastMessageSender: null
 	},
 	HiddenWord = {
+		submitted: false, // Is the word submitted?
 		originalWord: "", // Chosen word
 		displayWord: "", // This is the word displayed on the page
 		length: 0, // Word length
@@ -19,13 +35,18 @@ const Player = {
 		sentWords: [], // Sent words array
 		invalidInputs: 0, // Number of errors
 		currentInputValidity: true, // Validity of the current proposed letter
-		refreshSpan: () => {Container.gameContainer.querySelector("#HiddenWord").textContent = HiddenWord.displayWord}
+		refreshSpan: () => {
+			// Reload hidden word span with the value of HiddenWord.displayWord
+			Container.gameContainer.querySelector("#HiddenWord").textContent = HiddenWord.displayWord;
+			resizeChat()
+		}
 	},
 	Return = {
 		tip: {
-			joinGame: "Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.",
+			joinGame: "ℹ️ Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.",
 			invalidLink: "⚠️ Ce lien n'est pas valide. Demandez à l'hébergeur de vous renvoyer un autre lien.",
-			commandPrefix: "Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient interprétées."
+			commandPrefix: "ℹ️ Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient interprétées.",
+			finishedGame: "🚪 L'hébergeur a terminé la partie.<br><a href='https://matteoo34.github.io/hangit.io'>Actualisez la page</a> pour en commencer une nouvelle."
 		},
 		eligibleChars: "❌ Le mot peut contenir uniquement des caractères alphabétiques, des espaces et des tirets (-).",
 		invalidLetter: "⛔ Cette lettre n'est pas dans le mot !",
@@ -36,8 +57,10 @@ const Player = {
 	Overlay = {
 		overlay: document.body.children[0],
 		show: () => {
-			Overlay.overlay.classList.add("displayed");
-			Wrapper.classList.add("overlayed")
+			if (!Game.finished) {
+				Overlay.overlay.classList.add("displayed");
+				Wrapper.classList.add("overlayed")
+			}
 		},
 		hide: () => {
 			Overlay.overlay.classList.remove("displayed");
@@ -50,18 +73,22 @@ const Player = {
 		submitWord: Overlay.overlay.querySelector(".SubmitWordModal"),
 		open: (modal) => {
 			// Show overlay & open requested modal
-			Overlay.show();
-			toggleDisplay(modal);
-			setTimeout(() => {modal.classList.add("current")});
-			Modal.current = modal
+			if (!Game.finished) {
+				Overlay.show();
+				toggleDisplay(modal);
+				setTimeout(() => {modal.classList.add("current")});
+				Modal.current = modal
+			}
 		},
 		close: () => {
 			// Close current opened modal & hide overlay
 			Overlay.hide();
 			let modal = Modal.current;
-			if (modal) modal.classList.remove("current");
 			Input.nickname.disabled = false;
-			setTimeout(() => {toggleDisplay(modal, "none")}, 200)
+			if (modal) {
+				modal.classList.remove("current");
+				setTimeout(() => {toggleDisplay(modal, "none")}, 200)
+			}
 		}
 	},
 	Layer = {
@@ -71,15 +98,19 @@ const Player = {
 		roundPlayerEnd: Overlay.overlay.querySelector(".RoundPlayerEndLayer"),
 		show: (layer) => {
 			// Show requested layer
-			toggleDisplay(layer);
-			setTimeout(() => {layer.classList.add("current")});
-			Layer.current = layer
+			if (!Game.finished) {
+				toggleDisplay(layer);
+				setTimeout(() => {layer.classList.add("current")});
+				Layer.current = layer
+			}
 		},
 		hide: () => {
 			// Close current opened layer
 			let layer = Layer.current;
-			if (layer) layer.classList.remove("current");
-			setTimeout(() => {toggleDisplay(layer, "none")}, 200)
+			if (layer) {
+				layer.classList.remove("current");
+				setTimeout(() => {toggleDisplay(layer, "none")}, 200)
+			}
 		}
 	},
 	Wrapper = document.body.children[1],
@@ -122,107 +153,46 @@ const Player = {
 		// Change the element display value, "block" by default
 		element.style.display = displayType
 	},
-	Round = {
-		max: 0,
-		currentIndex: 0,
-		currentPlayerIndex: 0
-	},
-	playerList = ["bob", "pouet", "majel beddouze", "zemmour"],
 	startGame = () => {
 		// Start a new game (player max number = 4)
+		// Close active containers & modals
+		Modal.close();
+		toggleDisplay(Container.nickname, "none");
+		toggleDisplay(Container.openHostForm, "none");
+		toggleDisplay(Container.joinGame, "none");
 		// Show game content
 		toggleDisplay(Container.gameContainer, "flex");
+		GameTip.textContent = Return.tip.commandPrefix;
 		resizeChat();
-		Round.max = 1;
-		// Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
-		// nextRound()
-	},
-	joinGame = () => {
-		// Toggle containers display
-		toggleDisplay(Container.nickname, "none");
-		toggleDisplay(Container.joinGame, "none");
-		toggleDisplay(Container.gameContainer, "flex");
-		resizeChat()
-	},
-	nextRound = () => {
-		// Force next round
-		Round.currentIndex++;
-		if (Round.currentIndex > Round.max) {
-			// All rounds finished, game ended
-			toggleDisplay(Container.gameContainer, "none");
-			toggleDisplay(Container.restartGame)
-		} else {
-			sendMessage(true, `Début du round ${Round.currentIndex} !`);
-			// Display round number
-			Container.gameContainer.children[1].children[0].children[0].textContent = Round.currentIndex;
-			Layer.round.children[0].textContent = Round.currentIndex;
-			// Show layers & word form
+		Game.started = true;
+		Layer.roundPlayer.children[0].textContent = Round.currentRoundPlayer.nickname;
+		Layer.roundPlayer.children[0].style.color = Round.currentRoundPlayer.nicknameColor;
+		Container.gameContainer.querySelector(".HiddenWordContainer").children[0].children[0].textContent = Round.currentRoundPlayer.nickname;
+		Container.gameContainer.querySelector(".HiddenWordContainer").children[0].style.color = Round.currentRoundPlayer.nicknameColor;
+		Container.gameContainer.querySelector(".CanvasContainer").children[0].style.color = Round.currentRoundPlayer.nicknameColor;
+		if (Player.nickname == Round.currentRoundPlayer.nickname) {
+			// Current round player
+			// Submit word modal
 			setTimeout(() => {
 				Overlay.show();
 				Layer.show(Layer.round);
 				setTimeout(() => {
 					Layer.hide();
-					setTimeout(nextRoundPlayer)
-				}, 2000)
-			}, 200)
-		}
-	},
-	nextRoundPlayer = () => {
-		// Force next round player
-		if (Round.currentPlayerIndex == playerList.length) {
-			// All players proposed a word, round finished
-			// Reset current player index
-			Round.currentPlayerIndex = 0;
-			nextRound()
-		} else {
-			// Round not finished, increment player index
-			Round.currentPlayerIndex++;
-			// Clear player data
-			HiddenWord.sentLetters = [];
-			HiddenWord.sentWords = [];
-			// Display round player number
-			Layer.roundPlayer.children[0].textContent = Player.nickname;
-			Layer.roundPlayer.children[0].style.color = Player.nicknameColor;
-			Layer.roundPlayerEnd.children[0].textContent = Player.nickname;
-			Layer.roundPlayerEnd.children[0].style.color = Player.nicknameColor;
-			Container.gameContainer.querySelector("#HiddenWordAuthor").textContent = Player.nickname;
-			// Show layers & word form
-			setTimeout(() => {
-				Overlay.show();
-				if (Round.currentPlayerIndex != 1) {
-					Layer.show(Layer.roundPlayerEnd);
-					setTimeout(() => {
-						Layer.hide();
-						// Submit word modal
-						setTimeout(() => {
-							Modal.open(Modal.submitWord);
-							Input.submitWord.focus()
-						}, 400);
-						// Waiting for submitted word layer
-						/*setTimeout(() => {
-							Layer.show(Layer.roundPlayer);
-							setTimeout(() => {
-								Layer.hide();
-								Overlay.hide()
-							}, 3000)
-						}, 400)*/
-					}, 2000)
-				} else {
-					// Round just started
-					// Submit word modal
 					setTimeout(() => {
 						Modal.open(Modal.submitWord);
 						Input.submitWord.focus()
-					}, 200);
-					// Waiting for submitted word layer
-					/*setTimeout(() => {
-						Layer.show(Layer.roundPlayer);
-						setTimeout(() => {
-							Layer.hide();
-							Overlay.hide()
-						}, 3000)
-					}, 400)*/
-				}
+					}, 400)
+				}, 2000)
+			}, 200)
+		} else {
+			// Waiting for submitted word layer
+			setTimeout(() => {
+				Overlay.show();
+				Layer.show(Layer.round);
+				setTimeout(() => {
+					Layer.hide();
+					setTimeout(() => {Layer.show(Layer.roundPlayer)}, 400)
+				}, 2000)
 			}, 200)
 		}
 	},
@@ -241,8 +211,8 @@ const Player = {
 	},
 	sendDatabasePlayer = (nickname, color) => {
 		let r = new XMLHttpRequest(),
-			roundPlayer = "false";
-		if (Player.role == "host") roundPlayer = "true";
+			roundPlayer = false;
+		if (Player.role == "host") roundPlayer = true;
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
 				if (r.status == 200) console.info(`[sendDatabasePlayer] ${r.response}`);
@@ -279,20 +249,18 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&message=${msg}&authorName=${authorName}`)
 	},
-	editScore = (score, operation, amount, nickname) => {
-		// Change the score of the player
-		if (operation == "+") score += amount;
-		else if (operation == "-") score -= amount;
+	sendPlayerScore = (nickname, foundIndex) => {
+		// Change the score of the specified player
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[editScore] ${r.response}`);
+				if (r.status == 200) console.info(`[sendPlayerScore] ${r.response}`);
 				else console.error("Server error")
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitationLink}&score=${score}&nickname=${nickname}`)
+		r.send(`url=${invitationLink}&nickname=${nickname}&foundIndex=${foundIndex}`)
 	},
 	clearGame = () => {
 		// Clear all current game data
@@ -307,7 +275,7 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&clearGame=1`)
 	},
-	clearGuestData = () => {
+	clearGuestData = (nickname) => {
 		// Clear all data for the current guest
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
@@ -318,7 +286,7 @@ const Player = {
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitationLink}&clearGuestData=1`)
+		r.send(`url=${invitationLink}&clearGuestData=1&nickname=${nickname}`)
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
@@ -327,6 +295,11 @@ const Player = {
 			color += hex[Math.floor(13 * Math.random())]
 		};
 		return color
+	},
+	htmlDecode = (input) => {
+		let test = document.createElement("div");
+		test.innerHTML = input;
+		return test.childNodes[0].nodeValue
 	},
 	resizeChat = () => {
 		let height = 0;
@@ -337,24 +310,21 @@ const Player = {
 	// Generate unique link function
 	GenerateLink = () => {return (new Date()).getTime()},
 	updateResult = (data) => {console.log(data)};
+
+
+
 let current_url = document.location.href;
-// queue_url = current_url.substring(current_url.lastIndexOf("/") + 1);
 // Event listeners
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
-window.addEventListener("beforeunload", (e) => {
+// Clear game on close window
+window.addEventListener("beforeunload", () => {
 	if (Player.role == "host") clearGame();
-	else clearGuestData(Player.nickname);
-	let prevent = 1;
-	(e || window.event).returnValue = prevent;
-	return prevent
+	else clearGuestData(Player.nickname)
 });
-// Hide host form modal when Escape key pressed
-addEventListener("keydown", (e) => {
-	if (e.keyCode == 27 && Modal.hostForm.classList.contains("current")) Modal.close()
-});
-// Hide modal when cancel button clicked
-document.querySelectorAll(".Modal .CancelButton").forEach((btn) => {
-	btn.addEventListener("click", Modal.close)
+// Clear game on refresh
+window.addEventListener("unload", () => {
+	if (Player.role == "host") clearGame();
+	else clearGuestData(Player.nickname)
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {
@@ -384,7 +354,7 @@ Input.nickname.nextElementSibling.style.color = Player.nicknameColor;
 document.documentElement.style.setProperty("--nickname-color", Player.nicknameColor);
 document.documentElement.style.setProperty("--nickname-color-light", `${Player.nicknameColor}30`);
 // Restart game
-Button.restart.addEventListener("click", () => {location.href = "https://"});
+Button.restart.addEventListener("click", () => {location.href = "https://matteoo34.github.io/hangit.io"});
 // Window resize function on load & resize
 addEventListener("load", resizeChat);
 addEventListener("resize", resizeChat)

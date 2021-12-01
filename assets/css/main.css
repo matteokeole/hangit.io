@@ -7,55 +7,72 @@
 @import url(Header.css);
 @import url(Container.css);
 @import url(GameContainer.css);
+@import url(RoundIndicator.css);
+@import url(HiddenWord.css);
+@import url(Canvas.css);
+@import url(Chat.css);
 @import url(RestartGame.css);
 @import url(GameTip.css);
 @import url(Form.css);
 @import url(Button.css);
 
-/* Lilita One import */
+/* Lilita One */
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
 
 /* Apply font */
 
-body, button, input, textarea {font-family: "Lilita One", sans-serif}
+* {font-family: "Lilita One", sans-serif}
 
-h1, h3, h4 {
-	margin: 0;
+h1, h3 {
+	margin: 12px 0;
 	font-weight: normal
 }
-h1, h3 {margin: 12px 0}
 
 /* Text selection color */
-::-moz-selection {background-color: var(--primary-light)}
-::selection {background-color: var(--primary-light)}
-header h1::-moz-selection,
-.GameTip::-moz-selection,
-.RoundLayer::-moz-selection,
-.RoundNumber::-moz-selection,
-.RoundPlayerLayer::-moz-selection,
-.RoundPlayer::-moz-selection,
-.PlayerScoreContainer .Icon::-moz-selection,
-.PlayerScore .PlayerValue::-moz-selection,
-.PlayerScore .ScoreValue::-moz-selection {
-	background-color: rgba(0, 0, 0, 0.2)
+
+/* Darker selection */
+::-moz-selection,
+#InvitationLinkInput::-moz-selection {
+	background-color: rgba(0, 0, 0, 0.15)
 }
-header h1::selection,
-.GameTip::selection,
-.RoundLayer:selection,
-.RoundNumber:selection,
-.RoundPlayerLayer:selection,
-.RoundPlayer:selection,
-.PlayerScoreContainer .Icon::selection,
-.PlayerScore .PlayerValue::selection,
-.PlayerScore .ScoreValue::selection {
-	background-color: rgba(0, 0, 0, 0.2)
+::selection,
+#InvitationLinkInput::selection {
+	background-color: rgba(0, 0, 0, 0.15)
+}
+
+/* --primary-light */
+h3::-moz-selection,
+.RangeLabel::-moz-selection,
+.RangeValue::-moz-selection,
+#WordInput::-moz-selection,
+.HiddenWordContainer *::-moz-selection {
+	background-color: var(--primary-light)
+}
+h3::selection,
+.RangeLabel::selection,
+.RangeValue::selection,
+#WordInput::selection,
+.HiddenWordContainer *::selection {
+	background-color: var(--primary-light)
+}
+
+/* --nickname-color-light */
+#NicknameInput::-moz-selection,
+.TextLabel::-moz-selection {
+	background-color: var(--nickname-color-light)
+}
+#NicknameInput::selection,
+.TextLabel::selection {
+	background-color: var(--nickname-color-light)
 }
 
 /* Variables */
 :root {
 	--primary: #ffb300; /* Orange */
+	--primary-dark: #a8a496; /* Dark orange */
 	--primary-light: #f2ecd9; /* Light orange */
 	--secondary: #cc8f00; /* Dark orange */
+	--secondary-dark: #7f5900; /* Darker orange */
 	--nickname-color: 0; /* Nickname random color */
 	--nickname-color-light: 0; /* Nickname random color (light) */
 	--valid: #41ad49; /* Nice green */
@@ -149,13 +166,6 @@ main {
 
 /* 600px max */
 @media screen and (max-width: 600px) {
-	.ReadyPlayersList {flex-direction: column}
-	.ReadyPlayersList .Player {
-		height: 40px;
-		line-height: 40px;
-		margin: 0 0 4px 0
-	}
-	.ReadyPlayersList .Player:last-of-type {margin: 0}
 	.GameContainer {width: 100%}
 	.GameInnerContainer2 {flex-direction: column}
 	.GameInnerContainer3 {

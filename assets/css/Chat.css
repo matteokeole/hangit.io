@@ -34,7 +34,7 @@
 .MessageDate {
 	margin-left: 4px;
 	overflow: hidden;
-	opacity: 0.3;
+	color: var(--primary-dark);
 	text-overflow: ellipsis;
 	font-size: 12px
 }

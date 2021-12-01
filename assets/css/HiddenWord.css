@@ -1,7 +1,5 @@
 .HiddenWordContainer {margin-bottom: 16px}
 
-#HiddenWordAuthorContent {color: var(--nickname-color)}
-
 #HiddenWord {
 	font-size: 30px;
 	letter-spacing: 4px;
