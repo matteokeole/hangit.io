@@ -142,7 +142,7 @@
 		}
 		public function set_found($found,$name,$link_game){
 			$setmessage = $this->bdd->prepare("UPDATE player SET found = ? WHERE id_player = ?");
-			$setmessage->execute(array($found,$this->$this->get_idplayer_by_nickname($name,$link_game)));
+			$setmessage->execute(array($found,$this->get_idplayer_by_nickname($name,$link_game)));
 			return true;
 		}
 		public function get_player_number($link_game){
