@@ -157,7 +157,7 @@
 	if (isset($_POST["set_round"],$_POST['url'])){
 		$setround = $_POST["set_round"];
 		$url=$_POST['url'];
-		$Partie->$set_round($url);
+		$Partie->set_round($url);
 		echo true;
 	}
 	if (isset($_POST["url"], $_POST["nickname"], $_POST["color"], $_POST['roundPlayer'])) {
