@@ -26,8 +26,8 @@ r.addEventListener("load", () => {
 		Player.role = "host";
 		invitationLink = GenerateLink();
 		current_url += `?g=${invitationLink}`;
-		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
 		GameTip.textContent = Return.tip.joinGame
@@ -75,6 +75,7 @@ let readyPlayers = [],
 				lastChild2 = ConnectedPlayersList.lastElementChild
 			}
 			// Add new players to lists
+			let allPlayersDone = false;
 			for (let i = 0; i < readyPlayers.length; i++) {
 				let player = document.createElement("div"),
 					player2 = document.createElement("div"),
@@ -100,6 +101,15 @@ let readyPlayers = [],
 					if (readyPlayers[i].nickname == Player.nickname) Player.roundPlayer = true
 				}
 			}
+			// Check if all players have either found the word or lost
+			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_found=${invitationLink}`)
+				.then(response => response.text())
+				.then(data => {
+					if (data == readyPlayers.length - 1) {
+						Game.finished = true;
+						endGame()
+					}
+				});
 			// Detect if the guest is in queue
 			if (Player.role == "guest" && Player.inQueue && !Game.started) {
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_round=${invitationLink}`)
