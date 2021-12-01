@@ -184,7 +184,7 @@ let readyPlayers = [],
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
 	// Start game
-	// Send max rounds value to server
+	// Send round value to server
 	sendData("maxRounds", Input.maxRounds.value);
 	sendData("set_round", 1);
 	startGame()
@@ -192,10 +192,10 @@ Button.startHostGame.addEventListener("click", () => {
 // Join hosted game
 Button.joinGame.addEventListener("click", () => {
 	// Join game
-	// Set player nickname
 	Player.inQueue = true;
 	Button.joinGame.disabled = true;
 	Button.joinGame.textContent = "Veuillez patienter pendant que l'hôte lance la partie...";
+	// Set player nickname
 	setNickname(Input.nickname.value);
 	Input.nickname.disabled = true
 });
