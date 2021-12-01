@@ -63,7 +63,7 @@
 		}
 		public function Edit_score($score,$game_url,$link_game,$name): void {
 			$setmessage = $this->bdd->prepare("UPDATE `player` SET score = ? WHERE id_game = ? and nickname=?");
-			$setmessage->execute(array($score, $this->getgame($game_url),$this->get_idplayer_by_nickname($name,$link_game)));
+			$setmessage->execute(array($score,$this->getgame($game_url),$this->get_idplayer_by_nickname($name,$link_game)));
 		}
 		/*public function get_score_player($name): string {
 			$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
@@ -148,7 +148,7 @@
 
 		public function get_idplayer_by_nickname($name,$link_game) :string
     	{
-			$setgame=$this->bdd->query("SELECT id_player FROM player join game on game.id_game = player.id_game where nickname=$name and link_game = $link_game;");
+			$setgame=$this->bdd->query("SELECT id_player FROM player join game on game.id_game = player.id_game where nickname='$name' and game.link_game = $link_game;");
 			$value=$setgame->fetch();
 			return $value['id_player'];
     	} 
