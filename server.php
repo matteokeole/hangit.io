@@ -140,6 +140,12 @@
 			return $value['round_number'];
 			// $this->round = $this->getround($game);
 		}
+		public function get_player_number($link_game){
+			$allplayer = $this->bdd->query("SELECT count(id_player) from player where id_game = ".$this->getgame($link_game));
+			$value = $allplayer->fetch();
+			return $value['count(id_player)'];
+		}
+
 		// public function get_idplayer_by_nickname($name,$link_game) :string
     	// {
 		// 	$setgame=$this->bdd->query("SELECT id_player FROM 'player' join game on game.id_game = player.id_game where nickname=$name and link_game = $link_game;");
@@ -153,7 +159,7 @@
 
 
 
-		
+
 		// public function set_put_player_in_round($game_url) {
 		// 	$setplayerinround = $this->bdd->prepare("INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player from player WHERE id_gamer=?),(SELECT id_round FROM round WHERE id_game=?)");
 		// 	$setplayerinround -> execute(array($game_url,$game_url));			
@@ -180,15 +186,20 @@
 	// 	echo true;
 	// }
 
-	if (isset($_POST['clearGuestData'])){
+	// if (isset($_POST['clearGuestData'])){
 
+	// }
+
+	if (isset($_POST['url'],$_POST['nickname'],$_POST['foundIndex'])){
+		$a = 1000/($Partie->get_player_number($_POST['url'])-1);
+		$score = 1000 - $a * $_POST['foundIndex'];
+		$Partie->Edit_score($score,$_POST['url'],$_POST['url']);
 	}
 
 	if (isset($_POST['edit_score'],$_POST['url'])){
 		$score = htmlspecialchars($_POST['edit_score']);
 		$Partie->Edit_score($score,$_POST['url'],$_POST['url']);
-
-		}
+	}
 
 	if (isset($_POST["set_round"],$_POST['url'])){
 		$setround = $_POST["set_round"];
