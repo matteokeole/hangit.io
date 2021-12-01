@@ -114,7 +114,7 @@
 			//$this->hiddenword = $this->gethiddenword($link_game);
 		}
 		public function get_all_player_game($game) {
-			$getmessage = $this->bdd->prepare("SELECT player.nickname, player.nicknameColor, player.score, player.roundPlayer FROM `player` JOIN `game` ON player.id_game = game.id_game WHERE game.link_game = ?");
+			$getmessage = $this->bdd->prepare("SELECT player.nickname, player.nicknameColor, player.score, player.roundPlayer, player.found FROM `player` JOIN `game` ON player.id_game = game.id_game WHERE game.link_game = ?");
 			$getmessage->execute(array($game));
 			$value = $getmessage->fetchAll();
 			return $value;
@@ -145,6 +145,7 @@
 			$setmessage->execute(array($found,$this->get_idplayer_by_nickname($name,$link_game)));
 			return true;
 		}
+		
 		public function get_player_number($link_game){
 			$allplayer = $this->bdd->query("SELECT count(id_player) from player where id_game = ".$this->getgame($link_game));
 			$value = $allplayer->fetch();
