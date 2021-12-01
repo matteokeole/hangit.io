@@ -56,8 +56,8 @@
 			$setmessage = $this->bdd->prepare("INSERT INTO message (text, id_game, id_player) VALUES (?, ?, ?)");
 			$setmessage->execute(array($text,$this->getgame(),getplayer($nickname)));
 		}*/
-		public function getplayer($player): string {
-			$setgame = $this->bdd->query("SELECT id_player FROM player where id_game = " . $this->getgame($link_game));
+		public function getplayer($link_game): string {
+			$setgame = $this->bdd->query("SELECT id_player FROM player where link_game = " . $this->getgame($link_game));
 			$value = $setgame->fetch();
 			return $value["id_player"];
 		}
