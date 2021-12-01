@@ -61,9 +61,9 @@
 			$value = $setgame->fetch();
 			return $value["id_player"];
 		}
-		public function Edit_score($name, $score,$link_game): void {
+		public function Edit_score($score,$game_url,$link_game): void {
 			$setmessage = $this->bdd->prepare("UPDATE `player` SET score = ? WHERE id_game = ? and id_player=?");
-			$setmessage->execute(array($name, $this->getgame($link_game),$this->getplayer($name)));
+			$setmessage->execute(array($score, $this->getgame($game_url),$this->getplayer($link_game)));
 		}
 		/*public function get_score_player($name): string {
 			$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
@@ -165,6 +165,12 @@
 	// 	$Partie->set_put_player_in_round($_POST['url']);
 	// 	echo true;
 	// }
+
+	if(isset($_POST['edit_score'],$_POST['url'])){
+		$score = htmlspecialchars($_POST['edit_score']);
+		$Partie->Edit_score($score,$_POST['url'],$_POST['url']);
+
+		}
 
 	if (isset($_POST["set_round"],$_POST['url'])){
 		$setround = $_POST["set_round"];
