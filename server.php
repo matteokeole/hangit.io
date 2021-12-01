@@ -237,8 +237,10 @@
 					$found = true;
 				}
 			}
+			$i = 2;
 			if ($found) {
-				$nickname = $nickname."²";
+				$nickname = $nickname.$i;
+				$i = $i+1;
 			}
 		} while($found == true);
 
