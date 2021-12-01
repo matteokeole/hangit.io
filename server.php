@@ -152,9 +152,16 @@
 			$value=$setgame->fetch();
 			return $value['id_player'];
     	} 
+
+		//when 1 row in player is deleted all table with id_player in are deleted
 		public function delet_player_info($link_game,$name){
 			$setmessage = $this->bdd->prepare("DELETE FROM player WHERE id_player =?");
 			$setmessage-> execute(array($this->get_idplayer_by_nickname($name,$link_game)));
+		}
+		//when 1 row in game is deleted all table with id_game in are deleted
+		public function delet_game_info($link_game,$game_url){
+			$this->bdd->query("DELETE FROM player WHERE id_player =". $this->getplayer($link_game));
+			$this->bdd->query("DELETE FROM game WHERE id_game =". $this->getgame($game_url));
 		}
 
 
@@ -195,8 +202,10 @@
 		$score = 1000 - $a * $_POST['foundIndex'];
 		$Partie->Edit_score($score,$_POST['url'],$_POST['url'],$_POST['nickname']);
 		echo true;
-		
-
+	}
+	if (isset($_POST['url'],$_POST['clearGame'])){
+		$Partie->delet_game_info($_POST['url'],$_POST['url']);
+		echo true;
 	}
 
 	if (isset($_POST['url'],$_POST['nickname'],$_POST['clearGuestData'])){
@@ -219,8 +228,22 @@
 		$nickname = htmlspecialchars($_POST["nickname"]);
 		$nicknameColor = htmlspecialchars($_POST["color"]);
 		$Partie->Edit_Game("0", "0", "1", $url);
+		$players = $Partie->get_all_player_game($_POST["url"]);
+		print_r($players);
+		do {
+			$found = false;
+			foreach ($players as $player) {
+				if ($player['nickname'] == $nickname) {
+					$found = true;
+				}
+			}
+			if ($found) {
+				$nickname = $nickname."²";
+			}
+		} while($found == true);
+
 		$Partie->Setplayer($nickname, "0", $nicknameColor, $url, $_POST['roundPlayer']);
-		echo true;
+ 		echo true;
 	}
 	if (isset($_POST["invite"], $_POST["joinlink"])) {
 		$joinlink = htmlspecialchars($_POST["joinlink"]);
