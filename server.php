@@ -136,7 +136,7 @@
 		}
 		public function get_max_round($game_url) {
 			$setmessage = $this->bdd->query("SELECT round_number FROM game WHERE id_game=$this->getgame($game_url)");
-			$value = $setgame->fetch();
+			$value = $setmessage->fetch();
 			return $value;
 			// $this->round = $this->getround($game);
 		}
