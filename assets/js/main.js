@@ -35,11 +35,13 @@ r.addEventListener("load", () => {
 		sendData("link_game", invitationLink)
 	}
 });
-// Fetch intervals
-// Refresh ready player list
+// Ajax requests
 let readyPlayers = [],
-	refreshReadyPlayers = setInterval(() => {
-		// Get ready players
+	messages = [],
+	oldMessages = [],
+	newMessages = [],
+	fetchInterval = setInterval(() => {
+		// Refresh ready player list
 		fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${invitationLink}`)
 			.then(response => response.text())
 			.then(data => {readyPlayers = JSON.parse(data)});
@@ -77,16 +79,14 @@ let readyPlayers = [],
 		}
 		// Check for current round player
 		for (let i = 0; i < readyPlayers.length; i++) {
-			if (readyPlayers[i].roundPlayer && readyPlayers[i].nickname == Player.nickname) Player.roundPlayer = true
+			if (readyPlayers[i].roundPlayer == "true") {
+				Round.currentRoundPlaye.nickname = readyPlayers[i].nickname;
+				Round.currentRoundPlaye.nicknameColor = readyPlayers[i].nicknameColor;
+				if (readyPlayers[i].nickname == Player.nickname) Player.roundPlayer = true
+			}
 		}
-	}, 100),
-	// Refresh messages
-	messages = [],
-	oldMessages = [],
-	newMessages = [],
-	refreshMessages,
-	startRefreshMessages = () => {
-		refreshMessages = setInterval(() => {
+		// Refresh messages
+		if (Game.started) {
 			newMessages = [];
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?getmessage=${invitationLink}`)
 				.then(response => response.text())
@@ -104,8 +104,8 @@ let readyPlayers = [],
 					// checkMessage(newMessages[i].text)
 				}
 			}
-		}, 100)
-	};
+		}
+	}, 100);
 
 
 

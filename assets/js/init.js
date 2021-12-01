@@ -7,6 +7,18 @@ const Player = {
 		roundPlayer: false,
 		score: 0
 	},
+	Game = {
+		started: false
+	},
+	Round = {
+		max: 0,
+		currentIndex: 0,
+		currentPlayerIndex: 0,
+		currentRoundPlayer: {
+			nickname: "",
+			nicknameColor: ""
+		}
+	},
 	Chat = {
 		lastMessageSender: null
 	},
@@ -128,11 +140,6 @@ const Player = {
 		// Change the element display value, "block" by default
 		element.style.display = displayType
 	},
-	Round = {
-		max: 0,
-		currentIndex: 0,
-		currentPlayerIndex: 0
-	},
 	playerList = ["bob", "pouet", "majel beddouze", "zemmour"],
 	startGame = () => {
 		// Start a new game (player max number = 4)
@@ -144,8 +151,8 @@ const Player = {
 		// Show game content
 		toggleDisplay(Container.gameContainer, "flex");
 		GameTip.textContent = Return.tip.commandPrefix;
-		startRefreshMessages();
 		resizeChat();
+		Game.started = true;
 		Round.max = 1;
 		// Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
 		if (Player.role == "host") {
@@ -169,6 +176,8 @@ const Player = {
 				setTimeout(() => {
 					Layer.hide();
 					setTimeout(() => {
+						Layer.roundPlayer.children[0].textContent = Round.currentRoundPlayer.nickname;
+						Layer.roundPlayer.children[0].style.color = Round.currentRoundPlayer.nicknameColor;
 						Layer.show(Layer.roundPlayer)
 					}, 400)
 				}, 2000)
