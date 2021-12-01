@@ -75,6 +75,7 @@ let readyPlayers = [],
 				lastChild2 = ConnectedPlayersList.lastElementChild
 			}
 			// Add new players to lists
+			let allPlayersDone = false;
 			for (let i = 0; i < readyPlayers.length; i++) {
 				let player = document.createElement("div"),
 					player2 = document.createElement("div"),
@@ -99,6 +100,14 @@ let readyPlayers = [],
 					Round.currentRoundPlayer.nicknameColor = readyPlayers[i].nicknameColor;
 					if (readyPlayers[i].nickname == Player.nickname) Player.roundPlayer = true
 				}
+				// Check if all players have either found the word or lost
+				if (readyPlayers[i].nickname != Round.currentRoundPlayer.nickname) {
+					if (readyPlayers[i].found) allPlayersDone = true
+					else allPlayersDone = false
+				}
+			}
+			if (allPlayersDone) {
+				console.warn("TERMINE")
 			}
 			// Detect if the guest is in queue
 			if (Player.role == "guest" && Player.inQueue && !Game.started) {

@@ -60,8 +60,9 @@ const checkMessage = (msg) => {
 			} else {
 				// Game over!
 				setTimeout(() => {Input.message.blur()});
-				sendMessage(true, Return.gameOver);
 				Player.status = "lost";
+				sendWordFound(Player.nickname, 1);
+				sendMessage(true, Return.gameOver);
 				toggleCanvasPart(11) // Show canvas last part
 			}
 		}
