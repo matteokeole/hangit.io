@@ -10,6 +10,7 @@ r.addEventListener("load", () => {
 	if (link.liens) {
 		// The player is about to join a GameTip
 		Player.role = "guest";
+		document.querySelector(".RepeatedNicknamesTip").style.display = "block";
 		// Change current URL
 		invitationLink = window.location.href.split("?g=");
 		invitationLink = invitationLink[invitationLink.length - 1];
@@ -105,6 +106,7 @@ let readyPlayers = [],
 				.then(response => response.text())
 				.then(data => {Round.current = data});
 			if (Round.current > 0) Container.gameContainer.children[1].children[0].children[0].textContent = Round.current;
+			Layer.round.children[0].textContent = Round.current;
 			// Get max rounds number
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_max_round=${invitationLink}`)
 				.then(response => response.text())

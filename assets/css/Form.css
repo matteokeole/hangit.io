@@ -125,11 +125,14 @@ label.RangeLabel {color: var(--secondary)}
 }
 
 /* Input spans */
-.InputInfo, .InputError {
+.InputInfo, .RepeatedNicknamesTip {
 	top: -14px;
 	position: relative;
 	font-size: 14px;
 	font-style: italic
 }
 .InputInfo {color: var(--secondary)}
-.InputError {color: var(--invalid)}
+.RepeatedNicknamesTip {
+	display: none;
+	color: var(--invalid)
+}
