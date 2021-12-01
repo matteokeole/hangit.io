@@ -148,7 +148,7 @@
 
 		public function get_idplayer_by_nickname($name,$link_game) :string
     	{
-			$setgame=$this->bdd->query("SELECT id_player FROM 'player' join game on game.id_game = player.id_game where nickname='$name' and link_game = $link_game;");
+			$setgame=$this->bdd->query("SELECT id_player FROM player join game on game.id_game = player.id_game where nickname=$name and link_game = $link_game;");
 			$value=$setgame->fetch();
 			return $value['id_player'];
     	} 
