@@ -151,4 +151,4 @@ document.querySelectorAll("input[type='range']").forEach((input) => {
 		let value = input.value;
 		input.previousElementSibling.children[0].textContent = value
 	})
-});
+})

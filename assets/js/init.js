@@ -19,7 +19,11 @@ const Player = {
 		sentWords: [], // Sent words array
 		invalidInputs: 0, // Number of errors
 		currentInputValidity: true, // Validity of the current proposed letter
-		refreshSpan: () => {Container.gameContainer.querySelector("#HiddenWord").textContent = HiddenWord.displayWord}
+		refreshSpan: () => {
+			// Reload hidden word span with the value of HiddenWord.displayWord
+			Container.gameContainer.querySelector("#HiddenWord").textContent = HiddenWord.displayWord;
+			resizeChat()
+		}
 	},
 	Return = {
 		tip: {
@@ -59,9 +63,11 @@ const Player = {
 			// Close current opened modal & hide overlay
 			Overlay.hide();
 			let modal = Modal.current;
-			if (modal) modal.classList.remove("current");
 			Input.nickname.disabled = false;
-			setTimeout(() => {toggleDisplay(modal, "none")}, 200)
+			if (modal) {
+				modal.classList.remove("current");
+				setTimeout(() => {toggleDisplay(modal, "none")}, 200)
+			}
 		}
 	},
 	Layer = {
@@ -131,7 +137,7 @@ const Player = {
 	startGame = () => {
 		// Start a new game (player max number = 4)
 		// Close active containers & modals
-		if (Modal.hostForm.style.display == "block") Modal.close();
+		Modal.close();
 		toggleDisplay(Container.nickname, "none");
 		toggleDisplay(Container.openHostForm, "none");
 		toggleDisplay(Container.joinGame, "none");
