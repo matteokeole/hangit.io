@@ -11,7 +11,7 @@ const Player = {
 	},
 	Game = {
 		started: false,
-		deleted: false
+		finished: false
 	},
 	Round = {
 		current: 0,
@@ -43,9 +43,10 @@ const Player = {
 	},
 	Return = {
 		tip: {
-			joinGame: "Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.",
+			joinGame: "ℹ️ Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.",
 			invalidLink: "⚠️ Ce lien n'est pas valide. Demandez à l'hébergeur de vous renvoyer un autre lien.",
-			commandPrefix: "Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient interprétées."
+			commandPrefix: "ℹ️ Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient interprétées.",
+			finishedGame: "🚪 L'hébergeur a terminé la partie.<br><a href='https://matteoo34.github.io/hangit.io'>Actualisez la page</a> pour en commencer une nouvelle."
 		},
 		eligibleChars: "❌ Le mot peut contenir uniquement des caractères alphabétiques, des espaces et des tirets (-).",
 		invalidLetter: "⛔ Cette lettre n'est pas dans le mot !",
@@ -56,8 +57,10 @@ const Player = {
 	Overlay = {
 		overlay: document.body.children[0],
 		show: () => {
-			Overlay.overlay.classList.add("displayed");
-			Wrapper.classList.add("overlayed")
+			if (!Game.finished) {
+				Overlay.overlay.classList.add("displayed");
+				Wrapper.classList.add("overlayed")
+			}
 		},
 		hide: () => {
 			Overlay.overlay.classList.remove("displayed");
@@ -70,10 +73,12 @@ const Player = {
 		submitWord: Overlay.overlay.querySelector(".SubmitWordModal"),
 		open: (modal) => {
 			// Show overlay & open requested modal
-			Overlay.show();
-			toggleDisplay(modal);
-			setTimeout(() => {modal.classList.add("current")});
-			Modal.current = modal
+			if (!Game.finished) {
+				Overlay.show();
+				toggleDisplay(modal);
+				setTimeout(() => {modal.classList.add("current")});
+				Modal.current = modal
+			}
 		},
 		close: () => {
 			// Close current opened modal & hide overlay
@@ -93,15 +98,19 @@ const Player = {
 		roundPlayerEnd: Overlay.overlay.querySelector(".RoundPlayerEndLayer"),
 		show: (layer) => {
 			// Show requested layer
-			toggleDisplay(layer);
-			setTimeout(() => {layer.classList.add("current")});
-			Layer.current = layer
+			if (!Game.finished) {
+				toggleDisplay(layer);
+				setTimeout(() => {layer.classList.add("current")});
+				Layer.current = layer
+			}
 		},
 		hide: () => {
 			// Close current opened layer
 			let layer = Layer.current;
-			if (layer) layer.classList.remove("current");
-			setTimeout(() => {toggleDisplay(layer, "none")}, 200)
+			if (layer) {
+				layer.classList.remove("current");
+				setTimeout(() => {toggleDisplay(layer, "none")}, 200)
+			}
 		}
 	},
 	Wrapper = document.body.children[1],

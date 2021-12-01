@@ -30,6 +30,7 @@ h1, h3 {margin: 12px 0}
 ::selection {background-color: var(--primary-light)}
 header h1::-moz-selection,
 .GameTip::-moz-selection,
+.GameTip a::-moz-selection,
 .RoundLayer::-moz-selection,
 .RoundNumber::-moz-selection,
 .RoundPlayerLayer::-moz-selection,
@@ -41,6 +42,7 @@ header h1::-moz-selection,
 }
 header h1::selection,
 .GameTip::selection,
+.GameTip a::selection,
 .RoundLayer:selection,
 .RoundNumber:selection,
 .RoundPlayerLayer:selection,
