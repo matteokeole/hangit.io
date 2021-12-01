@@ -35,15 +35,14 @@
 }
 
 .ReadyPlayersList {
-	display: flex;
-	flex-direction: column;
 	width: 100%;
 	min-height: 40px;
-	margin-top: 4px
+	max-height: 300px;
+	margin-top: 4px;
+	overflow-y: scroll
 }
 
 .ReadyPlayersList .Player {
-	flex-grow: 1;
 	height: 40px;
 	line-height: 40px;
 	margin: 0 0 4px 0;
