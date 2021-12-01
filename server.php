@@ -120,7 +120,7 @@
 			return $value;
 		}
 		public function gethiddenword($link_game) {
-			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer($link_game) . " ORDER BY id_player DESC LIMIT 1");
+			$setgame = $this->bdd->query("SELECT word FROM `hidden_word` WHERE id_player = " . $this->getplayer($link_game));
 			$value = $setgame->fetch();
 			return $value["word"];
 		}
@@ -140,10 +140,10 @@
 			return $value['round_number'];
 			// $this->round = $this->getround($game);
 		}
-		/*public function set_put_player_in_round($game, $player) {
-			// En cours
-			// $setplayerinround = $this->bdd->prepare("INSERT INTO `round_player` (id_player, id_round) VALUES ((SELECT id_player FROM `player` JOIN `game` ON game.id_game = player.id_game WHERE link_game = "http://localhost/hangit.io/?s1638270215336"), (SELECT id_round FROM `round` JOIN `game` ON game.id_game = round.id_game WHERE link_game = "http://localhost/hangit.io/?g=1638270215336"));");
-		}*/
+		public function set_put_player_in_round($game_url) {
+			$setplayerinround = $this->bdd->prepare("INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player from player WHERE id_gamer=?),(SELECT id_round FROM round WHERE id_game=?)");
+			$setplayerinround -> execute(array($game_url,$game_url));			
+		}
 	}
 	// Game server
 	$Partie = new Game_Server();
@@ -160,6 +160,7 @@
 		$Partie->Setmessage($message, $_POST["nickmane"]);
 		echo true;
 	}*/
+
 	if (isset($_POST["set_round"],$_POST['url'])){
 		$setround = $_POST["set_round"];
 		$url=$_POST['url'];
@@ -223,5 +224,10 @@
 		$get_max_round = htmlspecialchars($_GET["get_max_round"]);
 		// $arrayName = array("o" => $Partie->get_all_message_game($getmessage));
 		echo ($Partie->get_max_round($get_max_round));
+	}
+
+	if (isset($_GET['get_hidden_word'])){
+		$get_hidden_word = htmlspecialchars($_GET['get_hidden_word']);
+		echo ($Partie->gethiddenword($get_hidden_word));
 	}
 ?>
