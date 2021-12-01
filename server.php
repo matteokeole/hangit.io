@@ -239,8 +239,11 @@
 			}
 			$i = 2;
 			if ($found) {
-				$nickname = $nickname.$i;
-				$nickname[strlen($nickname) - 1]+1;
+				if($nickname[strlen($nickname) - 1]==$i){
+					$nickname = $nickname[strlen($nickname) - 1]+1;
+				} else{
+					$nickname = $nickname.$i;
+				}
 			}
 		} while($found == true);
 
