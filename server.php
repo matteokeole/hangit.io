@@ -190,11 +190,7 @@
 		$message = htmlspecialchars($_POST["message"]);
 		$authorName = htmlspecialchars($_POST["authorName"]);
 		$Partie->Setmessage($message, $authorName, $_POST["url"]);
-		echo "[server.php] Message sent!";
 		echo true;
-	}
-	if (isset($_GET["wtf"])) {
-		echo "ok";
 	}
 	if (isset($_GET["getallplayer"])) {
 		$getallplayer = htmlspecialchars($_GET["getallplayer"]);
