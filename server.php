@@ -161,6 +161,11 @@
 		echo true;
 	}*/
 
+	if(isset($_POST['set_player_round'],$_POST['url'])){
+		$Partie->set_put_player_in_round($_POST['url']);
+		echo true;
+	}
+
 	if (isset($_POST["set_round"],$_POST['url'])){
 		$setround = $_POST["set_round"];
 		$url=$_POST['url'];
@@ -230,4 +235,5 @@
 		$get_hidden_word = htmlspecialchars($_GET['get_hidden_word']);
 		echo ($Partie->gethiddenword($get_hidden_word));
 	}
+	
 ?>
