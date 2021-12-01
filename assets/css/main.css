@@ -26,38 +26,48 @@ h1, h3, h4 {
 h1, h3 {margin: 12px 0}
 
 /* Text selection color */
-::-moz-selection {background-color: var(--primary-light)}
-::selection {background-color: var(--primary-light)}
-header h1::-moz-selection,
-.GameTip::-moz-selection,
-.GameTip a::-moz-selection,
-.RoundLayer::-moz-selection,
-.RoundNumber::-moz-selection,
-.RoundPlayerLayer::-moz-selection,
-.RoundPlayer::-moz-selection,
-.PlayerScoreContainer .Icon::-moz-selection,
-.PlayerScore .PlayerValue::-moz-selection,
-.PlayerScore .ScoreValue::-moz-selection {
-	background-color: rgba(0, 0, 0, 0.2)
+
+/* Darker selection */
+::-moz-selection,
+#InvitationLinkInput::-moz-selection {
+	background-color: rgba(0, 0, 0, 0.15)
 }
-header h1::selection,
-.GameTip::selection,
-.GameTip a::selection,
-.RoundLayer:selection,
-.RoundNumber:selection,
-.RoundPlayerLayer:selection,
-.RoundPlayer:selection,
-.PlayerScoreContainer .Icon::selection,
-.PlayerScore .PlayerValue::selection,
-.PlayerScore .ScoreValue::selection {
-	background-color: rgba(0, 0, 0, 0.2)
+::selection,
+#InvitationLinkInput::selection {
+	background-color: rgba(0, 0, 0, 0.15)
+}
+/* --primary-light */
+h3::-moz-selection,
+.RangeLabel::-moz-selection,
+.RangeValue::-moz-selection,
+#WordInput::-moz-selection,
+.HiddenWordContainer *::-moz-selection {
+	background-color: var(--primary-light)
+}
+h3::selection,
+.RangeLabel::selection,
+.RangeValue::selection,
+#WordInput::selection,
+.HiddenWordContainer *::selection {
+	background-color: var(--primary-light)
+}
+/* --nickname-color-light */
+#NicknameInput::-moz-selection,
+.TextLabel::-moz-selection {
+	background-color: var(--nickname-color-light)
+}
+#NicknameInput::selection,
+.TextLabel::selection {
+	background-color: var(--nickname-color-light)
 }
 
 /* Variables */
 :root {
 	--primary: #ffb300; /* Orange */
+	--primary-dark: #a8a496; /* Dark orange */
 	--primary-light: #f2ecd9; /* Light orange */
 	--secondary: #cc8f00; /* Dark orange */
+	--secondary-dark: #7f5900; /* Darker orange */
 	--nickname-color: 0; /* Nickname random color */
 	--nickname-color-light: 0; /* Nickname random color (light) */
 	--valid: #41ad49; /* Nice green */
