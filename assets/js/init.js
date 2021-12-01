@@ -130,135 +130,45 @@ const Player = {
 	playerList = ["bob", "pouet", "majel beddouze", "zemmour"],
 	startGame = () => {
 		// Start a new game (player max number = 4)
+		// Close active containers & modals
+		if (Modal.hostForm.style.display == "block") Modal.close();
+		toggleDisplay(Container.nickname, "none");
+		toggleDisplay(Container.openHostForm, "none");
+		toggleDisplay(Container.joinGame, "none");
 		// Show game content
 		toggleDisplay(Container.gameContainer, "flex");
+		GameTip.textContent = Return.tip.commandPrefix;
+		startRefreshMessages();
 		resizeChat();
 		Round.max = 1;
 		// Container.gameContainer.children[1].children[0].children[1].textContent = Round.max;
-		// Submit word modal
-		setTimeout(() => {
-			Overlay.show();
-			Layer.show(Layer.round);
-			setTimeout(() => {
-				Layer.hide();
-				setTimeout(() => {
-					Modal.open(Modal.submitWord);
-					Input.submitWord.focus()
-				}, 400)
-			}, 2000)
-		}, 200)
-		// nextRound()
-	},
-	joinGame = () => {
-		// Toggle containers display
-		toggleDisplay(Container.nickname, "none");
-		toggleDisplay(Container.joinGame, "none");
-		toggleDisplay(Container.gameContainer, "flex");
-		resizeChat();
-		// Waiting for submitted word layer
-		setTimeout(() => {
-			Overlay.show();
-			Layer.show(Layer.round);
-			setTimeout(() => {
-				Layer.hide();
-				setTimeout(() => {
-					Layer.show(Layer.roundPlayer);
-					setTimeout(() => {
-						Layer.hide();
-						Overlay.hide()
-					}, 3000)
-				}, 400)
-			}, 2000)
-		}, 200)
-	},
-	/*nextRound = () => {
-		// Force next round
-		Round.currentIndex++;
-		if (Round.currentIndex > Round.max) {
-			// All rounds finished, game ended
-			toggleDisplay(Container.gameContainer, "none");
-			toggleDisplay(Container.restartGame)
-		} else {
-			sendMessage(true, `Début du round ${Round.currentIndex} !`);
-			// Display round number
-			Container.gameContainer.children[1].children[0].children[0].textContent = Round.currentIndex;
-			Layer.round.children[0].textContent = Round.currentIndex;
-			// Show layers & word form
+		if (Player.role == "host") {
+			// Submit word modal
 			setTimeout(() => {
 				Overlay.show();
 				Layer.show(Layer.round);
 				setTimeout(() => {
 					Layer.hide();
-					setTimeout(nextRoundPlayer)
+					setTimeout(() => {
+						Modal.open(Modal.submitWord);
+						Input.submitWord.focus()
+					}, 400)
+				}, 2000)
+			}, 200)
+		} else {
+			// Waiting for submitted word layer
+			setTimeout(() => {
+				Overlay.show();
+				Layer.show(Layer.round);
+				setTimeout(() => {
+					Layer.hide();
+					setTimeout(() => {
+						Layer.show(Layer.roundPlayer)
+					}, 400)
 				}, 2000)
 			}, 200)
 		}
 	},
-	nextRoundPlayer = () => {
-		// Force next round player
-		if (Round.currentPlayerIndex == playerList.length) {
-			// All players proposed a word, round finished
-			// Reset current player index
-			Round.currentPlayerIndex = 0;
-			nextRound()
-		} else {
-			// Round not finished, increment player index
-			Round.currentPlayerIndex++;
-			// Clear player data
-			HiddenWord.sentLetters = [];
-			HiddenWord.sentWords = [];
-			// Display round player number
-			Layer.roundPlayer.children[0].textContent = Player.nickname;
-			Layer.roundPlayer.children[0].style.color = Player.nicknameColor;
-			Layer.roundPlayerEnd.children[0].textContent = Player.nickname;
-			Layer.roundPlayerEnd.children[0].style.color = Player.nicknameColor;
-			Container.gameContainer.querySelector("#HiddenWordAuthor").textContent = Player.nickname;
-			// Show layers & word form
-			setTimeout(() => {
-				Overlay.show();
-				if (Round.currentPlayerIndex != 1) {
-					Layer.show(Layer.roundPlayerEnd);
-					setTimeout(() => {
-						Layer.hide();
-						if (Player.role == "host") {
-							// Submit word modal
-							setTimeout(() => {
-								Modal.open(Modal.submitWord);
-								Input.submitWord.focus()
-							}, 200);
-						} else {
-							// Wait for submitted word layer
-							setTimeout(() => {
-								Layer.show(Layer.roundPlayer);
-								setTimeout(() => {
-									Layer.hide();
-									Overlay.hide()
-								}, 3000)
-							}, 400)
-						}
-					}, 2000)
-				} else {
-					// Round just started
-					if (Player.role == "host") {
-						// Submit word modal
-						setTimeout(() => {
-							Modal.open(Modal.submitWord);
-							Input.submitWord.focus()
-						}, 200);
-					} else {
-						// Wait for submitted word layer
-						setTimeout(() => {
-							Layer.show(Layer.roundPlayer);
-							setTimeout(() => {
-								Layer.hide();
-								Overlay.hide()
-							}, 3000)
-						}, 400)
-					}
-				}
-			}, 200)
-		}
-	},*/
 	// Send/get data functions
 	sendData = (property, data) => {
 		let r = new XMLHttpRequest();

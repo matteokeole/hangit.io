@@ -25,8 +25,8 @@ r.addEventListener("load", () => {
 		Player.role = "host";
 		invitationLink = GenerateLink();
 		current_url += `?g=${invitationLink}`;
-		Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		// Input.invitationLink.value = `http://localhost:2021/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
@@ -115,19 +115,21 @@ let readyPlayers = [],
 
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
-	// clearInterval(refreshReadyPlayers);
-	startRefreshMessages();
-	// Close form modal
-	Modal.close();
-	// Close active containers
-	toggleDisplay(Container.nickname, "none");
-	toggleDisplay(Container.openHostForm, "none");
-	GameTip.textContent = Return.tip.commandPrefix;
 	// Start game
-	// Send max rounds value to  server
+	// Send max rounds value to server
 	sendData("maxRounds", Input.maxRounds.value);
+	sendData("set_round", 1);
 	startGame()
-})
+});
+// Join hosted game
+Button.joinGame.addEventListener("click", () => {
+	// Join game
+	// Set player nickname
+	SetNickname(Input.nickname.value);
+	Input.nickname.value = "";
+	Input.nickname.disabled = true;
+	startGame()
+});
 // Copy invitation link to clipboard
 Button.copyLink.addEventListener("click", () => {
 	Input.invitationLink.select();
