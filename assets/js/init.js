@@ -262,6 +262,19 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&nickname=${nickname}&foundIndex=${foundIndex}`)
 	},
+	sendWordFound = (nickname, wordFound) => {
+		// Set a found word value for the specified player
+		let r = new XMLHttpRequest();
+		r.onreadystatechange = () => {
+			if (r.readyState == 4) {
+				if (r.status == 200) console.info(`[sendWordFound] ${r.response}`);
+				else console.error("Server error")
+			}
+		}
+		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
+		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(`url=${invitationLink}&nickname=${nickname}&wordFound=${wordFound}`)
+	},
 	clearGame = () => {
 		// Clear all current game data
 		let r = new XMLHttpRequest();
