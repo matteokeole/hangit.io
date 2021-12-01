@@ -19,8 +19,8 @@ const checkMessage = (msg) => {
 					// Check for letter in hidden word
 					HiddenWord.currentInputValidity = checkForCharInWord(msg);
 					if (HiddenWord.originalWord == HiddenWord.displayWord) {
-						sendPlayerScore(Player.nickname, 1);
-						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname)
+						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname);
+						sendPlayerScore(Player.nickname, 1)
 					}
 				}
 			} else if (msg.length > 1) {
@@ -38,8 +38,8 @@ const checkMessage = (msg) => {
 					HiddenWord.currentInputValidity = checkForFullWord(msg);
 					// If found, increment score & next round
 					if (HiddenWord.originalWord == HiddenWord.displayWord) {
-						sendPlayerScore(Player.nickname, 1);
-						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname)
+						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname);
+						sendPlayerScore(Player.nickname, 1)
 					}
 				}
 			}
