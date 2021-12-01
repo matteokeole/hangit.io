@@ -125,7 +125,7 @@
 			return $value["word"];
 		}
 		public function get_round($game) {
-			$setgame = $this->bdd->query("SELECT count(id_round) FROM `round` JOIN `game` ON game.id_game = round.id_game WHERE link_game = " . $game . ";");
+			$setgame = $this->bdd->query("SELECT count(id_round) FROM `round` JOIN `game` ON game.id_game = round.id_game WHERE link_game =  $game group by link_game");
 			$value = $setgame->fetch();
 			return $value;
 		} 
