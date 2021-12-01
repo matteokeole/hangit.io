@@ -76,9 +76,7 @@ let readyPlayers = [],
 			player2.appendChild(player2Nickname);
 			player2.appendChild(player2Score);
 			ConnectedPlayersList.appendChild(player2)
-		}
-		// Check for current round player
-		for (let i = 0; i < readyPlayers.length; i++) {
+			// Check for current round player
 			if (readyPlayers[i].roundPlayer == "true") {
 				Round.currentRoundPlayer.nickname = readyPlayers[i].nickname;
 				Round.currentRoundPlayer.nicknameColor = readyPlayers[i].nicknameColor;
@@ -110,10 +108,17 @@ let readyPlayers = [],
 				oldMessages = messages;
 				for (let i = 0; i < newMessages.length; i++) {
 					// Send & check message
-					// if (!(/^!/.test(newMessages[i].text))) sendMessage(false, htmlDecode(newMessages[i].text), newMessages[i].nickname, newMessages[i].nicknameColor);
-					sendMessage(false, htmlDecode(newMessages[i].text), newMessages[i].nickname, newMessages[i].nicknameColor);
+					if (!(/^!/.test(newMessages[i].text))) sendMessage(false, htmlDecode(newMessages[i].text), newMessages[i].nickname, newMessages[i].nicknameColor);
 					// checkMessage(newMessages[i].text)
 				}
+			}
+			// Get sent hidden word
+			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_hidden_word=${invitationLink}`)
+				.then(response => response.text())
+				.then(data => {HiddenWord.originalWord = data});
+			if (/^[A-Za-zÀ-ú- ]{4,}$/.test(HiddenWord.originalWord)) {
+				// The word has been submitted
+				displayHiddenWord(HiddenWord.originalWord)
 			}
 		}
 	}, 100);

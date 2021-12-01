@@ -4,8 +4,8 @@ const Player = {
 		defaultNickname: "Invité",
 		nicknameColor: null,
 		role: null,
-		roundPlayer: false,
-		score: 0
+		score: 0,
+		roundPlayer: false
 	},
 	Game = {
 		started: false
@@ -16,7 +16,8 @@ const Player = {
 		currentRoundPlayer: {
 			nickname: "",
 			nicknameColor: ""
-		}
+		},
+		wordSubmitted: false
 	},
 	Chat = {
 		lastMessageSender: null
@@ -151,7 +152,11 @@ const Player = {
 		GameTip.textContent = Return.tip.commandPrefix;
 		resizeChat();
 		Game.started = true;
-		if (Player.role == "host") {
+		Container.gameContainer.querySelector(".HiddenWordContainer").children[0].children[0].textContent = Round.currentRoundPlayer.nickname;
+		Container.gameContainer.querySelector(".HiddenWordContainer").children[0].style.color = Round.currentRoundPlayer.nicknameColor;
+		Container.gameContainer.querySelector(".CanvasContainer").children[0].style.color = Round.currentRoundPlayer.nicknameColor;
+		if (Player.nickname == Round.currentRoundPlayer.nickname) {
+			// Current round player
 			// Submit word modal
 			setTimeout(() => {
 				Overlay.show();
