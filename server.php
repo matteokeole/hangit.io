@@ -121,7 +121,7 @@
 		}
 
 		public function get_found($game_url){
-			$getmessage = $this->bdd->query("SELECT count(*) from player where id_game =".$this->getgame($game_url));
+			$getmessage = $this->bdd->query("SELECT count(*) from player where found = 1 and id_game =".$this->getgame($game_url));
 			$value = $getmessage->fetch();
 			return $value['count(*)'];
 		}
