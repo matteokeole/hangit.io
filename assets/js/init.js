@@ -168,6 +168,7 @@ const Player = {
 		GameTip.textContent = Return.tip.commandPrefix;
 		resizeChat();
 		Game.started = true;
+		setTimeout(() => {Layer.round.children[0].textContent = Round.current}, 100);
 		Layer.roundPlayer.children[0].textContent = Round.currentRoundPlayer.nickname;
 		Layer.roundPlayer.children[0].style.color = Round.currentRoundPlayer.nicknameColor;
 		Container.gameContainer.querySelector(".HiddenWordContainer").children[0].children[0].textContent = Round.currentRoundPlayer.nickname;
