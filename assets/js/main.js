@@ -226,7 +226,7 @@ let readyPlayers = [],
 						PlayerValue.textContent = sortedScores[i].nickname;
 						PlayerScoreValue.textContent = `${sortedScores[i].score} points`;
 						PlayerScore.appendChild(PlayerValue);
-						PlayerScore.appendChild(PlayerScorevalue);
+						PlayerScore.appendChild(PlayerScoreValue);
 						Player.appendChild(PlayerIcon);
 						Player.appendChild(PlayerScore);
 						ScorePlayersList.appendChild(Player)
