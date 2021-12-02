@@ -20,7 +20,7 @@ const checkMessage = (msg) => {
 					HiddenWord.currentInputValidity = checkForCharInWord(msg);
 					if (HiddenWord.originalWord == HiddenWord.displayWord) {
 						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname);
-						sendPlayerScore(Player.nickname, Player.foundIndex + 1);
+						sendPlayerScore(Player.nickname, Player.foundIndex);
 						sendWordFound(Player.nickname, 1)
 					}
 				}
@@ -40,7 +40,7 @@ const checkMessage = (msg) => {
 					// If found, increment score & next round
 					if (HiddenWord.originalWord == HiddenWord.displayWord) {
 						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname);
-						sendPlayerScore(Player.nickname, Player.foundIndex + 1);
+						sendPlayerScore(Player.nickname, Player.foundIndex);
 						sendWordFound(Player.nickname, 1)
 					}
 				}
