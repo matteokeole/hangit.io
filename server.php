@@ -73,7 +73,7 @@
 			}
 			
 			public function get_foundIndex($game_url){
-				$setmessage = $this->bdd->prepare("SELECT foundIndex from player where id_game=? order by foundIndex limit 1");
+				$setmessage = $this->bdd->prepare("SELECT foundIndex from player where id_game=? order by foundIndex DESC limit 1");
 				$value = $setmessage->execute(array($this->getgame($game_url)));
 				return $value['foundIndex'];
 			}
@@ -84,31 +84,31 @@
 				return $value["score"];
 			}
 			public function get_score_player(): string {
-			$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
-			$setgame->execute(array($this->getplayer(), $this->getgame()));
-			$value = $setgame->fetch();
-			return $value["score"];
-		}*/
-		public function Setplayer($name, $score, $nicknameColor, $link_game, $roundPlayer) {
-			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, nicknameColor, roundPlayer) VALUES (?, ?, ?, ?, ?)");
-			$setmessage->execute(array($name, $score, $this->getgame($link_game), $nicknameColor, $roundPlayer));
-			// $this->player = $this->getplayer();
-			return true;
-		}
-		public function Setplayer_on_partie($name, $game_url, $score) {
-			$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, id_game, score) VALUES (?, (SELECT id_game FROM game WHERE link_game = ?), ?);");
-			$setmessage->execute(array($name,$game_url,$score));
-			// $this->player = $this->getplayer();
-			return true;
-		}
-		public function Edit_player($name, $score, $link_game): void {
-			$setmessage = $this->bdd->prepare("UPDATE `player` SET nickname = ?, score = ? WHERE id_player = ?");
-			$setmessage->execute(array($name, $score, $this->get_idplayer_by_nickname($name,$link_game)));
-		}
-		public function get_all_message_game($game) {
-			$getmessage = $this->bdd->prepare("SELECT message.text, player.nickname, player.nicknameColor FROM `player` JOIN `message` ON message.id_player = player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game = ? order by id_message;");
-			$getmessage->execute(array($game));
-			$value = $getmessage->fetchAll();
+				$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
+				$setgame->execute(array($this->getplayer(), $this->getgame()));
+				$value = $setgame->fetch();
+				return $value["score"];
+			}*/
+			public function Setplayer($name, $score, $nicknameColor, $link_game, $roundPlayer) {
+				$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, score, id_game, nicknameColor, roundPlayer) VALUES (?, ?, ?, ?, ?)");
+				$setmessage->execute(array($name, $score, $this->getgame($link_game), $nicknameColor, $roundPlayer));
+				// $this->player = $this->getplayer();
+				return true;
+			}
+			public function Setplayer_on_partie($name, $game_url, $score) {
+				$setmessage = $this->bdd->prepare("INSERT INTO `player` (nickname, id_game, score) VALUES (?, (SELECT id_game FROM game WHERE link_game = ?), ?);");
+				$setmessage->execute(array($name,$game_url,$score));
+				// $this->player = $this->getplayer();
+				return true;
+			}
+			public function Edit_player($name, $score, $link_game): void {
+				$setmessage = $this->bdd->prepare("UPDATE `player` SET nickname = ?, score = ? WHERE id_player = ?");
+				$setmessage->execute(array($name, $score, $this->get_idplayer_by_nickname($name,$link_game)));
+			}
+			public function get_all_message_game($game) {
+				$getmessage = $this->bdd->prepare("SELECT message.text, player.nickname, player.nicknameColor FROM `player` JOIN `message` ON message.id_player = player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game = ? order by id_message;");
+				$getmessage->execute(array($game));
+				$value = $getmessage->fetchAll();
 			/*$value = array();
 			while ($g = $getmessage->fetch()) {
 				$value[] = [
@@ -226,12 +226,6 @@
 						echo true;
 					}		
 					
-					if (isset($_POST['url'],$_POST['nickname'],$_POST['foundIndex'])){
-						$a = 1000/(($Partie->get_player_number($_POST['url']))-1);
-						$score = 1000 - $a * $_POST['foundIndex'];
-						$Partie->Edit_score($score,$_POST['foundIndex'],$_POST['url'],$_POST['url'],$_POST['nickname']);
-						echo true;
-					}
 					if (isset($_POST['nickname'],$_POST['url'],$_POST['clearGame'])){
 						$Partie->delet_game_info($_POST['nickname'],$_POST['url'],$_POST['url']);
 						echo true;
@@ -346,5 +340,11 @@
 						}
 						if (isset($_GET['get_foundIndex'],$_GET['url'])){
 							echo $Partie->get_foundIndex($_GET['url']);
+						}
+						if (isset($_POST['url'],$_POST['nickname'],$_POST['foundIndex'])){
+							$a = 1000/(($Partie->get_player_number($_POST['url']))-1);
+							$score = 1000 - $a * $_POST['foundIndex'];
+							$Partie->Edit_score($score,$_POST['foundIndex'],$_POST['url'],$_POST['url'],$_POST['nickname']);
+							echo true;
 						}
 						?>
