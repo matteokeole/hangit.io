@@ -65,19 +65,19 @@
 				$setmessage = $this->bdd->prepare("UPDATE `player` SET score = ?, foundIndex = ? WHERE id_game = ? and id_player=?");
 				$setmessage->execute(array($score,$foundIndex,$this->getgame($game_url),$this->get_idplayer_by_nickname($name,$link_game)));
 			}
-			public function get_foundIndex($name,$link_game){
-				$setmessage = $this->bdd->prepare("SELECT foundIndex from player where id_player = ?");
-				$value = $setmessage->execute(array($this->get_idplayer_by_nickname($name,$link_game)));
+			
+			public function get_foundIndex($game_url){
+				$setmessage = $this->bdd->prepare("SELECT foundIndex from player where id_game=? order by foundIndex limit 1");
+				$value = $setmessage->execute(array($this->getgame($game_url)));
 				return $value['foundIndex'];
 			}
-			
 			/*public function get_score_player($name): string {
 				$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
-			$setgame->execute(array($name, $this->getgame()));
-			$value = $setgame->fetch();
-			return $value["score"];
-		}
-		public function get_score_player(): string {
+				$setgame->execute(array($name, $this->getgame()));
+				$value = $setgame->fetch();
+				return $value["score"];
+			}
+			public function get_score_player(): string {
 			$setgame = $this->bdd->prepare("SELECT score FROM `player` WHERE id_player = ? AND id_game = ? LIMIT 1");
 			$setgame->execute(array($this->getplayer(), $this->getgame()));
 			$value = $setgame->fetch();
@@ -333,19 +333,18 @@
 						}
 						if (isset($_GET['get_found'])){
 							$get_found = htmlspecialchars($_GET['get_found']);
-						echo ($Partie->get_found($get_found));
-					}
-					if (isset($_GET['get_score_order'])){
-						$Partie->get_score_order($_GET['get_score_order']);
-						echo json_encode($Partie->get_score_order($_GET['get_score_order']));
-					}
-					if (isset($_GET["getallplayer"])) {
-						$getallplayer = htmlspecialchars($_GET["getallplayer"]);
-						$Partie->get_all_player_game($getallplayer);
-						echo json_encode($Partie->get_all_player_game($getallplayer));
-					}
-					if (isset($_GET['get_foundIndex'],$_GET['nickname'],$_GET['url'])){
-						$get_foundIndex = htmlspecialchars($_GET['get_foundIndex']);
-						echo $Partie->get_foundIndex($_GET['nickname'],$_GET['url']);
-					}
-					?>
+							echo ($Partie->get_found($get_found));
+						}
+						if (isset($_GET['get_score_order'])){
+							$Partie->get_score_order($_GET['get_score_order']);
+							echo json_encode($Partie->get_score_order($_GET['get_score_order']));
+						}
+						if (isset($_GET["getallplayer"])) {
+							$getallplayer = htmlspecialchars($_GET["getallplayer"]);
+							$Partie->get_all_player_game($getallplayer);
+							echo json_encode($Partie->get_all_player_game($getallplayer));
+						}
+						if (isset($_GET['get_foundIndex'],$_GET['url'])){
+							echo $Partie->get_foundIndex($_GET['url']);
+						}
+						?>
