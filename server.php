@@ -119,7 +119,13 @@
 			$value = $getmessage->fetchAll();
 			return $value;
 		}
-
+		public function get_score_order($game) {
+			$getmessage = $this->bdd->prepare("SELECT * FROM player WHERE game.link_game =? ORDER BY score DESC");
+			$getmessage->execute(array($game));
+			$value = $getmessage->fetchAll();
+			return $value;
+		} 
+		
 		public function get_found($game_url){
 			$getmessage = $this->bdd->query("SELECT count(*) from player where found = 1 and id_game =".$this->getgame($game_url));
 			$value = $getmessage->fetch();
@@ -165,11 +171,6 @@
 			$value=$setgame->fetch();
 			return $value['id_player'];
     	} 
-		public function get_score_order($game_url) {
-			$setgame = $this->bdd->query("SELECT * FROM player WHERE id_game =". $this->getgame($game_url)."ORDER BY score DESC");
-			$value = $setgame->fetchAll();
-			return $value;
-		} 
 		
 		
 		//when 1 row in player is deleted all table with id_player in are deleted
@@ -299,11 +300,6 @@
 		$Partie->Setmessage($message, $authorName, $_POST["url"]);
 		echo true;
 	}
-	if (isset($_GET["getallplayer"])) {
-		$getallplayer = htmlspecialchars($_GET["getallplayer"]);
-		$Partie->get_all_player_game($getallplayer);
-		echo json_encode($Partie->get_all_player_game($getallplayer));
-	}
 	if (isset($_GET["liens"])) {
 		$mon_liens = htmlspecialchars($_GET["liens"]);
 		$arrayName = array("liens" => $Partie->url_existe($mon_liens));
@@ -334,6 +330,12 @@
 		echo ($Partie->get_found($get_found));
 	}
 	if (isset($_GET['get_score_order'])){
+		$Partie->get_score_order($_GET['get_score_order']);
 		echo json_encode($Partie->get_score_order($_GET['get_score_order']));
+	}
+	if (isset($_GET["getallplayer"])) {
+		$getallplayer = htmlspecialchars($_GET["getallplayer"]);
+		$Partie->get_all_player_game($getallplayer);
+		echo json_encode($Partie->get_all_player_game($getallplayer));
 	}
 	?>
