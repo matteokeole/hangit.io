@@ -11,7 +11,8 @@ const Player = {
 	},
 	Game = {
 		started: false,
-		finished: false
+		finished: false,
+		scoresDisplayed: false
 	},
 	Round = {
 		current: 0,
@@ -146,6 +147,7 @@ const Player = {
 	GameEndTitle = Container.restartGame.querySelector(".RestartGameContainer h3"),
 	ReadyPlayersList = Modal.hostForm.querySelector(".ReadyPlayersList"),
 	ConnectedPlayersList = Container.gameContainer.querySelector(".ConnectedPlayersList"),
+	ScorePlayersList = Container.restartGame.querySelector(".ScoreList"),
 	MessageList = Container.gameContainer.querySelector(".MessageList"),
 	RemainingTries = Container.gameContainer.querySelector(".RemainingTries"),
 	// Functions
