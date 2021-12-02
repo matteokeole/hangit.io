@@ -165,6 +165,12 @@
 			$value=$setgame->fetch();
 			return $value['id_player'];
     	} 
+		public function get_score_order($game_url) {
+			$setgame = $this->bdd->query("SELECT * FROM player WHERE link_game =". $this->getgame($game_url."ORDER BY score DESC"));
+			$value = $setgame->fetchAll();
+			return $value;
+		} 
+		
 		
 		//when 1 row in player is deleted all table with id_player in are deleted
 		public function delet_player_info($link_game,$name){
@@ -194,36 +200,36 @@
 				echo true;
 			}
 		}
-	/*if (isset($_POST["message"], $_POST["nickmane"])) {
-		$message = htmlspecialchars($_POST["message"]);
-		$Partie->Setmessage($message, $_POST["nickmane"]);
-		echo true;
-	}*/
-	
-	// if(isset($_POST['set_player_round'],$_POST['url'])){
-		// 	$Partie->set_put_player_in_round($_POST['url']);
-		// 	echo true;
-		// }
+		/*if (isset($_POST["message"], $_POST["nickmane"])) {
+			$message = htmlspecialchars($_POST["message"]);
+			$Partie->Setmessage($message, $_POST["nickmane"]);
+			echo true;
+		}*/
 		
-		// if (isset($_POST['clearGuestData'])){
-			
+		// if(isset($_POST['set_player_round'],$_POST['url'])){
+			// 	$Partie->set_put_player_in_round($_POST['url']);
+			// 	echo true;
 			// }
-	if(isset($_POST['wordFound'],$_POST['nickname'],$_POST['url'])){
-		$Partie->set_found($_POST['wordFound'],$_POST['nickname'],$_POST['url']);
-		echo true;
-	}		
 			
-	if (isset($_POST['url'],$_POST['nickname'],$_POST['foundIndex'])){
-		$a = 1000/(($Partie->get_player_number($_POST['url']))-1);
-		$score = 1000 - $a * $_POST['foundIndex'];
-		$Partie->Edit_score($score,$_POST['url'],$_POST['url'],$_POST['nickname']);
-		echo true;
-	}
+			// if (isset($_POST['clearGuestData'])){
+				
+				// }
+				if(isset($_POST['wordFound'],$_POST['nickname'],$_POST['url'])){
+					$Partie->set_found($_POST['wordFound'],$_POST['nickname'],$_POST['url']);
+					echo true;
+				}		
+			
+				if (isset($_POST['url'],$_POST['nickname'],$_POST['foundIndex'])){
+					$a = 1000/(($Partie->get_player_number($_POST['url']))-1);
+					$score = 1000 - $a * $_POST['foundIndex'];
+					$Partie->Edit_score($score,$_POST['url'],$_POST['url'],$_POST['nickname']);
+					echo true;
+				}
 	if (isset($_POST['url'],$_POST['clearGame'])){
 		$Partie->delet_game_info($_POST['url'],$_POST['url']);
 		echo true;
 	}
-
+	
 	if (isset($_POST['url'],$_POST['nickname'],$_POST['clearGuestData'])){
 		$Partie->delet_player_info($_POST['url'],$_POST['nickname']);
 		echo true;
@@ -264,9 +270,9 @@
 				}
 			}
 		} while($found == true);
-
+		
 		$Partie->Setplayer($nickname, "0", $nicknameColor, $url, $_POST['roundPlayer']);
- 		echo true;
+		echo true;
 	}
 	if (isset($_POST["invite"], $_POST["joinlink"])) {
 		$joinlink = htmlspecialchars($_POST["joinlink"]);
@@ -318,7 +324,7 @@
 		// $arrayName = array("o" => $Partie->get_all_message_game($getmessage));
 		echo ($Partie->get_max_round($get_max_round));
 	}
-
+	
 	if (isset($_GET['get_hidden_word'])){
 		$get_hidden_word = htmlspecialchars($_GET['get_hidden_word']);
 		echo ($Partie->gethiddenword($get_hidden_word));
@@ -327,5 +333,7 @@
 		$get_found = htmlspecialchars($_GET['get_found']);
 		echo ($Partie->get_found($get_found));
 	}
-	
-?>
+	if (isset($_GET['get_score_order'])){
+		echo ($Partie->get_score_order($_GET['get_score_order']));
+	}
+	?>
