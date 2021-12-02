@@ -56,6 +56,12 @@
 				$setmessage = $this->bdd->prepare("INSERT INTO message (text, id_game, id_player) VALUES (?, ?, ?)");
 				$setmessage->execute(array($text,$this->getgame(),getplayer($nickname)));
 			}*/
+			public function get_idplayer_by_nickname($name,$link_game) :string
+			{
+				$setgame=$this->bdd->query("SELECT id_player FROM player join game on game.id_game = player.id_game where nickname='$name' and game.link_game = $link_game;");
+				$value=$setgame->fetch();
+				return $value['id_player'];
+			} 
 			public function getplayer($link_game): string {
 				$setgame = $this->bdd->query("SELECT id_player FROM `player` JOIN `game` ON game.id_game = player.id_game WHERE link_game = $link_game");
 				$value = $setgame->fetch();
@@ -97,7 +103,7 @@
 		}
 		public function Edit_player($name, $score, $link_game): void {
 			$setmessage = $this->bdd->prepare("UPDATE `player` SET nickname = ?, score = ? WHERE id_player = ?");
-			$setmessage->execute(array($name, $score, $this->getplayer($link_game)));
+			$setmessage->execute(array($name, $score, $this->get_idplayer_by_nickname($name,$link_game)));
 		}
 		public function get_all_message_game($game) {
 			$getmessage = $this->bdd->prepare("SELECT message.text, player.nickname, player.nicknameColor FROM `player` JOIN `message` ON message.id_player = player.id_player JOIN `game` ON game.id_game = player.id_game WHERE game.link_game = ?;");
@@ -114,9 +120,9 @@
 				}*/
 				return $value;
 			}
-			public function set_hidden_word($word,$link_game): void {
+			public function set_hidden_word($word,$name,$link_game): void {
 				$setmessage = $this->bdd->prepare("INSERT INTO `hidden_word` (word, id_player) VALUES (?, ?)");
-				$setmessage->execute(array($word, $this->getplayer($link_game)));
+				$setmessage->execute(array($word, $this->get_idplayer_by_nickname($name,$link_game)));
 				//$this->hiddenword = $this->gethiddenword($link_game);
 			}
 			public function get_all_player_game($game) {
@@ -171,12 +177,6 @@
 				return $value['count(id_player)'];
 			}
 			
-			public function get_idplayer_by_nickname($name,$link_game) :string
-			{
-				$setgame=$this->bdd->query("SELECT id_player FROM player join game on game.id_game = player.id_game where nickname='$name' and game.link_game = $link_game;");
-				$value=$setgame->fetch();
-				return $value['id_player'];
-			} 
 			
 			
 			//when 1 row in player is deleted all table with id_player in are deleted
@@ -185,8 +185,8 @@
 				$setmessage-> execute(array($this->get_idplayer_by_nickname($name,$link_game)));
 			}
 			//when 1 row in game is deleted all table with id_game in are deleted
-			public function delet_game_info($link_game,$game_url){
-				$this->bdd->query("DELETE FROM player WHERE id_player =". $this->getplayer($link_game));
+			public function delet_game_info($link_game,$name,$game_url){
+				$this->bdd->query("DELETE FROM player WHERE id_player =". $this->get_idplayer_by_nickname($name,$link_game));
 				$this->bdd->query("DELETE FROM game WHERE id_game =". $this->getgame($game_url));
 			}
 			
@@ -232,8 +232,8 @@
 						$Partie->Edit_score($score,$_POST['foundIndex'],$_POST['url'],$_POST['url'],$_POST['nickname']);
 						echo true;
 					}
-					if (isset($_POST['url'],$_POST['clearGame'])){
-						$Partie->delet_game_info($_POST['url'],$_POST['url']);
+					if (isset($_POST['nickname'],$_POST['url'],$_POST['clearGame'])){
+						$Partie->delet_game_info($_POST['nickname'],$_POST['url'],$_POST['url']);
 						echo true;
 					}
 					
@@ -270,10 +270,10 @@
 								}
 								if ($found) {
 									if(substr($nickname, - strlen((string)$i))==$i){
-										$nickname = $base."#".$i;
+										$nickname = $base." #".$i;
 										$i++;
 									} else{
-										$nickname = $base."#".$i;
+										$nickname = $base." #".$i;
 									}
 								}
 							} while($found == true);
@@ -297,7 +297,7 @@
 							$link_game = htmlspecialchars($_POST["url"]);
 							$word = htmlspecialchars($_POST["word"]);
 							$player = htmlspecialchars($_POST["player"]);
-							$Partie->set_hidden_word($word,$link_game);
+							$Partie->set_hidden_word($word,$player,$link_game);
 							echo true;
 						}
 						if (isset($_POST["message"], $_POST["authorName"], $_POST["url"])) {
