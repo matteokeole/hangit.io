@@ -7,7 +7,8 @@ const Player = {
 		role: null,
 		status: "",
 		inQueue: false,
-		roundPlayer: false
+		roundPlayer: false,
+		foundIndex: null
 	},
 	Game = {
 		started: false,

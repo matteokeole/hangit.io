@@ -145,6 +145,13 @@ let readyPlayers = [],
 						else sendMessage(false, htmlDecode(newMessages[i].text), newMessages[i].nickname, newMessages[i].nicknameColor)
 					}
 				}
+				// Get foundIndex
+				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_foundIndex=${invitationLink}`)
+					.then(response => response.text())
+					.then(data => {
+						if (data != null) Player.foundIndex = 0;
+						else Player.foundIndex = data
+					});
 				// Get sent hidden word
 				if (!HiddenWord.submitted) {
 					fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_hidden_word=${invitationLink}`)
