@@ -334,6 +334,6 @@
 		echo ($Partie->get_found($get_found));
 	}
 	if (isset($_GET['get_score_order'])){
-		echo ($Partie->get_score_order($_GET['get_score_order']));
+		echo json_encode($Partie->get_score_order($_GET['get_score_order']));
 	}
 	?>
