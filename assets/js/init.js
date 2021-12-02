@@ -337,11 +337,21 @@ const Player = {
 let current_url = document.location.href;
 // Event listeners
 // Detect if clearGame() is requested
-if (localStorage.getItem("clearGame")) clearGame(localStorage.getItem("clearGame"));
+if (localStorage.getItem("clearGame")) {
+	clearGame(localStorage.getItem("clearGame"));
+	localStorage.setItem("clearGame", "cleared")
+}
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
 window.addEventListener("beforeunload", () => {
-	localStorage.setItem("clearGame", invitationLink);
-	if (Player.role == "guest") clearGuestData(Player.nickname)
+	if (Player.role == "host") {
+		// Close window case
+		if (localStorage.getItem("clearGame") == "cleared") {
+			clearGame();
+			localStorage.clear()
+		}
+		// Reload case
+		else if (invitationLink != null) localStorage.setItem("clearGame", invitationLink);
+	} else clearGuestData(Player.nickname)
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {

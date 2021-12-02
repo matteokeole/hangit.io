@@ -2,7 +2,7 @@
 let r = new XMLHttpRequest(),
 	url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?g=")[1]}`,
 	link = "",
-	invitationLink = "";
+	invitationLink = null;
 r.open("GET", url);
 r.send();
 r.addEventListener("load", () => {
@@ -24,10 +24,6 @@ r.addEventListener("load", () => {
 	} else if (!link.liens) {
 		// The player is about to host a new game
 		Player.role = "host";
-		invitationLink = GenerateLink();
-		current_url += `?g=${invitationLink}`;
-		// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-		Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.openHostForm);
 		GameTip.textContent = Return.tip.joinGame
@@ -191,86 +187,42 @@ let readyPlayers = [],
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_score_order=${invitationLink}`)
 				.then(response => response.text())
 				.then(data => {
-					let sortedScores = JSON.parse(data);
-					// Display first player score
-					let player1 = document.createElement("div"),
-						player1icon = document.createElement("span"),
-						player1score = document.createElement("div"),
-						player1playervalue = document.createElement("span"),
-						player1scorevalue = document.createElement("span");
-					player1.className = "PlayerScoreContainer Player";
-					player1icon.className = "Icon";
-					player1score.className = "PlayerScore";
-					player1playervalue.className = "PlayerValue";
-					player1scorevalue.className = "ScoreValue";
-					player1icon.textContent = "🥇";
-					player1playervalue.textContent = sortedScores[0].nickname;
-					player1scorevalue.textContent = `${sortedScores[0].score} points`;
-					player1score.appendChild(player1playervalue);
-					player1score.appendChild(player1scorevalue);
-					player1.appendChild(player1icon);
-					player1.appendChild(player1score);
-					ScorePlayersList.appendChild(player1);
-					// Display second player score
-					let player2 = document.createElement("div"),
-						player2icon = document.createElement("span"),
-						player2score = document.createElement("div"),
-						player2playervalue = document.createElement("span"),
-						player2scorevalue = document.createElement("span");
-					player2.className = "PlayerScoreContainer Player";
-					player2icon.className = "Icon";
-					player2score.className = "PlayerScore";
-					player2playervalue.className = "PlayerValue";
-					player2scorevalue.className = "ScoreValue";
-					player2icon.textContent = "🥈";
-					player2playervalue.textContent = sortedScores[1].nickname;
-					player2scorevalue.textContent = `${sortedScores[1].score} points`;
-					player2score.appendChild(player2playervalue);
-					player2score.appendChild(player2scorevalue);
-					player2.appendChild(player2icon);
-					player2.appendChild(player2score);
-					ScorePlayersList.appendChild(player2);
-					if (sortedScores.length > 2) {
-						// Display third player score
-						let player3 = document.createElement("div"),
-							player3icon = document.createElement("span"),
-							player3score = document.createElement("div"),
-							player3playervalue = document.createElement("span"),
-							player3scorevalue = document.createElement("span");
-						player3.className = "PlayerScoreContainer Player";
-						player3icon.className = "Icon";
-						player3score.className = "PlayerScore";
-						player3playervalue.className = "PlayerValue";
-						player3scorevalue.className = "ScoreValue";
-						player3icon.textContent = "🥉";
-						player3playervalue.textContent = sortedScores[2].nickname;
-						player3scorevalue.textContent = `${sortedScores[2].score} points`;
-						player3score.appendChild(player3playervalue);
-						player3score.appendChild(player3scorevalue);
-						player3.appendChild(player3icon);
-						player3.appendChild(player3score);
-						ScorePlayersList.appendChild(player3)
-					}
-					if (sortedScores.length > 3) {
-						// Display last player score
-						let lastPlayer = document.createElement("div"),
-							lastPlayericon = document.createElement("span"),
-							lastPlayerscore = document.createElement("div"),
-							lastPlayerplayervalue = document.createElement("span"),
-							lastPlayerscorevalue = document.createElement("span");
-						lastPlayer.className = "PlayerScoreContainer Player";
-						lastPlayericon.className = "Icon";
-						lastPlayerscore.className = "PlayerScore";
-						lastPlayerplayervalue.className = "PlayerValue";
-						lastPlayerscorevalue.className = "ScoreValue";
-						lastPlayericon.textContent = "💩";
-						lastPlayerplayervalue.textContent = sortedScores[sortedScores.length - 1].nickname;
-						lastPlayerscorevalue.textContent = `${sortedScores[sortedScores.length - 1].score} points`;
-						lastPlayerscore.appendChild(lastPlayerplayervalue);
-						lastPlayerscore.appendChild(lastPlayerscorevalue);
-						lastPlayer.appendChild(lastPlayericon);
-						lastPlayer.appendChild(lastPlayerscore);
-						ScorePlayersList.appendChild(lastPlayer)
+					let sortedScores = JSON.parse(data),
+						sortedScoresLength = sortedScores.length - 1;
+					// Display player scores
+					for (let i = 0; i < sortedScores.length; i++) {
+						let Player = document.createElement("div"),
+							PlayerIcon = document.createElement("span"),
+							PlayerScore = document.createElement("div"),
+							PlayerValue = document.createElement("span"),
+							PlayerScoreValue = document.createElement("span");
+						Player.className = "PlayerScoreContainer Player";
+						PlayerIcon.className = "Icon";
+						PlayerScore.className = "PlayerScore";
+						PlayerValue.className = "PlayerValue";
+						PlayerScoreValue.className = "ScoreValue";
+						/*PlayerIcon.textContent = "😀";
+						switch (i) {
+							case 0:
+								PlayerIcon.textContent = "🥇";
+								break;
+							case 1:
+								PlayerIcon.textContent = "🥈";
+								break;
+							case 2:
+								PlayerIcon.textContent = "🥉";
+								break;
+							case sortedScoresLength:
+								PlayerIcon.textContent = "💩";
+								break󠀠
+						}*/
+						PlayerValue.textContent = sortedScores[i].nickname;
+						PlayerScoreValue.textContent = `${sortedScores[i].score} points`;
+						PlayerScore.appendChild(PlayerValue);
+						PlayerScore.appendChild(PlayerScorevalue);
+						Player.appendChild(PlayerIcon);
+						Player.appendChild(PlayerScore);
+						ScorePlayersList.appendChild(Player)
 					}
 				})
 		}
@@ -278,6 +230,34 @@ let readyPlayers = [],
 
 
 
+Button.openHostForm.addEventListener("click", () => {
+	invitationLink = GenerateLink();
+	current_url += `?g=${invitationLink}`;
+	// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+	Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+	// Create game
+	sendData("link_game", invitationLink);
+	// Set player nickname
+	setTimeout(() => {setNickname(Input.nickname.value)}, 200);
+	// Open form 
+	Modal.open(Modal.hostForm);
+	// Input disabled when modal is open
+	Input.nickname.disabled = true
+});
+document.querySelectorAll("input[type='range']").forEach((input) => {
+	input.addEventListener("input", () => {
+		let value = input.value;
+		input.previousElementSibling.children[0].textContent = value
+	})
+});
+// Copy invitation link to clipboard
+Button.copyLink.addEventListener("click", () => {
+	Input.invitationLink.select();
+	Input.invitationLink.setSelectionRange(0, Input.invitationLink.value.length);
+	document.execCommand("copy");
+	Button.copyLink.textContent = "✔️ Copié !";
+	setTimeout(() => {Button.copyLink.textContent = "Copier le lien"}, 2000)
+});
 // Launch hosted game
 Button.startHostGame.addEventListener("click", () => {
 	// Start game
@@ -295,28 +275,4 @@ Button.joinGame.addEventListener("click", () => {
 	// Set player nickname
 	setNickname(Input.nickname.value);
 	Input.nickname.disabled = true
-});
-// Copy invitation link to clipboard
-Button.copyLink.addEventListener("click", () => {
-	Input.invitationLink.select();
-	Input.invitationLink.setSelectionRange(0, Input.invitationLink.value.length);
-	document.execCommand("copy");
-	Button.copyLink.textContent = "✔️ Copié !";
-	setTimeout(() => {Button.copyLink.textContent = "Copier le lien"}, 2000)
-});
-Button.openHostForm.addEventListener("click", () => {
-	// Create game
-	sendData("link_game", invitationLink);
-	// Set player nickname
-	setTimeout(() => {setNickname(Input.nickname.value)}, 200);
-	// Open form 
-	Modal.open(Modal.hostForm);
-	// Input disabled when modal is open
-	Input.nickname.disabled = true
-});
-document.querySelectorAll("input[type='range']").forEach((input) => {
-	input.addEventListener("input", () => {
-		let value = input.value;
-		input.previousElementSibling.children[0].textContent = value
-	})
 })
