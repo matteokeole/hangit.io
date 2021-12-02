@@ -75,6 +75,11 @@
 			public function get_foundIndex($game_url){
 				$setmessage = $this->bdd->prepare("SELECT foundIndex from player where id_game=? order by foundIndex DESC limit 1");
 				$value = $setmessage->execute(array($this->getgame($game_url)));
+				if (is_null($value['foundIndex'])){
+					$value['foundIndex'] = 0;
+				} else {
+					$value['foundIndex'] += 1;
+				}
 				return $value['foundIndex'];
 			}
 			/*public function get_score_player($name): string {
