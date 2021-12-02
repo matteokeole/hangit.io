@@ -188,44 +188,11 @@ let readyPlayers = [],
 			}
 		} else if (!Game.scoresDisplayed) {
 			Game.scoresDisplayed = true;
-			let sortedScores;
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_score_order=${invitationLink}`)
 				.then(response => response.text())
-				.then(data => {sortedScores = JSON.parse(data)});
-			switch (sortedScores.length) {
-				case 3:
-					let player3 = document.createElement("div"),
-						player3icon = document.createElement("span"),
-						player3score = document.createElement("div"),
-						player3playervalue = document.createElement("span"),
-						player3scorevalue = document.createElement("span");
-					player3.className = "PlayerScoreContainer Player";
-					player3icon.className = "Icon";
-					player3score.className = "PlayerScore";
-					player3playervalue.className = "PlayerValue";
-					player3scorevalue.className = "ScoreValue";
-					player3score.appendChild(player3playervalue);
-					player3score.appendChild(player3scorevalue);
-					player3.appendChild(player3icon);
-					player3.appendChild(player3score);
-					ScorePlayersList.appendChild(player3);
-				case 2:
-					let player2 = document.createElement("div"),
-						player2icon = document.createElement("span"),
-						player2score = document.createElement("div"),
-						player2playervalue = document.createElement("span"),
-						player2scorevalue = document.createElement("span");
-					player2.className = "PlayerScoreContainer Player";
-					player2icon.className = "Icon";
-					player2score.className = "PlayerScore";
-					player2playervalue.className = "PlayerValue";
-					player2scorevalue.className = "ScoreValue";
-					player2score.appendChild(player2playervalue);
-					player2score.appendChild(player2scorevalue);
-					player2.appendChild(player2icon);
-					player2.appendChild(player2score);
-					ScorePlayersList.appendChild(player2);
-				case 1:
+				.then(data => {
+					let sortedScores = JSON.parse(data);
+					// Display first player score
 					let player1 = document.createElement("div"),
 						player1icon = document.createElement("span"),
 						player1score = document.createElement("div"),
@@ -236,13 +203,76 @@ let readyPlayers = [],
 					player1score.className = "PlayerScore";
 					player1playervalue.className = "PlayerValue";
 					player1scorevalue.className = "ScoreValue";
+					player1icon.textContent = "🥇";
+					player1playervalue.textContent = sortedScores[0].nickname;
+					player1scorevalue.textContent = `${sortedScores[0].score} points`;
 					player1score.appendChild(player1playervalue);
 					player1score.appendChild(player1scorevalue);
 					player1.appendChild(player1icon);
 					player1.appendChild(player1score);
 					ScorePlayersList.appendChild(player1);
-					break
-			}
+					// Display second player score
+					let player2 = document.createElement("div"),
+						player2icon = document.createElement("span"),
+						player2score = document.createElement("div"),
+						player2playervalue = document.createElement("span"),
+						player2scorevalue = document.createElement("span");
+					player2.className = "PlayerScoreContainer Player";
+					player2icon.className = "Icon";
+					player2score.className = "PlayerScore";
+					player2playervalue.className = "PlayerValue";
+					player2scorevalue.className = "ScoreValue";
+					player2icon.textContent = "🥈";
+					player2playervalue.textContent = sortedScores[1].nickname;
+					player2scorevalue.textContent = `${sortedScores[1].score} points`;
+					player2score.appendChild(player2playervalue);
+					player2score.appendChild(player2scorevalue);
+					player2.appendChild(player2icon);
+					player2.appendChild(player2score);
+					ScorePlayersList.appendChild(player2);
+					if (sortedScores.length > 2) {
+						// Display third player score
+						let player3 = document.createElement("div"),
+							player3icon = document.createElement("span"),
+							player3score = document.createElement("div"),
+							player3playervalue = document.createElement("span"),
+							player3scorevalue = document.createElement("span");
+						player3.className = "PlayerScoreContainer Player";
+						player3icon.className = "Icon";
+						player3score.className = "PlayerScore";
+						player3playervalue.className = "PlayerValue";
+						player3scorevalue.className = "ScoreValue";
+						player3icon.textContent = "🥉";
+						player3playervalue.textContent = sortedScores[2].nickname;
+						player3scorevalue.textContent = `${sortedScores[2].score} points`;
+						player3score.appendChild(player3playervalue);
+						player3score.appendChild(player3scorevalue);
+						player3.appendChild(player3icon);
+						player3.appendChild(player3score);
+						ScorePlayersList.appendChild(player3)
+					}
+					if (sortedScores.length > 3) {
+						// Display last player score
+						let lastPlayer = document.createElement("div"),
+							lastPlayericon = document.createElement("span"),
+							lastPlayerscore = document.createElement("div"),
+							lastPlayerplayervalue = document.createElement("span"),
+							lastPlayerscorevalue = document.createElement("span");
+						lastPlayer.className = "PlayerScoreContainer Player";
+						lastPlayericon.className = "Icon";
+						lastPlayerscore.className = "PlayerScore";
+						lastPlayerplayervalue.className = "PlayerValue";
+						lastPlayerscorevalue.className = "ScoreValue";
+						lastPlayericon.textContent = "💩";
+						lastPlayerplayervalue.textContent = sortedScores[sortedScores.length - 1].nickname;
+						lastPlayerscorevalue.textContent = `${sortedScores[sortedScores.length - 1].score} points`;
+						lastPlayerscore.appendChild(lastPlayerplayervalue);
+						lastPlayerscore.appendChild(lastPlayerscorevalue);
+						lastPlayer.appendChild(lastPlayericon);
+						lastPlayer.appendChild(lastPlayerscore);
+						ScorePlayersList.appendChild(lastPlayer)
+					}
+				})
 		}
 	}, 100);
 
