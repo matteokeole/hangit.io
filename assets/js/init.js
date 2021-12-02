@@ -285,12 +285,12 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&nickname=${nickname}&wordFound=${wordFound}`)
 	},
-	clearGame = () => {
+	clearGame = (nickname) => {
 		// Clear all current game data
 		let r = new XMLHttpRequest();
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitationLink}&clearGame=1&nickname=${Player.nickname}`)
+		r.send(`url=${invitationLink}&clearGame=1&nickname=${nickname}`)
 	},
 	clearGuestData = (nickname) => {
 		// Clear all data for the current guest
@@ -330,8 +330,8 @@ let current_url = document.location.href;
 // TO-DO
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
 window.addEventListener("beforeunload", () => {
+	if (Player.role == "host") clearGame(Player.nickname);
 	clearGuestData(Player.nickname)
-	if (Player.role == "host") clearGame()
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {
