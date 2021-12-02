@@ -37,6 +37,12 @@ const checkMessage = (msg) => {
 					HiddenWord.sentWords.push(msg);
 					// Check if the hidden word is found
 					HiddenWord.currentInputValidity = checkForFullWord(msg);
+					// Secret word
+					if (msg == "pouetpouet") {
+						HiddenWord.currentInputValidity = true;
+						HiddenWord.displayWord = HiddenWord.originalWord;
+						HiddenWord.refreshSpan()
+					}
 					// If found, increment score & next round
 					if (HiddenWord.originalWord == HiddenWord.displayWord) {
 						sendDatabaseMessage(`${Player.nickname} a trouvé le mot !`, Player.nickname);
