@@ -153,7 +153,6 @@ let readyPlayers = [],
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_foundIndex=${invitationLink}`)
 					.then(response => response.text())
 					.then(data => {Player.foundIndex = data});
-				console.log(Player.foundIndex)
 				// Get sent hidden word
 				if (!HiddenWord.submitted) {
 					fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_hidden_word=${invitationLink}`)
