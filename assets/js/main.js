@@ -180,7 +180,7 @@ let readyPlayers = [],
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_found=${invitationLink}`)
 					.then(response => response.text())
 					.then(data => {
-						if (data == readyPlayers.length - 1) {
+						if (data > 0 && data == readyPlayers.length - 1) {
 							Game.finished = true;
 							endGame()
 						}

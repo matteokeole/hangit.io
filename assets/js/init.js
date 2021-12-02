@@ -283,7 +283,7 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&nickname=${nickname}&wordFound=${wordFound}`)
 	},
-	clearGame = () => {
+	clearGame = (invitation = invitationLink) => {
 		// Clear all current game data
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
@@ -294,7 +294,7 @@ const Player = {
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitationLink}&clearGame=1`)
+		r.send(`url=${invitation}&clearGame=1`)
 	},
 	clearGuestData = (nickname) => {
 		// Clear all data for the current guest
@@ -336,16 +336,12 @@ const Player = {
 
 let current_url = document.location.href;
 // Event listeners
+// Detect if clearGame() is requested
+if (localStorage.getItem("clearGame")) clearGame(localStorage.getItem("clearGame"));
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
-// Clear game on close window
 window.addEventListener("beforeunload", () => {
-	if (Player.role == "host") clearGame();
-	else clearGuestData(Player.nickname)
-});
-// Clear game on refresh
-window.addEventListener("unload", () => {
-	if (Player.role == "host") clearGame();
-	else clearGuestData(Player.nickname)
+	localStorage.setItem("clearGame", invitationLink);
+	if (Player.role == "guest") clearGuestData(Player.nickname)
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {

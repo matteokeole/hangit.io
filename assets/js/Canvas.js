@@ -1,6 +1,6 @@
 // Canvas init
 const ctx = Canvas.getContext("2d"),
-	toggleCanvasPart = function(part, partDisp = 1) {
+	toggleCanvasPart = (part, partDisp = 1) => {
 		// Toggle part display on/off on the hangman canvas
 		// If partDisp is empty the part will be displayed
 		// Set draw color
@@ -78,20 +78,22 @@ const ctx = Canvas.getContext("2d"),
 		}
 		ctx.stroke();
 		ctx.closePath()
+	},
+	clearCanvas = () => {
+		// Clear all canvas parts
+		toggleCanvasPart("ground", 0);
+		toggleCanvasPart("vertical", 0);
+		toggleCanvasPart("horizontal", 0);
+		toggleCanvasPart("diagonal", 0);
+		toggleCanvasPart("rope", 0);
+		toggleCanvasPart("head", 0);
+		toggleCanvasPart("body", 0);
+		toggleCanvasPart("arm1", 0);
+		toggleCanvasPart("arm2", 0);
+		toggleCanvasPart("foot1", 0);
+		toggleCanvasPart("foot2", 0)
 	};
 // Set canvas size
 ctx.canvas.width = 400;
 ctx.canvas.height = 400;
-// ctx.globalCompositeOperation = "destination-over"; // Always draw above previous lines
-// Display canvas parts
-toggleCanvasPart("ground", 0);
-toggleCanvasPart("vertical", 0);
-toggleCanvasPart("horizontal", 0);
-toggleCanvasPart("diagonal", 0);
-toggleCanvasPart("rope", 0);
-toggleCanvasPart("head", 0);
-toggleCanvasPart("body", 0);
-toggleCanvasPart("arm1", 0);
-toggleCanvasPart("arm2", 0);
-toggleCanvasPart("foot1", 0);
-toggleCanvasPart("foot2", 0)
+clearCanvas()
