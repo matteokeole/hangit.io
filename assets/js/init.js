@@ -287,12 +287,6 @@ const Player = {
 	clearGame = (invitation = invitationLink) => {
 		// Clear all current game data
 		let r = new XMLHttpRequest();
-		r.onreadystatechange = () => {
-			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[clearGame] ${r.response}`);
-				else console.error("Server error")
-			}
-		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitation}&clearGame=1&nickname=${Player.nickname}`)
@@ -300,12 +294,6 @@ const Player = {
 	clearGuestData = (nickname) => {
 		// Clear all data for the current guest
 		let r = new XMLHttpRequest();
-		r.onreadystatechange = () => {
-			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[clearGuestData] ${r.response}`);
-				else console.error("Server error")
-			}
-		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&clearGuestData=1&nickname=${nickname}`)
