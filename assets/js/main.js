@@ -149,7 +149,7 @@ let readyPlayers = [],
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_foundIndex=${invitationLink}`)
 					.then(response => response.text())
 					.then(data => {
-						if (data != null) Player.foundIndex = 0;
+						if (data != null) Player.foundIndex = -1;
 						else Player.foundIndex = data
 					});
 				// Get sent hidden word
@@ -194,8 +194,7 @@ let readyPlayers = [],
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_score_order=${invitationLink}`)
 				.then(response => response.text())
 				.then(data => {
-					let sortedScores = JSON.parse(data),
-						sortedScoresLength = sortedScores.length - 1;
+					let sortedScores = JSON.parse(data);
 					// Display player scores
 					for (let i = 0; i < sortedScores.length; i++) {
 						let Player = document.createElement("div"),
@@ -208,7 +207,7 @@ let readyPlayers = [],
 						PlayerScore.className = "PlayerScore";
 						PlayerValue.className = "PlayerValue";
 						PlayerScoreValue.className = "ScoreValue";
-						/*PlayerIcon.textContent = "😀";
+						PlayerIcon.textContent = "😀";
 						switch (i) {
 							case 0:
 								PlayerIcon.textContent = "🥇";
@@ -218,11 +217,9 @@ let readyPlayers = [],
 								break;
 							case 2:
 								PlayerIcon.textContent = "🥉";
-								break;
-							case sortedScoresLength:
-								PlayerIcon.textContent = "💩";
-								break󠀠
-						}*/
+								break
+						}
+						if (i == sortedScores.length - 1) PlayerIcon.textContent = "💩";
 						PlayerValue.textContent = sortedScores[i].nickname;
 						PlayerScoreValue.textContent = `${sortedScores[i].score} points`;
 						PlayerScore.appendChild(PlayerValue);
