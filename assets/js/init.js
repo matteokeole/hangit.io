@@ -343,17 +343,17 @@ let current_url = document.location.href;
 	localStorage.setItem("clearGame", "cleared")
 }*/
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
-/*window.addEventListener("beforeunload", () => {
+window.addEventListener("beforeunload", () => {
 	if (Player.role == "host") {
 		// Close window case
-		if (localStorage.getItem("clearGame") == "cleared") {
+		// if (localStorage.getItem("clearGame") == "cleared") {
 			clearGame();
-			localStorage.clear()
-		}
+			// localStorage.clear()
+		// }
 		// Reload case
-		else if (invitationLink != null) localStorage.setItem("clearGame", invitationLink);
+		// else if (invitationLink != null) localStorage.setItem("clearGame", invitationLink);
 	} else clearGuestData(Player.nickname)
-});*/
+});
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {
 	// Clear input value

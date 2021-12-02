@@ -91,7 +91,7 @@ let readyPlayers = [],
 				player2.appendChild(player2Score);
 				ConnectedPlayersList.appendChild(player2);
 				// Change player nickname if duplicated
-				if (readyPlayers[i].nickname.split(" #")[0] == Player.nickname) Player.nickname = readyPlayers[i].nickname;
+				// if (readyPlayers[i].nickname.split(" #")[0] == Player.nickname) Player.nickname = readyPlayers[i].nickname;
 				// Check for current round player
 				if (readyPlayers[i].roundPlayer == "true") {
 					Round.currentRoundPlayer.nickname = readyPlayers[i].nickname;
@@ -151,7 +151,7 @@ let readyPlayers = [],
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_foundIndex=${invitationLink}`)
 					.then(response => response.text())
 					.then(data => {
-						if (data != null) Player.foundIndex = -1;
+						if (data == null) Player.foundIndex = -1;
 						else Player.foundIndex = data
 					});
 				// Get sent hidden word
