@@ -331,7 +331,7 @@ let current_url = document.location.href;
 // Close window triggers the clearGame() function if host or clearGuestData() function if guest
 window.addEventListener("beforeunload", () => {
 	if (Player.role == "host") clearGame(Player.nickname);
-	clearGuestData(Player.nickname)
+	else clearGuestData(Player.nickname)
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {
