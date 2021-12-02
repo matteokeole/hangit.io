@@ -166,7 +166,7 @@
 			return $value['id_player'];
     	} 
 		public function get_score_order($game_url) {
-			$setgame = $this->bdd->query("SELECT * FROM player WHERE id_game =". $this->getgame($game_url."ORDER BY score DESC"));
+			$setgame = $this->bdd->query("SELECT * FROM player WHERE id_game =". $this->getgame($game_url)."ORDER BY score DESC");
 			$value = $setgame->fetchAll();
 			return $value;
 		} 
