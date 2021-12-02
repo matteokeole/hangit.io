@@ -295,7 +295,7 @@ const Player = {
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitation}&clearGame=1`)
+		r.send(`url=${invitation}&clearGame=1&nickname=${Player.nickname}`)
 	},
 	clearGuestData = (nickname) => {
 		// Clear all data for the current guest
