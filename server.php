@@ -120,7 +120,7 @@
 			return $value;
 		}
 		public function get_score_order($game) {
-			$getmessage = $this->bdd->prepare("SELECT * FROM player WHERE game.link_game =? ORDER BY score DESC");
+			$getmessage = $this->bdd->prepare("SELECT * FROM player join game on player.id_game=game.id_game WHERE game.link_game =? and found = 1 ORDER BY score DESC");
 			$getmessage->execute(array($game));
 			$value = $getmessage->fetchAll();
 			return $value;
