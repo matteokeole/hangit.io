@@ -259,7 +259,7 @@
 							$nicknameColor = htmlspecialchars($_POST["color"]);
 							$Partie->Edit_Game("0", "0", "1", $url);
 							$players = $Partie->get_all_player_game($_POST["url"]);
-							print_r($players);
+							// print_r($players);
 							$base = $nickname;
 							$i = 2;
 							do {
