@@ -192,7 +192,7 @@
 				$setmessage-> execute(array($this->get_idplayer_by_nickname($name,$link_game)));
 			}
 			//when 1 row in game is deleted all table with id_game in are deleted
-			public function delet_game_info($link_game,$name,$game_url){
+			public function delet_game_info($name,$link_game,$game_url){
 				$this->bdd->query("DELETE FROM player WHERE id_player =". $this->get_idplayer_by_nickname($name,$link_game));
 				$this->bdd->query("DELETE FROM game WHERE id_game =". $this->getgame($game_url));
 			}
