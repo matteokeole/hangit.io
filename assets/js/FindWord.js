@@ -38,7 +38,7 @@ const checkMessage = (msg) => {
 					// Check if the hidden word is found
 					HiddenWord.currentInputValidity = checkForFullWord(msg);
 					// Secret word
-					if (msg == "pouetpouet") {
+					if (msg == "POUETPOUET") {
 						HiddenWord.currentInputValidity = true;
 						HiddenWord.displayWord = HiddenWord.originalWord;
 						HiddenWord.refreshSpan()
