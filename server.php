@@ -343,8 +343,8 @@
 							$Partie->get_all_player_game($getallplayer);
 							echo json_encode($Partie->get_all_player_game($getallplayer));
 						}
-						if (isset($_GET['get_foundIndex'],$_GET['url'])){
-							echo $Partie->get_foundIndex($_GET['url']);
+						if (isset($_GET['get_foundIndex'])){
+							echo $Partie->get_foundIndex($_GET['get_foundIndex']);
 						}
 						if (isset($_POST['url'],$_POST['nickname'],$_POST['foundIndex'])){
 							$a = 1000/(($Partie->get_player_number($_POST['url']))-1);
