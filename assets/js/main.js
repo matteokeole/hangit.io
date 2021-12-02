@@ -91,8 +91,9 @@ let readyPlayers = [],
 				player2.appendChild(player2Score);
 				ConnectedPlayersList.appendChild(player2);
 				// Change player nickname if duplicated
-				if (Player.role == "guest" && readyPlayers[i].nickname.split(" #")[0] == Player.nickname) Player.nickname = readyPlayers[i].nickname;
-				console.warn(Player.nickname)
+				if (Player.role == "guest" && readyPlayers[i].nickname.split(" #")[0] == Player.nickname) {
+					Player.nickname = readyPlayers[i].nickname
+				}
 				// Check for current round player
 				if (readyPlayers[i].roundPlayer == "true") {
 					Round.currentRoundPlayer.nickname = readyPlayers[i].nickname;

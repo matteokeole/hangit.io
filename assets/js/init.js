@@ -340,7 +340,8 @@ window.addEventListener("beforeunload", () => {
 		// }
 		// Reload case
 		// else if (invitationLink != null) localStorage.setItem("clearGame", invitationLink);
-	} else clearGuestData(Player.nickname)
+	}
+	clearGuestData(Player.nickname)
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {
