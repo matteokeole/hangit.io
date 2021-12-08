@@ -137,3 +137,9 @@ label.RangeLabel {color: var(--secondary)}
 	opacity: 0.65;
 	color: var(--nickname-color)
 }
+
+/* Update span */
+.UpdateInfo {
+	color: var(--invalid);
+	font-size: 14px
+}
