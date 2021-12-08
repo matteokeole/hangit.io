@@ -21,8 +21,7 @@ const Player = {
 		currentRoundPlayer: {
 			nickname: "",
 			nicknameColor: ""
-		},
-		wordSubmitted: false
+		}
 	},
 	Chat = {
 		lastMessageSender: null
@@ -97,7 +96,6 @@ const Player = {
 		current: null,
 		round: Overlay.overlay.querySelector(".RoundLayer"),
 		roundPlayer: Overlay.overlay.querySelector(".RoundPlayerLayer"),
-		roundPlayerEnd: Overlay.overlay.querySelector(".RoundPlayerEndLayer"),
 		show: layer => {
 			// Show requested layer
 			if (!Game.finished) {
@@ -178,7 +176,6 @@ const Player = {
 			// Submit word modal
 			setTimeout(() => {
 				Overlay.show();
-				Layer.round.children[0].textContent = Round.current;
 				Layer.show(Layer.round);
 				setTimeout(() => {
 					Layer.hide();
@@ -196,8 +193,8 @@ const Player = {
 				setTimeout(() => {
 					Layer.hide();
 					setTimeout(() => {
-						//
-						Layer.show(Layer.roundPlayer)
+						if (!HiddenWord.submitted) Layer.show(Layer.roundPlayer);
+						else Overlay.hide()
 					}, 400)
 				}, 2000)
 			}, 200)
@@ -317,7 +314,7 @@ const Player = {
 		};
 		return color
 	},
-	htmlDecode = (input) => {
+	htmlDecode = input => {
 		let test = document.createElement("div");
 		test.innerHTML = input;
 		return test.childNodes[0].nodeValue
@@ -333,18 +330,10 @@ const Player = {
 
 let current_url = location.href,
 	invitationLink = null;
-// Event listeners
 // Detect if there is local storage data
 clearData();
-// Closing window triggers clearData()
-addEventListener("beforeunload", () => {
-	localStorage.setItem("clearGameRole", Player.role);
-	localStorage.setItem("clearGameNickname", Player.nickname);
-	localStorage.setItem("clearGameLink", invitationLink);
-	clearData()
-});
 // Input clearing & animations
-[Input.nickname, Input.submitWord].forEach((input) => {
+[Input.nickname, Input.submitWord].forEach(input => {
 	// Clear input value
 	input.value = "";
 	// Focus animation
@@ -370,8 +359,14 @@ Input.nickname.nextElementSibling.style.color = Player.nicknameColor;
 // Set root variables for nickname color
 document.documentElement.style.setProperty("--nickname-color", Player.nicknameColor);
 document.documentElement.style.setProperty("--nickname-color-light", `${Player.nicknameColor}30`);
-// Restart game
-Button.restart.addEventListener("click", () => {location.href = "https://matteoo34.github.io/hangit.io"});
+// Event listeners
 // Window resize function on load & resize
 addEventListener("load", resizeChat);
-addEventListener("resize", resizeChat)
+addEventListener("resize", resizeChat);
+// Closing window triggers clearData()
+addEventListener("beforeunload", () => {
+	localStorage.setItem("clearGameRole", Player.role);
+	localStorage.setItem("clearGameNickname", Player.nickname);
+	localStorage.setItem("clearGameLink", invitationLink);
+	clearData()
+})

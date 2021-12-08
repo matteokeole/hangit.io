@@ -82,7 +82,7 @@ const sendMessage = (auto, msg, authorName, authorColor) => {
 	}
 
 // Send message event listener
-Form.sendMessage.addEventListener("submit", (e) => {
+Form.sendMessage.addEventListener("submit", e => {
 	// Prevent form from submitting
 	e.preventDefault();
 	// Filled and non-blank input, check message before sending

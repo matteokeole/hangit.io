@@ -119,7 +119,10 @@ let readyPlayers = [],
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_round=${invitationLink}`)
 					.then(response => response.text())
 					.then(data => {Round.current = data});
-				if (Round.current > 0) Container.gameContainer.children[1].children[0].children[0].textContent = Round.current;
+				if (Round.current > 0) {
+					Container.gameContainer.children[1].children[0].children[0].textContent = Round.current;
+					Layer.round.children[0].textContent = Round.current
+				}
 				// Get max rounds number
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_max_round=${invitationLink}`)
 					.then(response => response.text())
@@ -140,7 +143,7 @@ let readyPlayers = [],
 						// Send & check message
 						if (/^!/.test(newMessages[i].text)) {
 							if (newMessages[i].nickname == Round.currentRoundPlayer.nickname && newMessages[i].nickname == Player.nickname) {
-								sendMessage(true, "Attendez que les joueurs trouvent votre mot avant d'écrire des commandes.")
+								sendMessage(true, "Hep ! Attendez que les joueurs trouvent votre mot avant d'écrire des commandes.")
 							} else if (newMessages[i].nickname == Player.nickname) {
 								if (Player.status == "lost") sendMessage(true, "Vous avez utilisé tous vos essais !");
 								else checkMessage(newMessages[i].text)
@@ -162,8 +165,10 @@ let readyPlayers = [],
 						// The word has been submitted
 						HiddenWord.submitted = true;
 						// Hide waiting layer for guests
-						Layer.hide();
-						Overlay.hide();
+						if (Layer.roundPlayer.classList.contains("current")) {
+							Layer.hide();
+							Overlay.hide()
+						}
 						// Show/hide hidden word to players
 						HiddenWord.length = HiddenWord.originalWord.length;
 						if (Round.currentRoundPlayer.nickname == Player.nickname) {
@@ -247,7 +252,7 @@ Button.openHostForm.addEventListener("click", () => {
 	// Open form 
 	Modal.open(Modal.hostForm)
 });
-document.querySelectorAll("input[type='range']").forEach((input) => {
+document.querySelectorAll("input[type='range']").forEach(input => {
 	input.addEventListener("input", () => {
 		let value = input.value;
 		input.previousElementSibling.children[0].textContent = value
@@ -277,4 +282,6 @@ Button.joinGame.addEventListener("click", () => {
 	// Set player nickname
 	setNickname(Input.nickname.value);
 	Button.joinGame.textContent = "Veuillez patienter pendant que l'hôte lance la partie..."
-})
+});
+// Restart game
+Button.restart.addEventListener("click", () => {location.href = "https://matteoo34.github.io/hangit.io"})
