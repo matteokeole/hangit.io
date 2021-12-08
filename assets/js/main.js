@@ -12,14 +12,14 @@ r.addEventListener("load", () => {
 		Player.role = "guest";
 		document.querySelector(".RepeatedNicknamesTip").style.display = "block";
 		// Change current URL
-		invitationLink = window.location.href.split("?g=");
+		invitationLink = location.href.split("?g=");
 		invitationLink = invitationLink[invitationLink.length - 1];
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.joinGame);
 		GameTip.textContent = ""
 	} else if (current_url.includes("?")) {
 		// There is a link but it is invalid (not into the database)
-		current_url = window.location.href.split("?")[0];
+		current_url = location.href.split("?")[0];
 		GameTip.textContent = Return.tip.invalidLink;
 	} else if (!link.liens) {
 		// The player is about to host a new game

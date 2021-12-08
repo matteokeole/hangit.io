@@ -285,19 +285,26 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&nickname=${nickname}&wordFound=${wordFound}`)
 	},
-	clearGame = (nickname) => {
-		// Clear all current game data
-		let r = new XMLHttpRequest();
-		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
-		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitationLink}&clearGame=1&nickname=${nickname}`)
-	},
-	clearGuestData = (nickname) => {
-		// Clear all data for the current guest
-		let r = new XMLHttpRequest();
-		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
-		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`url=${invitationLink}&clearGuestData=1&nickname=${nickname}`)
+	clearData = () => {
+		if (
+			localStorage.getItem("role") &&
+			localStorage.getItem("nickname") &&
+			localStorage.getItem("link")
+		) {
+			let role = localStorage.getItem("role"),
+				nickname = localStorage.getItem("nickname"),
+				link = localStorage.getItem("link"),
+				r = new XMLHttpRequest();
+			r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
+			r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			if (role == "host") {
+				// Clear all current game data
+				r.send(`url=${link}&clearGame=1&nickname=${nickname}`)
+			} else {
+				// Clear current guest data
+				r.send(`url=${link}&clearGuestData=1&nickname=${nickname}`)
+			}
+		}
 	},
 	randomHexColor = () => {
 		let hex = "0123456789ABC",
@@ -314,7 +321,7 @@ const Player = {
 	},
 	resizeChat = () => {
 		let height = 0;
-		if (window.innerHeight <= 600) height = 200;
+		if (innerHeight <= 600) height = 200;
 		else height = document.querySelector(".GameInnerContainer3").offsetHeight;
 		ChatContainer.style.height = `${height}px`
 	},
@@ -324,14 +331,16 @@ const Player = {
 
 
 
-let current_url = document.location.href;
+let current_url = location.href;
 // Event listeners
-// Detect if clearGame() is requested
-// TO-DO
-// Close window triggers the clearGame() function if host or clearGuestData() function if guest
-window.addEventListener("beforeunload", () => {
-	if (Player.role == "host") clearGame(Player.nickname);
-	else clearGuestData(Player.nickname)
+// Detect if there is local storage data
+clearData();
+// Close window triggers the clearGame() function
+addEventListener("beforeunload", () => {
+	localStorage.setItem("role", Player.role);
+	localStorage.setItem("nickname", Player.nickname);
+	localStorage.setItem("link", invitationLink);
+	clearData()
 });
 // Input clearing & animations
 [Input.nickname, Input.submitWord].forEach((input) => {
