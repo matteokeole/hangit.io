@@ -220,7 +220,7 @@ let readyPlayers = [],
 								PlayerIcon.textContent = "🥉";
 								break
 						}
-						if (i == sortedScores.length - 1) PlayerIcon.textContent = "💩";
+						if (i == sortedScores.length - 1) PlayerIcon.textContent = "💩"; // haha u poop
 						PlayerValue.textContent = sortedScores[i].nickname;
 						PlayerScoreValue.textContent = `${sortedScores[i].score} points`;
 						PlayerScore.appendChild(PlayerValue);

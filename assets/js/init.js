@@ -157,7 +157,7 @@ const Player = {
 		element.style.display = displayType
 	},
 	startGame = () => {
-		// Start a new game (player max number = 4)
+		// Start a new game (max player number = 4)
 		// Close active containers & modals
 		Modal.close();
 		toggleDisplay(Container.nickname, "none");
@@ -195,7 +195,10 @@ const Player = {
 				Layer.show(Layer.round);
 				setTimeout(() => {
 					Layer.hide();
-					setTimeout(() => {Layer.show(Layer.roundPlayer)}, 400)
+					setTimeout(() => {
+						//
+						Layer.show(Layer.roundPlayer)
+					}, 400)
 				}, 2000)
 			}, 200)
 		}
@@ -211,8 +214,8 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendData] ${r.response}`);
-				else console.error("Server error")
+				if (r.status != 200) console.error("Server error");
+				// else console.info(`[sendData] ${r.response}`)
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
@@ -225,8 +228,8 @@ const Player = {
 		if (Player.role == "host") roundPlayer = true;
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendDatabasePlayer] ${r.response}`);
-				else console.error("Server error")
+				if (r.status != 200) console.error("Server error");
+				// else console.info(`[sendDatabasePlayer] ${r.response}`)
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
@@ -238,8 +241,8 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendHiddenWord] ${r.response}`);
-				else console.error("Server error")
+				if (r.status != 200) console.error("Server error");
+				// else console.info(`[sendHiddenWord] ${r.response}`)
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
@@ -251,8 +254,8 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendDatabaseMessage] ${r.response}`);
-				else console.error("Server error")
+				if (r.status != 200) console.error("Server error");
+				// else console.info(`[sendDatabaseMessage] ${r.response}`)
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
@@ -264,8 +267,8 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendPlayerScore] ${r.response}`);
-				else console.error("Server error")
+				if (r.status != 200) console.error("Server error");
+				// else console.info(`[sendPlayerScore] ${r.response}`)
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
@@ -277,8 +280,8 @@ const Player = {
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
 			if (r.readyState == 4) {
-				if (r.status == 200) console.info(`[sendWordFound] ${r.response}`);
-				else console.error("Server error")
+				if (r.status != 200) console.error("Server error");
+				// else console.info(`[sendWordFound] ${r.response}`)
 			}
 		}
 		r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
