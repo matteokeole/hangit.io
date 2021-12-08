@@ -58,11 +58,13 @@ h3::selection,
 
 /* --nickname-color-light */
 #NicknameInput::-moz-selection,
-.TextLabel::-moz-selection {
+.TextLabel::-moz-selection,
+.RepeatedNicknamesTip::-moz-selection {
 	background-color: var(--nickname-color-light)
 }
 #NicknameInput::selection,
-.TextLabel::selection {
+.TextLabel::selection,
+.RepeatedNicknamesTip::selection {
 	background-color: var(--nickname-color-light)
 }
 

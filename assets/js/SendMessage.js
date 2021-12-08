@@ -58,7 +58,7 @@ const sendMessage = (auto, msg, authorName, authorColor) => {
 			MessageList.scrollTop = MessageList.scrollHeight
 		}
 	},
-	refreshMessageDate = (date) => {
+	refreshMessageDate = date => {
 		let oldDate = Date.now(),
 			newDate,
 			delay = 0,

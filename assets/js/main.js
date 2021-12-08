@@ -1,26 +1,24 @@
 // Get URL invitation link
 let r = new XMLHttpRequest(),
 	url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?g=")[1]}`,
-	link = "",
 	invitationLink = null;
 r.open("GET", url);
 r.send();
 r.addEventListener("load", () => {
-	link = JSON.parse(r.response);
+	let link = JSON.parse(r.response);
 	if (link.liens) {
-		// The player is about to join a GameTip
+		// The player is about to join a game as guest
 		Player.role = "guest";
 		document.querySelector(".RepeatedNicknamesTip").style.display = "block";
 		// Change current URL
-		invitationLink = location.href.split("?g=");
-		invitationLink = invitationLink[invitationLink.length - 1];
+		invitationLink = current_url.split("?g=")[1];
 		toggleDisplay(Container.nickname);
 		toggleDisplay(Container.joinGame);
 		GameTip.textContent = ""
-	} else if (current_url.includes("?")) {
+	} else if (current_url.includes("?g=")) {
 		// There is a link but it is invalid (not into the database)
-		current_url = location.href.split("?")[0];
-		GameTip.textContent = Return.tip.invalidLink;
+		current_url = current_url.split("?g=")[0];
+		GameTip.innerHTML = Return.tip.invalidLink
 	} else if (!link.liens) {
 		// The player is about to host a new game
 		Player.role = "host";
@@ -29,36 +27,42 @@ r.addEventListener("load", () => {
 		GameTip.textContent = Return.tip.joinGame
 	}
 });
-// Ajax requests
+// Fetch requests
 let readyPlayers = [],
 	messages = [],
 	oldMessages = [],
 	newMessages = [],
 	fetchInterval = setInterval(() => {
+		// Check invitation link validity
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?g=")[1]}`)
+			.then(response => response.text())
+			.then(data => {
+				let link = JSON.parse(data);
+				if (Player.role == "guest" && current_url.includes("?g=") && !link.liens) {
+					// There is a link but it is invalid (not into the database)
+					current_url = current_url.split("?g=")[0];
+					Game.finished = true;
+					Modal.close();
+					Layer.hide();
+					Overlay.hide();
+					toggleDisplay(Container.nickname, "none");
+					toggleDisplay(Container.openHostForm, "none");
+					toggleDisplay(Container.joinGame, "none");
+					toggleDisplay(Container.gameContainer, "none");
+					toggleDisplay(Container.restartGame, "none");
+					GameTip.innerHTML = Return.tip.finishedGame
+				}
+			});
 		if (!Game.finished && !Game.scoresDisplayed) {
-			// Refresh ready player list
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${invitationLink}`)
 				.then(response => response.text())
 				.then(data => {readyPlayers = JSON.parse(data)});
+			// Refresh ready player list
 			ReadyPlayersList.parentNode.children[0].children[0].textContent = readyPlayers.length;
 			if (readyPlayers.length > 1) {
 				// There is at least 1 guest ready, the game can be started
 				Button.startHostGame.disabled = false
 			} else if (readyPlayers.length == 1) Button.startHostGame.disabled = true;
-			else if (Game.started) {
-				// The game has been finished by the host
-				// Close all DOM elements
-				Game.finished = true;
-				Modal.close();
-				Layer.hide();
-				Overlay.hide();
-				toggleDisplay(Container.nickname, "none");
-				toggleDisplay(Container.openHostForm, "none");
-				toggleDisplay(Container.joinGame, "none");
-				toggleDisplay(Container.gameContainer, "none");
-				toggleDisplay(Container.restartGame, "none");
-				GameTip.innerHTML = Return.tip.finishedGame
-			}
 			let lastChild = ReadyPlayersList.lastElementChild,
 				lastChild2 = ConnectedPlayersList.lastElementChild;
 			// Remove old players in lists
@@ -235,10 +239,10 @@ let readyPlayers = [],
 
 
 Button.openHostForm.addEventListener("click", () => {
-	invitationLink = GenerateLink();
+	invitationLink = new Date().getTime();
 	current_url += `?g=${invitationLink}`;
-	Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-	// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+	// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+	Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 	// Create game
 	sendData("link_game", invitationLink);
 	// Set player nickname

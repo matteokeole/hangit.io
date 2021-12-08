@@ -46,7 +46,7 @@ const Player = {
 	Return = {
 		tip: {
 			joinGame: "ℹ️ Si vous voulez rejoindre une partie, demandez à l'hébergeur de vous envoyer un lien d'invitation.",
-			invalidLink: "⚠️ Ce lien n'est pas valide. Demandez à l'hébergeur de vous renvoyer un autre lien.",
+			invalidLink: "⚠️ Ce lien est invalide.<br>Demandez à l'hébergeur de vous renvoyer un autre lien ou <a href='https://matteoo34.github.io/hangit.io'>créez votre propre partie</a> !",
 			commandPrefix: "ℹ️ Précédez vos propositions de lettres et de mots par \"!\" pour qu'elles soient interprétées.",
 			finishedGame: "🚪 L'hébergeur a terminé la partie.<br><a href='https://matteoo34.github.io/hangit.io'>Actualisez la page</a> pour en commencer une nouvelle."
 		},
@@ -73,7 +73,7 @@ const Player = {
 		current: null,
 		hostForm: Overlay.overlay.querySelector(".HostFormModal"),
 		submitWord: Overlay.overlay.querySelector(".SubmitWordModal"),
-		open: (modal) => {
+		open: modal => {
 			// Show overlay & open requested modal
 			if (!Game.finished) {
 				Overlay.show();
@@ -98,7 +98,7 @@ const Player = {
 		round: Overlay.overlay.querySelector(".RoundLayer"),
 		roundPlayer: Overlay.overlay.querySelector(".RoundPlayerLayer"),
 		roundPlayerEnd: Overlay.overlay.querySelector(".RoundPlayerEndLayer"),
-		show: (layer) => {
+		show: layer => {
 			// Show requested layer
 			if (!Game.finished) {
 				toggleDisplay(layer);
@@ -233,7 +233,7 @@ const Player = {
 		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		r.send(`url=${invitationLink}&nickname=${nickname}&color=${color}&roundPlayer=${roundPlayer}`)
 	},
-	sendHiddenWord = (word) => {
+	sendHiddenWord = word => {
 		// Send the hidden word to the database
 		let r = new XMLHttpRequest();
 		r.onreadystatechange = () => {
@@ -301,7 +301,7 @@ const Player = {
 				// Clear all current game data
 				r.send(`url=${link}&clearGame=1&nickname=${nickname}`)
 			} else {
-				// Clear current guest data
+				// Clear only current guest data
 				r.send(`url=${link}&clearGuestData=1&nickname=${nickname}`)
 			}
 		}
@@ -324,10 +324,7 @@ const Player = {
 		if (innerHeight <= 600) height = 200;
 		else height = document.querySelector(".GameInnerContainer3").offsetHeight;
 		ChatContainer.style.height = `${height}px`
-	},
-	// Generate unique link function
-	GenerateLink = () => {return (new Date()).getTime()},
-	updateResult = (data) => {console.log(data)};
+	};
 
 
 
@@ -335,7 +332,7 @@ let current_url = location.href;
 // Event listeners
 // Detect if there is local storage data
 clearData();
-// Close window triggers the clearGame() function
+// Closing window triggers clearData()
 addEventListener("beforeunload", () => {
 	localStorage.setItem("clearGameRole", Player.role);
 	localStorage.setItem("clearGameNickname", Player.nickname);
