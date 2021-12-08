@@ -24,7 +24,7 @@ fetch(`https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?
 			GameTip.textContent = Return.tip.joinGame
 		}
 	});
-// Fetch requests
+// Fetch requests with interval
 let readyPlayers = [],
 	messages = [],
 	oldMessages = [],
@@ -245,9 +245,7 @@ Button.openHostForm.addEventListener("click", () => {
 	// Set player nickname
 	setTimeout(() => {setNickname(Input.nickname.value)}, 200);
 	// Open form 
-	Modal.open(Modal.hostForm);
-	// Input disabled when modal is open
-	Input.nickname.disabled = true
+	Modal.open(Modal.hostForm)
 });
 document.querySelectorAll("input[type='range']").forEach((input) => {
 	input.addEventListener("input", () => {
@@ -276,8 +274,7 @@ Button.joinGame.addEventListener("click", () => {
 	// Join game
 	Player.inQueue = true;
 	Button.joinGame.disabled = true;
-	Button.joinGame.textContent = "Veuillez patienter pendant que l'hôte lance la partie...";
 	// Set player nickname
 	setNickname(Input.nickname.value);
-	Input.nickname.disabled = true
+	Button.joinGame.textContent = "Veuillez patienter pendant que l'hôte lance la partie..."
 })

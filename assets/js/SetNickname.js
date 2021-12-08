@@ -21,4 +21,6 @@ const setNickname = nickname => {
 		localStorage.removeItem("nickname");
 		sendDatabasePlayer(Player.nickname, Player.nicknameColor)
 	}
+	// Disable nickname input
+	Input.nickname.disabled = true
 }
