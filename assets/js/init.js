@@ -168,7 +168,6 @@ const Player = {
 		GameTip.textContent = Return.tip.commandPrefix;
 		resizeChat();
 		Game.started = true;
-		setTimeout(() => {Layer.round.children[0].textContent = Round.current}, 100);
 		Layer.roundPlayer.children[0].textContent = Round.currentRoundPlayer.nickname;
 		Layer.roundPlayer.children[0].style.color = Round.currentRoundPlayer.nicknameColor;
 		Container.gameContainer.querySelector(".HiddenWordContainer").children[0].children[0].textContent = Round.currentRoundPlayer.nickname;
@@ -179,6 +178,7 @@ const Player = {
 			// Submit word modal
 			setTimeout(() => {
 				Overlay.show();
+				Layer.round.children[0].textContent = Round.current;
 				Layer.show(Layer.round);
 				setTimeout(() => {
 					Layer.hide();
@@ -287,13 +287,13 @@ const Player = {
 	},
 	clearData = () => {
 		if (
-			localStorage.getItem("role") &&
-			localStorage.getItem("nickname") &&
-			localStorage.getItem("link")
+			localStorage.getItem("clearGameRole") &&
+			localStorage.getItem("clearGameNickname") &&
+			localStorage.getItem("clearGameLink")
 		) {
-			let role = localStorage.getItem("role"),
-				nickname = localStorage.getItem("nickname"),
-				link = localStorage.getItem("link"),
+			let role = localStorage.getItem("clearGameRole"),
+				nickname = localStorage.getItem("clearGameNickname"),
+				link = localStorage.getItem("clearGameLink"),
 				r = new XMLHttpRequest();
 			r.open("POST", "https://m2x.alwaysdata.net/hangit/server.php", true);
 			r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -337,9 +337,9 @@ let current_url = location.href;
 clearData();
 // Close window triggers the clearGame() function
 addEventListener("beforeunload", () => {
-	localStorage.setItem("role", Player.role);
-	localStorage.setItem("nickname", Player.nickname);
-	localStorage.setItem("link", invitationLink);
+	localStorage.setItem("clearGameRole", Player.role);
+	localStorage.setItem("clearGameNickname", Player.nickname);
+	localStorage.setItem("clearGameLink", invitationLink);
 	clearData()
 });
 // Input clearing & animations
