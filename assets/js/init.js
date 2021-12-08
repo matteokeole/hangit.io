@@ -328,7 +328,8 @@ const Player = {
 
 
 
-let current_url = location.href;
+let current_url = location.href,
+	invitationLink = null;
 // Event listeners
 // Detect if there is local storage data
 clearData();

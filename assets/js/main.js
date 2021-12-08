@@ -1,32 +1,29 @@
 // Get URL invitation link
-let r = new XMLHttpRequest(),
-	url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?g=")[1]}`,
-	invitationLink = null;
-r.open("GET", url);
-r.send();
-r.addEventListener("load", () => {
-	let link = JSON.parse(r.response);
-	if (link.liens) {
-		// The player is about to join a game as guest
-		Player.role = "guest";
-		document.querySelector(".RepeatedNicknamesTip").style.display = "block";
-		// Change current URL
-		invitationLink = current_url.split("?g=")[1];
-		toggleDisplay(Container.nickname);
-		toggleDisplay(Container.joinGame);
-		GameTip.textContent = ""
-	} else if (current_url.includes("?g=")) {
-		// There is a link but it is invalid (not into the database)
-		current_url = current_url.split("?g=")[0];
-		GameTip.innerHTML = Return.tip.invalidLink
-	} else if (!link.liens) {
-		// The player is about to host a new game
-		Player.role = "host";
-		toggleDisplay(Container.nickname);
-		toggleDisplay(Container.openHostForm);
-		GameTip.textContent = Return.tip.joinGame
-	}
-});
+fetch(`https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?g=")[1]}`)
+	.then(response => response.text())
+	.then(data => {
+		let link = JSON.parse(data);
+		if (link.liens) {
+			// The player is about to join a game as guest
+			Player.role = "guest";
+			document.querySelector(".RepeatedNicknamesTip").style.display = "block";
+			// Change current URL
+			invitationLink = current_url.split("?g=")[1];
+			toggleDisplay(Container.nickname);
+			toggleDisplay(Container.joinGame);
+			GameTip.textContent = ""
+		} else if (current_url.includes("?g=")) {
+			// There is a link but it is invalid (not into the database)
+			current_url = current_url.split("?g=")[0];
+			GameTip.innerHTML = Return.tip.invalidLink
+		} else if (!link.liens) {
+			// The player is about to host a new game
+			Player.role = "host";
+			toggleDisplay(Container.nickname);
+			toggleDisplay(Container.openHostForm);
+			GameTip.textContent = Return.tip.joinGame
+		}
+	});
 // Fetch requests
 let readyPlayers = [],
 	messages = [],
