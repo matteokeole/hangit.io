@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-m2x.alwaysdata.net
--- Generation Time: Nov 30, 2021 at 12:31 PM
+-- Generation Time: Dec 08, 2021 at 02:07 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.19
 
@@ -43,8 +43,7 @@ CREATE TABLE `game` (
 
 CREATE TABLE `hidden_word` (
   `id_word` int(11) NOT NULL,
-  `word` varchar(50) NOT NULL,
-  `try` int(11) NOT NULL,
+  `word` varchar(250) DEFAULT NULL,
   `id_player` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -58,8 +57,7 @@ CREATE TABLE `message` (
   `id_message` int(11) NOT NULL,
   `text` varchar(250) NOT NULL,
   `id_game` int(11) NOT NULL,
-  `id_player` int(11) NOT NULL,
-  `auto` tinyint(1) DEFAULT NULL
+  `id_player` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -73,7 +71,10 @@ CREATE TABLE `player` (
   `nickname` varchar(25) NOT NULL,
   `score` int(11) NOT NULL,
   `id_game` int(11) NOT NULL,
-  `nicknameColor` varchar(50) DEFAULT NULL
+  `nicknameColor` varchar(50) DEFAULT NULL,
+  `roundPlayer` varchar(50) DEFAULT NULL,
+  `found` int(1) DEFAULT NULL,
+  `foundIndex` int(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -186,33 +187,33 @@ ALTER TABLE `round`
 -- Constraints for table `hidden_word`
 --
 ALTER TABLE `hidden_word`
-  ADD CONSTRAINT `hidden_word_player_FK` FOREIGN KEY (`id_player`) REFERENCES `player` (`id_player`);
+  ADD CONSTRAINT `hidden_word_player_FK` FOREIGN KEY (`id_player`) REFERENCES `player` (`id_player`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `message_game_FK` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`),
-  ADD CONSTRAINT `message_player0_FK` FOREIGN KEY (`id_player`) REFERENCES `player` (`id_player`);
+  ADD CONSTRAINT `message_game_FK` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`) ON DELETE CASCADE,
+  ADD CONSTRAINT `message_player0_FK` FOREIGN KEY (`id_player`) REFERENCES `player` (`id_player`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `player`
 --
 ALTER TABLE `player`
-  ADD CONSTRAINT `player_game_FK` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`);
+  ADD CONSTRAINT `player_game_FK` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `round`
 --
 ALTER TABLE `round`
-  ADD CONSTRAINT `round_game_FK` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`);
+  ADD CONSTRAINT `round_game_FK` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `round_player`
 --
 ALTER TABLE `round_player`
-  ADD CONSTRAINT `relation2_player_FK` FOREIGN KEY (`id_player`) REFERENCES `player` (`id_player`),
-  ADD CONSTRAINT `relation2_round0_FK` FOREIGN KEY (`id_round`) REFERENCES `round` (`id_round`);
+  ADD CONSTRAINT `relation2_player_FK` FOREIGN KEY (`id_player`) REFERENCES `player` (`id_player`) ON DELETE CASCADE,
+  ADD CONSTRAINT `relation2_round0_FK` FOREIGN KEY (`id_round`) REFERENCES `round` (`id_round`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

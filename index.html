@@ -15,6 +15,7 @@
 		<meta name="description" content="A hangman game directly playable within your browser!">
 		<meta name="keywords" content="hang, it, hangman, game, online, browser, thomas, quinton, moulaylï, saidi, mattéo, legagneux">
 		<meta name="author" content="Thomas Quinton, Moulaylï Saidi, Mattéo Legagneux">
+		<meta name="version" content="1.1.0">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta property="og:type" content="website">
 		<meta property="og:url" content="https://matteoo34.github.io/hangit.io">
@@ -38,10 +39,6 @@
 			<!-- Current round player is choosing a word -->
 			<div class="Layer RoundPlayerLayer">
 				<span class="RoundPlayer"></span> est en train de choisir un mot...
-			</div>
-			<!-- Current round player end -->
-			<div class="Layer RoundPlayerEndLayer">
-				Fin du tour pour <span class="RoundPlayerEnd"></span> !
 			</div>
 			<!-- Host game form -->
 			<div class="Modal HostFormModal">
@@ -100,7 +97,7 @@
 						<input type="text" id="NicknameInput">
 						<label class="TextLabel" for="NicknameInput">Invité</label>
 					</div>
-					<span class="RepeatedNicknamesTip">⚠️ Vous ne pourrez pas prendre le même pseudonyme qu'un autre joueur.</span>
+					<span class="RepeatedNicknamesTip">😉 <i>Pensez à prendre un pseudonyme unique !</i></span>
 				</div>
 				<!-- Open host form container -->
 				<div class="Container OpenHostFormContainer">
@@ -151,36 +148,8 @@
 				<!-- End game container -->
 				<div class="Container RestartGameContainer">
 					<h3 class="GameStatus">🎉 Partie terminée ! 🎉</h3>
-					<div class="ScoreList">
-						<!-- <div class="PlayerScoreContainer Player">
-							<span class="Icon">🥇</span>
-							<div class="PlayerScore">
-								<span class="PlayerValue"></span>
-								<span class="ScoreValue"></span>
-							</div>
-						</div>
-						<div class="PlayerScoreContainer Player">
-							<span class="Icon">🥈</span>
-							<div class="PlayerScore">
-								<span class="PlayerValue"></span>
-								<span class="ScoreValue"></span>
-							</div>
-						</div>
-						<div class="PlayerScoreContainer Player">
-							<span class="Icon">🥉</span>
-							<div class="PlayerScore">
-								<span class="PlayerValue"></span>
-								<span class="ScoreValue"></span>
-							</div>
-						</div> -->
-						<!-- <div class="PlayerScoreContainer Player">
-							<span class="Icon">💩</span>
-							<div class="PlayerScore">
-								<span class="PlayerValue"></span>
-								<span class="ScoreValue"></span>
-							</div>
-						</div> -->
-					</div>
+					<div class="ScoreList"></div>
+					<!-- PayPal donate form -->
 					<form action="https://www.paypal.com/donate" method="post" target="_top" class="PayPalForm">
 						<input type="hidden" name="hosted_button_id" value="G5BDL4PYRFYZW">
 						<input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Faites un don avec PayPal">

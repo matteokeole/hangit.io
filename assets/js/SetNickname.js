@@ -1,4 +1,4 @@
-const setNickname = (nickname) => {
+const setNickname = nickname => {
 	// Test for empty or blank nickname
 	if (/^[A-Za-zÀ-ú0-9-_ ]*$/.test(nickname)) {
 		// Blank nickname
@@ -21,4 +21,6 @@ const setNickname = (nickname) => {
 		localStorage.removeItem("nickname");
 		sendDatabasePlayer(Player.nickname, Player.nicknameColor)
 	}
+	// Disable nickname input
+	Input.nickname.disabled = true
 }

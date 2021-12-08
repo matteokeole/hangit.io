@@ -1,5 +1,5 @@
 // Check message function
-const checkMessage = (msg) => {
+const checkMessage = msg => {
 		// Check if a sent message matches with the hidden word
 		msg = msg.toUpperCase();
 		if (msg[0] == "!") {
@@ -76,7 +76,7 @@ const checkMessage = (msg) => {
 		HiddenWord.currentInputValidity = true
 	},
 	// Check for a specific character in the hidden word and highlight it
-	checkForCharInWord = (char) => {
+	checkForCharInWord = char => {
 		let check = false;
 		for (let i = 0; i < HiddenWord.length; i++) {
 			if (HiddenWord.originalWord[i] == char) {
@@ -89,7 +89,7 @@ const checkMessage = (msg) => {
 		return check
 	},
 	// Check if the requested word and the hidden word are the same
-	checkForFullWord = (word) => {
+	checkForFullWord = word => {
 		let check = false;
 		if (HiddenWord.originalWord == word) {
 			check = true;

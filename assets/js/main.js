@@ -1,64 +1,65 @@
 // Get URL invitation link
-let r = new XMLHttpRequest(),
-	url = `https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?g=")[1]}`,
-	link = "",
-	invitationLink = null;
-r.open("GET", url);
-r.send();
-r.addEventListener("load", () => {
-	link = JSON.parse(r.response);
-	if (link.liens) {
-		// The player is about to join a GameTip
-		Player.role = "guest";
-		document.querySelector(".RepeatedNicknamesTip").style.display = "block";
-		// Change current URL
-		invitationLink = window.location.href.split("?g=");
-		invitationLink = invitationLink[invitationLink.length - 1];
-		toggleDisplay(Container.nickname);
-		toggleDisplay(Container.joinGame);
-		GameTip.textContent = ""
-	} else if (current_url.includes("?")) {
-		// There is a link but it is invalid (not into the database)
-		current_url = window.location.href.split("?")[0];
-		GameTip.textContent = Return.tip.invalidLink;
-	} else if (!link.liens) {
-		// The player is about to host a new game
-		Player.role = "host";
-		toggleDisplay(Container.nickname);
-		toggleDisplay(Container.openHostForm);
-		GameTip.textContent = Return.tip.joinGame
-	}
-});
-// Ajax requests
+fetch(`https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?g=")[1]}`)
+	.then(response => response.text())
+	.then(data => {
+		let link = JSON.parse(data);
+		if (link.liens) {
+			// The player is about to join a game as guest
+			Player.role = "guest";
+			document.querySelector(".RepeatedNicknamesTip").style.display = "block";
+			// Change current URL
+			invitationLink = current_url.split("?g=")[1];
+			toggleDisplay(Container.nickname);
+			toggleDisplay(Container.joinGame);
+			GameTip.textContent = ""
+		} else if (current_url.includes("?g=")) {
+			// There is a link but it is invalid (not into the database)
+			current_url = current_url.split("?g=")[0];
+			GameTip.innerHTML = Return.tip.invalidLink
+		} else if (!link.liens) {
+			// The player is about to host a new game
+			Player.role = "host";
+			toggleDisplay(Container.nickname);
+			toggleDisplay(Container.openHostForm);
+			GameTip.textContent = Return.tip.joinGame
+		}
+	});
+// Fetch requests with interval
 let readyPlayers = [],
 	messages = [],
 	oldMessages = [],
 	newMessages = [],
 	fetchInterval = setInterval(() => {
+		// Check invitation link validity
+		fetch(`https://m2x.alwaysdata.net/hangit/server.php?liens=${current_url.split("?g=")[1]}`)
+			.then(response => response.text())
+			.then(data => {
+				let link = JSON.parse(data);
+				if (Player.role == "guest" && current_url.includes("?g=") && !link.liens) {
+					// There is a link but it is invalid (not into the database)
+					current_url = current_url.split("?g=")[0];
+					Game.finished = true;
+					Modal.close();
+					Layer.hide();
+					Overlay.hide();
+					toggleDisplay(Container.nickname, "none");
+					toggleDisplay(Container.openHostForm, "none");
+					toggleDisplay(Container.joinGame, "none");
+					toggleDisplay(Container.gameContainer, "none");
+					toggleDisplay(Container.restartGame, "none");
+					GameTip.innerHTML = Return.tip.finishedGame
+				}
+			});
 		if (!Game.finished && !Game.scoresDisplayed) {
-			// Refresh ready player list
 			fetch(`https://m2x.alwaysdata.net/hangit/server.php?getallplayer=${invitationLink}`)
 				.then(response => response.text())
 				.then(data => {readyPlayers = JSON.parse(data)});
+			// Refresh ready player list
 			ReadyPlayersList.parentNode.children[0].children[0].textContent = readyPlayers.length;
 			if (readyPlayers.length > 1) {
 				// There is at least 1 guest ready, the game can be started
 				Button.startHostGame.disabled = false
 			} else if (readyPlayers.length == 1) Button.startHostGame.disabled = true;
-			else if (Game.started) {
-				// The game has been finished by the host
-				// Close all DOM elements
-				Game.finished = true;
-				Modal.close();
-				Layer.hide();
-				Overlay.hide();
-				toggleDisplay(Container.nickname, "none");
-				toggleDisplay(Container.openHostForm, "none");
-				toggleDisplay(Container.joinGame, "none");
-				toggleDisplay(Container.gameContainer, "none");
-				toggleDisplay(Container.restartGame, "none");
-				GameTip.innerHTML = Return.tip.finishedGame
-			}
 			let lastChild = ReadyPlayersList.lastElementChild,
 				lastChild2 = ConnectedPlayersList.lastElementChild;
 			// Remove old players in lists
@@ -118,7 +119,10 @@ let readyPlayers = [],
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_round=${invitationLink}`)
 					.then(response => response.text())
 					.then(data => {Round.current = data});
-				if (Round.current > 0) Container.gameContainer.children[1].children[0].children[0].textContent = Round.current;
+				if (Round.current > 0) {
+					Container.gameContainer.children[1].children[0].children[0].textContent = Round.current;
+					Layer.round.children[0].textContent = Round.current
+				}
 				// Get max rounds number
 				fetch(`https://m2x.alwaysdata.net/hangit/server.php?get_max_round=${invitationLink}`)
 					.then(response => response.text())
@@ -139,7 +143,7 @@ let readyPlayers = [],
 						// Send & check message
 						if (/^!/.test(newMessages[i].text)) {
 							if (newMessages[i].nickname == Round.currentRoundPlayer.nickname && newMessages[i].nickname == Player.nickname) {
-								sendMessage(true, "Attendez que les joueurs trouvent votre mot avant d'écrire des commandes.")
+								sendMessage(true, "Hep ! Attendez que les joueurs trouvent votre mot avant d'écrire des commandes.")
 							} else if (newMessages[i].nickname == Player.nickname) {
 								if (Player.status == "lost") sendMessage(true, "Vous avez utilisé tous vos essais !");
 								else checkMessage(newMessages[i].text)
@@ -161,8 +165,10 @@ let readyPlayers = [],
 						// The word has been submitted
 						HiddenWord.submitted = true;
 						// Hide waiting layer for guests
-						Layer.hide();
-						Overlay.hide();
+						if (Layer.roundPlayer.classList.contains("current")) {
+							Layer.hide();
+							Overlay.hide()
+						}
 						// Show/hide hidden word to players
 						HiddenWord.length = HiddenWord.originalWord.length;
 						if (Round.currentRoundPlayer.nickname == Player.nickname) {
@@ -219,7 +225,7 @@ let readyPlayers = [],
 								PlayerIcon.textContent = "🥉";
 								break
 						}
-						if (i == sortedScores.length - 1) PlayerIcon.textContent = "💩";
+						if (i == sortedScores.length - 1) PlayerIcon.textContent = "💩"; // haha u poop
 						PlayerValue.textContent = sortedScores[i].nickname;
 						PlayerScoreValue.textContent = `${sortedScores[i].score} points`;
 						PlayerScore.appendChild(PlayerValue);
@@ -235,20 +241,18 @@ let readyPlayers = [],
 
 
 Button.openHostForm.addEventListener("click", () => {
-	invitationLink = GenerateLink();
+	invitationLink = new Date().getTime();
 	current_url += `?g=${invitationLink}`;
-	Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
-	// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
+	// Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+	Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
 	// Create game
 	sendData("link_game", invitationLink);
 	// Set player nickname
 	setTimeout(() => {setNickname(Input.nickname.value)}, 200);
 	// Open form 
-	Modal.open(Modal.hostForm);
-	// Input disabled when modal is open
-	Input.nickname.disabled = true
+	Modal.open(Modal.hostForm)
 });
-document.querySelectorAll("input[type='range']").forEach((input) => {
+document.querySelectorAll("input[type='range']").forEach(input => {
 	input.addEventListener("input", () => {
 		let value = input.value;
 		input.previousElementSibling.children[0].textContent = value
@@ -275,8 +279,9 @@ Button.joinGame.addEventListener("click", () => {
 	// Join game
 	Player.inQueue = true;
 	Button.joinGame.disabled = true;
-	Button.joinGame.textContent = "Veuillez patienter pendant que l'hôte lance la partie...";
 	// Set player nickname
 	setNickname(Input.nickname.value);
-	Input.nickname.disabled = true
-})
+	Button.joinGame.textContent = "Veuillez patienter pendant que l'hôte lance la partie..."
+});
+// Restart game
+Button.restart.addEventListener("click", () => {location.href = "https://matteoo34.github.io/hangit.io"})

@@ -8,11 +8,10 @@ Input.submitWord.addEventListener("input", () => {
 });
 
 // Submit word event listener
-Modal.submitWord.addEventListener("submit", (e) => {
+Modal.submitWord.addEventListener("submit", e => {
 	// Prevent form from submitting
 	e.preventDefault();
 	Modal.close();
-	Round.wordSubmitted = true;
 	// Send player word to server
 	sendHiddenWord(Input.submitWord.value.toUpperCase());
 	// Clear word input & disable send word button

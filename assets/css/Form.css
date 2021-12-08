@@ -126,11 +126,14 @@ label.RangeLabel {color: var(--secondary)}
 .InputInfo, .RepeatedNicknamesTip {
 	top: -14px;
 	position: relative;
-	font-size: 14px;
+	font-size: 14px
+}
+.InputInfo {
+	color: var(--secondary);
 	font-style: italic
 }
-.InputInfo {color: var(--secondary)}
 .RepeatedNicknamesTip {
 	display: none;
-	color: var(--invalid)
+	opacity: 0.65;
+	color: var(--nickname-color)
 }
