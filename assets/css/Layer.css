@@ -7,8 +7,6 @@
 }
 .Layer.current {opacity: 1}
 
-/* Specific layers */
-
 /* Round layer */
 .RoundLayer {
 	color: #fff;

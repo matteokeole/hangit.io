@@ -1,5 +1,5 @@
 <!--
-	hangit.io, an online hangman game!
+	hangit.io, an online hangman game made with vanilla JavaScript and PHP.
 	GitHub repository: https://github.com/matteoo34/hangit.io
 	Made by Thomas Quinton, Moulaylï Saidi and Mattéo Legagneux
 	Copyright (C) 2021
@@ -8,27 +8,33 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="A hangman game directly playable within your browser!">
-		<meta name="keywords" content="hang, it, hangman, game, online, browser, thomas, quinton, moulaylï, saidi, mattéo, legagneux">
+		<meta name="description" content="An online hangman game directly playable within your browser!">
+		<meta name="keywords" content="hangit.io, hangit, hangman, online, game, browser, thomas, quinton, moulaylï, saidi, mattéo, legagneux">
 		<meta name="author" content="Thomas Quinton, Moulaylï Saidi, Mattéo Legagneux">
-		<meta name="version" content="1.1.0">
+		<meta name="version" content="1.1.1">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta property="og:type" content="website">
 		<meta property="og:url" content="https://matteoo34.github.io/hangit.io">
 		<meta property="og:site_name" content="hangit.io">
 		<meta property="og:title" content="hangit.io">
-		<meta property="og:description" content="Jouez au jeu du pendu directement dans votre navigateur !">
+		<meta property="og:description" content="Jouez au jeu du pendu en ligne et directement dans votre navigateur !">
 		<meta property="og:image" content="https://matteoo34.github.io/hangit.io/favicon.ico">
 		<link rel="icon" type="image/x-icon" href="favicon.ico">
 		<link rel="apple-touch-icon" type="image/x-icon" href="favicon.ico">
+		<!-- This imports all other stylesheets -->
 		<link rel="stylesheet" href="assets/css/main.css">
+		<script src="assets/js/init.js" defer></script>
+		<script src="assets/js/main.js" defer></script>
+		<script src="assets/js/SendMessage.js" defer></script>
+		<script src="assets/js/SetNickname.js" defer></script>
+		<script src="assets/js/HiddenWord.js" defer></script>
+		<script src="assets/js/FindWord.js" defer></script>
+		<script src="assets/js/Canvas.js" defer></script>
 		<title>hangit.io</title>
 	</head>
-
 	<body>
 		<!-- Overlay -->
 		<div class="Overlay">
@@ -167,14 +173,5 @@
 				<span class="GameTip"></span>
 			</main>
 		</div>
-		<!-- Scripts -->
-		<script src="assets/js/init.js"></script>
-		<script src="assets/js/main.js"></script>
-		<script src="assets/js/SendMessage.js"></script>
-		<script src="assets/js/SetNickname.js"></script>
-		<script src="assets/js/HiddenWord.js"></script>
-		<script src="assets/js/FindWord.js"></script>
-		<script src="assets/js/Canvas.js"></script>
 	</body>
-
 </html>

@@ -1,7 +1,5 @@
 /** Form content **/
 
-/* Inputs */
-
 input {
 	-webkit-appearance: none;
 	display: block;
@@ -11,7 +9,6 @@ input {
 	background-color: transparent;
 	transition-duration: 0.2s
 }
-/* Text inputs */
 input[type="text"]:not(#InvitationLinkInput, #MessageInput) {
 	width: 100%;
 	padding: 4px 0;
@@ -21,9 +18,7 @@ input[type="text"]:not(#InvitationLinkInput, #MessageInput) {
 	font-size: 16px
 }
 
-/* Specific inputs */
-
-/* Nickname */
+/* Nickname input */
 
 #NicknameInput {
 	opacity: 0.65;
