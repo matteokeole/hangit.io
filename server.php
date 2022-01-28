@@ -166,6 +166,7 @@
 				$setmessage->execute(array($game));
 				// $this->round = $this->getround($game);
 			}
+			
 			public function get_max_round($game_url) {
 				$setmessage = $this->bdd->query("SELECT round_number FROM game WHERE id_game=".$this->getgame($game_url));
 				$value = $setmessage->fetch();
@@ -197,12 +198,17 @@
 				$this->bdd->query("DELETE FROM game WHERE id_game =". $this->getgame($game_url));
 			}
 			
-			
+			public function set_Record($date,$status,$player) {  
+				$setmessage = $this->bdd->prepare("INSERT INTO `record`(`date`, `status`, `playes`) VALUES (?,?,?)");
+				$setmessage->execute(array($date,$status,$player));
+				// $this->round = $this->getround($game);
+			}
 			
 			// public function set_put_player_in_round($game_url) {
 				// 	$setplayerinround = $this->bdd->prepare("INSERT INTO round_player (id_player,id_round) VALUES ((SELECT id_player from player WHERE id_gamer=?),(SELECT id_round FROM round WHERE id_game=?)");
 				// 	$setplayerinround -> execute(array($game_url,$game_url));			
 				// }
+			
 			}
 			// Game server
 			$Partie = new Game_Server();
