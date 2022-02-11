@@ -12,8 +12,10 @@ Modal.submitWord.addEventListener("submit", e => {
 	// Prevent form from submitting
 	e.preventDefault();
 	Modal.close();
+
 	// Send player word to server
 	sendHiddenWord(Input.submitWord.value.toUpperCase());
+
 	// Clear word input & disable send word button
 	Input.submitWord.value = "";
 	Button.submitWord.disabled = true
