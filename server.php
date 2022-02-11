@@ -8,6 +8,7 @@
 		private $bdd, $game, $chat, $player, $hiddenword;
 		// Constructor
 		public function __construct() {
+			include_once db.php;
 			$this->bdd = new PDO("mysql:host=mysql-m2x.alwaysdata.net;dbname=m2x_game", "m2x", "moul_976");
 			$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
