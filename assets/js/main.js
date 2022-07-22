@@ -246,7 +246,7 @@ Button.openHostForm.addEventListener("click", () => {
 	invitationLink = new Date().getTime();
 	current_url += `?g=${invitationLink}`;
 	// Input.invitationLink.value = `http://localhost/hangit.io/?g=${invitationLink}`;
-	Input.invitationLink.value = `https://matteoo34.github.io/hangit.io/?g=${invitationLink}`;
+	Input.invitationLink.value = `https://matteokeole.github.io/hangit.io/?g=${invitationLink}`;
 
 	// Create game
 	sendData("link_game", invitationLink);
@@ -295,4 +295,4 @@ Button.joinGame.addEventListener("click", () => {
 });
 
 // Restart game
-Button.restart.addEventListener("click", () => {location.href = "https://matteoo34.github.io/hangit.io"})
+Button.restart.addEventListener("click", () => {location.href = "https://matteokeole.github.io/hangit.io"})
